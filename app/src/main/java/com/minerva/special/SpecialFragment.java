@@ -7,7 +7,7 @@ import com.minerva.base.BaseFragment;
 public class SpecialFragment extends BaseFragment<SpecialViewModel> {
     @Override
     protected SpecialViewModel getViewModel() {
-        return new SpecialViewModel();
+        return new SpecialViewModel(getActivity());
     }
 
     @Override

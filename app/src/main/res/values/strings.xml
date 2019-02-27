@@ -5,4 +5,12 @@
     <string name="title_notifications">专栏</string>
     <string name="title_personal">我的</string>
     <string name="network_error">网络连接失败……</string>
+    <string name="article_hot">热门</string>
+    <string name="article_recommend">推荐</string>
+    <string name="article_science_technology">科技</string>
+    <string name="article_start_up">创业</string>
+    <string name="article_numercial">数码</string>
+    <string name="article_technology">技术</string>
+    <string name="article_design">设计</string>
+    <string name="article_marketing">营销</string>
 </resources>

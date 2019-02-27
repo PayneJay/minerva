@@ -7,7 +7,7 @@ import com.minerva.base.BaseFragment;
 public class MyFragment extends BaseFragment<MyViewModel> {
     @Override
     protected MyViewModel getViewModel() {
-        return new MyViewModel();
+        return new MyViewModel(getActivity());
     }
 
     @Override

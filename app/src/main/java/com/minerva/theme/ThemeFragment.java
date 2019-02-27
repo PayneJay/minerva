@@ -8,7 +8,7 @@ public class ThemeFragment extends BaseFragment<ThemeViewModel> {
 
     @Override
     protected ThemeViewModel getViewModel() {
-        return new ThemeViewModel();
+        return new ThemeViewModel(getActivity());
     }
 
     @Override

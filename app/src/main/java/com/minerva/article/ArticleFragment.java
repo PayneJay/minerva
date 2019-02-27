@@ -5,9 +5,15 @@ import com.minerva.R;
 import com.minerva.base.BaseFragment;
 
 public class ArticleFragment extends BaseFragment<ArticleViewModel> {
+    private ArticleViewModel articleViewModel;
+
     @Override
     protected ArticleViewModel getViewModel() {
-        return new ArticleViewModel();
+        if (articleViewModel == null) {
+            articleViewModel = new ArticleViewModel(getActivity());
+        }
+        articleViewModel.fragment.set(this);
+        return articleViewModel;
     }
 
     @Override

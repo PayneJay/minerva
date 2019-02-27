@@ -1,21 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="articleVM"
             type="com.minerva.article.ArticleViewModel" />
+
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="文章" />
+        <android.support.design.widget.TabLayout
+            style="@style/tabLayoutStyle"
+            fragment="@{articleVM.fragment}"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_dimen_size_40dp"
+            app:tabTextColor="@color/color_70FFFFFF"
+            app:viewPager="@{(viewpager)}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_dimen_size_1dp"
+            android:background="@color/colorPrimary" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            gotoItem="@{articleVM.currentItem}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 </layout>

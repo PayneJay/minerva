@@ -1,5 +1,6 @@
 package com.minerva.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.view.View;
@@ -12,8 +13,10 @@ import android.view.View;
 public abstract class BaseViewModel extends BaseObservable implements IViewModel {
     private int mViewType = -1;
     private int itemPosition = -1;
+    protected Context context;
 
-    public BaseViewModel() {
+    public BaseViewModel(Context context) {
+        this.context = context;
     }
 
     public int getViewType() {
