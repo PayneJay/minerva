@@ -21,6 +21,7 @@ public class ArticleViewModel extends BaseViewModel {
     @BindingAdapter({"viewPager", "fragment"})
     public static void setViewPager(TabLayout view, ViewPager viewPager, BaseFragment fragment) {
         viewPager.setAdapter(new ArticleFragmentAdapter(fragment.getChildFragmentManager()));
+        viewPager.setOffscreenPageLimit(0);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

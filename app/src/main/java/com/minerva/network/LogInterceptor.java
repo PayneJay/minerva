@@ -2,7 +2,7 @@ package com.minerva.network;
 
 import android.util.Log;
 
-import com.minerva.Constants;
+import com.minerva.common.Constants;
 
 import java.io.IOException;
 

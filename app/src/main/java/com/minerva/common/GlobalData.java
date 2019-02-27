@@ -1,4 +1,4 @@
-package com.minerva;
+package com.minerva.common;
 
 public class GlobalData {
     private static GlobalData instance;

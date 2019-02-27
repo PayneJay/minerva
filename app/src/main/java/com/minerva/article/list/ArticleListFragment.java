@@ -1,6 +1,7 @@
-package com.minerva.article;
+package com.minerva.article.list;
 
 import com.minerva.R;
+import com.minerva.BR;
 import com.minerva.base.BaseFragment;
 
 public class ArticleListFragment extends BaseFragment<ArticleListViewModel> {
@@ -16,6 +17,6 @@ public class ArticleListFragment extends BaseFragment<ArticleListViewModel> {
 
     @Override
     protected int getVariableId() {
-        return 0;
+        return BR.articleListVM;
     }
 }

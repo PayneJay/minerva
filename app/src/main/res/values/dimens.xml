@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="nav_dimen_size_0_5dp">0.5dp</dimen>
     <dimen name="nav_dimen_size_1dp">1dp</dimen>
     <dimen name="nav_dimen_size_2dp">2dp</dimen>
     <dimen name="nav_dimen_size_3dp">3dp</dimen>

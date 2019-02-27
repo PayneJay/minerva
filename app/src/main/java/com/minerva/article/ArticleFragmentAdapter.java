@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.minerva.R;
+import com.minerva.article.list.ArticleListFragment;
 import com.minerva.base.BaseFragment;
 import com.minerva.utils.ResouceUtils;
 
@@ -21,7 +22,6 @@ public class ArticleFragmentAdapter extends FragmentPagerAdapter {
         super(fm);
         for (int i = 0; i < tabTitles.length; i++) {
             ArticleListFragment fragment = new ArticleListFragment();
-            fragment.getViewModel().content.set(tabTitles[i]);
             fragments.add(fragment);
         }
     }

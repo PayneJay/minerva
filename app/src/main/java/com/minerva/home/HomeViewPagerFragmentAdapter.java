@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.minerva.article.ArticleFragment;
+import com.minerva.article.list.ArticleListFragment;
 import com.minerva.base.BaseFragment;
 import com.minerva.mine.MyFragment;
 import com.minerva.special.SpecialFragment;

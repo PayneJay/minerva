@@ -1,6 +1,9 @@
 package com.minerva.network;
 
 
+import android.util.Log;
+
+import com.minerva.common.Constants;
 import com.minerva.base.BaseBean;
 
 import io.reactivex.Observer;
@@ -34,6 +37,7 @@ public abstract class NetworkObserver<T extends BaseBean> implements Observer<T>
 
     @Override
     public void onError(Throwable e) {
+        Log.e(Constants.TAG, "onError===>" + e.getMessage());
         onFailure();
     }
 

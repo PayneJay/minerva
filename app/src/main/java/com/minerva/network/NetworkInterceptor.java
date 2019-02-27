@@ -5,8 +5,8 @@ import android.text.TextUtils;
 import android.webkit.WebSettings;
 import android.widget.Toast;
 
-import com.minerva.Constants;
-import com.minerva.GlobalData;
+import com.minerva.common.Constants;
+import com.minerva.common.GlobalData;
 import com.minerva.R;
 
 import java.io.IOException;

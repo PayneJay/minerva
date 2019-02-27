@@ -1,6 +1,9 @@
 package com.minerva.network;
 
-import com.minerva.Constants;
+import android.util.Base64;
+import android.util.Log;
+
+import com.minerva.common.Constants;
 
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
@@ -19,22 +22,22 @@ public class RetrofitHelper {
     private String mMethod;
     private boolean mIsNeedLoginString;
 
-    private RetrofitHelper(String method, int head, HashMap<String, String> headerMap, String baseType, boolean isNeedLoginString) {
+    private RetrofitHelper(String method, HashMap<String, String> headerMap, String baseType, boolean isNeedLoginString) {
         this.mMethod = method;
         this.mIsNeedLoginString = isNeedLoginString;
         init();
     }
 
-    public static RetrofitHelper getInstance(String method, int head, HashMap<String, String> headerMap) {
-        return new RetrofitHelper(method, head, headerMap, "", true);
+    public static RetrofitHelper getInstance(String method, HashMap<String, String> headerMap) {
+        return new RetrofitHelper(method, headerMap, "", true);
     }
 
-    public static RetrofitHelper getInstance(String method, int head, HashMap<String, String> headerMap, String baseType) {
-        return new RetrofitHelper(method, head, headerMap, baseType, true);
+    public static RetrofitHelper getInstance(String method, HashMap<String, String> headerMap, String baseType) {
+        return new RetrofitHelper(method, headerMap, baseType, true);
     }
 
-    public static RetrofitHelper getInstance(String method, int head, HashMap<String, String> headerMap, String baseType, boolean isNeedLoginString) {
-        return new RetrofitHelper(method, head, headerMap, baseType, isNeedLoginString);
+    public static RetrofitHelper getInstance(String method, HashMap<String, String> headerMap, String baseType, boolean isNeedLoginString) {
+        return new RetrofitHelper(method, headerMap, baseType, isNeedLoginString);
     }
 
     private void init() {
@@ -63,11 +66,21 @@ public class RetrofitHelper {
 
     public static HashMap<String, String> getHeaders(String method) {
         HashMap<String, String> headers = new HashMap<>();
+        headers.put("Authorization", "Basic MTAuMi42Mi40NDp0dWljb29s");
         if (method.equals(Constants.RequestMethod.METHOD_POST)) {
             headers.put("Accept", "application/json");
             headers.put("Content-type", "application/json");
         }
         return headers;
+    }
+
+    private static String getBasicAuth() {
+        String userName = "0.0.0.0";
+        String passWord = "tuicool";
+        String base64;
+        base64 = Base64.encodeToString((userName + ":" + passWord).getBytes(), Base64.DEFAULT);
+        Log.i(Constants.TAG, "auth===" + base64);
+        return "Basic " + base64;
     }
 
 }

@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.StringRes;
 import android.util.Log;
 
-import com.minerva.Constants;
+import com.minerva.common.Constants;
 
 /**
  * @author yuemeilin

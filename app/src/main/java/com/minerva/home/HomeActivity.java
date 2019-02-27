@@ -79,13 +79,5 @@ public class HomeActivity extends AppCompatActivity {
         HomeViewPagerFragmentAdapter adapter = new HomeViewPagerFragmentAdapter(getSupportFragmentManager());
         mViewPager.addOnPageChangeListener(mPageChangeListener);
         mViewPager.setAdapter(adapter);
-        mViewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
     }
-
-
 }
