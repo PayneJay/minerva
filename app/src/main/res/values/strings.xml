@@ -13,4 +13,15 @@
     <string name="article_technology">技术</string>
     <string name="article_design">设计</string>
     <string name="article_marketing">营销</string>
+    <string name="mine_to_be_read">我的待读</string>
+    <string name="mine_collection">我的收藏</string>
+    <string name="mine_journal">我的推刊</string>
+    <string name="mine_notification">消息通知</string>
+    <string name="mine_read_history">阅读历史</string>
+    <string name="mine_night_mode">夜间模式</string>
+    <string name="mine_offline_read">离线阅读</string>
+    <string name="mine_upgrade">检查更新</string>
+    <string name="mine_feedback">意见反馈</string>
+    <string name="mine_about_us">关于我们</string>
+    <string name="mine_click_login">点击登录</string>
 </resources>

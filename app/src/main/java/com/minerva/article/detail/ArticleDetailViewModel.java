@@ -18,6 +18,8 @@ import com.minerva.utils.ResouceUtils;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 import com.umeng.socialize.shareboard.ShareBoardConfig;
 
 public class ArticleDetailViewModel extends BaseViewModel implements UMShareListener {
@@ -76,7 +78,13 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                 .setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR)
                 .setShareboardBackgroundColor(ResouceUtils.getColor(R.color.color_FFFFFF));
 
-        mShareAction.withText("hello")
+        UMWeb web = new UMWeb("http://www.tuicool.com/articles/yUfAV3F");
+        web.setTitle("动点科技");//标题
+        UMImage thumb = new UMImage(context, R.mipmap.icon_launcher);
+        web.setThumb(thumb);  //缩略图
+        web.setDescription("【动点播报】英特尔与紫光展锐终止合作关系，FF 数百名休假员工下周无法返岗");//描述
+
+        mShareAction.withMedia(web)
                 .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
                 .setCallback(this).open(config);
     }
