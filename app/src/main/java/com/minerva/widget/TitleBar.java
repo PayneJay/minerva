@@ -1,19 +1,20 @@
 package com.minerva.widget;
 
 import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.minerva.R;
 import com.minerva.BR;
 import com.minerva.base.BaseActivity;
+import com.minerva.binding.ViewBindings;
 
 public class TitleBar extends LinearLayout {
-    private TitleViewModel mViewModel;
+    private TitleBarViewModel mViewModel;
     private Context context;
 
     public TitleBar(Context context) {
@@ -30,29 +31,58 @@ public class TitleBar extends LinearLayout {
         init();
     }
 
+    public TitleBarViewModel getViewModel() {
+        return mViewModel;
+    }
+
+    @BindingAdapter("shareClick")
+    public static void setShareClick(TitleBar view, ViewBindings.ClickHandler click) {
+        view.getViewModel().onShareClick = click;
+    }
+
+    @BindingAdapter("commentClick")
+    public static void setCommentClick(TitleBar view, ViewBindings.ClickHandler click) {
+        view.getViewModel().onCommentClick = click;
+    }
+
+    @BindingAdapter("moreClick")
+    public static void setMoreClick(TitleBar view, ViewBindings.ClickHandler click) {
+        view.getViewModel().onMoreClick = click;
+    }
+
     private void init() {
-        mViewModel = new TitleViewModel();
+        mViewModel = new TitleBarViewModel();
         ViewDataBinding bind = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.title_bar_layout, null, false);
         bind.setVariable(BR.titleBarVM, mViewModel);
         bind.executePendingBindings();
         addView(bind.getRoot());
     }
 
-    public class TitleViewModel {
+    public class TitleBarViewModel {
+        ViewBindings.ClickHandler onShareClick;
+        ViewBindings.ClickHandler onCommentClick;
+        ViewBindings.ClickHandler onMoreClick;
+
         public void goBack() {
             ((BaseActivity) context).finish();
         }
 
         public void share() {
-            Toast.makeText(context, "分享，敬请期待……", Toast.LENGTH_SHORT).show();
+            if (onShareClick != null) {
+                onShareClick.onClick();
+            }
         }
 
         public void goComment() {
-            Toast.makeText(context, "评论，敬请期待……", Toast.LENGTH_SHORT).show();
+            if (onCommentClick != null) {
+                onCommentClick.onClick();
+            }
         }
 
         public void getMore() {
-            Toast.makeText(context, "更多，敬请期待……", Toast.LENGTH_SHORT).show();
+            if (onMoreClick != null) {
+                onMoreClick.onClick();
+            }
         }
     }
 }

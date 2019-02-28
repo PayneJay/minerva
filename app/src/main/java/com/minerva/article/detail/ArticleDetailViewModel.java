@@ -5,15 +5,22 @@ import android.databinding.ObservableField;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.minerva.R;
 import com.minerva.article.detail.model.ArticleDetailBean;
 import com.minerva.article.detail.model.ArticleDetailModel;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
+import com.minerva.utils.ResouceUtils;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.shareboard.ShareBoardConfig;
 
-public class ArticleDetailViewModel extends BaseViewModel {
+public class ArticleDetailViewModel extends BaseViewModel implements UMShareListener {
     private String content = "<div> \n" +
             " <div> \n" +
             "  <iframe src=\"http://v.qq.com/iframe/player.html?vid=u0842dabbbs&amp;auto=0\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen=\"true\"></iframe> \n" +
@@ -38,6 +45,7 @@ public class ArticleDetailViewModel extends BaseViewModel {
     public ObservableField<Spanned> articleContent = new ObservableField<>();
     public ObservableField<String> title = new ObservableField<>("【动点播报】英特尔与紫光展锐终止合作关系，FF 数百名休假员工下周无法返岗");
     public ObservableField<String> date = new ObservableField<>("动点科技 02-27 18:36");
+    private ShareAction mShareAction;
 
     ArticleDetailViewModel(Context context) {
         super(context);
@@ -59,5 +67,45 @@ public class ArticleDetailViewModel extends BaseViewModel {
                 Log.e(Constants.TAG, "getArticleDetail===>failure");
             }
         });
+    }
+
+    public void share() {
+        mShareAction = new ShareAction((BaseActivity) context);
+        ShareBoardConfig config = new ShareBoardConfig();
+        config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_CENTER)
+                .setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR)
+                .setShareboardBackgroundColor(ResouceUtils.getColor(R.color.color_FFFFFF));
+
+        mShareAction.withText("hello")
+                .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setCallback(this).open(config);
+    }
+
+    public void comment() {
+        Toast.makeText(context, "评论，敬请期待……", Toast.LENGTH_SHORT).show();
+    }
+
+    public void more() {
+        Toast.makeText(context, "更多，敬请期待……", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStart(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onResult(SHARE_MEDIA share_media) {
+        Toast.makeText(context, "分享成功了……", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+        Toast.makeText(context, "分享失败了……" + throwable.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCancel(SHARE_MEDIA share_media) {
+        Toast.makeText(context, "分享取消了……", Toast.LENGTH_SHORT).show();
     }
 }

@@ -5,7 +5,7 @@
 
         <variable
             name="titleBarVM"
-            type="com.minerva.widget.TitleBar.TitleViewModel" />
+            type="com.minerva.widget.TitleBar.TitleBarViewModel" />
 
         <import type="com.minerva.R" />
     </data>
