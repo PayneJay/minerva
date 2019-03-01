@@ -223,7 +223,7 @@ public class ViewBindings {
     }
 
     @BindingAdapter("color")
-    public static void setText(TextView textView, int colorResId) {
+    public static void setTextColor(TextView textView, int colorResId) {
         textView.setTextColor(ContextCompat.getColor(textView.getContext(), colorResId));
     }
 

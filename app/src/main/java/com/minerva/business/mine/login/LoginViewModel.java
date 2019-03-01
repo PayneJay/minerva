@@ -7,6 +7,8 @@ import android.databinding.ObservableField;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
+import com.minerva.common.Constants;
+import com.minerva.utils.SPUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,6 +42,7 @@ public class LoginViewModel extends BaseViewModel {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
+                SPUtils.put(context, Constants.LoginInfo.IS_LOGIN, true);
                 mProgressDialog.dismiss();
                 ((BaseActivity) context).finish();
             }

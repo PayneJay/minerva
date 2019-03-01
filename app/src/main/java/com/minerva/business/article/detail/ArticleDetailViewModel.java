@@ -90,11 +90,11 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     }
 
     public void comment() {
-        Toast.makeText(context, "评论，敬请期待……", Toast.LENGTH_SHORT).show();
+        Constants.showToast(context);
     }
 
     public void more() {
-        Toast.makeText(context, "更多，敬请期待……", Toast.LENGTH_SHORT).show();
+        Constants.showToast(context);
     }
 
     @Override

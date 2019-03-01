@@ -25,6 +25,7 @@
     <dimen name="nav_dimen_size_36dp">36dp</dimen>
     <dimen name="nav_dimen_size_40dp">40dp</dimen>
     <dimen name="nav_dimen_size_46dp">46dp</dimen>
+    <dimen name="nav_dimen_size_50dp">50dp</dimen>
     <dimen name="nav_dimen_size_56dp">56dp</dimen>
     <dimen name="nav_dimen_size_60dp">60dp</dimen>
 </resources>

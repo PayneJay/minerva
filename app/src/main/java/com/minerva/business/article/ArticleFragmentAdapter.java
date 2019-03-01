@@ -22,6 +22,7 @@ public class ArticleFragmentAdapter extends FragmentPagerAdapter {
         super(fm);
         for (int i = 0; i < tabTitles.length; i++) {
             ArticleListFragment fragment = new ArticleListFragment();
+            fragment.setRecTab(i == 1);
             fragments.add(fragment);
         }
     }

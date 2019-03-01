@@ -1,5 +1,7 @@
 package com.minerva.common;
 
+import com.minerva.utils.SPUtils;
+
 public class GlobalData {
     private static GlobalData instance;
 
@@ -13,6 +15,6 @@ public class GlobalData {
     }
 
     public static boolean isLogin() {
-        return true;
+        return (boolean) SPUtils.get(Constants.application, Constants.LoginInfo.IS_LOGIN, false);
     }
 }

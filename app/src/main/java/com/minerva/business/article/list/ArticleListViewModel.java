@@ -1,6 +1,7 @@
 package com.minerva.business.article.list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
@@ -8,6 +9,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
 import com.minerva.BR;
+import com.minerva.base.BaseActivity;
+import com.minerva.business.mine.login.LoginActivity;
 import com.minerva.common.Constants;
 import com.minerva.R;
 import com.minerva.business.article.list.model.ArticleBean;
@@ -20,6 +23,7 @@ import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 public class ArticleListViewModel extends BaseViewModel {
     public ObservableBoolean refreshing = new ObservableBoolean();
+    public ObservableBoolean isRecommendGone = new ObservableBoolean();
     public ObservableList<ArticleItemViewModel> items = new ObservableArrayList<>();
     public OnItemBind<ArticleItemViewModel> articleItemBind = new OnItemBind<ArticleItemViewModel>() {
         @Override
@@ -58,6 +62,10 @@ public class ArticleListViewModel extends BaseViewModel {
         for (int i = 0; i < 15; i++) {
             items.add(new ArticleItemViewModel(context));
         }
+    }
+
+    public void goLogin() {
+        context.startActivity(new Intent(context, LoginActivity.class));
     }
 
     private void createViewModel() {

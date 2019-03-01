@@ -30,12 +30,13 @@
 
     <style name="mineItemStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/nav_dimen_size_36dp</item>
+        <item name="android:layout_height">@dimen/nav_dimen_size_40dp</item>
         <item name="android:background">@drawable/shape_rect_with_bottom_line</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingRight">@dimen/nav_dimen_size_15dp</item>
         <item name="android:paddingLeft">@dimen/nav_dimen_size_15dp</item>
         <item name="android:textColor">@color/color_000000</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">

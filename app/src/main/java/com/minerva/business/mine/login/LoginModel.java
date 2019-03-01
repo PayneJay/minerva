@@ -8,7 +8,6 @@ import com.minerva.common.Constants;
 import com.minerva.utils.SPUtils;
 
 public class LoginModel {
-    private static final String IS_LOGIN = "is_login";
     private static LoginModel instance;
 
 
@@ -34,7 +33,6 @@ public class LoginModel {
             return false;
         }
 
-        SPUtils.put(context, IS_LOGIN, true);
         return true;
     }
 

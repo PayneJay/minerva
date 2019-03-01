@@ -1,13 +1,26 @@
 package com.minerva.business.article.list;
 
-import com.minerva.R;
 import com.minerva.BR;
+import com.minerva.R;
 import com.minerva.base.BaseFragment;
+import com.minerva.common.GlobalData;
 
 public class ArticleListFragment extends BaseFragment<ArticleListViewModel> {
+    private ArticleListViewModel articleListViewModel;
+    private boolean isRecTab; //标记是否是推荐tab
+
+    public void setRecTab(boolean recTab) {
+        isRecTab = recTab;
+    }
+
     @Override
     protected ArticleListViewModel getViewModel() {
-        return new ArticleListViewModel(getActivity());
+        if (articleListViewModel == null) {
+            articleListViewModel = new ArticleListViewModel(getActivity());
+        }
+
+        articleListViewModel.isRecommendGone.set(!isRecTab || GlobalData.isLogin());
+        return articleListViewModel;
     }
 
     @Override

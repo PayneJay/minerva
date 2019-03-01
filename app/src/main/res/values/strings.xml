@@ -28,4 +28,10 @@
     <string name="login_prompt_password">请输入密码</string>
     <string name="action_sign_in_short">action_sign_in_short</string>
     <string name="action_sign_in">登录</string>
+    <string name="about_introduction_content">Minerva以技术为驱动，以聚合挖掘为核心，打造个性推荐和订阅，给你一站式的阅读。 更汇聚优质公开课和线下活动，让信息知识获取更便捷。 万千网友汇聚于此，公诸同好，交流学习</string>
+    <string name="about_version">版本：1.0.0</string>
+    <string name="about_website">Web版：http://www.minerva.com/</string>
+    <string name="about_share">分享给好友</string>
+    <string name="about_grant_star">给个好评吧</string>
+    <string name="recommend_to_login">智能推荐，从登录开始</string>
 </resources>
