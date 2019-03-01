@@ -34,4 +34,9 @@
     <string name="about_share">分享给好友</string>
     <string name="about_grant_star">给个好评吧</string>
     <string name="recommend_to_login">智能推荐，从登录开始</string>
+    <string name="site_group_science_media">科技媒体</string>
+    <string name="site_group_digit_app">数码应用</string>
+    <string name="site_group_product_design">产品设计</string>
+    <string name="site_group_mobile_dev">移动开发</string>
+    <string name="site_group_default">默认分组</string>
 </resources>

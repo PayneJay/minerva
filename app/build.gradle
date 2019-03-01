@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.minerva"
-        minSdkVersion 15
+        minSdkVersion 19    //因为添加expandable-recyclerview-adapter从15升到19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -48,4 +48,6 @@ dependencies {
     implementation files('libs/umeng-share-QQ-simplify-6.9.4.jar')
     implementation files('libs/umeng-share-sina-simplify-6.9.4.jar')
     implementation files('libs/umeng-sharetool-6.9.4.jar')
+
+    implementation 'com.hgDendi:expandable-recyclerview-adapter:1.0.1'
 }
