@@ -6,7 +6,7 @@
 
         <variable
             name="articleVM"
-            type="com.minerva.article.ArticleViewModel" />
+            type="com.minerva.business.article.ArticleViewModel" />
 
     </data>
 

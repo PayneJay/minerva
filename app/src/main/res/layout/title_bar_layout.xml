@@ -26,6 +26,7 @@
 
         <ImageView
             android:id="@+id/image_share"
+            isGone="@{titleBarVM.isShareGone}"
             onClick="@{titleBarVM::share}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,6 +38,7 @@
 
         <ImageView
             android:id="@+id/image_comment"
+            isGone="@{titleBarVM.isCommentGone}"
             onClick="@{titleBarVM::goComment}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,6 +50,7 @@
 
         <ImageView
             android:id="@+id/image_more"
+            isGone="@{titleBarVM.isMoreGone}"
             onClick="@{titleBarVM::getMore}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +58,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@{R.mipmap.icon_more}" />
-
 
     </RelativeLayout>
 </layout>

@@ -24,4 +24,29 @@ public class Constants {
     public interface KeyExtra {
         String ARTICLE_ID = "article_id";
     }
+
+    public interface LoginInfo {
+        String USER_NAME = "Minerva@gmail.com";
+        String PASSWORD = "123456";
+    }
+
+    public interface Activity {
+        /**
+         * get action through root filter key
+         */
+        String ROOT_FILTER = application.getPackageName()
+                + "_root_filter";
+        /**
+         * get update infos through root update key
+         */
+        String ROOT_UPDATE = "root_update";
+        /**
+         * get update app bean's key
+         */
+        String ROOT_GOTO_UPDATE_APP = "goto_update_app";
+        /**
+         * close app
+         */
+        int ROOT_CLOSE_APP = 1;
+    }
 }

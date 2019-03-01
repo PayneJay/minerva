@@ -1,7 +1,7 @@
 package com.minerva.network;
 
-import com.minerva.article.detail.model.ArticleDetailBean;
-import com.minerva.article.list.model.ArticleBean;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
+import com.minerva.business.article.list.model.ArticleBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

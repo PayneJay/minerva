@@ -6,7 +6,7 @@
 
         <variable
             name="articleListVM"
-            type="com.minerva.article.list.ArticleListViewModel" />
+            type="com.minerva.business.article.list.ArticleListViewModel" />
     </data>
 
     <LinearLayout

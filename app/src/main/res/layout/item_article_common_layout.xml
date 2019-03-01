@@ -6,7 +6,7 @@
 
         <variable
             name="articleItemVM"
-            type="com.minerva.article.list.ArticleItemViewModel" />
+            type="com.minerva.business.article.list.ArticleItemViewModel" />
 
         <import type="com.minerva.R" />
     </data>

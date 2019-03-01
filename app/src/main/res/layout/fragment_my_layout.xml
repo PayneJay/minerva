@@ -5,7 +5,7 @@
 
         <variable
             name="myVM"
-            type="com.minerva.mine.MyViewModel" />
+            type="com.minerva.business.mine.MyViewModel" />
     </data>
 
     <android.support.v4.widget.NestedScrollView
@@ -19,6 +19,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                onClick="@{myVM::goLogin}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/nav_dimen_size_56dp"
                 android:background="@android:color/white"
@@ -44,44 +45,54 @@
 
             <TextView
                 style="@style/mineItemStyle"
+                onClick="@{myVM::goUnRead}"
                 android:layout_marginTop="@dimen/nav_dimen_size_15dp"
                 android:text="@string/mine_to_be_read" />
 
             <TextView
                 style="@style/mineItemStyle"
+                onClick="@{myVM::goCollection}"
                 android:text="@string/mine_collection" />
 
             <TextView
                 style="@style/mineItemStyle"
+                onClick="@{myVM::goJournal}"
                 android:text="@string/mine_journal" />
 
             <TextView
                 style="@style/mineItemStyle"
+                onClick="@{myVM::goNotification}"
                 android:text="@string/mine_notification" />
 
             <TextView
                 style="@style/mineItemStyle"
+                onClick="@{myVM::goHistory}"
                 android:text="@string/mine_read_history" />
 
             <TextView
                 style="@style/mineItemStyle"
+                onClick="@{myVM::switchModel}"
                 android:layout_marginTop="@dimen/nav_dimen_size_15dp"
                 android:text="@string/mine_night_mode" />
 
             <TextView
                 style="@style/mineItemStyle"
+                onClick="@{myVM::readOffline}"
                 android:text="@string/mine_offline_read" />
 
             <TextView
                 style="@style/mineItemStyle"
+                onClick="@{myVM::checkUpgrade}"
                 android:text="@string/mine_upgrade" />
 
             <TextView
                 style="@style/mineItemStyle"
+                onClick="@{myVM::goFeedback}"
                 android:text="@string/mine_feedback" />
 
             <TextView
                 style="@style/mineItemStyle"
+                onClick="@{myVM::aboutUs}"
                 android:text="@string/mine_about_us" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
