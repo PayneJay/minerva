@@ -39,4 +39,5 @@
     <string name="site_group_product_design">产品设计</string>
     <string name="site_group_mobile_dev">移动开发</string>
     <string name="site_group_default">默认分组</string>
+    <string name="exit_by_double_click">再按一下退出！</string>
 </resources>

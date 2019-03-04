@@ -11,12 +11,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.minerva.R;
 import com.minerva.common.Constants;
+import com.minerva.utils.ResouceUtils;
 
 public class HomeActivity extends AppCompatActivity {
     private ViewPager mViewPager;
@@ -103,7 +105,7 @@ public class HomeActivity extends AppCompatActivity {
     private void exitByDoubleClick() {
         if (!isExit) {
             isExit = true;
-            Toast.makeText(this, "再按一下退出！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, ResouceUtils.getString(R.string.exit_by_double_click), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
