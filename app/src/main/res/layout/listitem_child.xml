@@ -10,8 +10,7 @@
         android:layout_width="@dimen/nav_dimen_size_25dp"
         android:layout_height="@dimen/nav_dimen_size_25dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/nav_dimen_size_15dp"
-        android:src="@drawable/icon_site_blog" />
+        android:layout_marginLeft="@dimen/nav_dimen_size_15dp" />
 
     <TextView
         android:id="@+id/child_item_name"

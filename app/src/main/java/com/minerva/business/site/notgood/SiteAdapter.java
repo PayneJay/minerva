@@ -1,7 +1,6 @@
 package com.minerva.business.site.notgood;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +9,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.hgdendi.expandablerecycleradapter.BaseExpandableRecyclerViewAdapter;
 import com.minerva.R;
-import com.minerva.business.article.detail.ArticleDetailActivity;
 import com.minerva.business.site.model.SitesBean;
+import com.minerva.common.Constants;
 
 import java.util.List;
 
-class SampleAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX, SitesBean.ItemsBeanX.ItemsBean, SampleAdapter.GroupVH, SampleAdapter.ChildVH> {
+class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX, SitesBean.ItemsBeanX.ItemsBean, SiteAdapter.GroupVH, SiteAdapter.ChildVH> {
     private List<SitesBean.ItemsBeanX> mList;
     private Context context;
+    RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
+            .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+            .skipMemoryCache(true);//不做内存缓存
 
-    public SampleAdapter(Context context, List<SitesBean.ItemsBeanX> list) {
+    public SiteAdapter(Context context, List<SitesBean.ItemsBeanX> list) {
         this.context = context;
         mList = list;
     }
@@ -62,19 +66,20 @@ class SampleAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBea
     }
 
     @Override
-    public void onBindChildViewHolder(ChildVH holder, SitesBean.ItemsBeanX groupBean, SitesBean.ItemsBeanX.ItemsBean sampleChildBean) {
+    public void onBindChildViewHolder(final ChildVH holder, SitesBean.ItemsBeanX groupBean, SitesBean.ItemsBeanX.ItemsBean sampleChildBean) {
         holder.nameTv.setText(sampleChildBean.getName());
         holder.nameTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, ArticleDetailActivity.class));
+                Constants.showToast(context);
             }
         });
 
-        Glide.with(holder.icon.getContext())
+        Glide.with(context)
                 .load(sampleChildBean.getImage())
-                .placeholder(R.drawable.icon_site_blog)
-                .centerCrop()
+                .placeholder(R.drawable.icon_topic_default)
+                .error(R.drawable.icon_topic_default)
+                .apply(mRequestOptions)
                 .into(holder.icon);
     }
 
