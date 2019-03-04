@@ -1,4 +1,4 @@
-package com.minerva.business.theme;
+package com.minerva.business.site;
 
 import com.minerva.R;
 import com.minerva.BR;

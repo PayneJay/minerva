@@ -6,6 +6,7 @@
     android:orientation="horizontal">
 
     <ImageView
+        android:id="@+id/img_child_icon"
         android:layout_width="@dimen/nav_dimen_size_25dp"
         android:layout_height="@dimen/nav_dimen_size_25dp"
         android:layout_gravity="center_vertical"

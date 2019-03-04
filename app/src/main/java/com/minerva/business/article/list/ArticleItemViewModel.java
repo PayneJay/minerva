@@ -11,7 +11,7 @@ import com.minerva.base.BaseViewModel;
 public class ArticleItemViewModel extends BaseViewModel {
     public ObservableField<String> content = new ObservableField<>("前线 | Apple Music或入驻谷歌智能音箱，为苹果打开服务版图");
     public ObservableField<String> date = new ObservableField<>("36氪 02-27 15:16");
-    public ObservableField<String> imgUrl = new ObservableField<>("https://aimg2.tuicool.com/ErmABfZ.jpg");
+    public ObservableField<String> imgUrl = new ObservableField<>("https://aimg2.tuicool.com/uAnYBrY.jpg");
 
     public ArticleItemViewModel(Context context) {
         super(context);

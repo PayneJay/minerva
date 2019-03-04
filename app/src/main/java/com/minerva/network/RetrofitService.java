@@ -2,6 +2,7 @@ package com.minerva.network;
 
 import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.site.model.SitesBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -17,6 +18,9 @@ public interface RetrofitService {
 
     @GET("/api/articles/{aid}.json")
     Observable<ArticleDetailBean> getArticleDetail(@Path("aid") String aid, @Query("need_image_meta") int need_image_meta, @Query("type") int type);
+
+    @GET("/api/sites/my_with_dirs.json")
+    Observable<SitesBean> getSiteList();
 
 
 }

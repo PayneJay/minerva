@@ -5,11 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.minerva.business.article.ArticleFragment;
-import com.minerva.base.BaseFragment;
 import com.minerva.business.mine.MyFragment;
 import com.minerva.business.special.SpecialFragment;
-import com.minerva.business.theme.ThemeFragment;
-import com.minerva.business.theme.notgood.SiteFragment;
+import com.minerva.business.site.notgood.SiteFragment;
 
 import java.util.ArrayList;
 

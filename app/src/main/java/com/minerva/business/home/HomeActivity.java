@@ -20,7 +20,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.minerva.R;
-import com.minerva.business.Main2Activity;
 import com.minerva.business.search.SearchActivity;
 import com.minerva.common.Constants;
 import com.minerva.utils.ResouceUtils;

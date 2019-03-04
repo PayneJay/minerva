@@ -7,13 +7,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.minerva.R;
 import com.minerva.base.BaseFragment;
-import com.minerva.business.article.list.ArticleListFragment;
 import com.minerva.utils.ResouceUtils;
 
 import java.util.ArrayList;
 
 public class SearchFragmentAdapter extends FragmentPagerAdapter {
-    private final String[] tabTitles = new String[]{ResouceUtils.getString(R.string.tab_article), ResouceUtils.getString(R.string.tab_theme),
+    private final String[] tabTitles = new String[]{ResouceUtils.getString(R.string.tab_article), ResouceUtils.getString(R.string.tab_site),
             ResouceUtils.getString(R.string.tab_special)};
     private ArrayList<BaseFragment> fragments = new ArrayList<>();
 

@@ -91,10 +91,6 @@
         <activity
             android:name=".business.search.SearchActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.minerva.business.theme.notgood;
+package com.minerva.business.site.notgood;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,14 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hgdendi.expandablerecycleradapter.ViewProducer;
 import com.minerva.R;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.business.site.model.SitesBean;
+import com.minerva.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -28,12 +26,11 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private final String[] groupTitles = new String[]{ResouceUtils.getString(R.string.site_group_science_media), ResouceUtils.getString(R.string.site_group_digit_app),
-            ResouceUtils.getString(R.string.site_group_product_design), ResouceUtils.getString(R.string.site_group_mobile_dev), ResouceUtils.getString(R.string.site_group_default)};
     private View rootView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private Disposable mDisposable;
+    private List<SitesBean.ItemsBeanX> mList = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,22 +47,24 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void initView() {
-        List<SampleGroupBean> list = generateData();
+        mList = generateData();
         swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView = rootView.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new SampleAdapter(getActivity(), list));
+        recyclerView.setAdapter(new SampleAdapter(getActivity(), mList));
     }
 
-    private List<SampleGroupBean> generateData() {
-        List<SampleGroupBean> list = new ArrayList<>();
-        for (int i = 0; i < groupTitles.length; i++) {
-            final List<SampleChildBean> childList = new ArrayList<>(i);
-            for (int j = 0; j < 6; j++) {
-                childList.add(new SampleChildBean("xxx的技术博客" + i));
+    private List<SitesBean.ItemsBeanX> generateData() {
+        SitesBean bean = CommonUtils.getSiteListFromJson("sites.json");
+
+        List<SitesBean.ItemsBeanX> list = new ArrayList<>();
+        for (int i = 0; i < bean.getItems().size(); i++) {
+            final List<SitesBean.ItemsBeanX.ItemsBean> childList = new ArrayList<>(i);
+            for (int j = 0; j < bean.getItems().get(i).getChildCount(); j++) {
+                childList.add(new SitesBean.ItemsBeanX.ItemsBean(bean.getItems().get(i).getChildAt(j)));
             }
-            list.add(new SampleGroupBean(childList, groupTitles[i]));
+            list.add(new SitesBean.ItemsBeanX(childList, bean.getItems().get(i).getName()));
         }
         return list;
     }
@@ -99,6 +98,9 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     @Override
                     public void onComplete() {
                         swipeRefreshLayout.setRefreshing(false);
+                        List<SitesBean.ItemsBeanX> list = generateData();
+                        mList.clear();
+                        mList.addAll(list);
                     }
                 });
     }

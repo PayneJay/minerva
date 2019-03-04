@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Minerva</string>
     <string name="tab_article">文章</string>
-    <string name="tab_theme">主题</string>
+    <string name="tab_site">站点</string>
     <string name="tab_special">专栏</string>
     <string name="tab_personal">我的</string>
     <string name="network_error">网络连接失败……</string>
