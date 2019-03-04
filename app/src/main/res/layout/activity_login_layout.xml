@@ -96,7 +96,7 @@
                     onClick="@{loginVM::signIn}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_rectangle_button"
+                    android:background="@drawable/shape_rectangle_button_parimary_dark"
                     android:padding="10dp"
                     android:text="@string/action_sign_in"
                     android:textColor="@android:color/white"

@@ -11,19 +11,25 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.minerva.R;
+import com.minerva.business.Main2Activity;
+import com.minerva.business.search.SearchActivity;
 import com.minerva.common.Constants;
 import com.minerva.utils.ResouceUtils;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
     private ViewPager mViewPager;
     private BottomNavigationView mNavigationView;
     private MenuItem mMenuItem;
+    private Toolbar mToolbar;
     private boolean isExit;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -32,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             mMenuItem = item;
+            mToolbar.setTitle(item.getTitle());
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mViewPager.setCurrentItem(0);
@@ -47,6 +54,14 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
             }
             return false;
+        }
+    };
+
+    private PopupMenu.OnMenuItemClickListener mMoreMenuClickListener = new PopupMenu.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            Constants.showToast(HomeActivity.this);
+            return true;
         }
     };
 
@@ -79,6 +94,10 @@ public class HomeActivity extends AppCompatActivity {
         requestNeedPermissions();
         setContentView(R.layout.activity_main);
 
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mToolbar.setOnMenuItemClickListener(this);
+
         mViewPager = findViewById(R.id.viewpager);
         mNavigationView = findViewById(R.id.navigation);
         mNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -97,6 +116,25 @@ public class HomeActivity extends AppCompatActivity {
             return false;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mySearch:
+                startActivity(new Intent(this, SearchActivity.class));
+                break;
+            case R.id.myMore:
+                showPopupMenu();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, mToolbar.getMenu());
+        return true;
     }
 
     /**
@@ -139,5 +177,14 @@ public class HomeActivity extends AppCompatActivity {
         HomeViewPagerFragmentAdapter adapter = new HomeViewPagerFragmentAdapter(getSupportFragmentManager());
         mViewPager.addOnPageChangeListener(mPageChangeListener);
         mViewPager.setAdapter(adapter);
+    }
+
+    private void showPopupMenu() {
+        PopupMenu popupMenu = new PopupMenu(this, mToolbar);
+        popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+        popupMenu.setGravity(Gravity.END);
+        popupMenu.setOnMenuItemClickListener(mMoreMenuClickListener);
+        mToolbar.setOnTouchListener(popupMenu.getDragToOpenListener());
+        popupMenu.show();
     }
 }

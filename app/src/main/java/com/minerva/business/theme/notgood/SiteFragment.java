@@ -55,7 +55,7 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView = rootView.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new SampleAdapter(list));
+        recyclerView.setAdapter(new SampleAdapter(getActivity(), list));
     }
 
     private List<SampleGroupBean> generateData() {

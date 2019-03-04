@@ -1,5 +1,7 @@
 package com.minerva.business.theme.notgood;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +11,16 @@ import android.widget.TextView;
 
 import com.hgdendi.expandablerecycleradapter.BaseExpandableRecyclerViewAdapter;
 import com.minerva.R;
+import com.minerva.business.article.detail.ArticleDetailActivity;
 
 import java.util.List;
 
 class SampleAdapter extends BaseExpandableRecyclerViewAdapter<SampleGroupBean, SampleChildBean, SampleAdapter.GroupVH, SampleAdapter.ChildVH> {
     private List<SampleGroupBean> mList;
+    private Context context;
 
-    public SampleAdapter(List<SampleGroupBean> list) {
+    public SampleAdapter(Context context, List<SampleGroupBean> list) {
+        this.context = context;
         mList = list;
     }
 
@@ -57,6 +62,12 @@ class SampleAdapter extends BaseExpandableRecyclerViewAdapter<SampleGroupBean, S
     @Override
     public void onBindChildViewHolder(ChildVH holder, SampleGroupBean groupBean, SampleChildBean sampleChildBean) {
         holder.nameTv.setText(sampleChildBean.getName());
+        holder.nameTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, ArticleDetailActivity.class));
+            }
+        });
     }
 
     static class GroupVH extends BaseExpandableRecyclerViewAdapter.BaseGroupViewHolder {
