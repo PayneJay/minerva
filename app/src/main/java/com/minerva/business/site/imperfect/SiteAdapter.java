@@ -1,4 +1,4 @@
-package com.minerva.business.site.notgood;
+package com.minerva.business.site.imperfect;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +21,7 @@ import java.util.List;
 class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX, SitesBean.ItemsBeanX.ItemsBean, SiteAdapter.GroupVH, SiteAdapter.ChildVH> {
     private List<SitesBean.ItemsBeanX> mList;
     private Context context;
-    RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
+    private RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
             .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
             .skipMemoryCache(true);//不做内存缓存
 

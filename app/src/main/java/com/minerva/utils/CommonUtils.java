@@ -2,7 +2,10 @@ package com.minerva.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.minerva.base.BaseBean;
 import com.minerva.business.site.model.SitesBean;
+import com.minerva.business.special.model.BookBean;
+import com.minerva.business.special.model.SpecialBean;
 import com.minerva.common.Constants;
 
 import java.io.IOException;
@@ -10,10 +13,22 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 
 public class CommonUtils {
-    public static SitesBean getSiteListFromJson(String fileName) {
+    public static SitesBean getSiteListFromJson() {
         Type type = new TypeToken<SitesBean>() {
         }.getType();
-        return CommonUtils.getBeanFormAssetJson(fileName, type);
+        return CommonUtils.getBeanFormAssetJson("sites.json", type);
+    }
+
+    public static SpecialBean getSpecialListFromJson() {
+        Type type = new TypeToken<SpecialBean>() {
+        }.getType();
+        return CommonUtils.getBeanFormAssetJson("special.json", type);
+    }
+
+    public static BookBean getBookListFromJson() {
+        Type type = new TypeToken<BookBean>() {
+        }.getType();
+        return getBeanFormAssetJson("books.json", type);
     }
 
     private static <T> T getBeanFormAssetJson(String fileName, Type typeOfT) {

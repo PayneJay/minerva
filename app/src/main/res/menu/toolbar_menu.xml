@@ -11,4 +11,10 @@
         android:icon="@mipmap/icon_more"
         android:title="More"
         app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/mySettings"
+        android:icon="@mipmap/icon_settings"
+        android:title="Settings"
+        app:showAsAction="ifRoom|withText" />
 </menu>

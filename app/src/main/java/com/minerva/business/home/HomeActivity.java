@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -21,13 +22,15 @@ import android.widget.Toast;
 
 import com.minerva.R;
 import com.minerva.business.search.SearchActivity;
+import com.minerva.business.settings.SettingsActivity;
 import com.minerva.common.Constants;
 import com.minerva.utils.ResouceUtils;
 
 public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
     private ViewPager mViewPager;
     private BottomNavigationView mNavigationView;
-    private MenuItem mMenuItem;
+    private MenuItem mNavMenuItem;
+    private MenuItem menuSearch, menuMore, menuSettings;
     private Toolbar mToolbar;
     private boolean isExit;
 
@@ -36,19 +39,31 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            mMenuItem = item;
+            mNavMenuItem = item;
             mToolbar.setTitle(item.getTitle());
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mViewPager.setCurrentItem(0);
+                    menuSearch.setVisible(true);
+                    menuMore.setVisible(true);
+                    menuSettings.setVisible(false);
                     return true;
                 case R.id.navigation_dashboard:
                     mViewPager.setCurrentItem(1);
+                    menuSearch.setVisible(true);
+                    menuMore.setVisible(true);
+                    menuSettings.setVisible(false);
                     return true;
                 case R.id.navigation_notifications:
                     mViewPager.setCurrentItem(2);
+                    menuSearch.setVisible(false);
+                    menuMore.setVisible(false);
+                    menuSettings.setVisible(true);
                     return true;
                 case R.id.navigation_profile:
+                    menuSearch.setVisible(false);
+                    menuMore.setVisible(false);
+                    menuSettings.setVisible(true);
                     mViewPager.setCurrentItem(3);
                     return true;
             }
@@ -72,13 +87,13 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         @Override
         public void onPageSelected(int position) {
-            if (mMenuItem != null) {
-                mMenuItem.setChecked(false);
+            if (mNavMenuItem != null) {
+                mNavMenuItem.setChecked(false);
             } else {
                 mNavigationView.getMenu().getItem(0).setChecked(false);
             }
-            mMenuItem = mNavigationView.getMenu().getItem(position);
-            mMenuItem.setChecked(true);
+            mNavMenuItem = mNavigationView.getMenu().getItem(position);
+            mNavMenuItem.setChecked(true);
         }
 
         @Override
@@ -126,6 +141,9 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             case R.id.myMore:
                 showPopupMenu();
                 break;
+            case R.id.mySettings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
         }
         return true;
     }
@@ -133,6 +151,13 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, mToolbar.getMenu());
+        menuSearch = menu.findItem(R.id.mySearch);
+        menuMore = menu.findItem(R.id.myMore);
+        menuSettings = menu.findItem(R.id.mySettings);
+        menuSearch.setVisible(true);
+        menuMore.setVisible(true);
+        menuSettings.setVisible(false);
+        mToolbar.setTitle(mNavigationView.getMenu().getItem(0).getTitle());
         return true;
     }
 

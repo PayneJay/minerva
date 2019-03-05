@@ -1,0 +1,434 @@
+{
+  "success": true,
+  "items": [
+    {
+      "books": [
+        {
+          "id": "5c60327ea74e6482ccf31a28",
+          "link": "https://u.jd.com/pz5wLD",
+          "title": "Django企业开发实战 高效Python Web框架指南",
+          "thumb": "https://img12.360buyimg.com/n1/jfs/t1/30017/36/1502/96268/5c4fd231E7efabaf1/51c5070ab184e2b8.jpg",
+          "author": "胡阳",
+          "price": 99.0,
+          "pubTime": 1548950400001
+        },
+        {
+          "id": "5c4b0089e5f6db5319f4df6b",
+          "link": "https://u.jd.com/JAowlm",
+          "title": "大型企业微服务架构实践与运营",
+          "thumb": "https://img11.360buyimg.com/n1/jfs/t1/11016/34/6180/628718/5c3c12cfEf0018fcf/efba2b9872a42316.jpg",
+          "author": "薛浩",
+          "price": 88.0,
+          "pubTime": 1548419209109
+        },
+        {
+          "id": "5c4b0086e5f6db5319f4df69",
+          "link": "https://u.jd.com/jqmbR6",
+          "title": "深度学习 智能时代的核心驱动力量 ",
+          "thumb": "https://img14.360buyimg.com/n1/jfs/t1/11012/21/5845/228363/5c3707e5Efbcce250/254fd1b2927ca7ce.jpg",
+          "author": "[美]特伦斯·谢诺夫斯基,Terrence Sejnowski",
+          "price": 88.0,
+          "pubTime": 1548419206240
+        }
+      ],
+      "tagId": 0,
+      "tagName": "最新图书"
+    },
+    {
+      "books": [
+        {
+          "id": "5beec08fd812423db9e579cf",
+          "link": "http://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRQH1kRCxI3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAlEZXxwCDV4QRwYlZFpuMksPcQJyZh1eOxdfQgUHTCZ3ch4LOxhaFQsSB1UcWBUyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlSTXNtKTf8KpHwaid0t2MaxIAEAddGVocAiIHUR5YFwQQBFEdXhIAIgBlQQtCWEIGVRpYJTIiN2UrWyUBIlgRRgYlABMGVBw%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxYFURJbCltXWwg%3D",
+          "title": "AI极简经济学",
+          "thumb": "https://img11.360buyimg.com/n1/jfs/t1/5834/28/14587/142026/5bdbde9fE25b9250c/fa2f92defd2b0cc2.jpg",
+          "author": "阿杰伊·阿格拉沃尔,乔舒亚·甘斯,阿维·戈德法布,闾佳",
+          "price": 58.0,
+          "pubTime": 1543593600001
+        },
+        {
+          "id": "5c6fb0ce174126510bc2df6d",
+          "link": "https://u.jd.com/3YfGoA",
+          "title": "数据资本时代",
+          "thumb": "https://img13.360buyimg.com/n1/jfs/t27637/314/2261405617/98581/52498c0a/5bfca439N7018caae.jpg",
+          "author": "维克托·迈尔-舍恩伯格,（德）托马斯·拉姆什",
+          "price": 58.0,
+          "pubTime": 1543593600001
+        },
+        {
+          "id": "5c6fb12e174126510bc2df78",
+          "link": "https://u.jd.com/HsFhXm",
+          "title": "短视频红利 抢占移动互联网流量入口",
+          "thumb": "https://img10.360buyimg.com/n1/jfs/t1/23818/36/1331/361530/5c11b3e5E78c59e38/1f6547fae2fe356c.jpg",
+          "author": "苏旺",
+          "price": 49.0,
+          "pubTime": 1543593600001
+        }
+      ],
+      "tagId": 10000041,
+      "tagName": "科技业界"
+    },
+    {
+      "books": [
+        {
+          "id": "5c358c38e5f6dbf281d8afcd",
+          "link": "https://u.jd.com/NRiVZJ",
+          "title": "社群思维：互联网时代的新创业法则",
+          "thumb": "https://img10.360buyimg.com/n1/jfs/t1/7810/40/8720/357025/5c107a5aE881b4039/fa5a070bd523aeb1.jpg",
+          "author": "胡华成,黄剑锋",
+          "price": 58.0,
+          "pubTime": 1546272000001
+        },
+        {
+          "id": "5c358c37e5f6dbf281d8afcc",
+          "link": "https://u.jd.com/SByp5K",
+          "title": "重新理解创业：一个创业者的途中思考",
+          "thumb": "https://img10.360buyimg.com/n1/jfs/t1/1946/22/11008/199175/5bcd8e25E13d1110a/496b642b0d9f74c3.jpg",
+          "author": "周航",
+          "price": 58.0,
+          "pubTime": 1541001600001
+        },
+        {
+          "id": "5beec091d812423db9e579d0",
+          "link": "http://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRQH1gcBRs3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAlEYUhILDV4QRwYlXkdxCWtTVEt3ezdQCUZUYWFVQiJBch4LOxhaFQsSB1UcWBUyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlSTXNtKTf8KpHwaid0t2MaxIAEAddGVocAiIHUR5YFwQQBVYcXxYDIgBlQQtCWEIGVRpYJTIiN2UrWyUBIlgRRgYlABMGVBw%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxYEXBxSCltXWwg%3D",
+          "title": "创投42章经：互联网商业逻辑与投资进阶指南",
+          "thumb": "https://img13.360buyimg.com/n1/jfs/t1/545/16/11184/34810/5bcd98a1Ef2358b78/522b11c1a52615ac.jpg",
+          "author": "曲凯",
+          "price": 58.0,
+          "pubTime": 1538323200001
+        }
+      ],
+      "tagId": 10000024,
+      "tagName": "创业投资"
+    },
+    {
+      "books": [
+        {
+          "id": "5c416a86e5f6db3956e5be9d",
+          "link": "https://u.jd.com/i0TnU1",
+          "title": "新引爆点：抖音运营从0到1实战指南",
+          "thumb": "https://img12.360buyimg.com/n1/jfs/t1/7277/34/11764/228704/5c2db27dEbe487b26/b8c890ed9efc8755.jpg",
+          "author": "头条易",
+          "price": 49.0,
+          "pubTime": 1547790982101
+        },
+        {
+          "id": "5c416a80e5f6db3956e5be99",
+          "link": "https://u.jd.com/KEH3uN",
+          "title": "阿里铁军销售课",
+          "thumb": "https://img13.360buyimg.com/n1/jfs/t1/18369/30/3115/297412/5c2440ffE29183c0a/105022bcfed7050d.jpg",
+          "author": "李立恒",
+          "price": 58.0,
+          "pubTime": 1547790976284
+        },
+        {
+          "id": "5c416a87e5f6db3956e5be9e",
+          "link": "https://u.jd.com/8ppzG5",
+          "title": "营销大咖说2 中国企业互联网营销的创新与变革",
+          "thumb": "https://img13.360buyimg.com/n1/jfs/t30520/50/671338854/138594/b4c9a052/5bfb736bN464e1046.jpg",
+          "author": "九枝兰",
+          "price": 49.0,
+          "pubTime": 1546272000001
+        }
+      ],
+      "tagId": 10450034,
+      "tagName": "营销推广"
+    },
+    {
+      "books": [
+        {
+          "id": "5b7f9e1e959ae6cbdf0d3ae0",
+          "link": "http://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtbEQsSBVwdXRYyEgRXE1MdBBE3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRBV0TUxMBDV4QRwYlW1AENwUQVwpxXE9aUlMDW0I0biV9VB4LOxhaFQsOBlwHWBATEgReHlkeARA3VhtdHAcXBlMbaxYCFA5QHVoXASI3VRprQ2wSBlQaWhQHFgBSK1wXABIPVxpSFTISA1cfWhwGGwZXEloQMhU3D0sMT1ITB1QYayUyIjdlG2sWMk1DCEY%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWABoPXR1YCltXWwg%3D",
+          "title": "破茧成蝶2——以产品为中心的设计革命",
+          "thumb": "https://img12.360buyimg.com/n1/jfs/t20965/217/1895229114/205786/a3ddcbe3/5b3f2103Ndc0724ad.jpg",
+          "author": "刘津,孙睿",
+          "price": 79.0,
+          "pubTime": 1530374400001
+        },
+        {
+          "id": "5b2b4c8c8b99a8357c5318a9",
+          "link": "http://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRXHVwTBxE3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRBVMcXRABDV4QRwYlBEEPA34da0RyQAViJWdEEHIyfx1nch4LOxhaFQsOBlIHWBUTEgJeH1keBhA3VhtdHAcXBlMbaxYCFA5QHVoXASI3VRprR2zKsePD%2FqQexq3aztOCMhUFVxtTFwMbB2UbXxYKFgBQGlkXABoOZRxrT1JFXQUaWxQBIjdlK2slAiIE\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWABQAUx5YCltXWwg%3D",
+          "title": "人工智能产品经理——AI时代PM修炼手册",
+          "thumb": "https://img12.360buyimg.com/n1/jfs/t20386/280/673808363/90847/1d735553/5b14da0fNb546edb1.jpg",
+          "author": "张竞宇",
+          "price": 59.0,
+          "pubTime": 1527782400001
+        },
+        {
+          "id": "5aedc06eea07230d7ad50c2c",
+          "link": "http://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRXG1sTCxA3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRBVUbXRwADV4QRwYlHEJ6U34lE2dxQzNlXxZbRUFSHylCVB4LOxhaFQsOBlEHWhETEQReGFweBxY3VhtdHAcXBlMbaxYCFA5QHVoXASI3VRprR2zKsePD%2FqQexq3aztOCMhUFVxtTFwMbB2UbXxYGFgVUHloRBBAPZRxrT1JFXQUaWxQBIjdlK2slAiIE\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWABIHUxJZCltXWwg%3D",
+          "title": "欲罢不能：刷屏时代如何摆脱行为上瘾",
+          "thumb": "https://img13.360buyimg.com/n1/jfs/t16537/334/2148762627/109105/811f4212/5a9fd708N09d401e7.jpg",
+          "author": "亚当·奥尔特,Adam Alter,闾佳",
+          "price": 59.0,
+          "pubTime": 1519833600001
+        }
+      ],
+      "tagId": 10500013,
+      "tagName": "产品经理"
+    },
+    {
+      "books": [
+        {
+          "id": "5c6fb129174126510bc2df75",
+          "link": "https://u.jd.com/1DClaO",
+          "title": "AI改变设计——人工智能时代的设计师生存手册",
+          "thumb": "https://img14.360buyimg.com/n1/jfs/t1/18829/36/5632/80774/5c3feeecEab3c6042/8adace8b2b4fcbd0.jpg",
+          "author": "薛志荣",
+          "price": 69.0,
+          "pubTime": 1543593600001
+        },
+        {
+          "id": "5c2b147ce5f6db72ffa51c2d",
+          "link": "https://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRQGV0SBRY3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAlcdXBIGDV4QRwYlBGZjF0wCQlByfh1hP2ZBEFUpWChNYh4LOxhaFQsSBFUdWBcyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlSTXNtKTf8KpHwaid0t2MaxIAEAddGVocAiIHUR5fFAUTD10TWRUEIgBlQQtCWEIGVRpYJTIiN2UrWyUBIlgRRgYlABMGVBw%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxABUhxfCltXWwg%3D",
+          "title": "首席产品官1：从新手到行家",
+          "thumb": "https://img10.360buyimg.com/n1/jfs/t27520/30/845687157/83509/630ca18b/5bbab66fN45e38f78.jpg",
+          "author": "车马",
+          "price": 79.0,
+          "pubTime": 1538323200001
+        },
+        {
+          "id": "5c2b147de5f6db72ffa51c2e",
+          "link": "https://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRQHlMWCxI3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAlATWBwCDV4QRwYlXWlXM3giHEtydzcZOG12ZlACfz9Dch4LOxhaFQsSBFUdWBcyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlSTXNtKTf8KpHwaid0t2MaxIAEAddGVocAiIHUR5fFAUSBlAcUhUGIgBlQQtCWEIGVRpYJTIiN2UrWyUBIlgRRgYlABMGVBw%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxcPVhJbCltXWwg%3D",
+          "title": "首席产品官2 从白领到金领",
+          "thumb": "https://img11.360buyimg.com/n1/jfs/t1/7756/32/2145/230618/5bd15b0cEc84ae059/8db812f1eaff462b.jpg",
+          "author": "车马",
+          "price": 79.0,
+          "pubTime": 1538323200001
+        }
+      ],
+      "tagId": 10000084,
+      "tagName": "产品设计"
+    },
+    {
+      "books": [
+        {
+          "id": "5c60327ea74e6482ccf31a28",
+          "link": "https://u.jd.com/pz5wLD",
+          "title": "Django企业开发实战 高效Python Web框架指南",
+          "thumb": "https://img12.360buyimg.com/n1/jfs/t1/30017/36/1502/96268/5c4fd231E7efabaf1/51c5070ab184e2b8.jpg",
+          "author": "胡阳",
+          "price": 99.0,
+          "pubTime": 1548950400001
+        },
+        {
+          "id": "5c127cb4cb552e53e09bdb01",
+          "link": "https://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtbEQsSBVwdXRYyEgRQE1wQARU3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAl0cXhYFDV4QRwYlUmd7BX0hFgp3TAlLK0Z2UHkAHztjYh4LOxhaFQsSBFUZWBUyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlTTUVAxMGVBpeEQUVN1IZWRUKEAZcG2sVBhcCUxpdFQASBlQZaxIySFcCQQsUAhMEZStrJTIiB2UYa0pGT1plGVoUAxU%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxoAUBhcCltXWwg%3D",
+          "title": "Python科学计算最佳实践 SciPy指南",
+          "thumb": "https://img11.360buyimg.com/n1/jfs/t29227/350/1022898930/143221/1892ad16/5c04b73aN103cca3d.jpg",
+          "author": "胡安,努内兹,伊格莱西亚斯,Juan Nunez-Iglesias,斯特凡·范德瓦尔特（Stéfan,van,陈光欣",
+          "price": 69.0,
+          "pubTime": 1546272000001
+        },
+        {
+          "id": "5c1282bccb552e5616c8d430",
+          "link": "https://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRQE18QCxc3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAl0fXhwHDV4QRwYlX3JEBllcSUpxYCdoCFJ%2BagYwaUVDRB4LOxhaFQsSBFUZWBcyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlSTXNtKTf8KpHwaid0t2MaxIAEAddGVocAiIHUR5eEwIVBFQTXBEDIgBlQQtCWEIGVRpYJTIiN2UrWyUBIlgRRgYlABMGVBw%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxoDUBJeCltXWwg%3D",
+          "title": "分布式缓存 原理、架构及Go语言实现",
+          "thumb": "https://img14.360buyimg.com/n1/jfs/t30400/219/867275252/111466/7b590c88/5c00cda2N9b7afa45.jpg",
+          "author": "胡世杰",
+          "price": 49.0,
+          "pubTime": 1546272000001
+        }
+      ],
+      "tagId": 11000151,
+      "tagName": "程序设计"
+    },
+    {
+      "books": [
+        {
+          "id": "5c4b0089e5f6db5319f4df6b",
+          "link": "https://u.jd.com/JAowlm",
+          "title": "大型企业微服务架构实践与运营",
+          "thumb": "https://img11.360buyimg.com/n1/jfs/t1/11016/34/6180/628718/5c3c12cfEf0018fcf/efba2b9872a42316.jpg",
+          "author": "薛浩",
+          "price": 88.0,
+          "pubTime": 1548419209109
+        },
+        {
+          "id": "5c1282bccb552e5616c8d430",
+          "link": "https://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRQE18QCxc3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAl0fXhwHDV4QRwYlX3JEBllcSUpxYCdoCFJ%2BagYwaUVDRB4LOxhaFQsSBFUZWBcyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlSTXNtKTf8KpHwaid0t2MaxIAEAddGVocAiIHUR5eEwIVBFQTXBEDIgBlQQtCWEIGVRpYJTIiN2UrWyUBIlgRRgYlABMGVBw%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxoDUBJeCltXWwg%3D",
+          "title": "分布式缓存 原理、架构及Go语言实现",
+          "thumb": "https://img14.360buyimg.com/n1/jfs/t30400/219/867275252/111466/7b590c88/5c00cda2N9b7afa45.jpg",
+          "author": "胡世杰",
+          "price": 49.0,
+          "pubTime": 1546272000001
+        },
+        {
+          "id": "5c2b1486e5f6db72ffa51c35",
+          "link": "https://u.jd.com/3U0iVr",
+          "title": "Redis 深度历险：核心原理与应用实践",
+          "thumb": "https://img14.360buyimg.com/n1/jfs/t1/17048/37/2369/260302/5c1c9cfaE07061925/740c3f02f2f30182.jpg",
+          "author": "钱文品",
+          "price": 79.0,
+          "pubTime": 1546272000001
+        }
+      ],
+      "tagId": 11000080,
+      "tagName": "后端开发"
+    },
+    {
+      "books": [
+        {
+          "id": "5c1282c1cb552e5616c8d433",
+          "link": "https://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtbEQsSBVwdXRYyEgRQElMTAxE3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAlwTXRQBDV4QRwYlXHtYD14jVgZyXzdPJ2FrGnwXbh8WRB4LOxhaFQsSBFUZWBcyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlTTUVAxMGVBpeEQUVN1IZWRUKEAZcG2sVBhcCUxtcFwEbBFUcaxIySFcCQQsUAhMEZStrJTIiB2UYa0pGT1plGVoUAxU%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxsPUxpYCltXWwg%3D",
+          "title": "前端程序员面试秘籍",
+          "thumb": "https://img12.360buyimg.com/n1/jfs/t27772/167/2059613784/121764/2f4ede68/5bf51ecbN16688b45.jpg",
+          "author": "张容铭,爱创课堂,审",
+          "price": 69.0,
+          "pubTime": 1543593600001
+        },
+        {
+          "id": "5c1282becb552e5616c8d431",
+          "link": "https://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtbEQsSBVwdXRYyEgRQE1MXBBE3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAl0TWRMBDV4QRwYlQxdFB3gSXUJyZAV%2BOH18UXEnGBsQYh4LOxhaFQsSBFUZWBcyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlTTUVAxMGVBpeEQUVN1IZWRUKEAZcG2sVBhcCUxtcFgYUBV0baxIySFcCQQsUAhMEZStrJTIiB2UYa0pGT1plGVoUAxU%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxoPVx1YCltXWwg%3D",
+          "title": "WebAssembly标准入门",
+          "thumb": "https://img12.360buyimg.com/n1/jfs/t1/23747/25/261/148146/5c088020E36db0253/4227598ba4ba8ba4.jpg",
+          "author": "柴树杉,丁尔男",
+          "price": 49.0,
+          "pubTime": 1541001600001
+        },
+        {
+          "id": "5c1282c4cb552e5616c8d435",
+          "link": "https://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtbEQsSBVwdXRYyEgRQHlkQBBQ3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAlAZXhMEDV4QRwYlS3FMUlABFnBwWx0fIUBiSXErWyl1VB4LOxhaFQsSBFUeWhQyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlTTUVAxMGVBpeEQUVN1IZWRUKEAZcG2sVBhcCUxtcHAUWA1EaaxIySFcCQQsUAhMEZStrJTIiB2UYa0pGT1plGVoUAxU%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxcFUB1dCltXWwg%3D",
+          "title": "反应式Web应用开发",
+          "thumb": "https://img12.360buyimg.com/n1/jfs/t26698/262/1027789170/562350/60193ea3/5bc01eadNdcaddc07.jpg",
+          "author": "曼努埃尔·伯恩哈特,Manuel Bernhardt,张卫滨",
+          "price": 69.0,
+          "pubTime": 1541001600001
+        }
+      ],
+      "tagId": 11000079,
+      "tagName": "Web开发"
+    },
+    {
+      "books": [
+        {
+          "id": "5c60327ca74e6482ccf31a27",
+          "link": "https://u.jd.com/ZKb16N",
+          "title": "Flutter技术入门与实战",
+          "thumb": "https://img14.360buyimg.com/n1/jfs/t1/16968/38/4929/177171/5c370f06E67893899/04269e46eba9cf7e.jpg",
+          "author": "亢少军",
+          "price": 79.0,
+          "pubTime": 1546272000001
+        },
+        {
+          "id": "5c127cc1cb552e53e09bdb0a",
+          "link": "https://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRQHF0RABM3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAlIdXxcDDV4QRwYlBXtTDWsdQV9xbE9sCUl1cgIibzxMVB4LOxhaFQsSBFUZWBUyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlSTXNtKTf8KpHwaid0t2MaxIAEAddGVocAiIHUR5eEwMUDl0SXBAHIgBlQQtCWEIGVRpYJTIiN2UrWyUBIlgRRgYlABMGVBw%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxUBURlaCltXWwg%3D",
+          "title": "Android音视频开发",
+          "thumb": "https://img10.360buyimg.com/n1/jfs/t1/1608/40/13269/551942/5bd7bfffEf97fc738/96edbb6d76cc9052.jpg",
+          "author": "何俊林",
+          "price": 99.0,
+          "pubTime": 1541001600001
+        },
+        {
+          "id": "5b88df3e4cb0661f6bda14ce",
+          "link": "http://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRQG14SBxU3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAlUeXBAFDV4QRwYlVRB4NH5FfndyTxVbO11UT34PTwARVB4LOxhaFQsOBlwHWRUTEgJeG1geBxU3VhtdHAcXBlMbaxYCFA5QHVoXASI3VRprR2zKsePD%2FqQexq3aztOCMhUFVxtTFwMbB2UbXxcGFQ9RE1wSBRIOZRxrT1JFXQUaWxQBIjdlK2slAiIEZUQfSF8%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxICUh5cCltXWwg%3D",
+          "title": "React Native 精解与实战",
+          "thumb": "https://img11.360buyimg.com/n1/jfs/t22645/147/1713352091/85824/331cc1cd/5b680eb1Nb43595ba.jpg",
+          "author": "邱鹏源",
+          "price": 79.0,
+          "pubTime": 1533052800001
+        }
+      ],
+      "tagId": 11000077,
+      "tagName": "移动开发"
+    },
+    {
+      "books": [
+        {
+          "id": "5c4b0086e5f6db5319f4df69",
+          "link": "https://u.jd.com/jqmbR6",
+          "title": "深度学习 智能时代的核心驱动力量 ",
+          "thumb": "https://img14.360buyimg.com/n1/jfs/t1/11012/21/5845/228363/5c3707e5Efbcce250/254fd1b2927ca7ce.jpg",
+          "author": "[美]特伦斯·谢诺夫斯基,Terrence Sejnowski",
+          "price": 88.0,
+          "pubTime": 1548419206240
+        },
+        {
+          "id": "5c2b1487e5f6db72ffa51c36",
+          "link": "https://u.jd.com/3XbAUv",
+          "title": "卷积神经网络的Python实现",
+          "thumb": "https://img10.360buyimg.com/n1/jfs/t1/24074/19/2744/106886/5c205c38Ec7563e4b/99b350ca42a1a813.jpg",
+          "author": "单建华",
+          "price": 49.0,
+          "pubTime": 1546272000001
+        },
+        {
+          "id": "5c2b148be5f6db72ffa51c39",
+          "link": "https://u.jd.com/Fm3PHp",
+          "title": "卷积神经网络与视觉计算",
+          "thumb": "https://img13.360buyimg.com/n1/jfs/t1/25468/35/3007/123595/5c2438e7E66dc4b30/46d33dab90055b3a.jpg",
+          "author": "拉加夫·维凯特森,Ragav Venkatesan,钱亚冠,王滨",
+          "price": 59.0,
+          "pubTime": 1546272000001
+        }
+      ],
+      "tagId": 11000063,
+      "tagName": "机器学习"
+    },
+    {
+      "books": [
+        {
+          "id": "5c1282bbcb552e5616c8d42f",
+          "link": "https://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRQHVsUARQ3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAlMbWhYEDV4QRwYlfRZAUn4OdERxZSdhMFJ2QGQ%2BZQZTch4LOxhaFQsSBFUZWBcyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlSTXNtKTf8KpHwaid0t2MaxIAEAddGVocAiIHUR5eEwIVB1ccWRYKIgBlQQtCWEIGVRpYJTIiN2UrWyUBIlgRRgYlABMGVBw%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxQHVBhdCltXWwg%3D",
+          "title": "Wireshark网络分析实战 第2版",
+          "thumb": "https://img12.360buyimg.com/n1/jfs/t1/20562/10/1073/134083/5c0f39efE559fc790/d5b2446625e6a838.jpg",
+          "author": "甘德拉·库马尔·纳纳,Nagendra Kumar Nainar,尧戈什·拉姆多斯,Yogesh Ramdoss,约拉姆·奥扎赫,Yoram Orzach,孙余强,王涛",
+          "price": 118.0,
+          "pubTime": 1546272000001
+        },
+        {
+          "id": "5c1282c0cb552e5616c8d432",
+          "link": "https://union-click.jd.com/jdc?e=0\u0026p=AyIHZRtYFAcXBFIZWR0yEgRQHVgQCxQ3EUQDS10iXhBeGh4cDF8QTwcKWUcYB0UHCwIRAlMYXhwEDV4QRwYlCnR5C2BcZwpwVwFkARB0TGAeTjlTYh4LOxhaFQsSBFUZWBcyEQdTEl4QAxQHZRhbEwsXAVQZWCUyEgZlSTXNtKTf8KpHwaid0t2MaxIAEAddGVocAiIHUR5eEwIVBF0dUxcBIgBlQQtCWEIGVRpYJTIiN2UrWyUBIlgRRgYlABMGVBw%3D\u0026t=W1dCFBBFC1pXUwkEAEAdQFkJBVsWBxQEUBJdCltXWwg%3D",
+          "title": "量化交易学习指南 基于R语言",
+          "thumb": "https://img12.360buyimg.com/n1/jfs/t1/25383/25/1363/176066/5c11dbb3E44c7d6a8/a252301c5e94e209.jpg",
+          "author": "帕勒姆·吉特,Param Jeet,普拉桑特·瓦次,Prashant Vats,曾永艺,许健男",
+          "price": 69.0,
+          "pubTime": 1546272000001
+        },
+        {
+          "id": "5c2b1480e5f6db72ffa51c30",
+          "link": "https://u.jd.com/jLZTmI",
+          "title": "Kubernetes in Action中文版",
+          "thumb": "https://img11.360buyimg.com/n1/jfs/t1/18778/3/2645/244256/5c204ba9E06f47ed4/09b48b768a139623.jpg",
+          "author": "Marko Luksa,马尔科卢克沙",
+          "price": 148.0,
+          "pubTime": 1546272000001
+        }
+      ],
+      "tagId": 11000060,
+      "tagName": "技术综合"
+    },
+    {
+      "books": [
+        {
+          "id": "5c2b148ae5f6db72ffa51c38",
+          "link": "https://u.jd.com/xBGjL5",
+          "title": "本质",
+          "thumb": "https://img10.360buyimg.com/n1/jfs/t1/10126/20/5714/290874/5c18f38fE50983c17/7674af8c0c468339.jpg",
+          "author": "正和岛",
+          "price": 109.0,
+          "pubTime": 1546272000001
+        },
+        {
+          "id": "5c603289a74e6482ccf31a30",
+          "link": "https://u.jd.com/YdtL8b",
+          "title": "我是个怪圈 ",
+          "thumb": "https://img12.360buyimg.com/n1/jfs/t27256/163/2219752813/267495/17206ff6/5bfb6c54Nb23e8c38.jpg",
+          "author": "侯世达,Douglas Richard Hofstadter,修佳明",
+          "price": 88.0,
+          "pubTime": 1546272000001
+        },
+        {
+          "id": "5c60328ba74e6482ccf31a31",
+          "link": "https://u.jd.com/xLFoF9",
+          "title": "世界观：现代人必须要懂的科学哲学和科学史（原书第2版） ",
+          "thumb": "https://img13.360buyimg.com/n1/jfs/t30811/34/390535492/253230/153257c9/5bf235a3N009aa62b.jpg",
+          "author": "理查德·德威特,Richard DeWitt,孙天",
+          "price": 99.0,
+          "pubTime": 1546272000001
+        }
+      ],
+      "tagId": 101000000,
+      "tagName": "认知成长"
+    }
+  ]
+}

@@ -23,8 +23,10 @@ public class Constants {
     }
 
     public interface RecyclerItemType {
-        int BLANK_TYPE = 0;
-        int ARTICLE_COMMON_TYPE = 1;
+        int BLANK_TYPE = 0; //空白item
+        int ARTICLE_COMMON_TYPE = 1;    //文章item
+        int SPECIAL_GROUP_TYPE = 2;    //专栏group item
+        int SPECIAL_CHILD_TYPE = 3;    //专栏child item
     }
 
     public interface KeyExtra {

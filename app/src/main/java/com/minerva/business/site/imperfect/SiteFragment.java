@@ -1,4 +1,4 @@
-package com.minerva.business.site.notgood;
+package com.minerva.business.site.imperfect;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.minerva.R;
+import com.minerva.business.site.model.SiteModel;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.utils.CommonUtils;
 
@@ -47,26 +48,12 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void initView() {
-        mList = generateData();
+        mList = SiteModel.getInstance().generateData();
         swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView = rootView.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new SiteAdapter(getActivity(), mList));
-    }
-
-    private List<SitesBean.ItemsBeanX> generateData() {
-        SitesBean bean = CommonUtils.getSiteListFromJson("sites.json");
-
-        List<SitesBean.ItemsBeanX> list = new ArrayList<>();
-        for (int i = 0; i < bean.getItems().size(); i++) {
-            final List<SitesBean.ItemsBeanX.ItemsBean> childList = new ArrayList<>(i);
-            for (int j = 0; j < bean.getItems().get(i).getChildCount(); j++) {
-                childList.add(new SitesBean.ItemsBeanX.ItemsBean(bean.getItems().get(i).getChildAt(j)));
-            }
-            list.add(new SitesBean.ItemsBeanX(childList, bean.getItems().get(i).getName()));
-        }
-        return list;
     }
 
     @Override
@@ -98,7 +85,7 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     @Override
                     public void onComplete() {
                         swipeRefreshLayout.setRefreshing(false);
-                        List<SitesBean.ItemsBeanX> list = generateData();
+                        List<SitesBean.ItemsBeanX> list = SiteModel.getInstance().generateData();
                         mList.clear();
                         mList.addAll(list);
                     }

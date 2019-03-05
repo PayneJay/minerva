@@ -91,6 +91,7 @@
         <activity
             android:name=".business.search.SearchActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".business.settings.SettingsActivity" />
     </application>
 
 </manifest>

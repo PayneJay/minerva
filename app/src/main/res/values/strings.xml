@@ -53,4 +53,14 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="search_bar_hint">请输入{0}标题片段</string>
+    <string name="settings_clear_cache">清除缓存({0})</string>
+    <string name="settings_load_image_wifi">仅WIFI时加载正文图片</string>
+    <string name="settings_page_turning_by_scroll">正文左右滑动翻页</string>
+    <string name="settings_open_url_browser">外部浏览器打开正文链接</string>
+    <string name="settings_page_turning_by_voice_key">正文音量键翻页</string>
+    <string name="settings_font_size_modify">正文字号大小调整</string>
+    <string name="settings_share_settings">分享设置</string>
+    <string name="settings_title">相关设置</string>
+    <string name="toast_cahce_clear_success">缓存清除成功</string>
+    <string name="special_more">更多</string>
 </resources>
