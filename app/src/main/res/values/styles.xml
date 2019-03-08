@@ -30,6 +30,12 @@
         <item name="android:textColor">@color/color_70FFFFFF</item>
     </style>
 
+    <style name="categoryTabLayoutStyle" parent="Base.Widget.Design.TabLayout">
+        <item name="tabSelectedTextColor">@color/color_FFFFFF</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/color_70FFFFFF</item>
+    </style>
+
     <style name="mineItemStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/nav_dimen_size_40dp</item>

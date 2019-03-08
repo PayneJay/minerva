@@ -1,4 +1,4 @@
-package com.minerva.business.special.model;
+package com.minerva.business.category.model;
 
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;

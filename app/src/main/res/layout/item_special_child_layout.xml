@@ -5,7 +5,7 @@
 
         <variable
             name="specialChildVM"
-            type="com.minerva.business.special.column.SpecialChildViewModel" />
+            type="com.minerva.business.category.column.SpecialChildViewModel" />
     </data>
 
     <RelativeLayout

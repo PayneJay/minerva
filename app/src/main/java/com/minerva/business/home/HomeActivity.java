@@ -13,11 +13,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.minerva.R;
@@ -41,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             mNavMenuItem = item;
             mToolbar.setTitle(item.getTitle());
+            mToolbar.setVisibility(View.VISIBLE);
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mViewPager.setCurrentItem(0);
@@ -59,6 +60,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                     menuSearch.setVisible(false);
                     menuMore.setVisible(false);
                     menuSettings.setVisible(true);
+                    mToolbar.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_profile:
                     menuSearch.setVisible(false);

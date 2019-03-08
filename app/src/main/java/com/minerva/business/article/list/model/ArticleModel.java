@@ -1,7 +1,12 @@
 package com.minerva.business.article.list.model;
 
+import com.minerva.business.category.model.BookBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
+import com.minerva.utils.CommonUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,5 +32,12 @@ public class ArticleModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+    }
+
+    public List<ArticleBean.ArticlesBean> generateArticlesData() {
+        ArticleBean bean = CommonUtils.getArticleListFromJson();
+        List<ArticleBean.ArticlesBean> list = new ArrayList<>();
+        list.addAll(bean.getArticles());
+        return list;
     }
 }

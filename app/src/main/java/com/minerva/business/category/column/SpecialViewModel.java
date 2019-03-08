@@ -1,4 +1,4 @@
-package com.minerva.business.special.column;
+package com.minerva.business.category.column;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
@@ -9,8 +9,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.special.model.SpecialBean;
-import com.minerva.business.special.model.SpecialModel;
+import com.minerva.business.category.model.SpecialBean;
+import com.minerva.business.category.model.SpecialModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.DateUtils;
@@ -43,12 +43,9 @@ public class SpecialViewModel extends BaseViewModel {
     };
     private List<SpecialBean.ItemsBeanX> beanXList = new ArrayList<>();
 
-    public SpecialViewModel(Context context) {
+    SpecialViewModel(Context context) {
         super(context);
-//        requestServer();
-        beanXList.clear();
-        beanXList.addAll(SpecialModel.getInstance().generateColumnData());
-        createViewModel();
+        requestServer();
     }
 
     public int[] getColors() {
@@ -59,11 +56,7 @@ public class SpecialViewModel extends BaseViewModel {
         @Override
         public void onRefresh() {
             refreshing.set(true);
-//            requestServer();
-            beanXList.clear();
-            beanXList.addAll(SpecialModel.getInstance().generateColumnData());
-            createViewModel();
-            refreshing.set(false);
+            requestServer();
         }
     };
 
@@ -73,13 +66,16 @@ public class SpecialViewModel extends BaseViewModel {
             public void onSuccess(SpecialBean specialBean) {
                 refreshing.set(false);
                 beanXList.clear();
-                beanXList.addAll(SpecialModel.getInstance().generateColumnData());
+                beanXList.addAll(specialBean.getItems());
                 createViewModel();
             }
 
             @Override
             public void onFailure() {
                 refreshing.set(false);
+                beanXList.clear();
+                beanXList.addAll(SpecialModel.getInstance().generateColumnData());
+                createViewModel();
             }
         });
     }

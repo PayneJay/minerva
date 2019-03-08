@@ -2,6 +2,7 @@ package com.minerva.business.article.list.model;
 
 import com.minerva.base.BaseBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleBean extends BaseBean {
@@ -20,7 +21,7 @@ public class ArticleBean extends BaseBean {
     private int pn;
     private CatsBean cats;
     private int cid;
-    private List<ArticlesBean> articles;
+    private List<ArticlesBean> articles = new ArrayList<>();
 
     public boolean isHas_next() {
         return has_next;

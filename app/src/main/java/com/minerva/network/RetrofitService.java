@@ -3,10 +3,9 @@ package com.minerva.network;
 import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.site.model.SitesBean;
-import com.minerva.business.special.model.BookBean;
-import com.minerva.business.special.model.SpecialBean;
+import com.minerva.business.category.model.BookBean;
+import com.minerva.business.category.model.SpecialBean;
 
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.minerva.R;
 import com.minerva.business.site.model.SiteModel;
 import com.minerva.business.site.model.SitesBean;
+import com.minerva.common.MinervaLinearLayoutManager;
 import com.minerva.utils.CommonUtils;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView = rootView.findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new MinervaLinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new SiteAdapter(getActivity(), mList));
     }
 

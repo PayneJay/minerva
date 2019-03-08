@@ -18,6 +18,9 @@ import com.minerva.business.article.list.model.ArticleModel;
 import com.minerva.base.BaseViewModel;
 import com.minerva.network.NetworkObserver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
@@ -38,11 +41,11 @@ public class ArticleListViewModel extends BaseViewModel {
             }
         }
     };
+    private List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
 
     ArticleListViewModel(Context context) {
         super(context);
-//        requestServer();
-        createViewModel();
+        requestServer();
     }
 
     public int[] getColors() {
@@ -70,8 +73,13 @@ public class ArticleListViewModel extends BaseViewModel {
 
     private void createViewModel() {
         items.clear();
-        for (int i = 0; i < 15; i++) {
-            items.add(new ArticleItemViewModel(context));
+        for (int i = 0; i < mData.size(); i++) {
+            ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
+            ArticleBean.ArticlesBean articlesBean = mData.get(i);
+            viewModel.content.set(articlesBean.getTitle());
+            viewModel.date.set(articlesBean.getRectime());
+            viewModel.imgUrl.set(articlesBean.getImg());
+            items.add(viewModel);
         }
     }
 
@@ -81,13 +89,23 @@ public class ArticleListViewModel extends BaseViewModel {
             public void onSuccess(ArticleBean articleBean) {
                 refreshing.set(false);
                 Log.i(Constants.TAG, "getArticleList===success " + articleBean.isSuccess());
+                mData.clear();
+                mData.addAll(articleBean.getArticles());
+                createViewModel();
             }
 
             @Override
             public void onFailure() {
                 refreshing.set(false);
                 Log.i(Constants.TAG, "getArticleList===failure");
+                mData.clear();
+                mData.addAll(ArticleModel.getInstance().generateArticlesData());
+                createViewModel();
             }
         });
+
+        mData.clear();
+        mData.addAll(ArticleModel.getInstance().generateArticlesData());
+        createViewModel();
     }
 }

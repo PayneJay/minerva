@@ -1,9 +1,8 @@
-package com.minerva.business.special;
+package com.minerva.business.category.column;
 
 import com.minerva.R;
 import com.minerva.BR;
 import com.minerva.base.BaseFragment;
-import com.minerva.business.special.column.SpecialViewModel;
 
 public class SpecialFragment extends BaseFragment<SpecialViewModel> {
     @Override

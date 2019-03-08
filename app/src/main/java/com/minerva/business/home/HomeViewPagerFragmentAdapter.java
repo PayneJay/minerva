@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.minerva.business.article.ArticleFragment;
 import com.minerva.business.mine.MyFragment;
-import com.minerva.business.special.SpecialFragment;
+import com.minerva.business.category.CategoryFragment;
 import com.minerva.business.site.imperfect.SiteFragment;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class HomeViewPagerFragmentAdapter extends FragmentPagerAdapter {
         super(fm);
         fragments.add(new ArticleFragment());
         fragments.add(new SiteFragment());
-        fragments.add(new SpecialFragment());
+        fragments.add(new CategoryFragment());
         fragments.add(new MyFragment());
     }
 

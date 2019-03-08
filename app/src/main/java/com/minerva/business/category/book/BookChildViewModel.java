@@ -1,17 +1,16 @@
-package com.minerva.business.special.column;
+package com.minerva.business.category.book;
 
 import android.content.Context;
 import android.databinding.ObservableField;
-import android.widget.Toast;
 
 import com.minerva.base.BaseViewModel;
 import com.minerva.common.Constants;
 
-public class SpecialChildViewModel extends BaseViewModel {
+public class BookChildViewModel extends BaseViewModel {
     public ObservableField<String> childName = new ObservableField<>();
-    public ObservableField<String> dateText = new ObservableField<>();
+    public ObservableField<String> imgUrl = new ObservableField<>("https://img11.360buyimg.com/n1/jfs/t1/18778/3/2645/244256/5c204ba9E06f47ed4/09b48b768a139623.jpg");
 
-    public SpecialChildViewModel(Context context) {
+    public BookChildViewModel(Context context) {
         super(context);
         setViewType(Constants.RecyclerItemType.SPECIAL_CHILD_TYPE);
     }

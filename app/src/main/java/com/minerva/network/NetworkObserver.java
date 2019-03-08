@@ -29,8 +29,10 @@ public abstract class NetworkObserver<T extends BaseBean> implements Observer<T>
     @Override
     public void onNext(T response) {
         if (response.isSuccess()) {
+            Log.e(Constants.TAG, "onSuccess===>");
             onSuccess(response);
         } else {
+            Log.e(Constants.TAG, "onFailure===>");
             onFailure();
         }
     }

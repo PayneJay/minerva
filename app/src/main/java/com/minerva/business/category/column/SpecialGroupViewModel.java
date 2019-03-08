@@ -1,4 +1,4 @@
-package com.minerva.business.special.column;
+package com.minerva.business.category.column;
 
 import android.content.Context;
 import android.databinding.ObservableField;

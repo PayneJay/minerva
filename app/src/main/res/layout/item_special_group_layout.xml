@@ -5,7 +5,7 @@
 
         <variable
             name="specialGroupVM"
-            type="com.minerva.business.special.column.SpecialGroupViewModel" />
+            type="com.minerva.business.category.column.SpecialGroupViewModel" />
     </data>
 
     <RelativeLayout
