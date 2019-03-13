@@ -16,7 +16,6 @@ import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.category.column.model.MagChildViewModel;
 import com.minerva.business.category.column.model.MagDetailBean;
 import com.minerva.business.category.column.model.MagModel;
 import com.minerva.common.Constants;
@@ -138,6 +137,7 @@ public class MagDetailViewModel extends BaseViewModel {
                 for (MagDetailBean.ItemsBeanX.ItemsBean childItem : childItems) {
                     MagChildViewModel childViewModel = new MagChildViewModel(context);
                     childViewModel.childName.set(childItem.getTitle());
+                    childViewModel.articleID = childItem.getUrl();
                     items.add(childViewModel);
                 }
             }

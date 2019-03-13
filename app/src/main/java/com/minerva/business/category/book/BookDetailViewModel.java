@@ -39,12 +39,29 @@ public class BookDetailViewModel extends BaseViewModel {
         settings.setBuiltInZoomControls(true);
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-
         //设置不用系统浏览器打开,直接显示在当前Webview
         webView.setWebViewClient(new WebViewClient() {
+            //设置加载前的函数
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                progressBar.setVisibility(View.VISIBLE);
+
+            }
+
+            //设置结束加载函数
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+                }
+                handler.proceed();
+            }
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -75,31 +92,6 @@ public class BookDetailViewModel extends BaseViewModel {
                 }
             }
         });
-
-
-        //设置WebViewClient类
-        webView.setWebViewClient(new WebViewClient() {
-            //设置加载前的函数
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                progressBar.setVisibility(View.VISIBLE);
-
-            }
-
-            //设置结束加载函数
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                progressBar.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-                }
-            }
-        });
-
         webView.loadUrl(link);
     }
 }
