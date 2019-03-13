@@ -1,14 +1,17 @@
 package com.minerva.business.category.book;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.ObservableField;
 
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.article.detail.ArticleDetailActivity;
 import com.minerva.common.Constants;
 
 public class BookChildViewModel extends BaseViewModel {
     public ObservableField<String> childName = new ObservableField<>();
-    public ObservableField<String> imgUrl = new ObservableField<>("https://img11.360buyimg.com/n1/jfs/t1/18778/3/2645/244256/5c204ba9E06f47ed4/09b48b768a139623.jpg");
+    public ObservableField<String> imgUrl = new ObservableField<>();
+    public String link;
 
     public BookChildViewModel(Context context) {
         super(context);
@@ -16,6 +19,8 @@ public class BookChildViewModel extends BaseViewModel {
     }
 
     public void onItemClick() {
-        Constants.showToast(context);
+        Intent intent = new Intent(context, BookDetailActivity.class);
+        intent.putExtra(Constants.KeyExtra.BOOK_JD_LINK, link);
+        context.startActivity(intent);
     }
 }

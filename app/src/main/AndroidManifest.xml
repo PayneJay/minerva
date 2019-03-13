@@ -93,6 +93,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".business.settings.SettingsActivity" />
         <activity android:name=".business.site.detail.PeriodicalDetailActivity" />
+        <activity android:name=".business.category.column.MagDetailActivity" />
+        <activity android:name=".business.category.book.BookDetailActivity" />
     </application>
 
 </manifest>

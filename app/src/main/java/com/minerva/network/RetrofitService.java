@@ -2,6 +2,7 @@ package com.minerva.network;
 
 import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.category.column.model.MagDetailBean;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.SpecialBean;
@@ -32,4 +33,7 @@ public interface RetrofitService {
 
     @GET("/api/sites/{aid}.json")
     Observable<ArticleBean> getPeriodicalDetail(@Path("aid") String aid, @Query("pn") int pn, @Query("size") int size, @Query("is_pad") int isPad);
+
+    @GET("/api/mag/detail.json")
+    Observable<MagDetailBean> getMagDetailDetail(@Query("id") String pn, @Query("type") int type);
 }

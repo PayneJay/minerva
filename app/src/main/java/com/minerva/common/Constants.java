@@ -28,6 +28,8 @@ public class Constants {
         int SPECIAL_GROUP_TYPE = 2;    //专栏group item
         int SPECIAL_CHILD_TYPE = 3;    //专栏child item
         int PERIODICAL_TYPE = 4;        //期刊头部item
+        int MAG_CHILD_TYPE = 5;
+        int MAG_TITLE_TYPE = 6;
     }
 
     public interface KeyExtra {
@@ -35,6 +37,11 @@ public class Constants {
         String PERIODICAL_ID = "periodical_id";
         String PERIODICAL_IMAGE = "periodical_image";
         String PERIODICAL_NAME = "periodical_name";
+        String COLUMN_MAG_ID = "column_mag_id";
+        String COLUMN_MAG_NUMBER = "column_mag_number";
+        String COLUMN_MAG_TITLE = "column_mag_title";
+        String COLUMN_MAG_TYPE = "column_mag_type";
+        String BOOK_JD_LINK = "book_jd_link";
     }
 
     public interface LoginInfo {

@@ -117,6 +117,7 @@ public class BookViewModel extends BaseViewModel {
                     BookChildViewModel childViewModel = new BookChildViewModel(context);
                     childViewModel.childName.set(childItem.getTitle());
                     childViewModel.imgUrl.set(childItem.getThumb());
+                    childViewModel.link = childItem.getLink();
                     items.add(childViewModel);
                 }
             }

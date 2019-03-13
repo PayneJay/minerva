@@ -96,6 +96,9 @@ public class SpecialViewModel extends BaseViewModel {
                 for (SpecialBean.ItemsBeanX.ItemsBean childItem : beanList) {
                     SpecialChildViewModel childViewModel = new SpecialChildViewModel(context);
                     childViewModel.childName.set(childItem.getTitle());
+                    childViewModel.groupName = groupItem.getName();
+                    childViewModel.magID = childItem.getId();
+                    childViewModel.type = childItem.getType();
                     childViewModel.dateText.set(DateUtils.Date2Str(new Date(childItem.getTime()), "MM月dd日"));
                     items.add(childViewModel);
                 }
