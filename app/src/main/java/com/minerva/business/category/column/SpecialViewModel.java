@@ -55,12 +55,12 @@ public class SpecialViewModel extends BaseViewModel {
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            refreshing.set(true);
             requestServer();
         }
     };
 
     private void requestServer() {
+        refreshing.set(true);
         SpecialModel.getInstance().getSpecialList(new NetworkObserver<SpecialBean>() {
             @Override
             public void onSuccess(SpecialBean specialBean) {

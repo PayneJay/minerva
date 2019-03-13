@@ -8,6 +8,11 @@ import com.minerva.common.GlobalData;
 public class ArticleListFragment extends BaseFragment<ArticleListViewModel> {
     private ArticleListViewModel articleListViewModel;
     private boolean isRecTab; //标记是否是推荐tab
+    private int index; //标记当前的tab
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     public void setRecTab(boolean recTab) {
         isRecTab = recTab;
@@ -16,7 +21,7 @@ public class ArticleListFragment extends BaseFragment<ArticleListViewModel> {
     @Override
     protected ArticleListViewModel getViewModel() {
         if (articleListViewModel == null) {
-            articleListViewModel = new ArticleListViewModel(getActivity());
+            articleListViewModel = new ArticleListViewModel(getActivity(), index);
         }
 
         articleListViewModel.isRecommendGone.set(!isRecTab || GlobalData.isLogin());

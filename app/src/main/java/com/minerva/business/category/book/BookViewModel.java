@@ -78,11 +78,7 @@ public class BookViewModel extends BaseViewModel {
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            refreshing.set(true);
-            beanXList.clear();
-            beanXList.addAll(SpecialModel.getInstance().generateBookData());
-            createViewModel();
-            refreshing.set(false);
+            requestServer();
         }
     };
 

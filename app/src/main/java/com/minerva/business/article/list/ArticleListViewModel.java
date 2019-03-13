@@ -9,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
 import com.minerva.BR;
-import com.minerva.base.BaseActivity;
 import com.minerva.business.mine.login.LoginActivity;
 import com.minerva.common.Constants;
 import com.minerva.R;
@@ -42,9 +41,11 @@ public class ArticleListViewModel extends BaseViewModel {
         }
     };
     private List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
+    private int mIndex;
 
-    ArticleListViewModel(Context context) {
+    ArticleListViewModel(Context context, int index) {
         super(context);
+        this.mIndex = index;
         requestServer();
     }
 
@@ -55,7 +56,6 @@ public class ArticleListViewModel extends BaseViewModel {
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            refreshing.set(true);
             requestServer();
         }
     };
@@ -79,12 +79,14 @@ public class ArticleListViewModel extends BaseViewModel {
             viewModel.content.set(articlesBean.getTitle());
             viewModel.date.set(articlesBean.getRectime());
             viewModel.imgUrl.set(articlesBean.getImg());
+            viewModel.articleID = articlesBean.getId();
             items.add(viewModel);
         }
     }
 
     private void requestServer() {
-        ArticleModel.getInstance().getArticleList("101000000", 1, new NetworkObserver<ArticleBean>() {
+        refreshing.set(true);
+        ArticleModel.getInstance().getArticleList(mIndex, 1, new NetworkObserver<ArticleBean>() {
             @Override
             public void onSuccess(ArticleBean articleBean) {
                 refreshing.set(false);

@@ -5,23 +5,25 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.minerva.R;
 import com.minerva.business.article.list.ArticleListFragment;
 import com.minerva.base.BaseFragment;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.business.article.list.model.ArticleModel;
+import com.minerva.business.article.list.model.ArticleType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleFragmentAdapter extends FragmentPagerAdapter {
-    private final String[] tabTitles = new String[]{ResouceUtils.getString(R.string.article_hot), ResouceUtils.getString(R.string.article_recommend),
-            ResouceUtils.getString(R.string.article_technology), ResouceUtils.getString(R.string.article_start_up),
-            ResouceUtils.getString(R.string.article_numercial), ResouceUtils.getString(R.string.article_design), ResouceUtils.getString(R.string.article_marketing)};
+    private final List<ArticleType> tabTypes = new ArrayList<>();
     private ArrayList<BaseFragment> fragments = new ArrayList<>();
 
     public ArticleFragmentAdapter(FragmentManager fm) {
         super(fm);
-        for (int i = 0; i < tabTitles.length; i++) {
+        tabTypes.clear();
+        tabTypes.addAll(ArticleModel.getInstance().getTabTypes());
+        for (int i = 0; i < tabTypes.size(); i++) {
             ArticleListFragment fragment = new ArticleListFragment();
+            fragment.setIndex(i);
             fragment.setRecTab(i == 1);
             fragments.add(fragment);
         }
@@ -34,12 +36,13 @@ public class ArticleFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return tabTitles.length;
+        return tabTypes.size();
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabTitles[position];
+        return tabTypes.get(position).getTabTitle();
     }
+
 }

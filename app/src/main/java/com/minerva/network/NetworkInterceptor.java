@@ -20,10 +20,6 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * Created by nayibo on 2017/7/25.
- */
-
 public class NetworkInterceptor implements Interceptor {
     private HashMap<String, String> mHeaders;
     private HashMap<String, String> mParas;
@@ -77,7 +73,6 @@ public class NetworkInterceptor implements Interceptor {
         }
 
         Response response = chain.proceed(build);
-        Toast.makeText(Constants.application, R.string.network_error, Toast.LENGTH_SHORT).show();
         return response;
     }
 

@@ -32,7 +32,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textColor="@color/color_000000"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <TextView
                 text="@{articleItemVM.date}"

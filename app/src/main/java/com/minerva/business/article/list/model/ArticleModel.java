@@ -1,9 +1,11 @@
 package com.minerva.business.article.list.model;
 
-import com.minerva.business.category.model.BookBean;
+import com.minerva.R;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
+import com.minerva.network.RetrofitService;
 import com.minerva.utils.CommonUtils;
+import com.minerva.utils.ResouceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +16,11 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ArticleModel {
     private static ArticleModel instance;
+    private List<ArticleType> mTypeList = new ArrayList<>();
 
     private ArticleModel() {
+        mTypeList.clear();
+        mTypeList.addAll(getTabTypes());
     }
 
     public static ArticleModel getInstance() {
@@ -25,13 +30,43 @@ public class ArticleModel {
         return instance;
     }
 
-    public void getArticleList(String cid, int lang, Observer<? super ArticleBean> observer) {
-        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
-                .getServer()
-                .getHotArticles(30, lang, cid, 1)
+    /**
+     * 获取文章列表
+     *
+     * @param index    当前tab位置
+     * @param lang
+     * @param observer 网络回调
+     */
+    public void getArticleList(int index, int lang, Observer<? super ArticleBean> observer) {
+        RetrofitService server = RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null).getServer();
+        if (index == 1) {//推荐模块
+            server.getRecArticles(30, lang, "0", 1)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(observer);
+            return;
+        }
+
+        //其他模块
+        server.getHotArticles(30, lang, mTypeList.get(index).getTabId(), 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+
+    }
+
+    public List<ArticleType> getTabTypes() {
+        List<ArticleType> list = new ArrayList<>();
+        list.add(new ArticleType(ResouceUtils.getString(R.string.article_hot), "0"));
+        list.add(new ArticleType(ResouceUtils.getString(R.string.article_recommend), "0"));
+        list.add(new ArticleType(ResouceUtils.getString(R.string.article_science_technology), "101000000"));
+        list.add(new ArticleType(ResouceUtils.getString(R.string.article_start_up), "101040000"));
+        list.add(new ArticleType(ResouceUtils.getString(R.string.article_numercial), "101050000"));
+        list.add(new ArticleType(ResouceUtils.getString(R.string.article_technology), "20"));
+        list.add(new ArticleType(ResouceUtils.getString(R.string.article_design), "108000000"));
+        list.add(new ArticleType(ResouceUtils.getString(R.string.article_marketing), "114000000"));
+
+        return list;
     }
 
     public List<ArticleBean.ArticlesBean> generateArticlesData() {

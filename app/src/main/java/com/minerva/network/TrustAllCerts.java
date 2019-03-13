@@ -10,10 +10,6 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-/**
- * Created by nayibo on 2018/2/5.
- */
-
 public class TrustAllCerts implements X509TrustManager {
     @Override
     public void checkClientTrusted(X509Certificate[] chain, String authType) throws java.security.cert.CertificateException {

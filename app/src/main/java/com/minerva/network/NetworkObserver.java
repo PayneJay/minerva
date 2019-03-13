@@ -9,10 +9,6 @@ import com.minerva.base.BaseBean;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-/**
- * Created by nayibo on 2018/3/26.
- */
-
 public abstract class NetworkObserver<T extends BaseBean> implements Observer<T> {
     public NetworkObserver() {
     }
@@ -39,7 +35,7 @@ public abstract class NetworkObserver<T extends BaseBean> implements Observer<T>
 
     @Override
     public void onError(Throwable e) {
-        Log.e(Constants.TAG, "onError===>" + e.getMessage());
+        Log.e(Constants.TAG, "onError===>" + e.toString());
         onFailure();
     }
 

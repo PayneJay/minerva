@@ -9,18 +9,19 @@ import com.minerva.common.Constants;
 import com.minerva.base.BaseViewModel;
 
 public class ArticleItemViewModel extends BaseViewModel {
-    public ObservableField<String> content = new ObservableField<>("前线 | Apple Music或入驻谷歌智能音箱，为苹果打开服务版图");
-    public ObservableField<String> date = new ObservableField<>("36氪 02-27 15:16");
-    public ObservableField<String> imgUrl = new ObservableField<>("https://aimg2.tuicool.com/uAnYBrY.jpg");
+    public ObservableField<String> content = new ObservableField<>();
+    public ObservableField<String> date = new ObservableField<>();
+    public ObservableField<String> imgUrl = new ObservableField<>();
+    public String articleID;
 
     public ArticleItemViewModel(Context context) {
         super(context);
         setViewType(Constants.RecyclerItemType.ARTICLE_COMMON_TYPE);
     }
 
-    public void viewDetail(){
+    public void viewDetail() {
         Intent intent = new Intent(context, ArticleDetailActivity.class);
-        intent.putExtra(Constants.KeyExtra.ARTICLE_ID, "yUfAV3F");
+        intent.putExtra(Constants.KeyExtra.ARTICLE_ID, articleID);
         context.startActivity(intent);
     }
 }

@@ -30,6 +30,10 @@ class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX
         mList = list;
     }
 
+    public void setList(List<SitesBean.ItemsBeanX> mList) {
+        this.mList = mList;
+    }
+
     @Override
     public int getGroupCount() {
         return mList.size();

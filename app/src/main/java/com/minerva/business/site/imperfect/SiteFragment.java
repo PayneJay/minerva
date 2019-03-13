@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,9 @@ import android.view.ViewGroup;
 import com.minerva.R;
 import com.minerva.business.site.model.SiteModel;
 import com.minerva.business.site.model.SitesBean;
+import com.minerva.common.Constants;
 import com.minerva.common.MinervaLinearLayoutManager;
+import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
 
 import java.util.ArrayList;
@@ -31,8 +34,8 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private View rootView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
-    private Disposable mDisposable;
     private List<SitesBean.ItemsBeanX> mList = new ArrayList<>();
+    private SiteAdapter mAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         rootView = View.inflate(getActivity(), R.layout.fragment_site_layout, null);
 
         initView();
+        requestServer();
     }
 
     @Nullable
@@ -49,55 +53,44 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void initView() {
-        mList = SiteModel.getInstance().generateData();
         swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView = rootView.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new MinervaLinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new SiteAdapter(getActivity(), mList));
+        mAdapter = new SiteAdapter(getActivity(), mList);
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override
     public void onRefresh() {
-        swipeRefreshLayout.setRefreshing(true);
-        Observable.just("Success")
-                //延时三秒，第一个参数是数值，第二个参数是事件单位
-                .delay(3, TimeUnit.SECONDS)
-                // Run on a background thread
-                .subscribeOn(Schedulers.io())
-                // Be notified on the main thread
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        mDisposable = d;
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        swipeRefreshLayout.setRefreshing(false);
-                        List<SitesBean.ItemsBeanX> list = SiteModel.getInstance().generateData();
-                        mList.clear();
-                        mList.addAll(list);
-                    }
-                });
+        requestServer();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mDisposable != null) {
-            mDisposable.dispose();
+    private void requestServer() {
+        swipeRefreshLayout.setRefreshing(true);
+        SiteModel.getInstance().getSiteList(new NetworkObserver<SitesBean>() {
+            @Override
+            public void onSuccess(SitesBean sitesBean) {
+                swipeRefreshLayout.setRefreshing(false);
+                mList.clear();
+                mList.addAll(sitesBean.getItems());
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure() {
+                swipeRefreshLayout.setRefreshing(false);
+                Log.i(Constants.TAG, "getSiteList failure");
+                mList = SiteModel.getInstance().generateData();
+                notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void notifyDataSetChanged() {
+        if (mAdapter != null) {
+            mAdapter.setList(mList);
+            mAdapter.notifyDataSetChanged();
         }
     }
 }
