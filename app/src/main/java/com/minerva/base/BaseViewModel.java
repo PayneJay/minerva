@@ -5,11 +5,6 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.view.View;
 
-
-/**
- * Created by nayibo on 2018/1/24.
- */
-
 public abstract class BaseViewModel extends BaseObservable implements IViewModel {
     private int mViewType = -1;
     private int itemPosition = -1;

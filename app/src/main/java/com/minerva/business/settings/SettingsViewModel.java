@@ -3,7 +3,6 @@ package com.minerva.business.settings;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
@@ -41,7 +40,7 @@ public class SettingsViewModel extends BaseViewModel {
     public void clearCache() {
         FileUtils.clearInternalCache(context);
         clearCacheText.set(MessageFormat.format(ResouceUtils.getString(R.string.settings_clear_cache), "0kb"));
-        Toast.makeText(context, ResouceUtils.getString(R.string.toast_cahce_clear_success), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, ResouceUtils.getString(R.string.toast_cache_clear_success), Toast.LENGTH_SHORT).show();
     }
 
     @BindingAdapter("navigationClickListener")

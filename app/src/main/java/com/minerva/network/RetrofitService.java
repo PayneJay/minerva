@@ -29,4 +29,7 @@ public interface RetrofitService {
 
     @GET("/api/books.json")
     Observable<BookBean> getBookList();
+
+    @GET("/api/sites/{aid}.json")
+    Observable<ArticleBean> getPeriodicalDetail(@Path("aid") String aid, @Query("pn") int pn, @Query("size") int size, @Query("is_pad") int isPad);
 }

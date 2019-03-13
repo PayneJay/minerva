@@ -27,10 +27,14 @@ public class Constants {
         int ARTICLE_COMMON_TYPE = 1;    //文章item
         int SPECIAL_GROUP_TYPE = 2;    //专栏group item
         int SPECIAL_CHILD_TYPE = 3;    //专栏child item
+        int PERIODICAL_TYPE = 4;        //期刊头部item
     }
 
     public interface KeyExtra {
         String ARTICLE_ID = "article_id";
+        String PERIODICAL_ID = "periodical_id";
+        String PERIODICAL_IMAGE = "periodical_image";
+        String PERIODICAL_NAME = "periodical_name";
     }
 
     public interface LoginInfo {

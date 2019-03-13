@@ -1,6 +1,7 @@
 package com.minerva.business.site.imperfect;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.hgdendi.expandablerecycleradapter.BaseExpandableRecyclerViewAdapter;
 import com.minerva.R;
+import com.minerva.business.site.detail.PeriodicalDetailActivity;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.Constants;
 
@@ -70,12 +72,16 @@ class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX
     }
 
     @Override
-    public void onBindChildViewHolder(final ChildVH holder, SitesBean.ItemsBeanX groupBean, SitesBean.ItemsBeanX.ItemsBean sampleChildBean) {
+    public void onBindChildViewHolder(final ChildVH holder, SitesBean.ItemsBeanX groupBean, final SitesBean.ItemsBeanX.ItemsBean sampleChildBean) {
         holder.nameTv.setText(sampleChildBean.getName());
         holder.nameTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Constants.showToast(context);
+                Intent intent = new Intent(context, PeriodicalDetailActivity.class);
+                intent.putExtra(Constants.KeyExtra.PERIODICAL_ID, sampleChildBean.getId());
+                intent.putExtra(Constants.KeyExtra.PERIODICAL_IMAGE, sampleChildBean.getImage());
+                intent.putExtra(Constants.KeyExtra.PERIODICAL_NAME, sampleChildBean.getName());
+                context.startActivity(intent);
             }
         });
 

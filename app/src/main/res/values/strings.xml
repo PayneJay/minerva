@@ -10,7 +10,7 @@
     <string name="article_recommend">推荐</string>
     <string name="article_science_technology">科技</string>
     <string name="article_start_up">创业</string>
-    <string name="article_numercial">数码</string>
+    <string name="article_digital">数码</string>
     <string name="article_technology">技术</string>
     <string name="article_design">设计</string>
     <string name="article_marketing">营销</string>
@@ -62,6 +62,7 @@
     <string name="settings_font_size_modify">正文字号大小调整</string>
     <string name="settings_share_settings">分享设置</string>
     <string name="settings_title">相关设置</string>
-    <string name="toast_cahce_clear_success">缓存清除成功</string>
+    <string name="toast_cache_clear_success">缓存清除成功</string>
     <string name="special_more">更多</string>
+    <string name="periodical_subscribe">订阅</string>
 </resources>

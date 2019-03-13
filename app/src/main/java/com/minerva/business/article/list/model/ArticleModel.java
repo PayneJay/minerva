@@ -61,7 +61,7 @@ public class ArticleModel {
         list.add(new ArticleType(ResouceUtils.getString(R.string.article_recommend), "0"));
         list.add(new ArticleType(ResouceUtils.getString(R.string.article_science_technology), "101000000"));
         list.add(new ArticleType(ResouceUtils.getString(R.string.article_start_up), "101040000"));
-        list.add(new ArticleType(ResouceUtils.getString(R.string.article_numercial), "101050000"));
+        list.add(new ArticleType(ResouceUtils.getString(R.string.article_digital), "101050000"));
         list.add(new ArticleType(ResouceUtils.getString(R.string.article_technology), "20"));
         list.add(new ArticleType(ResouceUtils.getString(R.string.article_design), "108000000"));
         list.add(new ArticleType(ResouceUtils.getString(R.string.article_marketing), "114000000"));
