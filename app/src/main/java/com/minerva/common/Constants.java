@@ -44,10 +44,18 @@ public class Constants {
         String BOOK_JD_LINK = "book_jd_link";
     }
 
-    public interface LoginInfo {
-        String USER_NAME = "Minerva@gmail.com";
-        String PASSWORD = "123456";
-        String IS_LOGIN = "minerva_is_login";
+    public interface UserInfoKey {
+        String USER_ID = "minerva_user_id";
+        String USER_TOKEN = "minerva_user_token";
+
+        //以下用户信息相关
+        String USER_PROFILE = "minerva_user_profile";
+        String USER_NAME = "minerva_user_name";
+        String USER_EMAIL = "minerva_user_email";
+        String PASS_WORD = "minerva_pass_word";
+        String WEIBO = "minerva_weibo";
+        String QQ = "minerva_qq";
+        String WECHAT = "minerva_wechat";
     }
 
     public interface Activity {

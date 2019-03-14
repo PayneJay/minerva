@@ -65,4 +65,25 @@
     <string name="toast_cache_clear_success">缓存清除成功</string>
     <string name="special_more">更多</string>
     <string name="periodical_subscribe">订阅</string>
+    <string name="login_account_password_error">账号或密码错误！</string>
+    <string name="login_please_input_account">请输入邮箱!</string>
+    <string name="login_email_incorrect">邮箱格式不正确!</string>
+    <string name="login_please_input_password">请输入密码!</string>
+    <string name="login_please_input_password_at_least_6">请输入至少6位密码!</string>
+    <string name="login_verifing">正在验证...</string>
+    <string name="user_edit_title">编辑信息</string>
+    <string name="user_edit_click_to_update">点击修改</string>
+    <string name="user_edit_click_to_relate">点击关联</string>
+    <string name="user_edit_head">头像</string>
+    <string name="user_edit_user_name">用户名</string>
+    <string name="user_edit_email">登录邮箱</string>
+    <string name="user_edit_password">密码</string>
+    <string name="user_edit_weibo">微博</string>
+    <string name="user_edit_qq">QQ</string>
+    <string name="user_edit_wechat">微信</string>
+    <string name="login_success">登录成功！</string>
+    <string name="dialog_title_note">提示</string>
+    <string name="dialog_are_you_sure_logout">确定要注销吗？</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_confirm">确定</string>
 </resources>

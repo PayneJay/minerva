@@ -105,9 +105,5 @@ public class ArticleListViewModel extends BaseViewModel {
                 createViewModel();
             }
         });
-
-        mData.clear();
-        mData.addAll(ArticleModel.getInstance().generateArticlesData());
-        createViewModel();
     }
 }

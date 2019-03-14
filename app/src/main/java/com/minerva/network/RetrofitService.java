@@ -3,12 +3,16 @@ package com.minerva.network;
 import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.column.model.MagDetailBean;
+import com.minerva.business.mine.login.model.LoginParams;
+import com.minerva.business.mine.login.model.UserInfo;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.SpecialBean;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -36,4 +40,7 @@ public interface RetrofitService {
 
     @GET("/api/mag/detail.json")
     Observable<MagDetailBean> getMagDetailDetail(@Query("id") String pn, @Query("type") int type);
+
+    @POST("/api/login.json")
+    Observable<UserInfo> login(@Body LoginParams params);
 }

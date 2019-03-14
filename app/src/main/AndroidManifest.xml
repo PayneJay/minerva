@@ -95,6 +95,7 @@
         <activity android:name=".business.site.detail.PeriodicalDetailActivity" />
         <activity android:name=".business.category.column.MagDetailActivity" />
         <activity android:name=".business.category.book.BookDetailActivity" />
+        <activity android:name=".business.mine.user.UserEditActivity" />
     </application>
 
 </manifest>

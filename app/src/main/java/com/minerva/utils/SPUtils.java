@@ -7,10 +7,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-/**
- * Destriptions:SharedPreferences封装类
- * Created by weipengjie on 16/8/5.
- */
 public class SPUtils {
     /**
      * 保存在手机里面的文件名

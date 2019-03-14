@@ -26,7 +26,10 @@
         <item name="tabIndicatorColor">@color/color_FFFFFF</item>
         <item name="tabIndicatorHeight">3dp</item>
         <item name="tabSelectedTextColor">@color/color_FFFFFF</item>
-        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="tabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/color_70FFFFFF</item>
     </style>
 

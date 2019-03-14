@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -32,7 +33,10 @@
                     android:layout_height="@dimen/nav_dimen_size_50dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/nav_dimen_size_20dp"
-                    android:src="@drawable/icon_menu_user" />
+                    android:scaleType="fitXY"
+                    app:errorThumbnail="@{@drawable/icon_menu_user}"
+                    app:imageUrlThumbnail="@{myVM.headUrl}"
+                    app:placeHolderThumbnail="@{@drawable/icon_menu_user}" />
 
                 <TextView
                     text="@{myVM.userName}"

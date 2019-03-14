@@ -3,15 +3,17 @@ package com.minerva.business.mine.login;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.ObservableField;
+import android.widget.Toast;
 
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.mine.login.model.LoginModel;
+import com.minerva.business.mine.login.model.UserInfo;
 import com.minerva.common.Constants;
+import com.minerva.network.NetworkObserver;
+import com.minerva.utils.ResouceUtils;
 import com.minerva.utils.SPUtils;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class LoginViewModel extends BaseViewModel {
     public ObservableField<String> email = new ObservableField<>();
@@ -24,30 +26,43 @@ public class LoginViewModel extends BaseViewModel {
 
     public void signIn() {
         if (LoginModel.getInstance().isEmailValid(context, email.get())
-                && LoginModel.getInstance().isPasswordValid(context, password.get())
-                && LoginModel.getInstance().isMatch(context, email.get(), password.get())) {
+                && LoginModel.getInstance().isPasswordValid(context, password.get())) {
             login();
         }
     }
 
-    /**
-     * 说明:登录
-     * <p>
-     * 这里为了展示对话框,将对话框固定显示了3秒
-     */
     private void login() {
         showDialog();
 
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
+        LoginModel.getInstance().doLogin(email.get(), password.get(), new NetworkObserver<UserInfo>() {
             @Override
-            public void run() {
-                SPUtils.put(context, Constants.LoginInfo.IS_LOGIN, true);
+            public void onSuccess(UserInfo userInfo) {
                 mProgressDialog.dismiss();
-                ((BaseActivity) context).finish();
+                Toast.makeText(context, ResouceUtils.getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+                UserInfo.UserBean user = userInfo.getUser();
+                if (user != null) {
+                    saveUserInfo(user);
+                    ((BaseActivity) context).finish();
+                }
             }
-        };
-        timer.schedule(timerTask, 3000);
+
+            @Override
+            public void onFailure() {
+                mProgressDialog.dismiss();
+            }
+        });
+    }
+
+    private void saveUserInfo(UserInfo.UserBean user) {
+        SPUtils.put(context, Constants.UserInfoKey.USER_ID, user.getUid());
+        SPUtils.put(context, Constants.UserInfoKey.USER_TOKEN, user.getToken());
+
+        SPUtils.put(context, Constants.UserInfoKey.USER_PROFILE, user.getProfile());
+        SPUtils.put(context, Constants.UserInfoKey.USER_NAME, user.getName());
+        SPUtils.put(context, Constants.UserInfoKey.USER_EMAIL, user.getEmail());
+        SPUtils.put(context, Constants.UserInfoKey.WEIBO, user.getWeibo_name());
+        SPUtils.put(context, Constants.UserInfoKey.QQ, user.getQq_name());
+        SPUtils.put(context, Constants.UserInfoKey.WECHAT, user.getWeixin_name());
     }
 
     /**
@@ -56,7 +71,7 @@ public class LoginViewModel extends BaseViewModel {
     private void showDialog() {
         mProgressDialog = new ProgressDialog(context, R.style.AppTheme_Dark_Dialog);
         mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage("正在验证...");
+        mProgressDialog.setMessage(ResouceUtils.getString(R.string.login_verifing));
         mProgressDialog.show();
     }
 }

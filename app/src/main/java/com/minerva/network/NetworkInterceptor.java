@@ -63,7 +63,7 @@ public class NetworkInterceptor implements Interceptor {
                 .addHeader("User-Agent", getUserAgent())
                 .build();
 
-        if (GlobalData.isLogin()) {
+        if (GlobalData.getInstance().isLogin()) {
             build = request.newBuilder()
                     .headers(getHeaders(request))
                     .removeHeader("User-Agent")

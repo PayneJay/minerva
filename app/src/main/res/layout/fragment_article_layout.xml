@@ -20,7 +20,7 @@
             fragment="@{articleVM.fragment}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/nav_dimen_size_40dp"
-            app:tabTextColor="@color/color_70FFFFFF"
+            app:tabTextAppearance="@style/tabLayoutTextAppearance"
             app:viewPager="@{(viewpager)}" />
 
         <View

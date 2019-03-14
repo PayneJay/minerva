@@ -24,7 +24,7 @@ public class ArticleListFragment extends BaseFragment<ArticleListViewModel> {
             articleListViewModel = new ArticleListViewModel(getActivity(), index);
         }
 
-        articleListViewModel.isRecommendGone.set(!isRecTab || GlobalData.isLogin());
+        articleListViewModel.isRecommendGone.set(!isRecTab || GlobalData.getInstance().isLogin());
         return articleListViewModel;
     }
 
