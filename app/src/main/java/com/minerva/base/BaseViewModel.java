@@ -5,6 +5,12 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.view.View;
 
+import com.minerva.common.EventMsg;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 public abstract class BaseViewModel extends BaseObservable implements IViewModel {
     private int mViewType = -1;
     private int itemPosition = -1;
@@ -36,11 +42,12 @@ public abstract class BaseViewModel extends BaseObservable implements IViewModel
 
     @Override
     public void onAttach() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onDetach() {
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -63,6 +70,10 @@ public abstract class BaseViewModel extends BaseObservable implements IViewModel
 
     @Override
     public void onVisible(boolean isVisibleToUser) {
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(EventMsg eventMsg) {
     }
 
     @Override

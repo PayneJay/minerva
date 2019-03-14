@@ -11,9 +11,12 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.mine.login.model.LoginModel;
 import com.minerva.business.mine.login.model.UserInfo;
 import com.minerva.common.Constants;
+import com.minerva.common.EventMsg;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResouceUtils;
 import com.minerva.utils.SPUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class LoginViewModel extends BaseViewModel {
     public ObservableField<String> email = new ObservableField<>();
@@ -42,6 +45,7 @@ public class LoginViewModel extends BaseViewModel {
                 UserInfo.UserBean user = userInfo.getUser();
                 if (user != null) {
                     saveUserInfo(user);
+                    EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.LOGIN_SUCCESS));
                     ((BaseActivity) context).finish();
                 }
             }

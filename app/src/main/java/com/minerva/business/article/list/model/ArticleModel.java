@@ -2,6 +2,7 @@ package com.minerva.business.article.list.model;
 
 import com.minerva.R;
 import com.minerva.common.Constants;
+import com.minerva.common.GlobalData;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.network.RetrofitService;
 import com.minerva.utils.CommonUtils;
@@ -35,12 +36,19 @@ public class ArticleModel {
      *
      * @param index    当前tab位置
      * @param lang
+     * @param lastID   上一页最后一条id
+     * @param page     当前页数
      * @param observer 网络回调
      */
-    public void getArticleList(int index, int lang, Observer<? super ArticleBean> observer) {
+    public void getArticleList(int index, int lang, String lastID, int page, Observer<? super ArticleBean> observer) {
         RetrofitService server = RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null).getServer();
-        if (index == 1) {//推荐模块
-            server.getRecArticles(30, lang, "0", 1)
+        if (index == 1) {//是推荐模块
+            //是未登录态
+            if (!GlobalData.getInstance().isLogin()) {
+                return;
+            }
+
+            server.getRecArticles(30, lang, "0", 1, lastID, page)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(observer);
@@ -48,7 +56,7 @@ public class ArticleModel {
         }
 
         //其他模块
-        server.getHotArticles(30, lang, mTypeList.get(index).getTabId(), 1)
+        server.getHotArticles(30, lang, mTypeList.get(index).getTabId(), 1, lastID, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

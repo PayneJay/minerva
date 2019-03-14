@@ -65,6 +65,8 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
         }
     };
     private String periodicalID, image, name;
+    private int mCurrentPage; //当前页数
+    private String mLastID; //最后一条id
     private List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
 
     PeriodicalDetailViewModel(Context context) {
@@ -83,29 +85,24 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
+            mCurrentPage = 0;
+            mLastID = "";
+            refreshing.set(true);
             getPeriodicalDetail();
         }
     };
 
     public void loadMore() {
-        Log.e(Constants.TAG, "loadMore...");
-        for (int i = 0; i < 15; i++) {
-            items.add(new ArticleItemViewModel(context));
-        }
+        mCurrentPage++;
+        getPeriodicalDetail();
     }
 
     private void getPeriodicalDetail() {
-        refreshing.set(true);
-        PeriodicalModel.getInstance().getPeriodicalDetail(periodicalID, new NetworkObserver<ArticleBean>() {
+        PeriodicalModel.getInstance().getPeriodicalDetail(periodicalID, mCurrentPage, mLastID, new NetworkObserver<ArticleBean>() {
             @Override
             public void onSuccess(ArticleBean articleBean) {
                 refreshing.set(false);
-                PeriodicalTitleViewModel viewModel = new PeriodicalTitleViewModel(context);
-                viewModel.imgUrl.set(image);
-                viewModel.name.set(name);
-                items.add(viewModel);
-                mData.clear();
-                mData.addAll(articleBean.getArticles());
+                handleData(articleBean);
                 createViewModel();
             }
 
@@ -116,7 +113,32 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
         });
     }
 
+    /**
+     * 处理返回数据
+     *
+     * @param articleBean
+     */
+    private void handleData(ArticleBean articleBean) {
+        if (articleBean == null) {
+            return;
+        }
+
+        List<ArticleBean.ArticlesBean> articles = articleBean.getArticles();
+        mLastID = articles.get(articles.size() - 1).getId();
+        mData.clear();
+        mData.addAll(articles);
+    }
+
     private void createViewModel() {
+        if (mCurrentPage == 0) {
+            items.clear();
+
+            PeriodicalTitleViewModel titleViewModel = new PeriodicalTitleViewModel(context);
+            titleViewModel.imgUrl.set(image);
+            titleViewModel.name.set(name);
+            items.add(titleViewModel);
+        }
+
         for (int i = 0; i < mData.size(); i++) {
             ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
             ArticleBean.ArticlesBean articlesBean = mData.get(i);

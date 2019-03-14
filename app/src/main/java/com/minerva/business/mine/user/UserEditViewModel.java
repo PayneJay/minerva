@@ -1,7 +1,11 @@
 package com.minerva.business.mine.user;
 
+import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.v7.widget.Toolbar;
@@ -12,10 +16,14 @@ import android.view.View;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.home.HomeActivity;
 import com.minerva.common.Constants;
+import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.utils.ResouceUtils;
 import com.minerva.utils.SPUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import static android.support.v7.app.AlertDialog.*;
 
@@ -123,6 +131,7 @@ public class UserEditViewModel extends BaseViewModel {
 
     private void logOut() {
         GlobalData.getInstance().clear();
+        restartApp();
     }
 
     /**
@@ -141,5 +150,12 @@ public class UserEditViewModel extends BaseViewModel {
                     }
                 });
         builder.show();
+    }
+
+    private void restartApp() {
+        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }

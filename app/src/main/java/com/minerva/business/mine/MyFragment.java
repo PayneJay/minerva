@@ -5,9 +5,14 @@ import com.minerva.R;
 import com.minerva.base.BaseFragment;
 
 public class MyFragment extends BaseFragment<MyViewModel> {
+    private MyViewModel myViewModel;
+
     @Override
     protected MyViewModel getViewModel() {
-        return new MyViewModel(getActivity());
+        if (myViewModel == null) {
+            myViewModel = new MyViewModel(getActivity());
+        }
+        return myViewModel;
     }
 
     @Override
@@ -18,5 +23,13 @@ public class MyFragment extends BaseFragment<MyViewModel> {
     @Override
     protected int getVariableId() {
         return BR.myVM;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (myViewModel != null) {
+            myViewModel.onDetach();
+        }
     }
 }

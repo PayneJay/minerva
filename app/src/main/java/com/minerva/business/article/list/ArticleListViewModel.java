@@ -6,6 +6,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.minerva.BR;
@@ -15,7 +16,10 @@ import com.minerva.R;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.article.list.model.ArticleModel;
 import com.minerva.base.BaseViewModel;
+import com.minerva.common.EventMsg;
 import com.minerva.network.NetworkObserver;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +45,14 @@ public class ArticleListViewModel extends BaseViewModel {
         }
     };
     private List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
-    private int mIndex;
+    private int mCurrentTab; //当前Tab
+    private int mCurrentPage; //当前页数
+    private String mLastID; //最后一条id
 
     ArticleListViewModel(Context context, int index) {
         super(context);
-        this.mIndex = index;
+        this.mCurrentTab = index;
+        EventBus.getDefault().register(this);
         requestServer();
     }
 
@@ -56,23 +63,35 @@ public class ArticleListViewModel extends BaseViewModel {
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
+            mCurrentPage = 0;
+            mLastID = "";
+            refreshing.set(true);
             requestServer();
         }
     };
 
     public void loadMore() {
-        Log.e(Constants.TAG, "loadMore...");
-        for (int i = 0; i < 15; i++) {
-            items.add(new ArticleItemViewModel(context));
-        }
+        mCurrentPage++;
+        requestServer();
     }
 
     public void goLogin() {
         context.startActivity(new Intent(context, LoginActivity.class));
     }
 
+    @Override
+    public void onEvent(EventMsg eventMsg) {
+        super.onEvent(eventMsg);
+        if (TextUtils.equals(eventMsg.getMsg(), Constants.EventMsgKey.LOGIN_SUCCESS)) {
+            requestServer();
+        }
+    }
+
     private void createViewModel() {
-        items.clear();
+        if (mCurrentPage == 0) {
+            items.clear();
+        }
+
         for (int i = 0; i < mData.size(); i++) {
             ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
             ArticleBean.ArticlesBean articlesBean = mData.get(i);
@@ -85,25 +104,39 @@ public class ArticleListViewModel extends BaseViewModel {
     }
 
     private void requestServer() {
-        refreshing.set(true);
-        ArticleModel.getInstance().getArticleList(mIndex, 1, new NetworkObserver<ArticleBean>() {
+        ArticleModel.getInstance().getArticleList(mCurrentTab, 1, mLastID, mCurrentPage, new NetworkObserver<ArticleBean>() {
             @Override
             public void onSuccess(ArticleBean articleBean) {
                 refreshing.set(false);
-                Log.i(Constants.TAG, "getArticleList===success " + articleBean.isSuccess());
-                mData.clear();
-                mData.addAll(articleBean.getArticles());
+                isRecommendGone.set(true);
+                handleData(articleBean);
                 createViewModel();
             }
 
             @Override
             public void onFailure() {
                 refreshing.set(false);
-                Log.i(Constants.TAG, "getArticleList===failure");
                 mData.clear();
                 mData.addAll(ArticleModel.getInstance().generateArticlesData());
                 createViewModel();
             }
         });
+    }
+
+    /**
+     * 处理返回数据
+     *
+     * @param articleBean
+     */
+    private void handleData(ArticleBean articleBean) {
+        if (articleBean == null) {
+            return;
+        }
+
+        List<ArticleBean.ArticlesBean> articles = articleBean.getArticles();
+        mCurrentPage = articleBean.getPn();
+        mLastID = articles.get(articles.size() - 1).getId();
+        mData.clear();
+        mData.addAll(articles);
     }
 }

@@ -58,6 +58,10 @@ public class Constants {
         String WECHAT = "minerva_wechat";
     }
 
+    public interface EventMsgKey {
+        String LOGIN_SUCCESS = "login_success";
+    }
+
     public interface Activity {
         /**
          * get action through root filter key

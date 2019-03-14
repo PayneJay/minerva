@@ -3,7 +3,6 @@ package com.minerva.business.site.detail;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.network.RetrofitService;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,10 +18,10 @@ public class PeriodicalModel {
         return instance;
     }
 
-    public void getPeriodicalDetail(String aid, Observer<? super ArticleBean> observer) {
+    public void getPeriodicalDetail(String aid, int page, String lastID, Observer<? super ArticleBean> observer) {
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
                 .getServer()
-                .getPeriodicalDetail(aid, 0, 30, 1)
+                .getPeriodicalDetail(aid, page, lastID, 30, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
