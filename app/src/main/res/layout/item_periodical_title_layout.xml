@@ -6,6 +6,8 @@
         <variable
             name="periodicalTitleVM"
             type="com.minerva.business.site.detail.PeriodicalTitleViewModel" />
+
+        <import type="com.minerva.common.Constants.BitmapTransform" />
     </data>
 
     <LinearLayout
@@ -19,8 +21,9 @@
             errorThumbnail="@{@drawable/icon_topic_default}"
             imageUrlThumbnail="@{periodicalTitleVM.imgUrl}"
             placeHolderThumbnail="@{@drawable/icon_topic_default}"
-            android:layout_width="@dimen/nav_dimen_size_50dp"
-            android:layout_height="@dimen/nav_dimen_size_50dp"
+            thumbnailType="@{BitmapTransform.CIRCLE}"
+            android:layout_width="@dimen/nav_dimen_size_60dp"
+            android:layout_height="@dimen/nav_dimen_size_60dp"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitXY" />
 

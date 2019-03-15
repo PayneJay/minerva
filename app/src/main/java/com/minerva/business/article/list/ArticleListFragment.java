@@ -1,14 +1,9 @@
 package com.minerva.business.article.list;
 
-import android.util.Log;
-
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseFragment;
-import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
-
-import org.greenrobot.eventbus.EventBus;
 
 public class ArticleListFragment extends BaseFragment<ArticleListViewModel> {
     private ArticleListViewModel articleListViewModel;

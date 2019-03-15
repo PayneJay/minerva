@@ -11,6 +11,8 @@ public class Constants {
 
     public static final String HOST = "http://api.tuicool.com";
 
+    public static final String shareBaseUrl = "http://www.tuicool.com/articles/";
+
     public static void showToast(Context context) {
         Toast.makeText(context, "攻城狮正在奋力开发中，尽情期待……", Toast.LENGTH_SHORT).show();
     }
@@ -56,6 +58,13 @@ public class Constants {
         String WEIBO = "minerva_weibo";
         String QQ = "minerva_qq";
         String WECHAT = "minerva_wechat";
+    }
+
+    public interface BitmapTransform {
+        int CIRCLE = 100;//圆形图片
+
+        int ROUNDED = 200;//圆角图片
+
     }
 
     public interface EventMsgKey {

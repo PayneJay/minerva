@@ -63,7 +63,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                 .setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR)
                 .setShareboardBackgroundColor(ResouceUtils.getColor(R.color.color_FFFFFF));
 
-        UMWeb web = new UMWeb("http://www.tuicool.com/articles/" + articleID);
+        UMWeb web = new UMWeb(Constants.shareBaseUrl + articleID);
         if (article != null) {
             web.setTitle(article.getFeed_title());//标题
             UMImage thumb = new UMImage(context, R.mipmap.icon_launcher);

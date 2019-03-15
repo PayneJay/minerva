@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.hgdendi.expandablerecycleradapter.BaseExpandableRecyclerViewAdapter;
 import com.minerva.R;
@@ -23,9 +24,6 @@ import java.util.List;
 class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX, SitesBean.ItemsBeanX.ItemsBean, SiteAdapter.GroupVH, SiteAdapter.ChildVH> {
     private List<SitesBean.ItemsBeanX> mList;
     private Context context;
-    private RequestOptions mRequestOptions = RequestOptions.circleCropTransform()
-            .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
-            .skipMemoryCache(true);//不做内存缓存
 
     public SiteAdapter(Context context, List<SitesBean.ItemsBeanX> list) {
         this.context = context;
@@ -89,7 +87,7 @@ class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX
                 .load(sampleChildBean.getImage())
                 .placeholder(R.drawable.icon_topic_default)
                 .error(R.drawable.icon_topic_default)
-                .apply(mRequestOptions)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(holder.icon);
     }
 

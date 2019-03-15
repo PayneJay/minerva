@@ -25,7 +25,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.minerva.common.Constants;
 
 import java.io.File;
 
@@ -145,16 +150,52 @@ public class ViewBindings {
                 .into(imageView);
     }
 
-    @BindingAdapter({"imageUrlThumbnail", "placeHolderThumbnail", "errorThumbnail"})
-    public static void loadImageWithThumbnal(final ImageView imageView, String url, Drawable holderDrawable, Drawable errorDrawable) {
-        Glide.with(imageView.getContext())
-                .load(url)
-                .placeholder(holderDrawable)
-                .error(errorDrawable)
-                .centerCrop()
-                .thumbnail(0.1f)
-                .dontAnimate()
-                .into(imageView);
+    /**
+     * Glide加载网络图片
+     *
+     * @param imageView      image控件
+     * @param url            图片链接
+     * @param holderDrawable 默认图片
+     * @param errorDrawable  错误图片
+     * @param type           类型（圆形/圆角）
+     * @param corners        圆角弧度
+     */
+    @BindingAdapter(value = {"imageUrlThumbnail", "placeHolderThumbnail", "errorThumbnail", "thumbnailType", "thumbnailCorners"}, requireAll = false)
+    public static void loadImageWithThumbnail(final ImageView imageView, String url, Drawable holderDrawable, Drawable errorDrawable, int type, int corners) {
+        switch (type) {
+            case Constants.BitmapTransform.CIRCLE:
+                Glide.with(imageView.getContext())
+                        .load(url)
+                        .placeholder(holderDrawable)
+                        .error(errorDrawable)
+                        .centerCrop()
+                        .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                        .thumbnail(0.1f)
+                        .dontAnimate()
+                        .into(imageView);
+                break;
+            case Constants.BitmapTransform.ROUNDED:
+                Glide.with(imageView.getContext())
+                        .load(url)
+                        .placeholder(holderDrawable)
+                        .error(errorDrawable)
+                        .centerCrop()
+                        .apply(RequestOptions.bitmapTransform(new RoundedCorners(corners)))
+                        .thumbnail(0.1f)
+                        .dontAnimate()
+                        .into(imageView);
+                break;
+            default:
+                Glide.with(imageView.getContext())
+                        .load(url)
+                        .placeholder(holderDrawable)
+                        .error(errorDrawable)
+                        .centerCrop()
+                        .thumbnail(0.1f)
+                        .dontAnimate()
+                        .into(imageView);
+                break;
+        }
     }
 
     /**

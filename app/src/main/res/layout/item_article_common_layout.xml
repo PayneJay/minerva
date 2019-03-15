@@ -9,6 +9,8 @@
             type="com.minerva.business.article.list.ArticleItemViewModel" />
 
         <import type="com.minerva.R" />
+
+        <import type="com.minerva.common.Constants.BitmapTransform" />
     </data>
 
     <LinearLayout
@@ -48,6 +50,8 @@
 
             <ImageView
                 android:id="@+id/image"
+                thumbnailCorners="@{5}"
+                thumbnailType="@{BitmapTransform.ROUNDED}"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
