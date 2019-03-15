@@ -6,7 +6,7 @@
 
         <variable
             name="specialVM"
-            type="com.minerva.business.category.column.SpecialViewModel" />
+            type="com.minerva.business.category.mag.SpecialViewModel" />
     </data>
 
     <LinearLayout

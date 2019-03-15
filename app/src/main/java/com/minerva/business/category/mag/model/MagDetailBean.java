@@ -1,4 +1,4 @@
-package com.minerva.business.category.column.model;
+package com.minerva.business.category.mag.model;
 
 import com.minerva.base.BaseBean;
 

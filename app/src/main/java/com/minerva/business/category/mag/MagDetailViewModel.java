@@ -1,4 +1,4 @@
-package com.minerva.business.category.column;
+package com.minerva.business.category.mag;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
@@ -16,8 +16,8 @@ import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.category.column.model.MagDetailBean;
-import com.minerva.business.category.column.model.MagModel;
+import com.minerva.business.category.mag.model.MagDetailBean;
+import com.minerva.business.category.mag.model.MagModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 
@@ -105,7 +105,7 @@ public class MagDetailViewModel extends BaseViewModel {
 
     private void getMagDetail() {
         refreshing.set(true);
-        MagModel.getInstance().getMagDetailDetail(magID, type, new NetworkObserver<MagDetailBean>() {
+        MagModel.getInstance().getMagDetail(magID, type, new NetworkObserver<MagDetailBean>() {
             @Override
             public void onSuccess(MagDetailBean magDetailBean) {
                 refreshing.set(false);

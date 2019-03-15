@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.business.category.model.BookBean;
-import com.minerva.business.category.model.SpecialBean;
+import com.minerva.business.category.model.MagBean;
 import com.minerva.common.Constants;
 
 import java.io.IOException;
@@ -19,8 +19,8 @@ public class CommonUtils {
         return CommonUtils.getBeanFormAssetJson("sites.json", type);
     }
 
-    public static SpecialBean getSpecialListFromJson() {
-        Type type = new TypeToken<SpecialBean>() {
+    public static MagBean getSpecialListFromJson() {
+        Type type = new TypeToken<MagBean>() {
         }.getType();
         return CommonUtils.getBeanFormAssetJson("special.json", type);
     }

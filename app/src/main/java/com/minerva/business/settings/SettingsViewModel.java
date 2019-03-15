@@ -26,7 +26,7 @@ public class SettingsViewModel extends BaseViewModel {
         }
     };
 
-    public SettingsViewModel(Context context) {
+    SettingsViewModel(Context context) {
         super(context);
 
         try {

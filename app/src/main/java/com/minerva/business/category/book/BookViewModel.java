@@ -10,7 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.category.column.SpecialGroupViewModel;
+import com.minerva.business.category.mag.SpecialGroupViewModel;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.SpecialModel;
 import com.minerva.common.Constants;
@@ -109,6 +109,8 @@ public class BookViewModel extends BaseViewModel {
         for (BookBean.ItemsBean groupItem : beanXList) {
             SpecialGroupViewModel groupViewModel = new SpecialGroupViewModel(context);
             groupViewModel.groupName.set(groupItem.getTagName());
+            groupViewModel.type = groupItem.getTagId();
+            groupViewModel.tabType = Constants.CategoryTabType.TAB_BOOK;
             items.add(groupViewModel);
 
             List<BookBean.ItemsBean.BooksBean> beanList = groupItem.getBooks();

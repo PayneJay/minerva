@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.minerva.R;
 import com.minerva.base.BaseFragment;
 import com.minerva.business.category.book.BookFragment;
-import com.minerva.business.category.column.SpecialFragment;
+import com.minerva.business.category.mag.SpecialFragment;
 import com.minerva.utils.ResouceUtils;
 
 import java.util.ArrayList;

@@ -86,4 +86,5 @@
     <string name="dialog_are_you_sure_logout">确定要注销吗？</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_confirm">确定</string>
+    <string name="update_today">今日更新</string>
 </resources>

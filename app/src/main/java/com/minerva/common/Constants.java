@@ -24,6 +24,11 @@ public class Constants {
         String METHOD_DELETE = "delete";
     }
 
+    public interface CategoryTabType {
+        String TAB_MAG = "tab_mag";
+        String TAB_BOOK = "tab_book";
+    }
+
     public interface RecyclerItemType {
         int BLANK_TYPE = 0; //空白item
         int ARTICLE_COMMON_TYPE = 1;    //文章item

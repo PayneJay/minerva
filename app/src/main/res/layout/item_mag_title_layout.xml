@@ -5,7 +5,7 @@
 
         <variable
             name="magTitleVM"
-            type="com.minerva.business.category.column.MagTitleViewModel" />
+            type="com.minerva.business.category.mag.MagTitleViewModel" />
     </data>
 
     <LinearLayout

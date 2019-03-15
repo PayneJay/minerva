@@ -2,12 +2,14 @@ package com.minerva.network;
 
 import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.model.ArticleBean;
-import com.minerva.business.category.column.model.MagDetailBean;
+import com.minerva.business.category.book.AllBook;
+import com.minerva.business.category.mag.model.MagDetailBean;
+import com.minerva.business.category.mag.model.MagPeriod;
 import com.minerva.business.mine.login.model.LoginParams;
 import com.minerva.business.mine.login.model.UserInfo;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.business.category.model.BookBean;
-import com.minerva.business.category.model.SpecialBean;
+import com.minerva.business.category.model.MagBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -30,7 +32,7 @@ public interface RetrofitService {
     Observable<SitesBean> getSiteList();
 
     @GET("/api/mag/home.json")
-    Observable<SpecialBean> getSpecialList();
+    Observable<MagBean> getSpecialList();
 
     @GET("/api/books.json")
     Observable<BookBean> getBookList();
@@ -39,8 +41,14 @@ public interface RetrofitService {
     Observable<ArticleBean> getPeriodicalDetail(@Path("aid") String aid, @Query("pn") int pn, @Query("last_id") String lastId, @Query("size") int size, @Query("is_pad") int isPad);
 
     @GET("/api/mag/detail.json")
-    Observable<MagDetailBean> getMagDetailDetail(@Query("id") String pn, @Query("type") int type);
+    Observable<MagDetailBean> getMagDetail(@Query("id") String pn, @Query("type") int type);
 
     @POST("/api/login.json")
     Observable<UserInfo> login(@Body LoginParams params);
+
+    @GET("/api/mag/period_list.json")
+    Observable<MagPeriod> getMagPeriodList(@Query("type") int type);
+
+    @GET("/api/books/tag.json")
+    Observable<AllBook> getAllBookList(@Query("tag") int tag, @Query("pn") int pn);
 }

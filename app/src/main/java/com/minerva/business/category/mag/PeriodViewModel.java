@@ -1,16 +1,19 @@
-package com.minerva.business.category.column;
+package com.minerva.business.category.mag;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 
 import com.minerva.BR;
 import com.minerva.R;
+import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.category.model.SpecialBean;
-import com.minerva.business.category.model.SpecialModel;
+import com.minerva.business.category.mag.model.MagModel;
+import com.minerva.business.category.mag.model.MagPeriod;
+import com.minerva.business.category.model.MagBean;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.DateUtils;
@@ -22,16 +25,13 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class SpecialViewModel extends BaseViewModel {
+public class PeriodViewModel extends BaseViewModel {
     public ObservableBoolean refreshing = new ObservableBoolean();
     public ObservableList<BaseViewModel> items = new ObservableArrayList<>();
-    public OnItemBind<BaseViewModel> specialItemBind = new OnItemBind<BaseViewModel>() {
+    public OnItemBind<BaseViewModel> periodItemBind = new OnItemBind<BaseViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
             switch (item.getViewType()) {
-                case Constants.RecyclerItemType.SPECIAL_GROUP_TYPE:
-                    itemBinding.set(BR.specialGroupVM, R.layout.item_special_group_layout);
-                    break;
                 case Constants.RecyclerItemType.SPECIAL_CHILD_TYPE:
                     itemBinding.set(BR.specialChildVM, R.layout.item_special_child_layout);
                     break;
@@ -41,10 +41,20 @@ public class SpecialViewModel extends BaseViewModel {
             }
         }
     };
-    private List<SpecialBean.ItemsBeanX> beanXList = new ArrayList<>();
+    public View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ((BaseActivity) context).finish();
+        }
+    };
+    public String mTitle;
+    private List<MagBean.ItemsBeanX.ItemsBean> beanList = new ArrayList<>();
+    private int mType;
 
-    SpecialViewModel(Context context) {
+    PeriodViewModel(Context context) {
         super(context);
+        mType = ((BaseActivity) context).getIntent().getIntExtra(Constants.KeyExtra.COLUMN_MAG_TYPE, 0);
+        mTitle = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.COLUMN_MAG_TITLE);
         requestServer();
     }
 
@@ -61,48 +71,36 @@ public class SpecialViewModel extends BaseViewModel {
 
     private void requestServer() {
         refreshing.set(true);
-        SpecialModel.getInstance().getSpecialList(new NetworkObserver<SpecialBean>() {
+        MagModel.getInstance().getMagPeriodList(mType, new NetworkObserver<MagPeriod>() {
             @Override
-            public void onSuccess(SpecialBean specialBean) {
+            public void onSuccess(MagPeriod magPeriod) {
                 refreshing.set(false);
-                beanXList.clear();
-                beanXList.addAll(specialBean.getItems());
+                beanList.clear();
+                beanList.addAll(magPeriod.getItems());
                 createViewModel();
             }
 
             @Override
             public void onFailure() {
                 refreshing.set(false);
-                beanXList.clear();
-                beanXList.addAll(SpecialModel.getInstance().generateColumnData());
-                createViewModel();
             }
         });
     }
 
     private void createViewModel() {
-        if (beanXList.size() <= 0) {
+        if (beanList.size() <= 0) {
             return;
         }
 
         items.clear();
-        for (SpecialBean.ItemsBeanX groupItem : beanXList) {
-            SpecialGroupViewModel groupViewModel = new SpecialGroupViewModel(context);
-            groupViewModel.groupName.set(groupItem.getName());
-            items.add(groupViewModel);
-
-            List<SpecialBean.ItemsBeanX.ItemsBean> beanList = groupItem.getItems();
-            if (beanList.size() > 0) {
-                for (SpecialBean.ItemsBeanX.ItemsBean childItem : beanList) {
-                    SpecialChildViewModel childViewModel = new SpecialChildViewModel(context);
-                    childViewModel.childName.set(childItem.getTitle());
-                    childViewModel.groupName = groupItem.getName();
-                    childViewModel.magID = childItem.getId();
-                    childViewModel.type = childItem.getType();
-                    childViewModel.dateText.set(DateUtils.Date2Str(new Date(childItem.getTime()), "MM月dd日"));
-                    items.add(childViewModel);
-                }
-            }
+        for (MagBean.ItemsBeanX.ItemsBean childItem : beanList) {
+            SpecialChildViewModel childViewModel = new SpecialChildViewModel(context);
+            childViewModel.childName.set(childItem.getTitle());
+            childViewModel.groupName = mTitle;
+            childViewModel.magID = childItem.getId();
+            childViewModel.type = childItem.getType();
+            childViewModel.setDate(childItem.getTime());
+            items.add(childViewModel);
         }
     }
 }

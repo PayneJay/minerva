@@ -5,50 +5,47 @@
     <data>
 
         <variable
-            name="magVM"
-            type="com.minerva.business.category.mag.MagDetailViewModel" />
+            name="periodVM"
+            type="com.minerva.business.category.mag.PeriodViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_EEEEEE"
+        android:gravity="center"
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:elevation="0dp">
+            android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                navigationClickListener="@{magVM.backListener}"
+                navigationClickListener="@{periodVM.listener}"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@{magVM.title}" />
+                app:title="@{periodVM.mTitle}" />
 
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
-            colorSchemeColors="@{magVM.colors}"
-            onRefreshListener="@{magVM.onRefreshListener}"
-            refreshing="@{magVM.refreshing}"
+            colorSchemeColors="@{periodVM.colors}"
+            onRefreshListener="@{periodVM.onRefreshListener}"
+            refreshing="@{periodVM.refreshing}"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
-                itemBinding="@{magVM.magItemBind}"
-                items="@{magVM.items}"
-                loadMore="@{magVM::loadMore}"
-                onRecyclerScrollListener="@{magVM.onScrollListener}"
+                itemBinding="@{periodVM.periodItemBind}"
+                items="@{periodVM.items}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:overScrollMode="never"
                 app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
         </android.support.v4.widget.SwipeRefreshLayout>
+
     </LinearLayout>
 </layout>

@@ -5,7 +5,7 @@ import com.minerva.base.BaseBean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpecialBean extends BaseBean {
+public class MagBean extends BaseBean {
 
     private List<ItemsBeanX> items = new ArrayList<>();
 

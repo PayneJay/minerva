@@ -1,4 +1,4 @@
-package com.minerva.business.category.column;
+package com.minerva.business.category.mag;
 
 import com.minerva.R;
 import com.minerva.BR;
