@@ -99,6 +99,7 @@
         <activity android:name=".business.mine.user.UserEditActivity" />
         <activity android:name=".business.category.mag.MagPeriodActivity" />
         <activity android:name=".business.category.book.AllBookActivity" />
+        <activity android:name=".business.site.PolymerReadActivity" />
     </application>
 
 </manifest>

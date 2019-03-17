@@ -103,4 +103,13 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     public void onCancel(SHARE_MEDIA share_media) {
         Toast.makeText(context, "分享取消了……", Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * 关闭分享面板
+     */
+    void closeShareAction() {
+        if (mShareAction != null) {
+            mShareAction.close();
+        }
+    }
 }

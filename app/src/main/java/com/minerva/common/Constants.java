@@ -42,6 +42,7 @@ public class Constants {
     public interface KeyExtra {
         String ARTICLE_ID = "article_id";
         String PERIODICAL_ID = "periodical_id";
+        String POLYMER_ID = "polymer_id";
         String PERIODICAL_IMAGE = "periodical_image";
         String PERIODICAL_NAME = "periodical_name";
         String COLUMN_MAG_ID = "column_mag_id";

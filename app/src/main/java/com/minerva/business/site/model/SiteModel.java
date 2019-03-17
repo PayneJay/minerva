@@ -1,6 +1,7 @@
 package com.minerva.business.site.model;
 
 
+import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.CommonUtils;
@@ -39,10 +40,32 @@ public class SiteModel {
         return list;
     }
 
+    /**
+     * 获取站点信息列表
+     *
+     * @param observer 回调
+     */
     public void getSiteList(Observer<? super SitesBean> observer) {
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
                 .getServer()
                 .getSiteList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 获取聚合阅读列表
+     *
+     * @param id       聚合id
+     * @param page     请求第几页
+     * @param code     code
+     * @param observer 回调
+     */
+    public void getPolymerReadList(int id, int page, String code, Observer<? super PolymerRead> observer) {
+        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
+                .getServer()
+                .getPolymerReadList(id, page, code, -1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

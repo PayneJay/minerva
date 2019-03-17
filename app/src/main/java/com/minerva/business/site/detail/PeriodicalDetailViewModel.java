@@ -63,18 +63,19 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
             }
         }
     };
-    private String periodicalID, image, name;
-    private int mCurrentPage; //当前页数
+    protected int mCurrentPage; //当前页数
+    protected List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
     private String mLastID; //最后一条id
-    private List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
+    protected String name;
+    private String periodicalID, image;
 
-    PeriodicalDetailViewModel(Context context) {
+    public PeriodicalDetailViewModel(Context context) {
         super(context);
 
         periodicalID = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_ID);
         image = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_IMAGE);
         name = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_NAME);
-        getPeriodicalDetail();
+        requestServer();
     }
 
     public int[] getColors() {
@@ -87,16 +88,16 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
             mCurrentPage = 0;
             mLastID = "";
             refreshing.set(true);
-            getPeriodicalDetail();
+            requestServer();
         }
     };
 
     public void loadMore() {
         mCurrentPage++;
-        getPeriodicalDetail();
+        requestServer();
     }
 
-    private void getPeriodicalDetail() {
+    protected void requestServer() {
         PeriodicalModel.getInstance().getPeriodicalDetail(periodicalID, mCurrentPage, mLastID, new NetworkObserver<ArticleBean>() {
             @Override
             public void onSuccess(ArticleBean articleBean) {
@@ -128,7 +129,7 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
         mData.addAll(articles);
     }
 
-    private void createViewModel() {
+    protected void createViewModel() {
         if (mCurrentPage == 0) {
             items.clear();
 

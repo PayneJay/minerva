@@ -62,7 +62,7 @@ public class RetrofitHelper {
         return Constants.HOST;
     }
 
-    public static HashMap<String, String> getHeaders(String method) {
+    private static HashMap<String, String> getHeaders(String method) {
         HashMap<String, String> headers = new HashMap<>();
         if (GlobalData.getInstance().isLogin()) {
             headers.put("Authorization", getBasicAuth());

@@ -7,6 +7,7 @@ import com.minerva.business.category.mag.model.MagDetailBean;
 import com.minerva.business.category.mag.model.MagPeriod;
 import com.minerva.business.mine.login.model.LoginParams;
 import com.minerva.business.mine.login.model.UserInfo;
+import com.minerva.business.site.model.PolymerRead;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.MagBean;
@@ -51,4 +52,7 @@ public interface RetrofitService {
 
     @GET("/api/books/tag.json")
     Observable<AllBook> getAllBookList(@Query("tag") int tag, @Query("pn") int pn);
+
+    @GET("/api/sites/juhe_reading.json")
+    Observable<PolymerRead> getPolymerReadList(@Query("id") int tag, @Query("pn") int pn, @Query("code") String code, @Query("lang") int lang);
 }

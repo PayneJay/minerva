@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.hgdendi.expandablerecycleradapter.BaseExpandableRecyclerViewAdapter;
 import com.minerva.R;
+import com.minerva.business.site.PolymerReadActivity;
 import com.minerva.business.site.detail.PeriodicalDetailActivity;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.Constants;
@@ -59,7 +59,7 @@ class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX
     }
 
     @Override
-    public void onBindGroupViewHolder(GroupVH holder, SitesBean.ItemsBeanX sampleGroupBean, boolean isExpanding) {
+    public void onBindGroupViewHolder(GroupVH holder, final SitesBean.ItemsBeanX sampleGroupBean, boolean isExpanding) {
         holder.nameTv.setText(sampleGroupBean.getName());
         if (sampleGroupBean.isExpandable()) {
             holder.foldIv.setVisibility(View.VISIBLE);
@@ -67,6 +67,15 @@ class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX
         } else {
             holder.foldIv.setVisibility(View.INVISIBLE);
         }
+        holder.readTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PolymerReadActivity.class);
+                intent.putExtra(Constants.KeyExtra.POLYMER_ID, sampleGroupBean.getId());
+                intent.putExtra(Constants.KeyExtra.PERIODICAL_NAME, sampleGroupBean.getName());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -93,12 +102,13 @@ class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX
 
     static class GroupVH extends BaseExpandableRecyclerViewAdapter.BaseGroupViewHolder {
         ImageView foldIv;
-        TextView nameTv;
+        TextView nameTv, readTv;
 
         GroupVH(View itemView) {
             super(itemView);
             foldIv = itemView.findViewById(R.id.group_item_indicator);
             nameTv = itemView.findViewById(R.id.group_item_name);
+            readTv = itemView.findViewById(R.id.group_item_aggregate_reading);
         }
 
         @Override
