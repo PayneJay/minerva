@@ -26,8 +26,11 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/nav_dimen_size_10dp"
-        android:padding="@dimen/nav_dimen_size_5dp"
         android:background="@drawable/shape_rectangle_button_color_8a8a8a"
+        android:paddingLeft="@dimen/nav_dimen_size_5dp"
+        android:paddingTop="@dimen/nav_dimen_size_2dp"
+        android:paddingRight="@dimen/nav_dimen_size_5dp"
+        android:paddingBottom="@dimen/nav_dimen_size_2dp"
         android:text="@string/polymer_read"
         android:textColor="@android:color/white" />
 

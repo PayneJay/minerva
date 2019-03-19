@@ -65,9 +65,10 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
     };
     protected int mCurrentPage; //当前页数
     protected List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
-    private String mLastID; //最后一条id
     protected String name;
     private String periodicalID, image;
+    private String mLastID; //最后一条id
+    private boolean hasNext;
 
     public PeriodicalDetailViewModel(Context context) {
         super(context);
@@ -93,8 +94,10 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
     };
 
     public void loadMore() {
-        mCurrentPage++;
-        requestServer();
+        if (hasNext) {
+            mCurrentPage++;
+            requestServer();
+        }
     }
 
     protected void requestServer() {
@@ -116,13 +119,14 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
     /**
      * 处理返回数据
      *
-     * @param articleBean
+     * @param articleBean 返回数据
      */
     private void handleData(ArticleBean articleBean) {
         if (articleBean == null) {
             return;
         }
 
+        hasNext = articleBean.isHas_next();
         List<ArticleBean.ArticlesBean> articles = articleBean.getArticles();
         mLastID = articles.get(articles.size() - 1).getId();
         mData.clear();

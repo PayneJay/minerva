@@ -6,12 +6,6 @@ import android.util.Log;
 
 import com.minerva.common.Constants;
 
-/**
- * @author yuemeilin
- * @ClassName: ResouceUtils
- * @Description: TODO(in one word)
- * @date 2014-11-26 下午6:23:15
- */
 public class ResouceUtils {
 
     /**

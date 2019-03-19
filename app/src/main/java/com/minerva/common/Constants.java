@@ -34,9 +34,12 @@ public class Constants {
         int ARTICLE_COMMON_TYPE = 1;    //文章item
         int SPECIAL_GROUP_TYPE = 2;    //专栏group item
         int SPECIAL_CHILD_TYPE = 3;    //专栏child item
-        int PERIODICAL_TYPE = 4;        //期刊头部item
-        int MAG_CHILD_TYPE = 5;
-        int MAG_TITLE_TYPE = 6;
+        int PERIODICAL_TYPE = 4;       //期刊头部item
+        int MAG_CHILD_TYPE = 5;     //期刊详情列表item
+        int MAG_TITLE_TYPE = 6;     //期刊详情头部item
+        int SEARCH_SITE_TYPE = 7;   //搜索站点列表item
+        int SEARCH_BOOK_TYPE = 8;   //搜索图书列表item
+        int SEARCH_KW_HISTORY_TYPE = 9;   //搜索关键字列表item
     }
 
     public interface KeyExtra {
@@ -50,6 +53,8 @@ public class Constants {
         String COLUMN_MAG_TITLE = "column_mag_title";
         String COLUMN_MAG_TYPE = "column_mag_type";
         String BOOK_JD_LINK = "book_jd_link";
+
+        String SEARCH_HISTORY_KEYWORD = "search_history_keyword";
     }
 
     public interface UserInfoKey {
@@ -75,6 +80,8 @@ public class Constants {
 
     public interface EventMsgKey {
         String LOGIN_SUCCESS = "login_success";
+        String QUERY_SUBMITTED = "query_submitted";
+        String DELETE_SEARCH_KEYWORD = "delete_search_keyword";
     }
 
     public interface Activity {

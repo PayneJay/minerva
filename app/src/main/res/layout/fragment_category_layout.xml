@@ -35,14 +35,19 @@
                 app:tabTextColor="@color/color_70FFFFFF" />
 
             <ImageView
+                onClick="@{categoryVM::onImgClick}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                onClick="@{categoryVM::onImgClick}"
                 android:imageSrc="@{categoryVM.isBookTab ? R.mipmap.icon_search : R.mipmap.icon_settings}"
                 android:paddingRight="@dimen/nav_dimen_size_15dp" />
         </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_dimen_size_1dp"
+            android:background="@color/colorPrimaryDark" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/container"

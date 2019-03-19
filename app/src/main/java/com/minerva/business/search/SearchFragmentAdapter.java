@@ -13,13 +13,14 @@ import java.util.ArrayList;
 
 public class SearchFragmentAdapter extends FragmentPagerAdapter {
     private final String[] tabTitles = new String[]{ResouceUtils.getString(R.string.tab_article), ResouceUtils.getString(R.string.tab_site),
-            ResouceUtils.getString(R.string.tab_special)};
+            ResouceUtils.getString(R.string.tab_book)};
     private ArrayList<BaseFragment> fragments = new ArrayList<>();
 
     public SearchFragmentAdapter(FragmentManager fm) {
         super(fm);
         for (int i = 0; i < tabTitles.length; i++) {
             SearchListFragment fragment = new SearchListFragment();
+            fragment.setTab(i);
             fragments.add(fragment);
         }
     }

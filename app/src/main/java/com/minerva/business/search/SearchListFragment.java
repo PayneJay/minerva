@@ -5,9 +5,19 @@ import com.minerva.BR;
 import com.minerva.base.BaseFragment;
 
 public class SearchListFragment extends BaseFragment<SearchListViewModel> {
+    private SearchListViewModel searchListViewModel;
+    private int tab; //标记当前的tab
+
+    public void setTab(int tab) {
+        this.tab = tab;
+    }
+
     @Override
     protected SearchListViewModel getViewModel() {
-        return new SearchListViewModel(getActivity());
+        if (searchListViewModel == null) {
+            searchListViewModel = new SearchListViewModel(getActivity(), tab);
+        }
+        return searchListViewModel;
     }
 
     @Override
@@ -18,5 +28,13 @@ public class SearchListFragment extends BaseFragment<SearchListViewModel> {
     @Override
     protected int getVariableId() {
         return BR.searchListVM;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (searchListViewModel != null) {
+            searchListViewModel.onDetach();
+        }
     }
 }

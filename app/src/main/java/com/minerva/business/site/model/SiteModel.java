@@ -1,7 +1,6 @@
 package com.minerva.business.site.model;
 
 
-import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.CommonUtils;
@@ -26,7 +25,12 @@ public class SiteModel {
         return instance;
     }
 
-    public List<SitesBean.ItemsBeanX> generateData() {
+    /**
+     * 加载本地静态　数据
+     *
+     * @return 返回站点信息列表数据
+     */
+    public List<SitesBean.ItemsBeanX> loadLocalData() {
         SitesBean bean = CommonUtils.getSiteListFromJson();
 
         List<SitesBean.ItemsBeanX> list = new ArrayList<>();

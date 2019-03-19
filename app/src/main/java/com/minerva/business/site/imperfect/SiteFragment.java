@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,17 +17,9 @@ import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.Constants;
 import com.minerva.common.MinervaLinearLayoutManager;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private View rootView;
@@ -81,7 +72,7 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             public void onFailure() {
                 swipeRefreshLayout.setRefreshing(false);
                 Log.i(Constants.TAG, "getSiteList failure");
-                mList = SiteModel.getInstance().generateData();
+                mList = SiteModel.getInstance().loadLocalData();
                 notifyDataSetChanged();
             }
         });

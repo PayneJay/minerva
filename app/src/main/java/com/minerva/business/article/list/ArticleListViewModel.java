@@ -45,13 +45,14 @@ public class ArticleListViewModel extends BaseViewModel {
         }
     };
     private List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
+    private String mLastID; //最后一条id
     private int mCurrentTab; //当前Tab
     private int mCurrentPage; //当前页数
-    private String mLastID; //最后一条id
+    private boolean hasNext;
 
-    ArticleListViewModel(Context context, int index) {
+    ArticleListViewModel(Context context, int tab) {
         super(context);
-        this.mCurrentTab = index;
+        this.mCurrentTab = tab;
         EventBus.getDefault().register(this);
         requestServer();
     }
@@ -71,6 +72,10 @@ public class ArticleListViewModel extends BaseViewModel {
     };
 
     public void loadMore() {
+        if (!hasNext) {
+            return;
+        }
+
         mCurrentPage++;
         requestServer();
     }
@@ -135,6 +140,7 @@ public class ArticleListViewModel extends BaseViewModel {
 
         List<ArticleBean.ArticlesBean> articles = articleBean.getArticles();
         mCurrentPage = articleBean.getPn();
+        hasNext = articleBean.isHas_next();
         mLastID = articles.get(articles.size() - 1).getId();
         mData.clear();
         mData.addAll(articles);

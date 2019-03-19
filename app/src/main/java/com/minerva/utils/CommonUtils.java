@@ -11,6 +11,7 @@ import com.minerva.common.Constants;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.List;
 
 public class CommonUtils {
     public static SitesBean getSiteListFromJson() {
@@ -56,4 +57,24 @@ public class CommonUtils {
 
         return gson.fromJson(reponseStr, typeOfT);
     }
+
+    public static String toJson(Object object) {
+        Gson gson = new Gson();
+        return gson.toJson(object);
+    }
+
+    /**
+     * json串转List
+     *
+     * @param str json
+     * @return
+     */
+    public static List<String> json2List(String str) {
+        Gson gson = new Gson();
+        List<String> history = gson.fromJson(str, new TypeToken<List<String>>() {
+        }.getType());
+
+        return history;
+    }
+
 }
