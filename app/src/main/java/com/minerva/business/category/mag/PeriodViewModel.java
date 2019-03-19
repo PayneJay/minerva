@@ -14,8 +14,10 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.category.mag.model.MagModel;
 import com.minerva.business.category.mag.model.MagPeriod;
 import com.minerva.business.category.model.MagBean;
+import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
+import com.minerva.utils.CommonUtils;
 import com.minerva.utils.DateUtils;
 
 import java.util.ArrayList;
@@ -49,6 +51,7 @@ public class PeriodViewModel extends BaseViewModel {
     };
     public String mTitle;
     private List<MagBean.ItemsBeanX.ItemsBean> beanList = new ArrayList<>();
+    private BlankViewModel mBlankVM;
     private int mType;
 
     PeriodViewModel(Context context) {
@@ -65,12 +68,23 @@ public class PeriodViewModel extends BaseViewModel {
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
+            refreshing.set(true);
             requestServer();
         }
     };
 
     private void requestServer() {
-        refreshing.set(true);
+        if (!CommonUtils.isNetworkAvailable(context)) {
+            refreshing.set(false);
+            if (mBlankVM == null) {
+                mBlankVM = new BlankViewModel(context);
+            }
+            mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
+            items.clear();
+            items.add(mBlankVM);
+            return;
+        }
+
         MagModel.getInstance().getMagPeriodList(mType, new NetworkObserver<MagPeriod>() {
             @Override
             public void onSuccess(MagPeriod magPeriod) {
@@ -89,6 +103,9 @@ public class PeriodViewModel extends BaseViewModel {
 
     private void createViewModel() {
         if (beanList.size() <= 0) {
+            if (mBlankVM != null) {
+                mBlankVM.setStatus(Constants.PageStatus.NO_DATA);
+            }
             return;
         }
 

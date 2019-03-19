@@ -14,8 +14,10 @@ import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.SpecialModel;
+import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
+import com.minerva.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,7 @@ public class AllBookViewModel extends BaseViewModel {
     };
     public String mTitle;
     private List<BookBean.ItemsBean.BooksBean> beanList = new ArrayList<>();
+    private BlankViewModel mBlankVM;
     private int mType;
     private int mCurrentPage;
     private boolean hasNext;
@@ -79,10 +82,38 @@ public class AllBookViewModel extends BaseViewModel {
     }
 
     public GridLayoutManager getGlManager() {
-        return new GridLayoutManager(context, 3);
+        GridLayoutManager glManager = new GridLayoutManager(context, 3);
+        glManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                try {
+                    if (items.get(position).getViewType() != Constants.RecyclerItemType.SPECIAL_CHILD_TYPE) {
+                        return 3;
+                    } else {
+                        return 1;
+                    }
+                } catch (Exception e) {
+                    return 3;
+                }
+            }
+        });
+        return glManager;
     }
 
     private void requestServer() {
+        if (!CommonUtils.isNetworkAvailable(context)) {
+            refreshing.set(false);
+            if (mBlankVM == null) {
+                mBlankVM = new BlankViewModel(context);
+            }
+            if (mCurrentPage == 0) {
+                items.clear();
+                mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
+                items.add(mBlankVM);
+            }
+            return;
+        }
+
         SpecialModel.getInstance().getAllBookList(mType, mCurrentPage, new NetworkObserver<AllBook>() {
             @Override
             public void onSuccess(AllBook allBook) {
@@ -91,7 +122,6 @@ public class AllBookViewModel extends BaseViewModel {
                 hasNext = allBook.isHas_next();
                 beanList.clear();
                 beanList.addAll(allBook.getItems());
-
                 createViewModel();
             }
 
@@ -107,6 +137,9 @@ public class AllBookViewModel extends BaseViewModel {
             return;
         }
 
+        if (mBlankVM != null && mCurrentPage == 0) {
+            mBlankVM.setStatus(Constants.PageStatus.NO_DATA);
+        }
         if (mCurrentPage == 0) {
             items.clear();
         }

@@ -34,7 +34,7 @@ public class Constants {
         int ARTICLE_COMMON_TYPE = 1;    //文章item
         int SPECIAL_GROUP_TYPE = 2;    //专栏group item
         int SPECIAL_CHILD_TYPE = 3;    //专栏child item
-        int PERIODICAL_TYPE = 4;       //期刊头部item
+        int PERIODICAL_TITLE_TYPE = 4;       //期刊头部item
         int MAG_CHILD_TYPE = 5;     //期刊详情列表item
         int MAG_TITLE_TYPE = 6;     //期刊详情头部item
         int SEARCH_SITE_TYPE = 7;   //搜索站点列表item
@@ -75,6 +75,13 @@ public class Constants {
         int CIRCLE = 100;//圆形图片
 
         int ROUNDED = 200;//圆角图片
+
+    }
+
+    public interface PageStatus {
+        int NO_DATA = 100;    //无数据
+
+        int NETWORK_EXCEPTION = 200;//网络异常
 
     }
 

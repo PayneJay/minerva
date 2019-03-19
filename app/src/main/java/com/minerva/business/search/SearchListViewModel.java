@@ -17,9 +17,11 @@ import com.minerva.business.category.model.BookBean;
 import com.minerva.business.search.model.ArticleResult;
 import com.minerva.business.search.model.SearchModel;
 import com.minerva.business.search.model.SiteResult;
+import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.network.NetworkObserver;
+import com.minerva.utils.CommonUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -57,6 +59,7 @@ public class SearchListViewModel extends BaseViewModel {
     private List<ArticleBean.ArticlesBean> mArticleData = new ArrayList<>();
     private List<SiteResult.ResultItem> mSiteData = new ArrayList<>();
     private List<BookBean.ItemsBean.BooksBean> mBookData = new ArrayList<>();
+    private BlankViewModel mBlankVM;
     private String keyWord;
     private int mCurrentTab; //当前Tab
     private int mCurrentPage; //当前页数
@@ -110,6 +113,21 @@ public class SearchListViewModel extends BaseViewModel {
     }
 
     private void requestServer() {
+        if (!CommonUtils.isNetworkAvailable(context)) {
+            refreshing.set(false);
+
+            if (mCurrentPage == 0) {
+                items.clear();
+                if (mBlankVM == null) {
+                    mBlankVM = new BlankViewModel(context);
+                }
+                items.clear();
+                mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
+                items.add(mBlankVM);
+            }
+            return;
+        }
+
         switch (mCurrentTab) {
             case 0://搜索文章
                 searchArticle();
@@ -136,6 +154,8 @@ public class SearchListViewModel extends BaseViewModel {
                     mArticleData.clear();
                     mArticleData.addAll(articles);
                     createArticleItemViewModel();
+                } else {
+                    setEmptyPage();
                 }
             }
 
@@ -157,6 +177,8 @@ public class SearchListViewModel extends BaseViewModel {
                     mSiteData.clear();
                     mSiteData.addAll(items);
                     createSiteItemViewModel();
+                } else {
+                    setEmptyPage();
                 }
             }
 
@@ -179,6 +201,8 @@ public class SearchListViewModel extends BaseViewModel {
                     mBookData.clear();
                     mBookData.addAll(items);
                     createBookItemViewModel();
+                } else {
+                    setEmptyPage();
                 }
             }
 
@@ -244,5 +268,21 @@ public class SearchListViewModel extends BaseViewModel {
             viewModel.keyword.set(keyword);
             items.add(viewModel);
         }
+    }
+
+    /**
+     * 设置空白页
+     */
+    private void setEmptyPage() {
+        if (mCurrentPage != 0) {
+            return;
+        }
+
+        if (mBlankVM == null) {
+            mBlankVM = new BlankViewModel(context);
+        }
+        mBlankVM.setStatus(Constants.PageStatus.NO_DATA);
+        items.clear();
+        items.add(mBlankVM);
     }
 }

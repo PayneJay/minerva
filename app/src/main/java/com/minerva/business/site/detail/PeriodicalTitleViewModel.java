@@ -15,7 +15,7 @@ public class PeriodicalTitleViewModel extends BaseViewModel {
 
     public PeriodicalTitleViewModel(Context context) {
         super(context);
-        setViewType(Constants.RecyclerItemType.PERIODICAL_TYPE);
+        setViewType(Constants.RecyclerItemType.PERIODICAL_TITLE_TYPE);
     }
 
     public void onSubscribeClick() {

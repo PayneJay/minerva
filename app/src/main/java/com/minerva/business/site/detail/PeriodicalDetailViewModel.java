@@ -16,10 +16,13 @@ import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.list.ArticleItemViewModel;
 import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
+import com.minerva.utils.CommonUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -36,7 +39,7 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
                 case Constants.RecyclerItemType.ARTICLE_COMMON_TYPE:
                     itemBinding.set(BR.articleItemVM, R.layout.item_article_common_layout);
                     break;
-                case Constants.RecyclerItemType.PERIODICAL_TYPE:
+                case Constants.RecyclerItemType.PERIODICAL_TITLE_TYPE:
                     itemBinding.set(BR.periodicalTitleVM, R.layout.item_periodical_title_layout);
                     break;
                 case Constants.RecyclerItemType.BLANK_TYPE:
@@ -66,6 +69,7 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
     protected int mCurrentPage; //当前页数
     protected List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
     protected String name;
+    private BlankViewModel mBlankVM;
     private String periodicalID, image;
     private String mLastID; //最后一条id
     private boolean hasNext;
@@ -76,6 +80,12 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
         periodicalID = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_ID);
         image = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_IMAGE);
         name = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_NAME);
+
+        PeriodicalTitleViewModel titleViewModel = new PeriodicalTitleViewModel(context);
+        titleViewModel.imgUrl.set(image);
+        titleViewModel.name.set(name);
+        items.add(titleViewModel);
+
         requestServer();
     }
 
@@ -101,6 +111,17 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
     }
 
     protected void requestServer() {
+        if (!CommonUtils.isNetworkAvailable(context)) {
+            refreshing.set(false);
+            if (mBlankVM == null) {
+                mBlankVM = new BlankViewModel(context);
+            }
+            removeExcludeTitle();
+            mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
+            items.add(mBlankVM);
+            return;
+        }
+
         PeriodicalModel.getInstance().getPeriodicalDetail(periodicalID, mCurrentPage, mLastID, new NetworkObserver<ArticleBean>() {
             @Override
             public void onSuccess(ArticleBean articleBean) {
@@ -135,12 +156,7 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
 
     protected void createViewModel() {
         if (mCurrentPage == 0) {
-            items.clear();
-
-            PeriodicalTitleViewModel titleViewModel = new PeriodicalTitleViewModel(context);
-            titleViewModel.imgUrl.set(image);
-            titleViewModel.name.set(name);
-            items.add(titleViewModel);
+            removeExcludeTitle();
         }
 
         for (int i = 0; i < mData.size(); i++) {
@@ -151,6 +167,19 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
             viewModel.imgUrl.set(articlesBean.getImg());
             viewModel.articleID = articlesBean.getId();
             items.add(viewModel);
+        }
+    }
+
+    /**
+     * 移除除Title外的item
+     */
+    private void removeExcludeTitle() {
+        Iterator<BaseViewModel> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            BaseViewModel viewModel = iterator.next();
+            if (Constants.RecyclerItemType.PERIODICAL_TITLE_TYPE != viewModel.getViewType()) {
+                iterator.remove();
+            }
         }
     }
 }

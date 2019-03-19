@@ -31,7 +31,6 @@ public class BookDetailViewModel extends BaseViewModel {
 
     @BindingAdapter({"webUrl", "progressBar"})
     public static void setWebViewSettings(WebView webView, String link, final ProgressBar progressBar) {
-        Log.i(Constants.TAG, "link====" + link);
         final WebSettings settings = webView.getSettings();
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         //支持屏幕缩放
@@ -84,7 +83,6 @@ public class BookDetailViewModel extends BaseViewModel {
             //获取加载进度
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                Log.i(Constants.TAG, "progress===" + newProgress);
                 if (newProgress < 100) {
                     progressBar.setProgress(newProgress);
                 } else if (newProgress == 100) {

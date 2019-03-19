@@ -18,10 +18,13 @@ import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.category.mag.model.MagDetailBean;
 import com.minerva.business.category.mag.model.MagModel;
+import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
+import com.minerva.utils.CommonUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -68,9 +71,10 @@ public class MagDetailViewModel extends BaseViewModel {
             }
         }
     };
+    private BlankViewModel mBlankVM;
+    private List<MagDetailBean.ItemsBeanX> mData = new ArrayList<>();
     private String magID, name;
     private int type;
-    private List<MagDetailBean.ItemsBeanX> mData = new ArrayList<>();
 
     MagDetailViewModel(Context context) {
         super(context);
@@ -85,7 +89,8 @@ public class MagDetailViewModel extends BaseViewModel {
         }
         titleViewModel.name.set(name);
         items.add(titleViewModel);
-        getMagDetail();
+
+        requestServer();
     }
 
     public int[] getColors() {
@@ -95,7 +100,8 @@ public class MagDetailViewModel extends BaseViewModel {
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            getMagDetail();
+            refreshing.set(true);
+            requestServer();
         }
     };
 
@@ -103,8 +109,18 @@ public class MagDetailViewModel extends BaseViewModel {
         Log.e(Constants.TAG, "loadMore...");
     }
 
-    private void getMagDetail() {
-        refreshing.set(true);
+    private void requestServer() {
+        if (!CommonUtils.isNetworkAvailable(context)) {
+            refreshing.set(false);
+            if (mBlankVM == null) {
+                mBlankVM = new BlankViewModel(context);
+            }
+            removeExcludeTitle();
+            mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
+            items.add(mBlankVM);
+            return;
+        }
+
         MagModel.getInstance().getMagDetail(magID, type, new NetworkObserver<MagDetailBean>() {
             @Override
             public void onSuccess(MagDetailBean magDetailBean) {
@@ -125,6 +141,7 @@ public class MagDetailViewModel extends BaseViewModel {
         if (mData.size() <= 0) {
             return;
         }
+        removeExcludeTitle();
 
         for (MagDetailBean.ItemsBeanX groupItem : mData) {
             SpecialGroupViewModel groupViewModel = new SpecialGroupViewModel(context);
@@ -140,6 +157,19 @@ public class MagDetailViewModel extends BaseViewModel {
                     childViewModel.articleID = childItem.getUrl();
                     items.add(childViewModel);
                 }
+            }
+        }
+    }
+
+    /**
+     * 移除除Title外的item
+     */
+    private void removeExcludeTitle() {
+        Iterator<BaseViewModel> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            BaseViewModel viewModel = iterator.next();
+            if (Constants.RecyclerItemType.MAG_TITLE_TYPE != viewModel.getViewType()) {
+                iterator.remove();
             }
         }
     }
