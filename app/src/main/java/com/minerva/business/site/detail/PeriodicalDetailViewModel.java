@@ -68,17 +68,17 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
     };
     protected int mCurrentPage; //当前页数
     protected List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
+    protected BlankViewModel mBlankVM;
     protected String name;
-    private BlankViewModel mBlankVM;
-    private String periodicalID, image;
+    protected boolean hasNext;
+    private String periodicalID;
     private String mLastID; //最后一条id
-    private boolean hasNext;
 
-    public PeriodicalDetailViewModel(Context context) {
+    PeriodicalDetailViewModel(Context context) {
         super(context);
 
+        String image = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_IMAGE);
         periodicalID = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_ID);
-        image = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_IMAGE);
         name = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_NAME);
 
         PeriodicalTitleViewModel titleViewModel = new PeriodicalTitleViewModel(context);
@@ -87,6 +87,10 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
         items.add(titleViewModel);
 
         requestServer();
+    }
+
+    public PeriodicalDetailViewModel(Context context, String className) {
+        super(context);
     }
 
     public int[] getColors() {
