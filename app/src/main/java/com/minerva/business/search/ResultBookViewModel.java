@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.databinding.ObservableField;
 
 import com.minerva.business.category.book.BookChildViewModel;
-import com.minerva.business.category.book.BookDetailActivity;
+import com.minerva.common.WebViewActivity;
 import com.minerva.common.Constants;
 
 public class ResultBookViewModel extends BookChildViewModel {
@@ -18,7 +18,7 @@ public class ResultBookViewModel extends BookChildViewModel {
     }
 
     public void onItemClick() {
-        Intent intent = new Intent(context, BookDetailActivity.class);
+        Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra(Constants.KeyExtra.BOOK_JD_LINK, link);
         context.startActivity(intent);
     }

@@ -1,8 +1,19 @@
 package com.minerva.business.article.detail.model;
 
 
+import android.content.Context;
+import android.text.TextUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.minerva.base.BaseBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
+import com.minerva.utils.CommonUtils;
+import com.minerva.utils.SPUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -10,6 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ArticleDetailModel {
     private static ArticleDetailModel instance;
+    private Map<String, Object> readLater = new HashMap<>();
 
     private ArticleDetailModel() {
     }
@@ -21,6 +33,12 @@ public class ArticleDetailModel {
         return instance;
     }
 
+    /**
+     * 获取文章详情
+     *
+     * @param aid      文章id
+     * @param observer 回调
+     */
     public void getArticleDetail(String aid, Observer<? super ArticleDetailBean> observer) {
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
                 .getServer()
@@ -29,4 +47,98 @@ public class ArticleDetailModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    /**
+     * 添加待读
+     *
+     * @param aid      文章id
+     * @param observer 回调
+     */
+    public void markReadLate(String aid, Observer<? super BaseBean> observer) {
+        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_POST, null)
+                .getServer()
+                .markReadLate(aid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 取消待读
+     *
+     * @param aid      文章id
+     * @param observer 回调
+     */
+    public void cancelReadLate(String aid, Observer<? super BaseBean> observer) {
+        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_POST, null)
+                .getServer()
+                .cancelReadLate(aid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 添加收藏
+     *
+     * @param aid      文章ID
+     * @param observer 回调
+     */
+    public void addCollection(String aid, Observer<? super BaseBean> observer) {
+        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_POST, null)
+                .getServer()
+                .addCollection(aid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 获取已添加的待读文章
+     *
+     * @param context context
+     * @return map
+     */
+    public Map<String, Object> getReadLater(Context context) {
+        String history = (String) SPUtils.get(context, Constants.KeyExtra.READ_LATER_MAP, "");
+        if (TextUtils.isEmpty(history)) {
+            return readLater;
+        }
+
+        Map<String, ArticleDetailBean.ArticleBean> map = new Gson().fromJson(history, new TypeToken<HashMap<String, ArticleDetailBean.ArticleBean>>() {
+        }.getType());
+
+        readLater.clear();
+        readLater.putAll(map);
+        return readLater;
+    }
+
+    /**
+     * 添加待读文章
+     *
+     * @param context context
+     * @param article 待读文章
+     */
+    public void addReadLater(Context context, ArticleDetailBean.ArticleBean article) {
+        Map<String, Object> readLater = getReadLater(context);
+        readLater.put(article.getId(), article);
+
+        String map = CommonUtils.toJson(readLater);
+        SPUtils.put(context, Constants.KeyExtra.READ_LATER_MAP, map);
+    }
+
+    /**
+     * 取消待读文章
+     *
+     * @param context context
+     * @param id      待读文章
+     */
+    public void removeReadLater(Context context, String id) {
+        Map<String, Object> readLater = getReadLater(context);
+        readLater.remove(id);
+
+        String map = CommonUtils.toJson(readLater);
+        SPUtils.put(context, Constants.KeyExtra.READ_LATER_MAP, map);
+    }
+
 }

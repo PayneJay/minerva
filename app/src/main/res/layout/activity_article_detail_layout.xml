@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <com.minerva.widget.TitleBar
+            android:id="@+id/title_bar"
             commentClick="@{articleDetailVM::comment}"
             moreClick="@{articleDetailVM::more}"
             shareClick="@{articleDetailVM::share}"

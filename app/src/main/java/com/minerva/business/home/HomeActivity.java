@@ -207,7 +207,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
     private void showPopupMenu() {
         PopupMenu popupMenu = new PopupMenu(this, mToolbar);
-        popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+        popupMenu.getMenuInflater().inflate(R.menu.home_popup_menu, popupMenu.getMenu());
         popupMenu.setGravity(Gravity.END);
         popupMenu.setOnMenuItemClickListener(mMoreMenuClickListener);
         mToolbar.setOnTouchListener(popupMenu.getDragToOpenListener());

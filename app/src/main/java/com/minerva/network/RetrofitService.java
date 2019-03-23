@@ -1,6 +1,8 @@
 package com.minerva.network;
 
+import com.minerva.base.BaseBean;
 import com.minerva.business.article.detail.model.ArticleDetailBean;
+import com.minerva.business.article.detail.model.ArticleDetailModel;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.book.AllBook;
 import com.minerva.business.category.mag.model.MagDetailBean;
@@ -14,10 +16,16 @@ import com.minerva.business.site.model.SitesBean;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.MagBean;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -66,4 +74,16 @@ public interface RetrofitService {
 
     @GET("/api/search/book.json")
     Observable<AllBook> searchByKeyWord(@Query("pn") int pn, @Query("kw") String kwyWord);
+
+    @FormUrlEncoded
+    @POST("/api/articles/mark_late.json")
+    Observable<BaseBean> markReadLate(@Field("article_id") String id);
+
+    @FormUrlEncoded
+    @POST("/api/articles/mark_read.json")
+    Observable<BaseBean> cancelReadLate(@Field("article_id") String id);
+
+    @FormUrlEncoded
+    @POST("/api/articles/log.json")
+    Observable<BaseBean> addCollection(@Field("article_id") String id);
 }

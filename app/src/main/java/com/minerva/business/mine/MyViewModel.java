@@ -8,7 +8,9 @@ import android.text.TextUtils;
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.mine.about.AboutActivity;
+import com.minerva.business.mine.collection.MyCollectionActivity;
 import com.minerva.business.mine.login.LoginActivity;
+import com.minerva.business.mine.read.ReadLaterActivity;
 import com.minerva.business.mine.user.UserEditActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
@@ -41,11 +43,11 @@ public class MyViewModel extends BaseViewModel {
     }
 
     public void goUnRead() {
-        showToast(context);
+        context.startActivity(new Intent(context, ReadLaterActivity.class));
     }
 
     public void goCollection() {
-        showToast(context);
+        context.startActivity(new Intent(context, MyCollectionActivity.class));
     }
 
     public void goJournal() {

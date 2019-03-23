@@ -55,6 +55,7 @@ public class Constants {
         String BOOK_JD_LINK = "book_jd_link";
 
         String SEARCH_HISTORY_KEYWORD = "search_history_keyword";
+        String READ_LATER_MAP = "read_later_map";
     }
 
     public interface UserInfoKey {

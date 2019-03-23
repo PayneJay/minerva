@@ -5,7 +5,7 @@
 
         <variable
             name="bookDetailVM"
-            type="com.minerva.business.category.book.BookDetailViewModel" />
+            type="com.minerva.common.WebViewViewModel" />
     </data>
 
     <LinearLayout

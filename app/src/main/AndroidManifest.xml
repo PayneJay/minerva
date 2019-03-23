@@ -92,14 +92,36 @@
         <activity
             android:name=".business.search.SearchActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".business.settings.SettingsActivity" />
-        <activity android:name=".business.site.detail.PeriodicalDetailActivity" />
-        <activity android:name=".business.category.mag.MagDetailActivity" />
-        <activity android:name=".business.category.book.BookDetailActivity" />
-        <activity android:name=".business.mine.user.UserEditActivity" />
-        <activity android:name=".business.category.mag.MagPeriodActivity" />
-        <activity android:name=".business.category.book.AllBookActivity" />
-        <activity android:name=".business.site.PolymerReadActivity" />
+        <activity
+            android:name=".business.settings.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.site.detail.PeriodicalDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.category.mag.MagDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".common.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.mine.user.UserEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.category.mag.MagPeriodActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.category.book.AllBookActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.site.PolymerReadActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.mine.collection.MyCollectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.mine.read.ReadLaterActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

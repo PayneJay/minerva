@@ -1,4 +1,4 @@
-package com.minerva.business.category.book;
+package com.minerva.common;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
@@ -20,10 +20,10 @@ import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.common.Constants;
 
-public class BookDetailViewModel extends BaseViewModel {
+public class WebViewViewModel extends BaseViewModel {
     public ObservableField<String> linkUrl = new ObservableField<>();
 
-    BookDetailViewModel(Context context) {
+    WebViewViewModel(Context context) {
         super(context);
         String link = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.BOOK_JD_LINK);
         linkUrl.set(link);

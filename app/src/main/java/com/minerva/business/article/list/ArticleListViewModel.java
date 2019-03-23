@@ -60,6 +60,10 @@ public class ArticleListViewModel extends BaseViewModel {
         requestServer();
     }
 
+    public ArticleListViewModel(Context context, String className) {
+        super(context);
+    }
+
     public int[] getColors() {
         return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
     }
@@ -95,7 +99,7 @@ public class ArticleListViewModel extends BaseViewModel {
         }
     }
 
-    private void createViewModel() {
+    protected void createViewModel() {
         if (mBlankVM != null && mCurrentPage == 0) {
             mBlankVM.setStatus(Constants.PageStatus.NO_DATA);
         }
@@ -114,7 +118,7 @@ public class ArticleListViewModel extends BaseViewModel {
         }
     }
 
-    private void requestServer() {
+    protected void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
             if (mBlankVM == null) {

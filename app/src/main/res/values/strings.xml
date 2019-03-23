@@ -52,6 +52,13 @@
     <string name="toolbar_more_custom_channel">定制频道</string>
     <string name="toolbar_more_week_list">一周拾遗</string>
 
+    <string name="toolbar_menu_add_read">添加待读</string>
+    <string name="toolbar_menu_add_collection">添加收藏</string>
+    <string name="toolbar_menu_change_font_size">调整字号</string>
+    <string name="toolbar_menu_open_turn_over">打开翻页</string>
+    <string name="toolbar_menu_view_original">查看原文</string>
+    <string name="toolbar_menu_copy_link">复制链接</string>
+
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
@@ -101,5 +108,9 @@
     <string name="umeng_sharebutton_custom">自定义分享按钮</string>
     <string name="polymer_read">聚合阅读</string>
     <string name="no_data">暂时还没有数据哦！</string>
+    <string name="toast_mark_read_later">已添加待读</string>
+    <string name="toast_operate_fail">操作失败</string>
+    <string name="toast_cancel_read_later">已取消待读</string>
+    <string name="toast_copy_clipboard">已复制到剪贴板</string>
 
 </resources>

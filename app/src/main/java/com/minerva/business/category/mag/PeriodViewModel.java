@@ -54,11 +54,15 @@ public class PeriodViewModel extends BaseViewModel {
     private BlankViewModel mBlankVM;
     private int mType;
 
-    PeriodViewModel(Context context) {
+    public PeriodViewModel(Context context) {
         super(context);
         mType = ((BaseActivity) context).getIntent().getIntExtra(Constants.KeyExtra.COLUMN_MAG_TYPE, 0);
         mTitle = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.COLUMN_MAG_TITLE);
         requestServer();
+    }
+
+    public PeriodViewModel(Context context, String className) {
+        super(context);
     }
 
     public int[] getColors() {
