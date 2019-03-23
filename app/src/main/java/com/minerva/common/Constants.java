@@ -52,10 +52,12 @@ public class Constants {
         String COLUMN_MAG_NUMBER = "column_mag_number";
         String COLUMN_MAG_TITLE = "column_mag_title";
         String COLUMN_MAG_TYPE = "column_mag_type";
-        String BOOK_JD_LINK = "book_jd_link";
+        String BOOK_JD_LINK = "book_jd_link"; //图书京东商城链接
 
-        String SEARCH_HISTORY_KEYWORD = "search_history_keyword";
-        String READ_LATER_MAP = "read_later_map";
+        String SEARCH_HISTORY_KEYWORD = "search_history_keyword"; //关键字查询
+        String READ_LATER_MAP = "read_later_map"; //待读文章
+        String READ_HISTORY_MAP = "read_history_map"; //阅读历史
+        String COME_FROM_MINE = "come_from_mine"; //标记是从我的页面跳转过来的
     }
 
     public interface UserInfoKey {

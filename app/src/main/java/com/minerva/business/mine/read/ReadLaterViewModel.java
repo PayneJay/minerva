@@ -36,10 +36,12 @@ public class ReadLaterViewModel extends ArticleListViewModel {
     private List<ArticleDetailBean.ArticleBean> mData = new ArrayList<>();
     private BlankViewModel mBlankVM;
     private Disposable mDisposable;
+    private String mKey;
 
     ReadLaterViewModel(Context context) {
         super(context, context.getClass().getSimpleName());
-
+        mKey = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.COME_FROM_MINE);
+        setTitle();
         setReadLaterData(context);
         createViewModel();
     }
@@ -105,7 +107,7 @@ public class ReadLaterViewModel extends ArticleListViewModel {
      * @param context context
      */
     private void setReadLaterData(Context context) {
-        Map<String, Object> readLater = ArticleDetailModel.getInstance().getReadLater(context);
+        Map<String, Object> readLater = ArticleDetailModel.getInstance().getArticlesByKey(context, mKey);
         if (readLater.size() <= 0) {
             if (mBlankVM == null) {
                 mBlankVM = new BlankViewModel(context);
@@ -119,6 +121,17 @@ public class ReadLaterViewModel extends ArticleListViewModel {
             if (obj instanceof ArticleDetailBean.ArticleBean) {
                 mData.add((ArticleDetailBean.ArticleBean) obj);
             }
+        }
+    }
+
+    private void setTitle() {
+        switch (mKey) {
+            case Constants.KeyExtra.READ_LATER_MAP:
+                mTitle.set(ResouceUtils.getString(R.string.mine_to_be_read));
+                break;
+            case Constants.KeyExtra.READ_HISTORY_MAP:
+                mTitle.set(ResouceUtils.getString(R.string.mine_read_history));
+                break;
         }
     }
 }

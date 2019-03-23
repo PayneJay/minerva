@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ArticleDetailModel {
     private static ArticleDetailModel instance;
-    private Map<String, Object> readLater = new HashMap<>();
+    private Map<String, Object> readArticleMap = new HashMap<>();
 
     private ArticleDetailModel() {
     }
@@ -97,20 +97,21 @@ public class ArticleDetailModel {
      * 获取已添加的待读文章
      *
      * @param context context
+     * @param key     sp缓存的key
      * @return map
      */
-    public Map<String, Object> getReadLater(Context context) {
-        String history = (String) SPUtils.get(context, Constants.KeyExtra.READ_LATER_MAP, "");
+    public Map<String, Object> getArticlesByKey(Context context, String key) {
+        String history = (String) SPUtils.get(context, key, "");
         if (TextUtils.isEmpty(history)) {
-            return readLater;
+            return readArticleMap;
         }
 
         Map<String, ArticleDetailBean.ArticleBean> map = new Gson().fromJson(history, new TypeToken<HashMap<String, ArticleDetailBean.ArticleBean>>() {
         }.getType());
 
-        readLater.clear();
-        readLater.putAll(map);
-        return readLater;
+        readArticleMap.clear();
+        readArticleMap.putAll(map);
+        return readArticleMap;
     }
 
     /**
@@ -118,13 +119,14 @@ public class ArticleDetailModel {
      *
      * @param context context
      * @param article 待读文章
+     * @param key     sp缓存的key
      */
-    public void addReadLater(Context context, ArticleDetailBean.ArticleBean article) {
-        Map<String, Object> readLater = getReadLater(context);
+    public void addArticleWithKey(Context context, ArticleDetailBean.ArticleBean article, String key) {
+        Map<String, Object> readLater = getArticlesByKey(context, key);
         readLater.put(article.getId(), article);
 
         String map = CommonUtils.toJson(readLater);
-        SPUtils.put(context, Constants.KeyExtra.READ_LATER_MAP, map);
+        SPUtils.put(context, key, map);
     }
 
     /**
@@ -132,13 +134,14 @@ public class ArticleDetailModel {
      *
      * @param context context
      * @param id      待读文章
+     * @param key     sp缓存的key
      */
-    public void removeReadLater(Context context, String id) {
-        Map<String, Object> readLater = getReadLater(context);
+    public void removeArticleByKey(Context context, String id, String key) {
+        Map<String, Object> readLater = getArticlesByKey(context, key);
         readLater.remove(id);
 
         String map = CommonUtils.toJson(readLater);
-        SPUtils.put(context, Constants.KeyExtra.READ_LATER_MAP, map);
+        SPUtils.put(context, key, map);
     }
 
 }

@@ -4,6 +4,9 @@ import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 
+/**
+ * 这个类是我的待读和阅读历史公用的一个页面
+ */
 public class ReadLaterActivity extends BaseActivity<ReadLaterViewModel> {
     @Override
     protected int getLayoutResID() {

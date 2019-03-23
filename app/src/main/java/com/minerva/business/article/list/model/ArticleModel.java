@@ -63,6 +63,11 @@ public class ArticleModel {
 
     }
 
+    /**
+     * 获取文章Tab类型
+     *
+     * @return
+     */
     public List<ArticleType> getTabTypes() {
         List<ArticleType> list = new ArrayList<>();
         list.add(new ArticleType(ResouceUtils.getString(R.string.article_hot), "0"));
@@ -77,10 +82,4 @@ public class ArticleModel {
         return list;
     }
 
-    public List<ArticleBean.ArticlesBean> generateArticlesData() {
-        ArticleBean bean = CommonUtils.getArticleListFromJson();
-        List<ArticleBean.ArticlesBean> list = new ArrayList<>();
-        list.addAll(bean.getArticles());
-        return list;
-    }
 }

@@ -39,8 +39,9 @@ public class ArticleViewModel extends BaseViewModel {
             }
         });
 
-        view.setupWithViewPager(viewPager, true);
         viewPager.setCurrentItem(currentItem.get());
+        view.setTabMode(TabLayout.MODE_SCROLLABLE);
+        view.setupWithViewPager(viewPager, true);
         view.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

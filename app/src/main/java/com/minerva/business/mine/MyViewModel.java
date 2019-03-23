@@ -43,11 +43,14 @@ public class MyViewModel extends BaseViewModel {
     }
 
     public void goUnRead() {
-        context.startActivity(new Intent(context, ReadLaterActivity.class));
+        Intent intent = new Intent(context, ReadLaterActivity.class);
+        intent.putExtra(Constants.KeyExtra.COME_FROM_MINE, Constants.KeyExtra.READ_LATER_MAP);
+        context.startActivity(intent);
     }
 
     public void goCollection() {
-        context.startActivity(new Intent(context, MyCollectionActivity.class));
+        Intent intent = new Intent(context, MyCollectionActivity.class);
+        context.startActivity(intent);
     }
 
     public void goJournal() {
@@ -59,7 +62,9 @@ public class MyViewModel extends BaseViewModel {
     }
 
     public void goHistory() {
-        showToast(context);
+        Intent intent = new Intent(context, ReadLaterActivity.class);
+        intent.putExtra(Constants.KeyExtra.COME_FROM_MINE, Constants.KeyExtra.READ_HISTORY_MAP);
+        context.startActivity(intent);
     }
 
     public void switchModel() {
