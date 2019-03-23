@@ -40,8 +40,9 @@
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
-                itemBinding="@{collectionVM.collectionItemBind}"
+                itemBinding="@{collectionVM.articleItemBind}"
                 items="@{collectionVM.items}"
+                loadMore="@{collectionVM::loadMore}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />

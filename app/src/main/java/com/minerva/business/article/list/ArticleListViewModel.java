@@ -46,11 +46,11 @@ public class ArticleListViewModel extends BaseViewModel {
             }
         }
     };
+    protected int mCurrentPage; //当前页数
+    protected BlankViewModel mBlankVM;
     private List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
-    private BlankViewModel mBlankVM;
     private String mLastID; //最后一条id
     private int mCurrentTab; //当前Tab
-    private int mCurrentPage; //当前页数
     private boolean hasNext;
 
     ArticleListViewModel(Context context, int tab) {
@@ -153,7 +153,7 @@ public class ArticleListViewModel extends BaseViewModel {
      *
      * @param articleBean 返回数据
      */
-    private void handleData(ArticleBean articleBean) {
+    protected void handleData(ArticleBean articleBean) {
         if (articleBean == null) {
             return;
         }

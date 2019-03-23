@@ -92,6 +92,7 @@ public class Constants {
         String LOGIN_SUCCESS = "login_success";
         String QUERY_SUBMITTED = "query_submitted";
         String DELETE_SEARCH_KEYWORD = "delete_search_keyword";
+        String CANCEL_FAVORITE_ARTICLE = "cancel_favorite_article";
     }
 
     public interface Activity {

@@ -1,6 +1,7 @@
 package com.minerva.business.article.list.model;
 
 import com.minerva.R;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
 import com.minerva.network.RetrofitHelper;

@@ -7,6 +7,8 @@ import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.book.AllBook;
 import com.minerva.business.category.mag.model.MagDetailBean;
 import com.minerva.business.category.mag.model.MagPeriod;
+import com.minerva.business.mine.collection.model.KanBean;
+import com.minerva.business.mine.collection.model.UnFavBean;
 import com.minerva.business.mine.login.model.LoginParams;
 import com.minerva.business.mine.login.model.UserInfo;
 import com.minerva.business.search.model.ArticleResult;
@@ -86,4 +88,18 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/articles/log.json")
     Observable<BaseBean> addCollection(@Field("article_id") String id);
+
+    @GET("/api/articles/my.json")
+    Observable<ArticleBean> getMyCollections(@Query("page") int page, @Query("size") int size, @Query("is_pad") int isPad);
+
+    @FormUrlEncoded
+    @POST("/api/articles/do_fav.json")
+    Observable<UnFavBean> addFavorite(@Field("id") String id, @Field("cat") String cat);
+
+    @FormUrlEncoded
+    @POST("/api/articles/undo_fav.json")
+    Observable<UnFavBean> removeFavorite(@Field("id") String id);
+
+    @GET("/api/kans/my.json")
+    Observable<KanBean> getKanList();
 }

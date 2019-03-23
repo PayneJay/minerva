@@ -1,40 +1,74 @@
 package com.minerva.business.mine.collection;
 
 import android.content.Context;
-import android.databinding.ObservableField;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
+import android.view.View;
 
-import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
-import com.minerva.base.BaseViewModel;
-import com.minerva.business.category.mag.PeriodViewModel;
+import com.minerva.business.article.list.ArticleListViewModel;
+import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.mine.collection.model.CollectionModel;
+import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
+import com.minerva.common.EventMsg;
+import com.minerva.common.GlobalData;
+import com.minerva.network.NetworkObserver;
+import com.minerva.utils.CommonUtils;
 import com.minerva.utils.ResouceUtils;
 
-import me.tatarka.bindingcollectionadapter2.ItemBinding;
-import me.tatarka.bindingcollectionadapter2.OnItemBind;
+import org.greenrobot.eventbus.EventBus;
 
-public class CollectionViewModel extends PeriodViewModel {
-    private String articleID;
-    public OnItemBind<BaseViewModel> collectionItemBind = new OnItemBind<BaseViewModel>() {
+public class CollectionViewModel extends ArticleListViewModel {
+    public String mTitle;
+    public View.OnClickListener listener = new View.OnClickListener() {
         @Override
-        public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
-            switch (item.getViewType()) {
-                case Constants.RecyclerItemType.ARTICLE_COMMON_TYPE:
-                    itemBinding.set(BR.articleItemVM, R.layout.item_article_common_layout);
-                    break;
-                case Constants.RecyclerItemType.BLANK_TYPE:
-                    itemBinding.set(BR.vmBlank, R.layout.item_blank_layout);
-                    break;
-            }
+        public void onClick(View v) {
+            ((BaseActivity) context).finish();
         }
     };
 
     CollectionViewModel(Context context) {
         super(context, context.getClass().getSimpleName());
+        EventBus.getDefault().register(this);
         mTitle = ResouceUtils.getString(R.string.mine_collection);
-        articleID = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.ARTICLE_ID);
+        requestServer();
     }
 
+    @Override
+    protected void requestServer() {
+        if (!GlobalData.getInstance().isLogin() || !CommonUtils.isNetworkAvailable(context)) {
+            refreshing.set(false);
+            if (mBlankVM == null) {
+                mBlankVM = new BlankViewModel(context);
+            }
+            if (mCurrentPage == 0) {
+                items.clear();
+                mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
+                items.add(mBlankVM);
+            }
+            return;
+        }
+
+        CollectionModel.getInstace().getMyCollections(mCurrentPage, new NetworkObserver<ArticleBean>() {
+            @Override
+            public void onSuccess(ArticleBean articleBean) {
+                refreshing.set(false);
+                handleData(articleBean);
+                createViewModel();
+            }
+
+            @Override
+            public void onFailure() {
+                refreshing.set(false);
+            }
+        });
+    }
+
+    @Override
+    public void onEvent(EventMsg eventMsg) {
+        if (TextUtils.equals(eventMsg.getMsg(), Constants.EventMsgKey.CANCEL_FAVORITE_ARTICLE)) {
+            requestServer();
+        }
+    }
 }
