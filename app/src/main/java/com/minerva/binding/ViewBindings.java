@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -30,14 +31,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.minerva.base.BaseActivity;
 import com.minerva.common.Constants;
+import com.minerva.common.HtmlImageGetter;
 
 import java.io.File;
-
-
-/**
- * Created by nayibo on 2018/4/2.
- */
 
 public class ViewBindings {
 
@@ -395,10 +393,11 @@ public class ViewBindings {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, dimenSize);
     }
 
-//    @BindingAdapter("textWatcher")
-//    public static void setTextWatcher(EditText editText,TextWatcher textWatcher){
-//        editText.addTextChangedListener(textWatcher);
-//    }
+    @BindingAdapter({"htmlSource"})
+    public static void setImageGetter(TextView textView, String source) {
+        HtmlImageGetter imageGetter = new HtmlImageGetter(textView.getContext(), textView);
+        textView.setText(Html.fromHtml(source, imageGetter, null));
+    }
 
     @BindingAdapter("enabled")
     public static void setClickable(TextView textView, boolean enabled) {

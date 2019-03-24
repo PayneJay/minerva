@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ArticleDetailViewModel extends BaseViewModel implements UMShareListener, PopupMenu.OnMenuItemClickListener {
-    public ObservableField<Spanned> articleContent = new ObservableField<>();
+    public ObservableField<String> articleContent = new ObservableField<>("");
     public ObservableField<String> title = new ObservableField<>();
     public ObservableField<String> date = new ObservableField<>();
     private ArticleDetailBean.ArticleBean article;
@@ -66,7 +66,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                 article = articleDetailBean.getArticle();
                 setFavorite(articleDetailBean.getLike());
                 if (article != null) {
-                    articleContent.set(Html.fromHtml(article.getContent()));
+                    articleContent.set(article.getContent());
                     title.set(article.getTitle());
                     date.set(article.getFeed_title() + "   " + article.getTime());
                     mArticleLink = article.getUrl();

@@ -4,8 +4,13 @@
     <data>
 
         <variable
+            name="host"
+            type="com.minerva.business.article.detail.ArticleDetailActivity" />
+
+        <variable
             name="articleDetailVM"
             type="com.minerva.business.article.detail.ArticleDetailViewModel" />
+
     </data>
 
     <LinearLayout
@@ -42,7 +47,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_FFFFFF"
-                        android:textSize="18sp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         text="@{articleDetailVM.date}"
@@ -53,14 +59,15 @@
                 </LinearLayout>
 
                 <TextView
-                    text="@{articleDetailVM.articleContent}"
+                    htmlSource="@{articleDetailVM.articleContent}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+                    android:lineSpacingExtra="5dp"
                     android:paddingLeft="@dimen/nav_dimen_size_15dp"
                     android:paddingRight="@dimen/nav_dimen_size_15dp"
                     android:textColor="@color/color_000000"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </LinearLayout>

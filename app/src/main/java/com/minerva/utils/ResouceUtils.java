@@ -2,6 +2,7 @@ package com.minerva.utils;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.StringRes;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.minerva.common.Constants;
@@ -72,6 +73,16 @@ public class ResouceUtils {
             Log.e(Constants.TAG, e.getMessage());
             return 0;
         }
+    }
+
+    /**
+     * @return 屏幕宽度
+     * 获取屏幕宽度
+     */
+    public static int getScreenWidth() {
+        DisplayMetrics dm = Constants.application.getResources()
+                .getDisplayMetrics();
+        return dm.widthPixels;
     }
 
 }
