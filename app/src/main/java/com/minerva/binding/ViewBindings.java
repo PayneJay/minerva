@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.TypedValue;
@@ -34,6 +35,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.minerva.base.BaseActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.HtmlImageGetter;
+import com.minerva.utils.CommonUtils;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.File;
 
@@ -395,8 +400,14 @@ public class ViewBindings {
 
     @BindingAdapter({"htmlSource"})
     public static void setImageGetter(TextView textView, String source) {
+        if (!TextUtils.isEmpty(source)) {
+            Document doc = Jsoup.parse(source);
+            CommonUtils.handlerPreTag(doc);
+        }
+
         HtmlImageGetter imageGetter = new HtmlImageGetter(textView.getContext(), textView);
         textView.setText(Html.fromHtml(source, imageGetter, null));
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @BindingAdapter("enabled")

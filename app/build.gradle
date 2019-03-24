@@ -44,8 +44,7 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-    
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+
     //友盟分享
     implementation files('libs/umeng-share-wechat-simplify-6.9.4.jar')
     implementation files('libs/umeng-common-2.0.2.jar')
@@ -57,4 +56,6 @@ dependencies {
     implementation 'com.hgDendi:expandable-recyclerview-adapter:1.0.1'
 
     implementation 'org.greenrobot:eventbus:3.1.1'
+    //Java 的HTML解析器
+    implementation 'org.jsoup:jsoup:1.11.3'
 }

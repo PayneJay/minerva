@@ -75,14 +75,4 @@ public class ResouceUtils {
         }
     }
 
-    /**
-     * @return 屏幕宽度
-     * 获取屏幕宽度
-     */
-    public static int getScreenWidth() {
-        DisplayMetrics dm = Constants.application.getResources()
-                .getDisplayMetrics();
-        return dm.widthPixels;
-    }
-
 }
