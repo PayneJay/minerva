@@ -38,7 +38,7 @@ public class SettingsViewModel extends BaseViewModel {
     }
 
     public void clearCache() {
-        FileUtils.clearInternalCache(context);
+        FileUtils.clearAllCache(context);
         clearCacheText.set(MessageFormat.format(ResouceUtils.getString(R.string.settings_clear_cache), "0kb"));
         Toast.makeText(context, ResouceUtils.getString(R.string.toast_cache_clear_success), Toast.LENGTH_SHORT).show();
     }

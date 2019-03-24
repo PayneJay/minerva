@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;

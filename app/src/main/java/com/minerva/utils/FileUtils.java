@@ -2,33 +2,42 @@ package com.minerva.utils;
 
 import android.content.Context;
 
-import com.minerva.common.Constants;
-
 import java.io.File;
 import java.math.BigDecimal;
+import android.os.Environment;
 
 public class FileUtils {
 
+
     /**
-     * * 清除本应用内部缓存(/data/data/com.xxx.xxx/cache) * *
-     *
+     * 清除所有缓存
      * @param context
      */
-    public static void clearInternalCache(Context context) {
-        deleteFilesByDirectory(context.getCacheDir());
+    public static void clearAllCache(Context context) {
+        //清除内部缓存
+        deleteDir(context.getCacheDir());
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            //清除外部缓存
+            deleteDir(context.getExternalCacheDir());
+        }
     }
 
     /**
-     * * 删除方法 这里只会删除某个文件夹下的文件，如果传入的directory是个文件，将不做处理 * *
-     *
-     * @param directory
+     * 递归删除文件
+     * @param dir
+     * @return
      */
-    private static void deleteFilesByDirectory(File directory) {
-        if (directory != null && directory.exists() && directory.isDirectory()) {
-            for (File item : directory.listFiles()) {
-                item.delete();
+    private static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
             }
         }
+        return dir.delete();
     }
 
     /**

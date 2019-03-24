@@ -37,16 +37,13 @@ public class CollectionViewModel extends ArticleListViewModel {
 
     @Override
     protected void requestServer() {
-        if (!GlobalData.getInstance().isLogin() || !CommonUtils.isNetworkAvailable(context)) {
-            refreshing.set(false);
-            if (mBlankVM == null) {
-                mBlankVM = new BlankViewModel(context);
-            }
-            if (mCurrentPage == 0) {
-                items.clear();
-                mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
-                items.add(mBlankVM);
-            }
+        if (!GlobalData.getInstance().isLogin()) {
+            setEmptyPage();
+            return;
+        }
+
+        if (!CommonUtils.isNetworkAvailable(context)) {
+            setNetworkError();
             return;
         }
 
@@ -69,6 +66,34 @@ public class CollectionViewModel extends ArticleListViewModel {
     public void onEvent(EventMsg eventMsg) {
         if (TextUtils.equals(eventMsg.getMsg(), Constants.EventMsgKey.CANCEL_FAVORITE_ARTICLE)) {
             requestServer();
+        }
+    }
+
+    /**
+     * 设置空页面
+     */
+    private void setEmptyPage() {
+        refreshing.set(false);
+        if (mBlankVM == null) {
+            mBlankVM = new BlankViewModel(context);
+        }
+        items.clear();
+        mBlankVM.setStatus(Constants.PageStatus.NO_DATA);
+        items.add(mBlankVM);
+    }
+
+    /**
+     * 设置网络错误页
+     */
+    private void setNetworkError() {
+        refreshing.set(false);
+        if (mBlankVM == null) {
+            mBlankVM = new BlankViewModel(context);
+        }
+        if (mCurrentPage == 0) {
+            items.clear();
+            mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
+            items.add(mBlankVM);
         }
     }
 }

@@ -1,13 +1,11 @@
 package com.minerva.business.mine.user;
 
-import android.app.ActivityManager;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
+import android.os.Process;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -16,16 +14,14 @@ import android.view.View;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.home.HomeActivity;
+import com.minerva.business.SplashActivity;
 import com.minerva.common.Constants;
-import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.utils.ResouceUtils;
 import com.minerva.utils.SPUtils;
 
-import org.greenrobot.eventbus.EventBus;
-
-import static android.support.v7.app.AlertDialog.*;
+import static android.support.v7.app.AlertDialog.Builder;
+import static android.support.v7.app.AlertDialog.OnClickListener;
 
 public class UserEditViewModel extends BaseViewModel {
     public ObservableField<String> headUrl = new ObservableField<>();
@@ -153,9 +149,13 @@ public class UserEditViewModel extends BaseViewModel {
     }
 
     private void restartApp() {
-        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = new Intent(context, SplashActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
-        android.os.Process.killProcess(android.os.Process.myPid());
+
+        // 杀掉进程
+        Process.killProcess(Process.myPid());
+        System.exit(0);
     }
+
 }

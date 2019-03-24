@@ -14,7 +14,7 @@ public class ArticleViewModel extends BaseViewModel {
     public static ObservableInt currentItem = new ObservableInt(0);
     public ObservableField<BaseFragment> fragment = new ObservableField<>();
 
-    public ArticleViewModel(Context context) {
+    ArticleViewModel(Context context) {
         super(context);
     }
 
