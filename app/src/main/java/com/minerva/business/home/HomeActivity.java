@@ -24,7 +24,7 @@ import com.minerva.R;
 import com.minerva.business.search.SearchActivity;
 import com.minerva.business.settings.SettingsActivity;
 import com.minerva.common.Constants;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.utils.ResourceUtils;
 
 public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
     private ViewPager mViewPager;
@@ -169,7 +169,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private void exitByDoubleClick() {
         if (!isExit) {
             isExit = true;
-            Toast.makeText(this, ResouceUtils.getString(R.string.exit_by_double_click), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, ResourceUtils.getString(R.string.exit_by_double_click), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

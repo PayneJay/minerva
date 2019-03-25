@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.minerva.common.Constants;
 
-public class ResouceUtils {
+public class ResourceUtils {
 
     /**
      * get color id

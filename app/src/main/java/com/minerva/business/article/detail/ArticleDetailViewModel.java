@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.ObservableField;
 import android.support.v7.widget.PopupMenu;
-import android.text.Html;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,7 +26,7 @@ import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.common.WebViewActivity;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.utils.ResourceUtils;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -96,7 +94,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         ShareBoardConfig config = new ShareBoardConfig();
         config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_CENTER)
                 .setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR)
-                .setShareboardBackgroundColor(ResouceUtils.getColor(R.color.color_FFFFFF));
+                .setShareboardBackgroundColor(ResourceUtils.getColor(R.color.color_FFFFFF));
 
         UMWeb web = new UMWeb(Constants.shareBaseUrl + articleID);
         if (article != null) {
@@ -119,17 +117,17 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         final Map<String, Object> readLater = ArticleDetailModel.getInstance().getArticlesByKey(context, Constants.KeyExtra.READ_LATER_MAP);
         if (readLater.keySet().contains(articleID)) {
             //已添加待读，该操作为取消待读
-            mMarkReadOrNotText = ResouceUtils.getString(R.string.toolbar_menu_cancel_read);
+            mMarkReadOrNotText = ResourceUtils.getString(R.string.toolbar_menu_cancel_read);
         } else {
             //未添加待读，执行添加操作
-            mMarkReadOrNotText = ResouceUtils.getString(R.string.toolbar_menu_add_read);
+            mMarkReadOrNotText = ResourceUtils.getString(R.string.toolbar_menu_add_read);
         }
 
         //判断是否收藏
         if (isFav) {
-            mCollectionOrNotText = ResouceUtils.getString(R.string.toolbar_menu_cancel_collection);
+            mCollectionOrNotText = ResourceUtils.getString(R.string.toolbar_menu_cancel_collection);
         } else {
-            mCollectionOrNotText = ResouceUtils.getString(R.string.toolbar_menu_add_collection);
+            mCollectionOrNotText = ResourceUtils.getString(R.string.toolbar_menu_add_collection);
         }
         showPopupMenu();
     }
@@ -179,7 +177,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
 
     private void goMyCollection() {
         if (!GlobalData.getInstance().isLogin()) {
-            Toast.makeText(context, ResouceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -196,7 +194,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
 
             @Override
             public void onFailure() {
-                Toast.makeText(context, ResouceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -216,7 +214,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         // 将ClipData内容放到系统剪贴板里。
         cm.setPrimaryClip(mClipData);
 
-        Toast.makeText(context, ResouceUtils.getString(R.string.toast_copy_clipboard), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, ResourceUtils.getString(R.string.toast_copy_clipboard), Toast.LENGTH_SHORT).show();
     }
 
     private void markOrCancelRead() {
@@ -233,7 +231,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     private void markRead() {
         if (!GlobalData.getInstance().isLogin()) {
             ArticleDetailModel.getInstance().addArticleWithKey(context, article, Constants.KeyExtra.READ_LATER_MAP);
-            Toast.makeText(context, ResouceUtils.getString(R.string.toast_mark_read_later), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtils.getString(R.string.toast_mark_read_later), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -241,12 +239,12 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             @Override
             public void onSuccess(BaseBean baseBean) {
                 ArticleDetailModel.getInstance().addArticleWithKey(context, article, Constants.KeyExtra.READ_LATER_MAP);
-                Toast.makeText(context, ResouceUtils.getString(R.string.toast_mark_read_later), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_mark_read_later), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure() {
-                Toast.makeText(context, ResouceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -254,7 +252,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     private void cancelRead() {
         if (!GlobalData.getInstance().isLogin()) {
             ArticleDetailModel.getInstance().removeArticleByKey(context, articleID, Constants.KeyExtra.READ_LATER_MAP);
-            Toast.makeText(context, ResouceUtils.getString(R.string.toast_cancel_read_later), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtils.getString(R.string.toast_cancel_read_later), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -262,12 +260,12 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             @Override
             public void onSuccess(BaseBean baseBean) {
                 ArticleDetailModel.getInstance().removeArticleByKey(context, articleID, Constants.KeyExtra.READ_LATER_MAP);
-                Toast.makeText(context, ResouceUtils.getString(R.string.toast_cancel_read_later), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_cancel_read_later), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure() {
-                Toast.makeText(context, ResouceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -279,12 +277,12 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                 public void onSuccess(UnFavBean baseBean) {
                     setFavorite(baseBean.getLike());
                     EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.CANCEL_FAVORITE_ARTICLE));
-                    Toast.makeText(context, ResouceUtils.getString(R.string.toast_cancel_collection_later), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ResourceUtils.getString(R.string.toast_cancel_collection_later), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure() {
-                    Toast.makeText(context, ResouceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {//未收藏
@@ -292,12 +290,12 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                 @Override
                 public void onSuccess(UnFavBean baseBean) {
                     setFavorite(baseBean.getLike());
-                    Toast.makeText(context, ResouceUtils.getString(R.string.toast_mark_collection_later), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ResourceUtils.getString(R.string.toast_mark_collection_later), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure() {
-                    Toast.makeText(context, ResouceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
                 }
             });
         }

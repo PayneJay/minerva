@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.minerva.R;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.utils.ResourceUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -46,10 +46,10 @@ public class LoginModel {
      */
     public boolean isEmailValid(Context context, String email) {
         if (TextUtils.isEmpty(email) || email.length() == 0) {
-            showToast(context, ResouceUtils.getString(R.string.login_please_input_account));
+            showToast(context, ResourceUtils.getString(R.string.login_please_input_account));
             return false;
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            showToast(context, ResouceUtils.getString(R.string.login_email_incorrect));
+            showToast(context, ResourceUtils.getString(R.string.login_email_incorrect));
             return false;
         }
         return true;
@@ -65,10 +65,10 @@ public class LoginModel {
      */
     public boolean isPasswordValid(Context context, String password) {
         if (TextUtils.isEmpty(password) || password.length() == 0) {
-            showToast(context, ResouceUtils.getString(R.string.login_please_input_password));
+            showToast(context, ResourceUtils.getString(R.string.login_please_input_password));
             return false;
         } else if (password.length() < 6) {
-            showToast(context, ResouceUtils.getString(R.string.login_please_input_password_at_least_6));
+            showToast(context, ResourceUtils.getString(R.string.login_please_input_password_at_least_6));
             return false;
         }
         return true;

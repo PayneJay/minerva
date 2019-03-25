@@ -13,7 +13,7 @@ import com.minerva.business.mine.login.model.UserInfo;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.utils.ResourceUtils;
 import com.minerva.utils.SPUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -41,7 +41,7 @@ public class LoginViewModel extends BaseViewModel {
             @Override
             public void onSuccess(UserInfo userInfo) {
                 mProgressDialog.dismiss();
-                Toast.makeText(context, ResouceUtils.getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtils.getString(R.string.login_success), Toast.LENGTH_SHORT).show();
                 UserInfo.UserBean user = userInfo.getUser();
                 if (user != null) {
                     saveUserInfo(user);
@@ -75,7 +75,7 @@ public class LoginViewModel extends BaseViewModel {
     private void showDialog() {
         mProgressDialog = new ProgressDialog(context, R.style.AppTheme_Dark_Dialog);
         mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage(ResouceUtils.getString(R.string.login_verifing));
+        mProgressDialog.setMessage(ResourceUtils.getString(R.string.login_verifing));
         mProgressDialog.show();
     }
 }

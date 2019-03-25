@@ -9,12 +9,12 @@ import com.minerva.R;
 import com.minerva.base.BaseFragment;
 import com.minerva.business.category.book.BookFragment;
 import com.minerva.business.category.mag.SpecialFragment;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.utils.ResourceUtils;
 
 import java.util.ArrayList;
 
 class CategoryFragmentAdapter extends FragmentPagerAdapter {
-    private final String[] tabTitles = new String[]{ResouceUtils.getString(R.string.tab_special), ResouceUtils.getString(R.string.tab_book)};
+    private final String[] tabTitles = new String[]{ResourceUtils.getString(R.string.tab_special), ResourceUtils.getString(R.string.tab_book)};
     private ArrayList<BaseFragment> fragments = new ArrayList<>();
 
     public CategoryFragmentAdapter(FragmentManager fm) {

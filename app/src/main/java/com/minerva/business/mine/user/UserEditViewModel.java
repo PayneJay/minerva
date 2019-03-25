@@ -17,7 +17,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.SplashActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.utils.ResourceUtils;
 import com.minerva.utils.SPUtils;
 
 import static android.support.v7.app.AlertDialog.Builder;
@@ -27,10 +27,10 @@ public class UserEditViewModel extends BaseViewModel {
     public ObservableField<String> headUrl = new ObservableField<>();
     public ObservableField<String> userName = new ObservableField<>();
     public ObservableField<String> email = new ObservableField<>();
-    public ObservableField<String> password = new ObservableField<>(ResouceUtils.getString(R.string.user_edit_click_to_update));
-    public ObservableField<String> weibo = new ObservableField<>(ResouceUtils.getString(R.string.user_edit_click_to_relate));
-    public ObservableField<String> QQ = new ObservableField<>(ResouceUtils.getString(R.string.user_edit_click_to_relate));
-    public ObservableField<String> wechat = new ObservableField<>(ResouceUtils.getString(R.string.user_edit_click_to_relate));
+    public ObservableField<String> password = new ObservableField<>(ResourceUtils.getString(R.string.user_edit_click_to_update));
+    public ObservableField<String> weibo = new ObservableField<>(ResourceUtils.getString(R.string.user_edit_click_to_relate));
+    public ObservableField<String> QQ = new ObservableField<>(ResourceUtils.getString(R.string.user_edit_click_to_relate));
+    public ObservableField<String> wechat = new ObservableField<>(ResourceUtils.getString(R.string.user_edit_click_to_relate));
 
     public View.OnClickListener listener = new View.OnClickListener() {
         @Override
@@ -135,10 +135,10 @@ public class UserEditViewModel extends BaseViewModel {
      */
     private void showDialog() {
         Builder builder = new Builder(context)
-                .setTitle(ResouceUtils.getString(R.string.dialog_title_note))
-                .setMessage(ResouceUtils.getString(R.string.dialog_are_you_sure_logout))
-                .setNegativeButton(ResouceUtils.getString(R.string.dialog_cancel), null)
-                .setPositiveButton(ResouceUtils.getString(R.string.dialog_confirm), new OnClickListener() {
+                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
+                .setMessage(ResourceUtils.getString(R.string.dialog_are_you_sure_logout))
+                .setNegativeButton(ResourceUtils.getString(R.string.dialog_cancel), null)
+                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

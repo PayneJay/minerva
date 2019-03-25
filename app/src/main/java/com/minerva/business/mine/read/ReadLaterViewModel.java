@@ -12,7 +12,7 @@ import com.minerva.business.article.list.ArticleItemViewModel;
 import com.minerva.business.article.list.ArticleListViewModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ReadLaterViewModel extends ArticleListViewModel {
-    public ObservableField<String> mTitle = new ObservableField<>(ResouceUtils.getString(R.string.mine_to_be_read));
+    public ObservableField<String> mTitle = new ObservableField<>(ResourceUtils.getString(R.string.mine_to_be_read));
     public View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -127,10 +127,10 @@ public class ReadLaterViewModel extends ArticleListViewModel {
     private void setTitle() {
         switch (mKey) {
             case Constants.KeyExtra.READ_LATER_MAP:
-                mTitle.set(ResouceUtils.getString(R.string.mine_to_be_read));
+                mTitle.set(ResourceUtils.getString(R.string.mine_to_be_read));
                 break;
             case Constants.KeyExtra.READ_HISTORY_MAP:
-                mTitle.set(ResouceUtils.getString(R.string.mine_read_history));
+                mTitle.set(ResourceUtils.getString(R.string.mine_read_history));
                 break;
         }
     }

@@ -6,10 +6,10 @@ import android.databinding.ObservableInt;
 
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.utils.ResourceUtils;
 
 public class BlankViewModel extends BaseViewModel {
-    public ObservableField<String> description = new ObservableField<>(ResouceUtils.getString(R.string.no_data));
+    public ObservableField<String> description = new ObservableField<>(ResourceUtils.getString(R.string.no_data));
     public ObservableInt drawableRes = new ObservableInt(R.drawable.icon_no_data);
 
     public BlankViewModel(Context context) {
@@ -20,11 +20,11 @@ public class BlankViewModel extends BaseViewModel {
     public void setStatus(int status) {
         switch (status) {
             case Constants.PageStatus.NO_DATA:
-                description.set(ResouceUtils.getString(R.string.no_data));
+                description.set(ResourceUtils.getString(R.string.no_data));
                 drawableRes.set(R.drawable.icon_no_data);
                 break;
             case Constants.PageStatus.NETWORK_EXCEPTION:
-                description.set(ResouceUtils.getString(R.string.network_error));
+                description.set(ResourceUtils.getString(R.string.network_error));
                 drawableRes.set(R.drawable.icon_network_exception);
                 break;
         }

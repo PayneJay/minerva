@@ -16,9 +16,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.search.model.SearchModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.ResouceUtils;
-import com.minerva.utils.SPUtils;
+import com.minerva.utils.ResourceUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -90,7 +88,7 @@ public class SearchViewModel extends BaseViewModel {
         view.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                String format = MessageFormat.format(ResouceUtils.getString(R.string.search_bar_hint), tab.getText() != null ? tab.getText().toString() : "");
+                String format = MessageFormat.format(ResourceUtils.getString(R.string.search_bar_hint), tab.getText() != null ? tab.getText().toString() : "");
                 hintText.set(format);
             }
 

@@ -8,7 +8,7 @@ import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.common.Constants;
 import com.minerva.utils.DateUtils;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.utils.ResourceUtils;
 
 import java.util.Date;
 
@@ -25,7 +25,7 @@ public class SpecialChildViewModel extends BaseViewModel {
 
     public void setDate(long time) {
         if (DateUtils.isToday(time)) {
-            dateText.set(ResouceUtils.getString(R.string.update_today));
+            dateText.set(ResourceUtils.getString(R.string.update_today));
             return;
         }
         dateText.set(DateUtils.date2Str(new Date(time), "MM月dd日"));

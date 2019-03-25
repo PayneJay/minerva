@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
@@ -16,17 +15,15 @@ import com.minerva.business.mine.user.UserEditActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
-import com.minerva.utils.ResouceUtils;
+import com.minerva.utils.ResourceUtils;
 import com.minerva.utils.SPUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import static com.minerva.common.Constants.showToast;
 
 public class MyViewModel extends BaseViewModel {
-    public ObservableField<String> userName = new ObservableField<>(ResouceUtils.getString(R.string.mine_click_login));
+    public ObservableField<String> userName = new ObservableField<>(ResourceUtils.getString(R.string.mine_click_login));
     public ObservableField<String> headUrl = new ObservableField<>();
 
     MyViewModel(Context context) {
