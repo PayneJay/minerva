@@ -40,6 +40,7 @@ public class Constants {
         int SEARCH_SITE_TYPE = 7;   //搜索站点列表item
         int SEARCH_BOOK_TYPE = 8;   //搜索图书列表item
         int SEARCH_KW_HISTORY_TYPE = 9;   //搜索关键字列表item
+        int MY_JOURNAL_ITEM_TYPE = 10;   //我的期刊item
     }
 
     public interface KeyExtra {

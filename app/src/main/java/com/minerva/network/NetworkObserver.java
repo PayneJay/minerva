@@ -1,7 +1,7 @@
 package com.minerva.network;
 
 
-import android.util.Log;
+import android.widget.Toast;
 
 import com.minerva.common.Constants;
 import com.minerva.base.BaseBean;
@@ -15,7 +15,7 @@ public abstract class NetworkObserver<T extends BaseBean> implements Observer<T>
 
     public abstract void onSuccess(T t);
 
-    public abstract void onFailure();
+    public abstract void onFailure(String msg);
 
     @Override
     public void onSubscribe(Disposable d) {
@@ -25,18 +25,16 @@ public abstract class NetworkObserver<T extends BaseBean> implements Observer<T>
     @Override
     public void onNext(T response) {
         if (response.isSuccess()) {
-            Log.e(Constants.TAG, "onSuccess===>");
             onSuccess(response);
         } else {
-            Log.e(Constants.TAG, "onFailure===>");
-            onFailure();
+            Toast.makeText(Constants.application, response.getError(), Toast.LENGTH_SHORT).show();
+            onFailure(response.getError());
         }
     }
 
     @Override
     public void onError(Throwable e) {
-        Log.e(Constants.TAG, "onError===>" + e.toString());
-        onFailure();
+        onFailure(e.getMessage());
     }
 
     @Override

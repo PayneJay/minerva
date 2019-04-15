@@ -131,7 +131,7 @@ public class MagDetailViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 refreshing.set(false);
             }
         });

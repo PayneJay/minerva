@@ -18,10 +18,8 @@ import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
-import com.minerva.utils.DateUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -99,7 +97,7 @@ public class PeriodViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 refreshing.set(false);
             }
         });

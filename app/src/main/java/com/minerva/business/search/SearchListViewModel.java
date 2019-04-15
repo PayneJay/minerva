@@ -160,7 +160,7 @@ public class SearchListViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 refreshing.set(false);
             }
         });
@@ -183,7 +183,7 @@ public class SearchListViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 refreshing.set(false);
             }
         });
@@ -207,7 +207,7 @@ public class SearchListViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 refreshing.set(false);
             }
         });

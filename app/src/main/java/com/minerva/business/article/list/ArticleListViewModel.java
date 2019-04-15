@@ -7,7 +7,6 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.minerva.BR;
 import com.minerva.business.mine.login.LoginActivity;
@@ -142,7 +141,7 @@ public class ArticleListViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 refreshing.set(false);
             }
         });
@@ -154,7 +153,7 @@ public class ArticleListViewModel extends BaseViewModel {
      * @param articleBean 返回数据
      */
     protected void handleData(ArticleBean articleBean) {
-        if (articleBean == null) {
+        if (articleBean == null || articleBean.getArticles().size() <= 0) {
             return;
         }
 

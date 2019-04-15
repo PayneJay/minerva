@@ -13,10 +13,8 @@ import com.minerva.business.category.model.MagBean;
 import com.minerva.business.category.model.SpecialModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.DateUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -71,7 +69,7 @@ public class SpecialViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 refreshing.set(false);
                 beanXList.clear();
                 beanXList.addAll(SpecialModel.getInstance().generateColumnData());

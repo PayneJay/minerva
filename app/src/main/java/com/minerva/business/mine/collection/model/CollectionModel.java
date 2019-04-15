@@ -1,6 +1,5 @@
 package com.minerva.business.mine.collection.model;
 
-import com.minerva.base.BaseBean;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
@@ -59,20 +58,6 @@ public class CollectionModel {
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_POST, null)
                 .getServer()
                 .removeFavorite(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-
-    /**
-     * 获取收藏夹列表
-     *
-     * @param observer 回调
-     */
-    public void getKans(Observer<? super KanBean> observer) {
-        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
-                .getServer()
-                .getKanList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

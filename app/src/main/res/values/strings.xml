@@ -85,8 +85,8 @@
     <string name="login_email_incorrect">邮箱格式不正确!</string>
     <string name="login_please_input_password">请输入密码!</string>
     <string name="login_please_input_password_at_least_6">请输入至少6位密码!</string>
-    <string name="login_verifing">正在验证...</string>
-    <string name="logout_ing">正在注销...</string>
+    <string name="login_verifying">正在验证…</string>
+    <string name="logout_ing">正在注销…</string>
     <string name="login_success">登录成功！</string>
     <string name="login_prompt_email">请输入邮箱</string>
     <string name="login_prompt_password">请输入密码</string>
@@ -108,7 +108,7 @@
     <string name="dialog_confirm">确定</string>
     <string name="update_today">今日更新</string>
 
-    <string name="umeng_sharebutton_custom">自定义分享按钮</string>
+    <string name="umeng_share_button_custom">自定义分享按钮</string>
     <string name="polymer_read">聚合阅读</string>
     <string name="no_data">暂时还没有数据哦！</string>
     <string name="toast_mark_read_later">已添加待读</string>
@@ -118,5 +118,11 @@
     <string name="toast_please_login_first">请先登录</string>
     <string name="toast_cancel_collection_later">已取消收藏</string>
     <string name="toast_mark_collection_later">已收藏</string>
+    <string name="toast_request_server_failed">请求服务器失败</string>
+    <string name="dialog_create_journal">创建新推刊</string>
+    <string name="dialog_only_show_me">仅自己可见</string>
+    <string name="dialog_create_journal_title_hint">标题（最多20个字符）</string>
+    <string name="dialog_create_journal_desc_hint">描述（可选，最多64个字符）</string>
+    <string name="toast_journal_char_error">字符长度不符</string>
 
 </resources>

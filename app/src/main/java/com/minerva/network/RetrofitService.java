@@ -2,7 +2,6 @@ package com.minerva.network;
 
 import com.minerva.base.BaseBean;
 import com.minerva.business.article.detail.model.ArticleDetailBean;
-import com.minerva.business.article.detail.model.ArticleDetailModel;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.book.AllBook;
 import com.minerva.business.category.mag.model.MagDetailBean;
@@ -18,16 +17,12 @@ import com.minerva.business.site.model.SitesBean;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.MagBean;
 
-import java.util.Map;
-
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -102,4 +97,8 @@ public interface RetrofitService {
 
     @GET("/api/kans/my.json")
     Observable<KanBean> getKanList();
+
+    @FormUrlEncoded
+    @POST("/api/kans.json")
+    Observable<KanBean> createJournal(@Field("name") String name, @Field("desc") String desc, @Field("type") int type);
 }

@@ -69,7 +69,7 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 swipeRefreshLayout.setRefreshing(false);
                 Log.i(Constants.TAG, "getSiteList failure");
                 mList = SiteModel.getInstance().loadLocalData();

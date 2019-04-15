@@ -122,6 +122,7 @@
         <activity
             android:name=".business.mine.read.ReadLaterActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".business.mine.journal.MyJournalActivity" />
     </application>
 
 </manifest>

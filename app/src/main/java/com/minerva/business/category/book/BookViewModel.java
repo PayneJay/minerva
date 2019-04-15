@@ -62,7 +62,7 @@ public class BookViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 refreshing.set(false);
                 beanXList.clear();
                 beanXList.addAll(SpecialModel.getInstance().generateBookData());

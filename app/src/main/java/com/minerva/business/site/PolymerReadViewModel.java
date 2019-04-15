@@ -88,7 +88,7 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 refreshing.set(false);
             }
         });

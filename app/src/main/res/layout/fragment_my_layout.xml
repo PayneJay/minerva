@@ -7,6 +7,8 @@
         <variable
             name="myVM"
             type="com.minerva.business.mine.MyViewModel" />
+
+        <import type="android.text.TextUtils" />
     </data>
 
     <android.support.v4.widget.NestedScrollView
@@ -49,11 +51,33 @@
 
             </LinearLayout>
 
-            <TextView
-                style="@style/mineItemStyle"
-                onClick="@{myVM::goUnRead}"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/nav_dimen_size_15dp"
-                android:text="@string/mine_to_be_read" />
+                android:background="@android:color/white">
+
+                <TextView
+                    style="@style/mineItemStyle"
+                    onClick="@{myVM::goUnRead}"
+                    android:layout_toStartOf="@+id/tv_unread_count"
+                    android:text="@string/mine_to_be_read" />
+
+                <TextView
+                    android:id="@+id/tv_unread_count"
+                    isGone="@{TextUtils.isEmpty(myVM.unReadCount)}"
+                    onClick="@{myVM::goUnRead}"
+                    text="@{myVM.unReadCount}"
+                    android:layout_width="@dimen/nav_dimen_size_15dp"
+                    android:layout_height="@dimen/nav_dimen_size_15dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/nav_dimen_size_15dp"
+                    android:background="@drawable/shape_oval_red"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp" />
+            </RelativeLayout>
 
             <TextView
                 style="@style/mineItemStyle"

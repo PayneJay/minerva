@@ -51,7 +51,7 @@ public class LoginViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 mProgressDialog.dismiss();
             }
         });
@@ -75,7 +75,7 @@ public class LoginViewModel extends BaseViewModel {
     private void showDialog() {
         mProgressDialog = new ProgressDialog(context, R.style.AppTheme_Dark_Dialog);
         mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage(ResourceUtils.getString(R.string.login_verifing));
+        mProgressDialog.setMessage(ResourceUtils.getString(R.string.login_verifying));
         mProgressDialog.show();
     }
 }

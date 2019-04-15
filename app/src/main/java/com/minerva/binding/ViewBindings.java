@@ -21,6 +21,8 @@ import android.text.method.MovementMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -415,6 +417,12 @@ public class ViewBindings {
         textView.setEnabled(enabled);
     }
 
+    @BindingAdapter("checkedListener")
+    public static void setCheckBoxListener(CheckBox checkBox, CompoundButton.OnCheckedChangeListener listener) {
+        if (listener != null) {
+            checkBox.setOnCheckedChangeListener(listener);
+        }
+    }
 
     public interface ClickHandler {
         void onClick();

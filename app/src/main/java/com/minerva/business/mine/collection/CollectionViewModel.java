@@ -51,12 +51,17 @@ public class CollectionViewModel extends ArticleListViewModel {
             @Override
             public void onSuccess(ArticleBean articleBean) {
                 refreshing.set(false);
+                if (articleBean == null || articleBean.getArticles().size() <= 0) {
+                    setEmptyPage();
+                    return;
+                }
+
                 handleData(articleBean);
                 createViewModel();
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 refreshing.set(false);
             }
         });

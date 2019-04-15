@@ -21,6 +21,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.mine.collection.model.CollectionModel;
 import com.minerva.business.mine.collection.model.KanBean;
 import com.minerva.business.mine.collection.model.UnFavBean;
+import com.minerva.business.mine.journal.model.JournalModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
@@ -74,7 +75,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 Log.e(Constants.TAG, "getArticleDetail===>failure");
             }
         });
@@ -181,7 +182,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             return;
         }
 
-        CollectionModel.getInstace().getKans(new NetworkObserver<KanBean>() {
+        JournalModel.getInstance().getKans(new NetworkObserver<KanBean>() {
             @Override
             public void onSuccess(KanBean kanBean) {
                 List<KanBean.ItemsBean> items = kanBean.getItems();
@@ -193,7 +194,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
             }
         });
@@ -243,7 +244,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
             }
         });
@@ -264,7 +265,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String msg) {
                 Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
             }
         });
@@ -281,7 +282,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                 }
 
                 @Override
-                public void onFailure() {
+                public void onFailure(String msg) {
                     Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -294,7 +295,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                 }
 
                 @Override
-                public void onFailure() {
+                public void onFailure(String msg) {
                     Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
                 }
             });
