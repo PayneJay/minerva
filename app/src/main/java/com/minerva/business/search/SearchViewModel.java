@@ -32,6 +32,7 @@ public class SearchViewModel extends BaseViewModel {
     public SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
+            Log.i(getClass().getSimpleName(), "onQueryTextSubmit====" + query);
             EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.QUERY_SUBMITTED, query));
             if (!searchHistory.contains(query)) {
                 searchHistory.add(query);
@@ -57,8 +58,9 @@ public class SearchViewModel extends BaseViewModel {
     @Override
     public void onEvent(EventMsg eventMsg) {
         super.onEvent(eventMsg);
-        if (TextUtils.equals(Constants.EventMsgKey.QUERY_SUBMITTED, eventMsg.getMsg())) {
-//            inputContent.set(eventMsg.getContent());
+        if (TextUtils.equals(Constants.EventMsgKey.QUERY_ECHO, eventMsg.getMsg())) {
+            inputContent.set(eventMsg.getContent());
+            Log.i(getClass().getSimpleName(), "onEvent=====" + eventMsg.getContent());
         }
     }
 

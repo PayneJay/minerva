@@ -23,7 +23,7 @@ public class SearchHistoryViewModel extends BaseViewModel {
     }
 
     public void onItemClick() {
-        EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.QUERY_SUBMITTED, keyword.get()));
+        EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.QUERY_ECHO, keyword.get()));
     }
 
     public void onDeleteKW() {

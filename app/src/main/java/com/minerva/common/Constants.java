@@ -92,6 +92,7 @@ public class Constants {
     public interface EventMsgKey {
         String LOGIN_SUCCESS = "login_success";
         String QUERY_SUBMITTED = "query_submitted";
+        String QUERY_ECHO = "query_echo";
         String DELETE_SEARCH_KEYWORD = "delete_search_keyword";
         String CANCEL_FAVORITE_ARTICLE = "cancel_favorite_article";
     }
