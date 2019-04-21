@@ -4,24 +4,29 @@
     <data>
 
         <variable
-            name="jounralItemVM"
+            name="journalItemVM"
             type="com.minerva.business.mine.journal.JournalItemViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.minerva.R" />
     </data>
 
     <RelativeLayout
-        onClick="@{jounralItemVM::onItemClick}"
+        onClick="@{journalItemVM::onItemClick}"
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_dimen_size_40dp"
         android:background="@android:color/white">
 
         <TextView
             style="@style/mineItemStyle"
-            text="@{jounralItemVM.journalName}"
+            text="@{journalItemVM.journalName}"
             android:layout_toStartOf="@+id/tv_unread_count" />
 
         <TextView
             android:id="@+id/tv_unread_count"
-            text="@{jounralItemVM.articleCount}"
+            isGone="@{journalItemVM.canEdit}"
+            text="@{journalItemVM.articleCount}"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
@@ -29,6 +34,16 @@
             android:layout_marginEnd="@dimen/nav_dimen_size_15dp"
             android:background="@drawable/shape_rect_with_bottom_line"
             android:gravity="center" />
+
+        <ImageView
+            enabled="@{journalItemVM.isSelected}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/nav_dimen_size_15dp"
+            android:src="@drawable/shape_journal_selector"
+            android:visibility="@{journalItemVM.canEdit ? View.VISIBLE : View.GONE}" />
     </RelativeLayout>
 
 </layout>

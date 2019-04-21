@@ -4,6 +4,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.mine.collection.model.KanBean;
 import com.minerva.business.mine.journal.JournalItemViewModel;
 import com.minerva.common.Constants;
@@ -41,6 +42,14 @@ public class JournalModel {
         return kanList;
     }
 
+    /**
+     * 创建推刊
+     *
+     * @param name     名称
+     * @param desc     描述
+     * @param type     类型（是否仅自己可见）
+     * @param observer 回调
+     */
     public void createJournal(String name, String desc, int type, Observer<? super KanBean> observer) {
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
                 .getServer()

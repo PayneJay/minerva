@@ -101,4 +101,7 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/kans.json")
     Observable<KanBean> createJournal(@Field("name") String name, @Field("desc") String desc, @Field("type") int type);
+
+    @GET("/api/articles/late.json")
+    Observable<ArticleBean> getLateList(@Query("size") int size, @Query("is_pad") int isPad);
 }

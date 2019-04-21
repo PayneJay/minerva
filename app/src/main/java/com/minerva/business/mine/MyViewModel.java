@@ -9,20 +9,24 @@ import android.widget.Toast;
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.detail.model.ArticleDetailModel;
+import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.mine.about.AboutActivity;
 import com.minerva.business.mine.collection.MyCollectionActivity;
 import com.minerva.business.mine.journal.MyJournalActivity;
 import com.minerva.business.mine.login.LoginActivity;
 import com.minerva.business.mine.read.ReadLaterActivity;
+import com.minerva.business.mine.read.model.ReadModel;
 import com.minerva.business.mine.user.UserEditActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
+import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtils;
 import com.minerva.utils.SPUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
 import java.util.Map;
 
 import static com.minerva.common.Constants.showToast;
@@ -30,25 +34,52 @@ import static com.minerva.common.Constants.showToast;
 public class MyViewModel extends BaseViewModel {
     public ObservableField<String> userName = new ObservableField<>(ResourceUtils.getString(R.string.mine_click_login));
     public ObservableField<String> headUrl = new ObservableField<>();
-    public String unReadCount;
+    public ObservableField<String> unReadCount = new ObservableField<>("");
 
     MyViewModel(Context context) {
         super(context);
         EventBus.getDefault().register(this);
-        setUnreadCount();
+        setUnreadPoint();
         updateStatus();
     }
 
-    private void setUnreadCount() {
-        Map<String, Object> articles = ArticleDetailModel.getInstance().getArticlesByKey(context, Constants.KeyExtra.READ_LATER_MAP);
-        unReadCount = articles.size() > 0 ? String.valueOf(articles.size()) : "";
-        if (articles.size() > 0 && articles.size() < 100) {
-            unReadCount = String.valueOf(articles.size());
-        } else if (articles.size() > 99) {
-            unReadCount = "99+";
+    private void setUnreadPoint() {
+        if (GlobalData.getInstance().isLogin()) {
+            setUnReadByServer();
         } else {
-            unReadCount = "";
+            setUnReadByLocal();
         }
+    }
+
+    private void setUnReadByServer() {
+        ReadModel.getInstance().getLateList(new NetworkObserver<ArticleBean>() {
+            @Override
+            public void onSuccess(ArticleBean articleBean) {
+                List<ArticleBean.ArticlesBean> articles = articleBean.getArticles();
+                int size = (articles == null) ? 0 : articles.size();
+                setUnReadCount(size);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+            }
+        });
+    }
+
+    private void setUnReadCount(int size) {
+        unReadCount.set(size > 0 ? String.valueOf(size) : "");
+        if (size > 0 && size < 100) {
+            unReadCount.set(String.valueOf(size));
+        } else if (size > 99) {
+            unReadCount.set("99+");
+        } else {
+            unReadCount.set("");
+        }
+    }
+
+    private void setUnReadByLocal() {
+        Map<String, Object> articles = ArticleDetailModel.getInstance().getArticlesByKey(context, Constants.KeyExtra.READ_LATER_MAP);
+        setUnReadCount(articles.size());
     }
 
     public void goLogin() {

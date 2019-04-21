@@ -1,12 +1,12 @@
 package com.minerva.business.mine.journal;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import com.minerva.BR;
 import com.minerva.R;
@@ -28,18 +27,19 @@ import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class MyJournalViewModel extends ArticleListViewModel implements CreateJournalViewModel.IDialogClickListener {
+public class MyJournalViewModel extends ArticleListViewModel implements CreateJournalViewModel.IDialogClickListener, JournalItemViewModel.IItemClickListener {
     public OnItemBind<BaseViewModel> journalItemBind = new OnItemBind<BaseViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
             switch (item.getViewType()) {
                 case Constants.RecyclerItemType.MY_JOURNAL_ITEM_TYPE:
-                    itemBinding.set(BR.jounralItemVM, R.layout.item_jounral_layout);
+                    itemBinding.set(BR.journalItemVM, R.layout.item_jounral_layout);
                     break;
                 case Constants.RecyclerItemType.BLANK_TYPE:
                     itemBinding.set(BR.vmBlank, R.layout.item_blank_layout);
@@ -47,7 +47,9 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
             }
         }
     };
-    private PopupWindow helpDialog;
+    private boolean canEdit;
+    private PopupWindow createPopup;
+    protected String catID;
     public View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -65,13 +67,17 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
         }
     };
 
-    MyJournalViewModel(Context context) {
+    protected MyJournalViewModel(Context context) {
         super(context, context.getClass().getSimpleName());
         requestServer();
     }
 
     public ObservableList<BaseViewModel> getItems() {
         return JournalModel.getInstance().getData();
+    }
+
+    public void setCanEdit(boolean canEdit) {
+        this.canEdit = canEdit;
     }
 
     @Override
@@ -90,7 +96,13 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
                     return;
                 }
 
-                JournalModel.getInstance().setKanList(kanBean.getItems());
+                List<KanBean.ItemsBean> tempList = new ArrayList<>();
+                tempList.addAll(kanBean.getItems());
+                for (int i = 0; i < tempList.size(); i++) {
+                    KanBean.ItemsBean item = tempList.get(i);
+                    item.setSelected((i == 0));
+                }
+                JournalModel.getInstance().setKanList(tempList);
                 JournalModel.getInstance().setData(getObserverList());
             }
 
@@ -103,8 +115,8 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
 
     @Override
     public void confirm(String name, String desc, int type) {
-        if (helpDialog != null) {
-            helpDialog.dismiss();
+        if (createPopup != null) {
+            createPopup.dismiss();
         }
 
         JournalModel.getInstance().createJournal(name, desc, type, new NetworkObserver<KanBean>() {
@@ -122,8 +134,8 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
 
     @Override
     public void cancel() {
-        if (helpDialog != null && helpDialog.isShowing()) {
-            helpDialog.dismiss();
+        if (createPopup != null && createPopup.isShowing()) {
+            createPopup.dismiss();
         }
     }
 
@@ -133,11 +145,13 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
         List<KanBean.ItemsBean> kanList = JournalModel.getInstance().getKanList();
         if (kanList.size() > 0) {
             for (KanBean.ItemsBean item : kanList) {
-                JournalItemViewModel viewModel = new JournalItemViewModel(context);
-                viewModel.journalName = item.getName();
-                viewModel.articleCount = item.getAc() + "";
-                viewModel.setId(item.getId());
-                temp.add(viewModel);
+                JournalItemViewModel itemViewModel = new JournalItemViewModel(context, item);
+                itemViewModel.canEdit.set(canEdit);
+                if (itemViewModel.canEdit.get()) {
+                    itemViewModel.setIsSelected(item.isSelected());
+                }
+                itemViewModel.setListener(this);
+                temp.add(itemViewModel);
             }
         }
         return temp;
@@ -145,9 +159,9 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
 
 
     private void showCreateJournalDialog() {
-        if (helpDialog == null) {
-            helpDialog = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), CommonUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-            helpDialog.setOnDismissListener(new PopupWindow.OnDismissListener() {
+        if (createPopup == null) {
+            createPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), CommonUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            createPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
                     WindowManager.LayoutParams lp = ((BaseActivity) context).getWindow().getAttributes();
@@ -157,7 +171,7 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
             });
         }
         WindowManager.LayoutParams lp = ((BaseActivity) context).getWindow().getAttributes();
-        lp.alpha = 0.8f;
+        lp.alpha = 0.6f;
         ((BaseActivity) context).getWindow().setAttributes(lp);
 
         CreateJournalViewModel viewModel = new CreateJournalViewModel(context);
@@ -165,8 +179,8 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_create_journal_layout, null, false);
         binding.setVariable(BR.createJournalVM, viewModel);
         binding.executePendingBindings();
-        helpDialog.setContentView(binding.getRoot());
-        helpDialog.showAtLocation(((BaseActivity) context).getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+        createPopup.setContentView(binding.getRoot());
+        createPopup.showAtLocation(((BaseActivity) context).getWindow().getDecorView(), Gravity.CENTER, 0, 0);
     }
 
 
@@ -196,5 +210,19 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
             mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
             items.add(mBlankVM);
         }
+    }
+
+    @Override
+    public void onItemClick(String id) {
+        catID = id;
+        List<KanBean.ItemsBean> kanList = JournalModel.getInstance().getKanList();
+        List<KanBean.ItemsBean> tempList = new ArrayList<>();
+        for (KanBean.ItemsBean item : kanList) {
+            item.setSelected(TextUtils.equals(id, item.getId()));
+            tempList.add(item);
+        }
+
+        JournalModel.getInstance().setKanList(tempList);
+        JournalModel.getInstance().setData(getObserverList());
     }
 }

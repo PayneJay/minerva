@@ -10,20 +10,18 @@ import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.detail.model.ArticleDetailModel;
 import com.minerva.business.article.list.ArticleItemViewModel;
 import com.minerva.business.article.list.ArticleListViewModel;
+import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.mine.read.model.ReadModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
+import com.minerva.common.GlobalData;
+import com.minerva.network.NetworkObserver;
+import com.minerva.utils.CommonUtils;
 import com.minerva.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class ReadLaterViewModel extends ArticleListViewModel {
     public ObservableField<String> mTitle = new ObservableField<>(ResourceUtils.getString(R.string.mine_to_be_read));
@@ -33,72 +31,60 @@ public class ReadLaterViewModel extends ArticleListViewModel {
             ((BaseActivity) context).finish();
         }
     };
-    private List<ArticleDetailBean.ArticleBean> mData = new ArrayList<>();
+    private List<ArticleDetailBean.ArticleBean> mLocalData = new ArrayList<>();
     private BlankViewModel mBlankVM;
-    private Disposable mDisposable;
     private String mKey;
 
     ReadLaterViewModel(Context context) {
         super(context, context.getClass().getSimpleName());
         mKey = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.COME_FROM_MINE);
-        setTitle();
-        setReadLaterData(context);
-        createViewModel();
+        setContentByMode();
     }
 
     @Override
-    protected void createViewModel() {
+    protected void requestServer() {
+        if (!CommonUtils.isNetworkAvailable(context)) {
+            refreshing.set(false);
+            if (mBlankVM == null) {
+                mBlankVM = new BlankViewModel(context);
+            }
+            if (mCurrentPage == 0) {
+                items.clear();
+                mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
+                items.add(mBlankVM);
+            }
+            return;
+        }
+
+        refreshing.set(true);
+        ReadModel.getInstance().getLateList(new NetworkObserver<ArticleBean>() {
+            @Override
+            public void onSuccess(ArticleBean articleBean) {
+                refreshing.set(false);
+                mData.clear();
+                mData.addAll(articleBean.getArticles());
+                createViewModel();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                refreshing.set(false);
+            }
+        });
+    }
+
+    private void createViewModelByLocal() {
         items.clear();
 
-        for (int i = 0; i < mData.size(); i++) {
+        for (int i = 0; i < mLocalData.size(); i++) {
             ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
-            ArticleDetailBean.ArticleBean articlesBean = mData.get(i);
+            ArticleDetailBean.ArticleBean articlesBean = mLocalData.get(i);
             viewModel.content.set(articlesBean.getTitle());
             viewModel.date.set(articlesBean.getTime());
             viewModel.imgUrl.set(articlesBean.getImg());
             viewModel.articleID = articlesBean.getId();
             items.add(viewModel);
         }
-    }
-
-    @Override
-    protected void requestServer() {
-        Observable.just("Success")
-                //延时三秒，第一个参数是数值，第二个参数是事件单位
-                .delay(1, TimeUnit.SECONDS)
-                // Run on a background thread
-                .subscribeOn(Schedulers.io())
-                // Be notified on the main thread
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        mDisposable = d;
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        refreshing.set(false);
-                    }
-                });
-    }
-
-    @Override
-    public void onDetach() {
-        if (mDisposable != null) {
-            mDisposable.dispose();
-        }
-        super.onDetach();
     }
 
     /**
@@ -119,18 +105,26 @@ public class ReadLaterViewModel extends ArticleListViewModel {
 
         for (Object obj : readLater.values()) {
             if (obj instanceof ArticleDetailBean.ArticleBean) {
-                mData.add((ArticleDetailBean.ArticleBean) obj);
+                mLocalData.add((ArticleDetailBean.ArticleBean) obj);
             }
         }
     }
 
-    private void setTitle() {
+    private void setContentByMode() {
         switch (mKey) {
             case Constants.KeyExtra.READ_LATER_MAP:
                 mTitle.set(ResourceUtils.getString(R.string.mine_to_be_read));
+                if (GlobalData.getInstance().isLogin()) {
+                    requestServer();
+                } else {
+                    setReadLaterData(context);
+                    createViewModelByLocal();
+                }
                 break;
             case Constants.KeyExtra.READ_HISTORY_MAP:
                 mTitle.set(ResourceUtils.getString(R.string.mine_read_history));
+                setReadLaterData(context);
+                createViewModelByLocal();
                 break;
         }
     }

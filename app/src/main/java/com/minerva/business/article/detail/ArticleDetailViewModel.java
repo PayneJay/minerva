@@ -1,27 +1,30 @@
 package com.minerva.business.article.detail;
 
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.minerva.BR;
 import com.minerva.R;
+import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseBean;
+import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.detail.model.ArticleDetailModel;
-import com.minerva.base.BaseActivity;
-import com.minerva.base.BaseViewModel;
 import com.minerva.business.mine.collection.model.CollectionModel;
-import com.minerva.business.mine.collection.model.KanBean;
 import com.minerva.business.mine.collection.model.UnFavBean;
-import com.minerva.business.mine.journal.model.JournalModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
@@ -37,10 +40,9 @@ import com.umeng.socialize.shareboard.ShareBoardConfig;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.List;
 import java.util.Map;
 
-public class ArticleDetailViewModel extends BaseViewModel implements UMShareListener, PopupMenu.OnMenuItemClickListener {
+public class ArticleDetailViewModel extends BaseViewModel implements UMShareListener, PopupMenu.OnMenuItemClickListener, ISelectJournalListener {
     public ObservableField<String> articleContent = new ObservableField<>("");
     public ObservableField<String> title = new ObservableField<>();
     public ObservableField<String> date = new ObservableField<>();
@@ -50,6 +52,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     private String mArticleLink;
     private String mMarkReadOrNotText, mCollectionOrNotText;
     private boolean isFav; //表示是否收藏过(1已收藏/0未收藏)
+    private Dialog journalListDialog;
 
     ArticleDetailViewModel(Context context) {
         super(context);
@@ -182,23 +185,11 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             return;
         }
 
-        JournalModel.getInstance().getKans(new NetworkObserver<KanBean>() {
-            @Override
-            public void onSuccess(KanBean kanBean) {
-                List<KanBean.ItemsBean> items = kanBean.getItems();
-                if (items.size() <= 0) {
-                    return;
-                }
-
-                markCollection(items.get(0).getId());
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        if (isFav) {
+            cancelFavorite();
+        } else {
+            showAddJournalDialog();
+        }
     }
 
     private void viewOriginal() {
@@ -213,7 +204,9 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         // 创建普通字符型ClipData
         ClipData mClipData = ClipData.newPlainText("Label", mArticleLink);
         // 将ClipData内容放到系统剪贴板里。
-        cm.setPrimaryClip(mClipData);
+        if (cm != null) {
+            cm.setPrimaryClip(mClipData);
+        }
 
         Toast.makeText(context, ResourceUtils.getString(R.string.toast_copy_clipboard), Toast.LENGTH_SHORT).show();
     }
@@ -271,35 +264,46 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         });
     }
 
-    private void markCollection(String cat) {
-        if (isFav) {//已收藏
-            CollectionModel.getInstace().cancelCollections(articleID, new NetworkObserver<UnFavBean>() {
-                @Override
-                public void onSuccess(UnFavBean baseBean) {
-                    setFavorite(baseBean.getLike());
-                    EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.CANCEL_FAVORITE_ARTICLE));
-                    Toast.makeText(context, ResourceUtils.getString(R.string.toast_cancel_collection_later), Toast.LENGTH_SHORT).show();
-                }
+    /**
+     * 取消收藏
+     */
+    private void cancelFavorite() {
+        CollectionModel.getInstance().cancelCollections(articleID, new NetworkObserver<UnFavBean>() {
+            @Override
+            public void onSuccess(UnFavBean baseBean) {
+                setFavorite(baseBean.getLike());
+                EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.CANCEL_FAVORITE_ARTICLE));
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_cancel_collection_later), Toast.LENGTH_SHORT).show();
+            }
 
-                @Override
-                public void onFailure(String msg) {
-                    Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {//未收藏
-            CollectionModel.getInstace().addCollections(articleID, cat, new NetworkObserver<UnFavBean>() {
-                @Override
-                public void onSuccess(UnFavBean baseBean) {
-                    setFavorite(baseBean.getLike());
-                    Toast.makeText(context, ResourceUtils.getString(R.string.toast_mark_collection_later), Toast.LENGTH_SHORT).show();
-                }
+            @Override
+            public void onFailure(String msg) {
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
-                @Override
-                public void onFailure(String msg) {
-                    Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
+    /**
+     * 添加收藏
+     *
+     * @param cat 类别
+     */
+    private void addFavorite(String cat) {
+        CollectionModel.getInstance().addCollections(articleID, cat, new NetworkObserver<UnFavBean>() {
+            @Override
+            public void onSuccess(UnFavBean baseBean) {
+                setFavorite(baseBean.getLike());
+                if (journalListDialog != null) {
+                    journalListDialog.dismiss();
                 }
-            });
-        }
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_mark_collection_later), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_operate_fail), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
@@ -319,5 +323,32 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         popupMenu.setGravity(Gravity.END);
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.show();
+    }
+
+    private void showAddJournalDialog() {
+        if (journalListDialog == null) {
+            journalListDialog = new Dialog(context, R.style.SlideBottomDialogStyle);
+        }
+
+        AddToJournalViewModel viewModel = new AddToJournalViewModel(context);
+        viewModel.setCanEdit(true);
+        viewModel.setListener(this);
+        ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_add_to_journal_layout, null, false);
+        binding.setVariable(BR.addToJournalVM, viewModel);
+        binding.executePendingBindings();
+        journalListDialog.setContentView(binding.getRoot());
+        journalListDialog.show();
+    }
+
+    @Override
+    public void onAddClick(String cat) {
+        addFavorite(cat);
+    }
+
+    @Override
+    public void onBackClick() {
+        if (journalListDialog != null) {
+            journalListDialog.dismiss();
+        }
     }
 }

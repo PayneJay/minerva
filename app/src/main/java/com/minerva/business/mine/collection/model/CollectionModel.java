@@ -9,13 +9,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class CollectionModel {
-    private static CollectionModel instace;
+    private static CollectionModel instance;
 
-    public static CollectionModel getInstace() {
-        if (instace == null) {
-            instace = new CollectionModel();
+    public static CollectionModel getInstance() {
+        if (instance == null) {
+            instance = new CollectionModel();
         }
-        return instace;
+        return instance;
     }
 
     /**

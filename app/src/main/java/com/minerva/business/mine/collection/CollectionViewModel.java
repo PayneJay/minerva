@@ -47,7 +47,7 @@ public class CollectionViewModel extends ArticleListViewModel {
             return;
         }
 
-        CollectionModel.getInstace().getMyCollections(mCurrentPage, new NetworkObserver<ArticleBean>() {
+        CollectionModel.getInstance().getMyCollections(mCurrentPage, new NetworkObserver<ArticleBean>() {
             @Override
             public void onSuccess(ArticleBean articleBean) {
                 refreshing.set(false);

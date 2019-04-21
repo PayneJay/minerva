@@ -37,6 +37,7 @@ public class KanBean extends BaseBean {
         private String desc;
         private int type;
         private int ac;
+        private boolean isSelected;
 
         public String getId() {
             return id;
@@ -100,6 +101,14 @@ public class KanBean extends BaseBean {
 
         public void setAc(int ac) {
             this.ac = ac;
+        }
+
+        public boolean isSelected() {
+            return isSelected;
+        }
+
+        public void setSelected(boolean selected) {
+            isSelected = selected;
         }
     }
 }
