@@ -19,6 +19,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.common.EventMsg;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
+import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -51,6 +52,7 @@ public class ArticleListViewModel extends BaseViewModel {
     private String mLastID; //最后一条id
     private int mCurrentTab; //当前Tab
     private boolean hasNext;
+    private Loading loading;
 
     ArticleListViewModel(Context context, int tab) {
         super(context);
@@ -131,10 +133,14 @@ public class ArticleListViewModel extends BaseViewModel {
             return;
         }
 
+        if (loading == null) {
+            loading = new Loading.Builder(context).show();
+        }
         ArticleModel.getInstance().getArticleList(mCurrentTab, 1, mLastID, mCurrentPage, new NetworkObserver<ArticleBean>() {
             @Override
             public void onSuccess(ArticleBean articleBean) {
                 refreshing.set(false);
+                loading.dismiss();
                 isRecommendGone.set(true);
                 handleData(articleBean);
                 createViewModel();
@@ -143,6 +149,7 @@ public class ArticleListViewModel extends BaseViewModel {
             @Override
             public void onFailure(String msg) {
                 refreshing.set(false);
+                loading.dismiss();
             }
         });
     }

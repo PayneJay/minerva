@@ -31,6 +31,7 @@ import com.minerva.common.GlobalData;
 import com.minerva.common.WebViewActivity;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtils;
+import com.minerva.widget.Loading;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -53,6 +54,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     private String mMarkReadOrNotText, mCollectionOrNotText;
     private boolean isFav; //表示是否收藏过(1已收藏/0未收藏)
     private Dialog journalListDialog;
+    private Loading loading;
 
     ArticleDetailViewModel(Context context) {
         super(context);
@@ -62,9 +64,13 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     }
 
     private void getArticleDetail(String articleID) {
+        if (loading == null) {
+            loading = new Loading.Builder(context).show();
+        }
         ArticleDetailModel.getInstance().getArticleDetail(articleID, new NetworkObserver<ArticleDetailBean>() {
             @Override
             public void onSuccess(ArticleDetailBean articleDetailBean) {
+                loading.dismiss();
                 article = articleDetailBean.getArticle();
                 setFavorite(articleDetailBean.getLike());
                 if (article != null) {
@@ -79,6 +85,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
 
             @Override
             public void onFailure(String msg) {
+                loading.dismiss();
                 Log.e(Constants.TAG, "getArticleDetail===>failure");
             }
         });
