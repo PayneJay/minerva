@@ -41,6 +41,7 @@ public class Constants {
         int SEARCH_BOOK_TYPE = 8;   //搜索图书列表item
         int SEARCH_KW_HISTORY_TYPE = 9;   //搜索关键字列表item
         int MY_JOURNAL_ITEM_TYPE = 10;   //我的期刊item
+        int MY_MESSAGE_ITEM_TYPE = 11;   //消息通知item
     }
 
     public interface KeyExtra {
@@ -95,6 +96,7 @@ public class Constants {
         String QUERY_ECHO = "query_echo";
         String DELETE_SEARCH_KEYWORD = "delete_search_keyword";
         String CANCEL_FAVORITE_ARTICLE = "cancel_favorite_article";
+        String SELECT_ARTICLE_LANGUAGE = "select_article_language";
     }
 
     public interface Activity {

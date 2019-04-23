@@ -7,6 +7,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.minerva.BR;
 import com.minerva.business.mine.login.LoginActivity;
@@ -25,6 +26,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
@@ -95,27 +97,41 @@ public class ArticleListViewModel extends BaseViewModel {
     @Override
     public void onEvent(EventMsg eventMsg) {
         super.onEvent(eventMsg);
-        if (TextUtils.equals(eventMsg.getMsg(), Constants.EventMsgKey.LOGIN_SUCCESS)) {
-            requestServer();
+        switch (eventMsg.getMsg()) {
+            case Constants.EventMsgKey.LOGIN_SUCCESS:
+                requestServer();
+                break;
+            case Constants.EventMsgKey.SELECT_ARTICLE_LANGUAGE:
+                Map<String, Integer> language = ArticleModel.getInstance().getLanguageMap();
+                language.put(String.valueOf(mCurrentTab), eventMsg.getIndex());
+                ArticleModel.getInstance().setLanguageMap(language);
+                requestServer();
+                break;
         }
     }
 
     protected void createViewModel() {
-        if (mBlankVM != null && mCurrentPage == 0) {
-            mBlankVM.setStatus(Constants.PageStatus.NO_DATA);
+        if (mBlankVM == null) {
+            mBlankVM = new BlankViewModel(context);
         }
+
         if (mCurrentPage == 0) {
             items.clear();
         }
-
-        for (int i = 0; i < mData.size(); i++) {
-            ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
-            ArticleBean.ArticlesBean articlesBean = mData.get(i);
-            viewModel.content.set(articlesBean.getTitle());
-            viewModel.date.set(articlesBean.getRectime());
-            viewModel.imgUrl.set(articlesBean.getImg());
-            viewModel.articleID = articlesBean.getId();
-            items.add(viewModel);
+        if (mData.size() > 0) {
+            for (int i = 0; i < mData.size(); i++) {
+                ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
+                ArticleBean.ArticlesBean articlesBean = mData.get(i);
+                viewModel.content.set(articlesBean.getTitle());
+                viewModel.date.set(articlesBean.getRectime());
+                viewModel.imgUrl.set(articlesBean.getImg());
+                viewModel.articleID = articlesBean.getId();
+                items.add(viewModel);
+            }
+        } else {
+            items.clear();
+            mBlankVM.setStatus(Constants.PageStatus.NO_DATA);
+            items.add(mBlankVM);
         }
     }
 
@@ -136,7 +152,8 @@ public class ArticleListViewModel extends BaseViewModel {
         if (loading == null) {
             loading = new Loading.Builder(context).show();
         }
-        ArticleModel.getInstance().getArticleList(mCurrentTab, 1, mLastID, mCurrentPage, new NetworkObserver<ArticleBean>() {
+
+        ArticleModel.getInstance().getArticleList(mCurrentTab, getLanguage(), mLastID, mCurrentPage, new NetworkObserver<ArticleBean>() {
             @Override
             public void onSuccess(ArticleBean articleBean) {
                 refreshing.set(false);
@@ -152,6 +169,11 @@ public class ArticleListViewModel extends BaseViewModel {
                 loading.dismiss();
             }
         });
+    }
+
+    private int getLanguage() {
+        Map<String, Integer> language = ArticleModel.getInstance().getLanguageMap();
+        return language.get(String.valueOf(mCurrentTab));
     }
 
     /**

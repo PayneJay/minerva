@@ -17,7 +17,7 @@ public class ArticleFragmentAdapter extends FragmentPagerAdapter {
     private final List<ArticleType> tabTypes = new ArrayList<>();
     private ArrayList<BaseFragment> fragments = new ArrayList<>();
 
-    public ArticleFragmentAdapter(FragmentManager fm) {
+    ArticleFragmentAdapter(FragmentManager fm) {
         super(fm);
         tabTypes.clear();
         tabTypes.addAll(ArticleModel.getInstance().getTabTypes());

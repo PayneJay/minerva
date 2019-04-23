@@ -14,6 +14,7 @@ import com.minerva.business.mine.about.AboutActivity;
 import com.minerva.business.mine.collection.MyCollectionActivity;
 import com.minerva.business.mine.journal.MyJournalActivity;
 import com.minerva.business.mine.login.LoginActivity;
+import com.minerva.business.mine.message.MessageActivity;
 import com.minerva.business.mine.read.ReadLaterActivity;
 import com.minerva.business.mine.read.model.ReadModel;
 import com.minerva.business.mine.user.UserEditActivity;
@@ -111,7 +112,12 @@ public class MyViewModel extends BaseViewModel {
     }
 
     public void goNotification() {
-        showToast(context);
+        if (GlobalData.getInstance().isLogin()) {
+            context.startActivity(new Intent(context, MessageActivity.class));
+            return;
+        }
+
+        Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
     }
 
     public void goHistory() {
@@ -129,7 +135,7 @@ public class MyViewModel extends BaseViewModel {
     }
 
     public void checkUpgrade() {
-        showToast(context);
+        Toast.makeText(context, ResourceUtils.getString(R.string.toast_already_new), Toast.LENGTH_SHORT).show();
     }
 
     public void goFeedback() {

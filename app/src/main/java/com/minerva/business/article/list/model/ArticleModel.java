@@ -1,6 +1,12 @@
 package com.minerva.business.article.list.model;
 
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
+
 import com.minerva.R;
+import com.minerva.base.BaseViewModel;
+import com.minerva.business.article.list.ArticleItemViewModel;
+import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
 import com.minerva.network.RetrofitHelper;
@@ -8,19 +14,26 @@ import com.minerva.network.RetrofitService;
 import com.minerva.utils.ResourceUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList;
 
 public class ArticleModel {
     private static ArticleModel instance;
     private List<ArticleType> mTypeList = new ArrayList<>();
+    private Map<String, Integer> languageMap = new HashMap<>();
+    private DiffObservableList<BaseViewModel> mData;
 
     private ArticleModel() {
         mTypeList.clear();
         mTypeList.addAll(getTabTypes());
+        languageMap.clear();
+        languageMap.putAll(getSupportLanguage());
     }
 
     public static ArticleModel getInstance() {
@@ -34,7 +47,7 @@ public class ArticleModel {
      * 获取文章列表
      *
      * @param index    当前tab位置
-     * @param lang
+     * @param lang     语言
      * @param lastID   上一页最后一条id
      * @param page     当前页数
      * @param observer 网络回调
@@ -81,4 +94,58 @@ public class ArticleModel {
         return list;
     }
 
+    private Map<String, Integer> getSupportLanguage() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("0", 1);
+        map.put("1", 1);
+        map.put("2", 1);
+        map.put("3", 1);
+        map.put("4", 1);
+        map.put("5", 1);
+        map.put("6", 1);
+        map.put("7", 1);
+
+        return map;
+    }
+
+    public Map<String, Integer> getLanguageMap() {
+        return languageMap;
+    }
+
+    public void setLanguageMap(Map<String, Integer> languageMap) {
+        this.languageMap = languageMap;
+    }
+
+    public DiffObservableList<BaseViewModel> getData() {
+        if (mData == null) {
+            mData = new DiffObservableList<>(new DiffObservableList.Callback<BaseViewModel>() {
+                @Override
+                public boolean areItemsTheSame(BaseViewModel oldItem, BaseViewModel newItem) {
+                    if (oldItem instanceof ArticleItemViewModel && newItem instanceof ArticleItemViewModel) {
+                        return ((ArticleItemViewModel) oldItem).articleID.equalsIgnoreCase(((ArticleItemViewModel) newItem).articleID);
+                    }
+                    return oldItem.equals(newItem);
+                }
+
+                @Override
+                public boolean areContentsTheSame(BaseViewModel oldItem, BaseViewModel newItem) {
+                    return oldItem.equals(newItem);
+                }
+            });
+        }
+        return mData;
+    }
+
+    public void clear() {
+        getData().update(new ObservableArrayList<BaseViewModel>());
+    }
+
+    public void setData(ObservableList<BaseViewModel> observableList) {
+        getData().update(observableList);
+    }
+
+    public void onDestroy() {
+        clear();
+        instance = null;
+    }
 }

@@ -3,12 +3,14 @@ package com.minerva.business.article.list;
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseFragment;
+import com.minerva.business.article.list.model.ArticleModel;
 import com.minerva.common.GlobalData;
 
 public class ArticleListFragment extends BaseFragment<ArticleListViewModel> {
     private ArticleListViewModel articleListViewModel;
     private boolean isRecTab; //标记是否是推荐tab
     private int index; //标记当前的tab
+    private boolean mIsVisibleToUser;
 
     public void setIndex(int index) {
         this.index = index;
@@ -39,8 +41,15 @@ public class ArticleListFragment extends BaseFragment<ArticleListViewModel> {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        mIsVisibleToUser = isVisibleToUser;
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
+        ArticleModel.getInstance().onDestroy();
         if (articleListViewModel != null) {
             articleListViewModel.onDetach();
         }

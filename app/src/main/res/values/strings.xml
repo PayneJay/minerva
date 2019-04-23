@@ -124,5 +124,6 @@
     <string name="dialog_create_journal_title_hint">标题（最多20个字符）</string>
     <string name="dialog_create_journal_desc_hint">描述（可选，最多64个字符）</string>
     <string name="toast_journal_char_error">字符长度不符</string>
+    <string name="toast_already_new">已是最新版本</string>
 
 </resources>

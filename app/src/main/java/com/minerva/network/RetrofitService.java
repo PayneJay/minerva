@@ -10,6 +10,7 @@ import com.minerva.business.mine.collection.model.KanBean;
 import com.minerva.business.mine.collection.model.UnFavBean;
 import com.minerva.business.mine.login.model.LoginParams;
 import com.minerva.business.mine.login.model.UserInfo;
+import com.minerva.business.mine.message.model.MsgListBean;
 import com.minerva.business.search.model.ArticleResult;
 import com.minerva.business.search.model.SiteResult;
 import com.minerva.business.site.model.PolymerRead;
@@ -104,4 +105,7 @@ public interface RetrofitService {
 
     @GET("/api/articles/late.json")
     Observable<ArticleBean> getLateList(@Query("size") int size, @Query("is_pad") int isPad);
+
+    @GET("/api/notifications/list.json")
+    Observable<MsgListBean> getMessageList();
 }

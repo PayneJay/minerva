@@ -24,7 +24,10 @@ import com.minerva.R;
 import com.minerva.business.search.SearchActivity;
 import com.minerva.business.settings.SettingsActivity;
 import com.minerva.common.Constants;
+import com.minerva.common.EventMsg;
 import com.minerva.utils.ResourceUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
     private ViewPager mViewPager;
@@ -76,7 +79,23 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private PopupMenu.OnMenuItemClickListener mMoreMenuClickListener = new PopupMenu.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            Constants.showToast(HomeActivity.this);
+            switch (item.getItemId()) {
+                case R.id.toolbar_more_chinese:
+                    EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.SELECT_ARTICLE_LANGUAGE, 1));
+                    break;
+                case R.id.toolbar_more_english:
+                    EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.SELECT_ARTICLE_LANGUAGE, 2));
+                    break;
+                case R.id.toolbar_more_mix:
+                    EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.SELECT_ARTICLE_LANGUAGE, 0));
+                    break;
+                case R.id.toolbar_more_recommend_settings:
+                case R.id.toolbar_more_custom_channel:
+                case R.id.toolbar_more_week_list:
+                default:
+                    Constants.showToast(HomeActivity.this);
+                    break;
+            }
             return true;
         }
     };
