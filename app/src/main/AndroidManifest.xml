@@ -122,8 +122,13 @@
         <activity
             android:name=".business.mine.read.ReadLaterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".business.mine.journal.MyJournalActivity" />
-        <activity android:name=".business.mine.message.MessageActivity" />
+        <activity
+            android:name=".business.mine.journal.MyJournalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.mine.message.MessageActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".business.settings.RecommendActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="recItemVM"
+            type="com.minerva.business.settings.RecItemViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/nav_dimen_size_5dp"
+        android:background="@drawable/shape_rectangle_button_white"
+        android:orientation="horizontal"
+        android:padding="@dimen/nav_dimen_size_10dp">
+
+        <TextView
+            text="@{recItemVM.categoryName}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_000000"
+            android:textSize="18sp" />
+
+        <Spinner
+            spinnerItemSelectedListener="@{recItemVM.onItemSelectedListener}"
+            spinnerOptions="@{recItemVM.optionsText}"
+            spinnerSelectedPosition="@{recItemVM.selectedPosition}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:drawableEnd="@mipmap/icon_pull_down"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/color_000000"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</layout>

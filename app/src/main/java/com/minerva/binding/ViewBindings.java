@@ -21,20 +21,21 @@ import android.text.method.MovementMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.minerva.base.BaseActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.HtmlImageGetter;
 import com.minerva.utils.CommonUtils;
@@ -43,6 +44,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.File;
+import java.util.List;
 
 public class ViewBindings {
 
@@ -422,6 +424,18 @@ public class ViewBindings {
         if (listener != null) {
             checkBox.setOnCheckedChangeListener(listener);
         }
+    }
+
+    @BindingAdapter(value = {"spinnerItemSelectedListener", "spinnerOptions", "spinnerSelectedPosition"})
+    public static <T> void setSpinnerListener(Spinner spinner, AdapterView.OnItemSelectedListener listener, List<T> options, int position) {
+        ArrayAdapter<T> spinnerAdapter = new ArrayAdapter<>(spinner.getContext(),
+                android.R.layout.simple_spinner_item, options);
+        //下拉的样式res
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //绑定 Adapter到控件
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setSelection(position, true);
+        spinner.setOnItemSelectedListener(listener);
     }
 
     public interface ClickHandler {

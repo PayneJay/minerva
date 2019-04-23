@@ -13,6 +13,7 @@ import com.minerva.business.mine.login.model.UserInfo;
 import com.minerva.business.mine.message.model.MsgListBean;
 import com.minerva.business.search.model.ArticleResult;
 import com.minerva.business.search.model.SiteResult;
+import com.minerva.business.settings.model.ReadSettingBean;
 import com.minerva.business.site.model.PolymerRead;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.business.category.model.BookBean;
@@ -108,4 +109,12 @@ public interface RetrofitService {
 
     @GET("/api/notifications/list.json")
     Observable<MsgListBean> getMessageList();
+
+    @GET("/api/settings/read.json")
+    Observable<ReadSettingBean> getReadSetting();
+
+    @FormUrlEncoded
+    @POST("/api/settings/update_read.json")
+    Observable<BaseBean> updateRead(@Field("tech") String tech, @Field("design") String design, @Field("guru") String guru);
 }
+
