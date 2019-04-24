@@ -130,4 +130,5 @@
     <string name="recommend_setting_desc">我们推荐的文章除了来自中文站点，还有大量来自英文站点的。如果你有阅读英文内容的需要，可以通过修改设置实现。修改的设置会在后续的推荐中生效。对于科技类内容，考虑到国内的编译情况，清冽建议选择仅中文或者仅英文。</string>
     <string name="recommend_setting_submit">提交</string>
     <string name="dialog_read_update_success">修改完成，后续将以此偏好设置为依据。</string>
+    <string name="no_more_data">哥，这回真没了！</string>
 </resources>

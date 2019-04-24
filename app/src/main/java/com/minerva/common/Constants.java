@@ -42,6 +42,7 @@ public class Constants {
         int SEARCH_KW_HISTORY_TYPE = 9;   //搜索关键字列表item
         int MY_JOURNAL_ITEM_TYPE = 10;   //我的期刊item
         int MY_MESSAGE_ITEM_TYPE = 11;   //消息通知item
+        int NO_MORE_ITEM_TYPE = 12;   //没有更多item
     }
 
     public interface KeyExtra {

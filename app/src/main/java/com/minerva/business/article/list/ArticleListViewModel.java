@@ -18,6 +18,7 @@ import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.article.list.model.ArticleModel;
 import com.minerva.base.BaseViewModel;
 import com.minerva.common.EventMsg;
+import com.minerva.common.NoMoreViewModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
 import com.minerva.widget.Loading;
@@ -41,6 +42,9 @@ public class ArticleListViewModel extends BaseViewModel {
             switch (item.getViewType()) {
                 case Constants.RecyclerItemType.ARTICLE_COMMON_TYPE:
                     itemBinding.set(BR.articleItemVM, R.layout.item_article_common_layout);
+                    break;
+                case Constants.RecyclerItemType.NO_MORE_ITEM_TYPE:
+                    itemBinding.set(BR.noMoreVM, R.layout.item_no_more_layout);
                     break;
                 case Constants.RecyclerItemType.BLANK_TYPE:
                     itemBinding.set(BR.vmBlank, R.layout.item_blank_layout);
@@ -105,6 +109,8 @@ public class ArticleListViewModel extends BaseViewModel {
                 Map<String, Integer> language = ArticleModel.getInstance().getLanguageMap();
                 language.put(String.valueOf(mCurrentTab), eventMsg.getIndex());
                 ArticleModel.getInstance().setLanguageMap(language);
+                mCurrentPage = 0;
+                mLastID = "";
                 requestServer();
                 break;
         }
@@ -127,6 +133,10 @@ public class ArticleListViewModel extends BaseViewModel {
                 viewModel.imgUrl.set(articlesBean.getImg());
                 viewModel.articleID = articlesBean.getId();
                 items.add(viewModel);
+            }
+
+            if (!hasNext) {
+                items.add(new NoMoreViewModel(context));
             }
         } else {
             items.clear();
@@ -167,6 +177,7 @@ public class ArticleListViewModel extends BaseViewModel {
             public void onFailure(String msg) {
                 refreshing.set(false);
                 loading.dismiss();
+                createViewModel();
             }
         });
     }
@@ -182,6 +193,7 @@ public class ArticleListViewModel extends BaseViewModel {
      * @param articleBean 返回数据
      */
     protected void handleData(ArticleBean articleBean) {
+        mData.clear();
         if (articleBean == null || articleBean.getArticles().size() <= 0) {
             return;
         }
@@ -190,7 +202,6 @@ public class ArticleListViewModel extends BaseViewModel {
         mCurrentPage = articleBean.getPn();
         hasNext = articleBean.isHas_next();
         mLastID = articles.get(articles.size() - 1).getId();
-        mData.clear();
         mData.addAll(articles);
     }
 }
