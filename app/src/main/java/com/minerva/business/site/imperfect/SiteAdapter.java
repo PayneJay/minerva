@@ -65,7 +65,8 @@ class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX
             holder.foldIv.setVisibility(View.VISIBLE);
             holder.foldIv.setImageResource(isExpanding ? R.drawable.ic_arrow_expanding : R.drawable.ic_arrow_folding);
         } else {
-            holder.foldIv.setVisibility(View.INVISIBLE);
+            holder.foldIv.setVisibility(View.VISIBLE);
+            holder.foldIv.setImageResource(R.drawable.ic_arrow_expanding);
         }
         holder.readTv.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/toolbar_subscribe_discover"
+        android:title="@string/toolbar_subscribe_discover" />
+
+    <item
+        android:id="@+id/toolbar_create_group"
+        android:title="@string/toolbar_create_group" />
+
+    <item
+        android:id="@+id/toolbar_sort_group"
+        android:title="@string/toolbar_sort_group" />
+
+    <item
+        android:id="@+id/toolbar_all_read"
+        android:title="@string/toolbar_all_read" />
+
+    <item
+        android:id="@+id/toolbar_use_tips"
+        android:title="@string/toolbar_use_tips" />
+</menu>

@@ -18,6 +18,10 @@ import com.minerva.common.Constants;
 import com.minerva.common.MinervaLinearLayoutManager;
 import com.minerva.network.NetworkObserver;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +36,7 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         rootView = View.inflate(getActivity(), R.layout.fragment_site_layout, null);
+        EventBus.getDefault().register(this);
 
         initView();
         requestServer();
@@ -43,13 +48,20 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         return rootView;
     }
 
-    private void initView() {
-        swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(this);
-        recyclerView = rootView.findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new MinervaLinearLayoutManager(getActivity()));
-        mAdapter = new SiteAdapter(getActivity(), mList);
-        recyclerView.setAdapter(mAdapter);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEvent(SitesBean sitesBean) {
+        if (sitesBean != null) {
+            mList.clear();
+            mList.addAll(sitesBean.getItems());
+            SiteModel.getInstance().setItemList(sitesBean.getItems());
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -65,6 +77,7 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 swipeRefreshLayout.setRefreshing(false);
                 mList.clear();
                 mList.addAll(sitesBean.getItems());
+                SiteModel.getInstance().setItemList(sitesBean.getItems());
                 notifyDataSetChanged();
             }
 
@@ -77,6 +90,16 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         });
     }
+
+    private void initView() {
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        recyclerView = rootView.findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new MinervaLinearLayoutManager(getActivity()));
+        mAdapter = new SiteAdapter(getActivity(), mList);
+        recyclerView.setAdapter(mAdapter);
+    }
+
 
     private void notifyDataSetChanged() {
         if (mAdapter != null) {

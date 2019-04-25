@@ -2,7 +2,10 @@ package com.minerva.business.home;
 
 import android.Manifest;
 import android.app.ActivityManager;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,29 +13,47 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.minerva.BR;
 import com.minerva.R;
+import com.minerva.base.BaseBean;
+import com.minerva.business.home.menu.CreateGroupViewModel;
+import com.minerva.business.home.menu.MenuModel;
+import com.minerva.business.home.sort.SiteSortActivity;
+import com.minerva.business.home.subscribe.SubscribeSiteActivity;
 import com.minerva.business.home.weekly.WeeklyActivity;
 import com.minerva.business.search.SearchActivity;
 import com.minerva.business.settings.RecommendActivity;
 import com.minerva.business.settings.SettingsActivity;
+import com.minerva.business.site.model.SiteModel;
+import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
+import com.minerva.network.NetworkObserver;
+import com.minerva.utils.CommonUtils;
 import com.minerva.utils.ResourceUtils;
+import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
 
-public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
+import java.util.List;
+
+public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, CreateGroupViewModel.IDialogClickListener {
     private ViewPager mViewPager;
     private BottomNavigationView mNavigationView;
     private MenuItem mNavMenuItem;
@@ -96,8 +117,25 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                     goReadSetting();
                     break;
                 case R.id.toolbar_more_custom_channel:
+                    Constants.showToast(HomeActivity.this);
+                    break;
                 case R.id.toolbar_more_week_list:
                     goWeekly();
+                    break;
+                case R.id.toolbar_subscribe_discover:
+                    goSubscribeDiscover();
+                    break;
+                case R.id.toolbar_create_group:
+                    showCreateGroupDialog();
+                    break;
+                case R.id.toolbar_sort_group:
+                    goSortGroups();
+                    break;
+                case R.id.toolbar_all_read:
+                    markAllRead();
+                    break;
+                case R.id.toolbar_use_tips:
+                    showUseTips();
                     break;
                 default:
                     Constants.showToast(HomeActivity.this);
@@ -106,6 +144,22 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             return true;
         }
     };
+
+    private PopupWindow createPopup;
+    private Loading loading;
+
+    private void showUseTips() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
+                .setMessage(ResourceUtils.getString(R.string.dialog_use_tips_content))
+                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.show();
+    }
 
     private void goReadSetting() {
         if (GlobalData.getInstance().isLogin()) {
@@ -251,10 +305,104 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
     private void showPopupMenu() {
         PopupMenu popupMenu = new PopupMenu(this, mToolbar);
-        popupMenu.getMenuInflater().inflate(R.menu.home_popup_menu, popupMenu.getMenu());
+        switch (mViewPager.getCurrentItem()) {
+            case 0:
+                popupMenu.getMenuInflater().inflate(R.menu.article_popup_menu, popupMenu.getMenu());
+                break;
+            case 1:
+                popupMenu.getMenuInflater().inflate(R.menu.site_popup_menu, popupMenu.getMenu());
+                break;
+        }
         popupMenu.setGravity(Gravity.END);
         popupMenu.setOnMenuItemClickListener(mMoreMenuClickListener);
         mToolbar.setOnTouchListener(popupMenu.getDragToOpenListener());
         popupMenu.show();
+    }
+
+    private void showCreateGroupDialog() {
+        if (createPopup == null) {
+            createPopup = new PopupWindow(getWindow().getDecorView(), CommonUtils.getScreenWidth() - 100, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            createPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    WindowManager.LayoutParams lp = getWindow().getAttributes();
+                    lp.alpha = 1f;
+                    getWindow().setAttributes(lp);
+                }
+            });
+        }
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 0.6f;
+        getWindow().setAttributes(lp);
+
+        CreateGroupViewModel viewModel = new CreateGroupViewModel(this);
+        viewModel.setListener(this);
+        ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_create_group_layout, null, false);
+        binding.setVariable(BR.createGroupVM, viewModel);
+        binding.executePendingBindings();
+        createPopup.setContentView(binding.getRoot());
+        createPopup.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+    }
+
+    private void goSubscribeDiscover() {
+        startActivity(new Intent(this, SubscribeSiteActivity.class));
+    }
+
+    private void goSortGroups() {
+        List<SitesBean.ItemsBeanX> itemList = SiteModel.getInstance().getItemList();
+        if (itemList.size() <= 1) {
+            Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_create_more_to_sort), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        startActivity(new Intent(this, SiteSortActivity.class));
+    }
+
+    private void markAllRead() {
+        if (loading == null) {
+            loading = new Loading.Builder(this).show();
+        }
+
+        MenuModel.getInstance().markAllRead(new NetworkObserver<BaseBean>() {
+            @Override
+            public void onSuccess(BaseBean baseBean) {
+                loading.dismiss();
+                Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_already_update), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                loading.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void confirm(String name) {
+        if (createPopup != null) {
+            createPopup.dismiss();
+        }
+
+        if (loading == null) {
+            loading = new Loading.Builder(this).show();
+        }
+        MenuModel.getInstance().createGroup(name, new NetworkObserver<SitesBean>() {
+            @Override
+            public void onSuccess(SitesBean sitesBean) {
+                loading.dismiss();
+                EventBus.getDefault().postSticky(sitesBean);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                loading.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void cancel() {
+        if (createPopup != null) {
+            createPopup.dismiss();
+        }
     }
 }

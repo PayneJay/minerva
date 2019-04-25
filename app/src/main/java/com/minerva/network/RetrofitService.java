@@ -124,5 +124,16 @@ public interface RetrofitService {
 
     @GET("/api/weekly/{id}.json")
     Observable<WeekDetailBean> getWeeklyDetail(@Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("/api/source_groups/add_new.json")
+    Observable<SitesBean> createGroup(@Field("name") String name, @Field("type") int type);
+
+    @FormUrlEncoded
+    @POST("/api/source_groups/sort_groups.json")
+    Observable<SitesBean> sortGroups(@Field("order") String name, @Field("type") int type);
+
+    @GET("/api/sites/mark_all_read.json")
+    Observable<BaseBean> MarkAllRead();
 }
 

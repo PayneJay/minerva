@@ -142,4 +142,15 @@
 
     <string name="weekly_tag_gleaning">拾</string>
     <string name="weekly_month_week">{0}月第{1}周</string>
+    <string name="toolbar_subscribe_discover">订阅发现</string>
+    <string name="toolbar_create_group">新建分组</string>
+    <string name="toolbar_sort_group">分组排序</string>
+    <string name="toolbar_all_read">全部已读</string>
+    <string name="toolbar_use_tips">使用提示</string>
+    <string name="dialog_create_group_hint">最多10个字符</string>
+    <string name="dialog_create_group">创建分组</string>
+    <string name="toast_already_update">已同步更新</string>
+    <string name="dialog_use_tips_content">1、长按分组名称管理分组\n2、长按订阅项管理订阅项\n3、Have Fun</string>
+    <string name="toast_please_create_more_to_sort">请创建多个分组后再排序</string>
+    <string name="subscribe_site">订阅站点</string>
 </resources>

@@ -14,15 +14,24 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SiteModel {
     private static SiteModel instance;
-
-    private SiteModel() {
-    }
+    private List<SitesBean.ItemsBeanX> itemList;
 
     public static SiteModel getInstance() {
         if (instance == null) {
             instance = new SiteModel();
         }
         return instance;
+    }
+
+    public List<SitesBean.ItemsBeanX> getItemList() {
+        if (itemList == null) {
+            return new ArrayList<>();
+        }
+        return itemList;
+    }
+
+    public void setItemList(List<SitesBean.ItemsBeanX> itemList) {
+        this.itemList = itemList;
     }
 
     /**
