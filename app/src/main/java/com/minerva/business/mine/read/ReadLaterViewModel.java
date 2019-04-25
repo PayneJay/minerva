@@ -2,6 +2,7 @@ package com.minerva.business.mine.read;
 
 import android.content.Context;
 import android.databinding.ObservableField;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.minerva.R;
@@ -43,6 +44,11 @@ public class ReadLaterViewModel extends ArticleListViewModel {
 
     @Override
     protected void requestServer() {
+        if (TextUtils.equals(mKey, Constants.KeyExtra.READ_HISTORY_MAP)) {
+            refreshing.set(false);
+            return;
+        }
+
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
             if (mBlankVM == null) {

@@ -129,6 +129,8 @@
             android:name=".business.mine.message.MessageActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".business.settings.RecommendActivity" />
+        <activity android:name=".business.home.weekly.WeeklyActivity" />
+        <activity android:name=".business.home.weekly.WeeklyDetailActivity" />
     </application>
 
 </manifest>

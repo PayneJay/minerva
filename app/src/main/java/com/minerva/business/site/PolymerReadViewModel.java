@@ -59,6 +59,10 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
         requestServer();
     }
 
+    public PolymerReadViewModel(Context context, String simpleName) {
+        super(context, simpleName);
+    }
+
     @Override
     protected void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
@@ -111,7 +115,7 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
         }
     }
 
-    private void removeExcludeTitle() {
+    protected void removeExcludeTitle() {
         Iterator<BaseViewModel> iterator = observableItems.iterator();
         while (iterator.hasNext()) {
             BaseViewModel viewModel = iterator.next();

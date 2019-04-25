@@ -12,11 +12,6 @@ import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapters;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-
-/**
- * Created by nayibo on 2018/4/10.
- */
-
 public class RecyclerViewBindings {
     private RecyclerViewBindings() {
         throw new AssertionError("No instances.");

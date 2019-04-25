@@ -72,7 +72,7 @@ public class ArticleListViewModel extends BaseViewModel {
     }
 
     public int[] getColors() {
-        return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
+        return new int[]{R.color.color_1E90FF, R.color.color_FF77FF, R.color.color_00AEAE};
     }
 
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
@@ -135,7 +135,7 @@ public class ArticleListViewModel extends BaseViewModel {
                 items.add(viewModel);
             }
 
-            if (!hasNext) {
+            if (!hasNext && items.size() > 10) {
                 items.add(new NoMoreViewModel(context));
             }
         } else {

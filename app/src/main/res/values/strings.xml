@@ -131,4 +131,15 @@
     <string name="recommend_setting_submit">提交</string>
     <string name="dialog_read_update_success">修改完成，后续将以此偏好设置为依据。</string>
     <string name="no_more_data">哥，这回真没了！</string>
+
+    <string name="week_traditional_monday">壹</string>
+    <string name="week_traditional_tuesday">貳</string>
+    <string name="week_traditional_wednesday">叁</string>
+    <string name="week_traditional_thursday">肆</string>
+    <string name="week_traditional_friday">伍</string>
+    <string name="week_traditional_saturday">陸</string>
+    <string name="week_traditional_sunday">柒</string>
+
+    <string name="weekly_tag_gleaning">拾</string>
+    <string name="weekly_month_week">{0}月第{1}周</string>
 </resources>

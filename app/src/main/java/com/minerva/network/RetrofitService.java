@@ -6,6 +6,8 @@ import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.book.AllBook;
 import com.minerva.business.category.mag.model.MagDetailBean;
 import com.minerva.business.category.mag.model.MagPeriod;
+import com.minerva.business.home.weekly.model.WeekDetailBean;
+import com.minerva.business.home.weekly.model.WeekListBean;
 import com.minerva.business.mine.collection.model.KanBean;
 import com.minerva.business.mine.collection.model.UnFavBean;
 import com.minerva.business.mine.login.model.LoginParams;
@@ -116,5 +118,11 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/settings/update_read.json")
     Observable<BaseBean> updateRead(@Field("tech") String tech, @Field("design") String design, @Field("guru") String guru);
+
+    @GET("/api/weekly/my.json")
+    Observable<WeekListBean> getWeeklyList();
+
+    @GET("/api/weekly/{id}.json")
+    Observable<WeekDetailBean> getWeeklyDetail(@Path("id") String id);
 }
 

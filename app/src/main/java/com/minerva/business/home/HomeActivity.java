@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.minerva.R;
+import com.minerva.business.home.weekly.WeeklyActivity;
 import com.minerva.business.search.SearchActivity;
 import com.minerva.business.settings.RecommendActivity;
 import com.minerva.business.settings.SettingsActivity;
@@ -95,6 +96,8 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                     break;
                 case R.id.toolbar_more_custom_channel:
                 case R.id.toolbar_more_week_list:
+                    goWeekly();
+                    break;
                 default:
                     Constants.showToast(HomeActivity.this);
                     break;
@@ -105,6 +108,10 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
     private void goReadSetting() {
         startActivity(new Intent(this, RecommendActivity.class));
+    }
+
+    private void goWeekly() {
+        startActivity(new Intent(this, WeeklyActivity.class));
     }
 
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {

@@ -61,6 +61,8 @@ public class Constants {
         String READ_LATER_MAP = "read_later_map"; //待读文章
         String READ_HISTORY_MAP = "read_history_map"; //阅读历史
         String COME_FROM_MINE = "come_from_mine"; //标记是从我的页面跳转过来的
+        String WEEKLY_ID = "weekly_id"; //一周拾遗id
+        String WEEKLY_DATE = "weekly_date"; //一周拾遗时间
     }
 
     public interface UserInfoKey {

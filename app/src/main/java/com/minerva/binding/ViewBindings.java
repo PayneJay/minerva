@@ -353,7 +353,7 @@ public class ViewBindings {
     }
 
     @BindingAdapter(value = {"bg"})
-    public static void setTextViewBg(TextView view, int res) {
+    public static void setViewBg(View view, int res) {
         view.setBackgroundResource(res);
     }
 
