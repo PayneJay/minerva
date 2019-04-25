@@ -38,11 +38,8 @@
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
-            itemBinding="@{sortVM.sortItemBind}"
-            items="@{sortVM.items}"
+            itemDragListener="@{sortVM.itemDragListener}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never"
-            app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 </layout>

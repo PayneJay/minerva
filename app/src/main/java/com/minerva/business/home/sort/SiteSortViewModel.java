@@ -1,34 +1,25 @@
 package com.minerva.business.home.sort;
 
 import android.content.Context;
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
+import android.databinding.BindingAdapter;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.minerva.BR;
-import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.home.weekly.WeeklyItemViewModel;
-import com.minerva.common.BlankViewModel;
+import com.minerva.business.site.model.SiteModel;
+import com.minerva.business.site.model.SitesBean;
+import com.minerva.common.MinervaLinearLayoutManager;
+import com.minerva.widget.touchHelper.ItemDragListener;
+import com.minerva.widget.touchHelper.ItemTouchHelperCallback;
 
-import me.tatarka.bindingcollectionadapter2.ItemBinding;
-import me.tatarka.bindingcollectionadapter2.OnItemBind;
+import java.util.List;
 
 public class SiteSortViewModel extends BaseViewModel {
-    public OnItemBind<BaseViewModel> sortItemBind = new OnItemBind<BaseViewModel>() {
-        @Override
-        public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
-            if (item instanceof WeeklyItemViewModel) {
-                itemBinding.set(BR.weekItemVM, R.layout.item_weekly_layout);
-            }
-            if (item instanceof BlankViewModel) {
-                itemBinding.set(BR.vmBlank, R.layout.item_blank_layout);
-            }
-        }
-    };
+    private static ItemTouchHelper itemTouchHelper;
     public View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -38,9 +29,15 @@ public class SiteSortViewModel extends BaseViewModel {
     public Toolbar.OnMenuItemClickListener menuItemClickListener = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            if (item.getItemId() == R.id.add_journal) {
-            }
             return true;
+        }
+    };
+    public ItemDragListener itemDragListener = new ItemDragListener() {
+        @Override
+        public void onStartDrags(RecyclerView.ViewHolder viewHolder) {
+            if (itemTouchHelper != null) {
+                itemTouchHelper.startDrag(viewHolder);
+            }
         }
     };
 
@@ -48,7 +45,23 @@ public class SiteSortViewModel extends BaseViewModel {
         super(context);
     }
 
-    public ObservableList<BaseViewModel> getItems() {
-        return new ObservableArrayList<>();
+    public List<SitesBean.ItemsBeanX> getItems() {
+        return SiteModel.getInstance().getItemList();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        itemTouchHelper = null;
+    }
+
+    @BindingAdapter({"itemDragListener"})
+    public static void setItemDragListener(RecyclerView recyclerView, ItemDragListener listener) {
+        TouchAdapter adapter = new TouchAdapter(SiteModel.getInstance().getItemList(), listener);
+        recyclerView.setLayoutManager(new MinervaLinearLayoutManager(recyclerView.getContext()));
+        recyclerView.setAdapter(adapter);
+        ItemTouchHelperCallback itemTouchHelperCallback = new ItemTouchHelperCallback(adapter);
+        itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 }
