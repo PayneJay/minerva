@@ -70,7 +70,7 @@ public class WeeklyViewModel extends BaseViewModel {
         refreshing.set(true);
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
-            setErrorPage();
+            setErrorPage(Constants.PageStatus.NETWORK_EXCEPTION);
             return;
         }
 
@@ -86,18 +86,18 @@ public class WeeklyViewModel extends BaseViewModel {
             @Override
             public void onFailure(String msg) {
                 refreshing.set(false);
-                setErrorPage();
+                setErrorPage(Constants.PageStatus.NO_DATA);
             }
         });
     }
 
-    private void setErrorPage() {
+    private void setErrorPage(int state) {
         ObservableList<BaseViewModel> temp = new ObservableArrayList<>();
         if (mBlankVM == null) {
             mBlankVM = new BlankViewModel(context);
         }
         WeeklyModel.getInstance().clear();
-        mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
+        mBlankVM.setStatus(state);
         temp.add(mBlankVM);
         WeeklyModel.getInstance().setData(temp);
     }

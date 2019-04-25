@@ -10,7 +10,6 @@ public class ArticleListFragment extends BaseFragment<ArticleListViewModel> {
     private ArticleListViewModel articleListViewModel;
     private boolean isRecTab; //标记是否是推荐tab
     private int index; //标记当前的tab
-    private boolean mIsVisibleToUser;
 
     public void setIndex(int index) {
         this.index = index;
@@ -43,7 +42,6 @@ public class ArticleListFragment extends BaseFragment<ArticleListViewModel> {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        mIsVisibleToUser = isVisibleToUser;
     }
 
     @Override

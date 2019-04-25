@@ -6,17 +6,15 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.minerva.BR;
+import com.minerva.R;
+import com.minerva.base.BaseViewModel;
+import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.list.model.ArticleModel;
 import com.minerva.business.mine.login.LoginActivity;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
-import com.minerva.R;
-import com.minerva.business.article.list.model.ArticleBean;
-import com.minerva.business.article.list.model.ArticleModel;
-import com.minerva.base.BaseViewModel;
 import com.minerva.common.EventMsg;
 import com.minerva.common.NoMoreViewModel;
 import com.minerva.network.NetworkObserver;
@@ -163,23 +161,30 @@ public class ArticleListViewModel extends BaseViewModel {
             loading = new Loading.Builder(context).show();
         }
 
-        ArticleModel.getInstance().getArticleList(mCurrentTab, getLanguage(), mLastID, mCurrentPage, new NetworkObserver<ArticleBean>() {
-            @Override
-            public void onSuccess(ArticleBean articleBean) {
-                refreshing.set(false);
-                loading.dismiss();
-                isRecommendGone.set(true);
-                handleData(articleBean);
-                createViewModel();
-            }
+        ArticleModel.getInstance().getArticleList(mCurrentTab, getLanguage(), mLastID, mCurrentPage,
+                new IUnLoginListener() {
+                    @Override
+                    public void unLogin() {
+                        loading.dismiss();
+                        refreshing.set(false);
+                    }
+                }, new NetworkObserver<ArticleBean>() {
+                    @Override
+                    public void onSuccess(ArticleBean articleBean) {
+                        refreshing.set(false);
+                        loading.dismiss();
+                        isRecommendGone.set(true);
+                        handleData(articleBean);
+                        createViewModel();
+                    }
 
-            @Override
-            public void onFailure(String msg) {
-                refreshing.set(false);
-                loading.dismiss();
-                createViewModel();
-            }
-        });
+                    @Override
+                    public void onFailure(String msg) {
+                        refreshing.set(false);
+                        loading.dismiss();
+                        createViewModel();
+                    }
+                });
     }
 
     private int getLanguage() {

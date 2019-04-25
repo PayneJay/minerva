@@ -27,6 +27,7 @@ import com.minerva.business.settings.RecommendActivity;
 import com.minerva.business.settings.SettingsActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
+import com.minerva.common.GlobalData;
 import com.minerva.utils.ResourceUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -107,11 +108,21 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     };
 
     private void goReadSetting() {
-        startActivity(new Intent(this, RecommendActivity.class));
+        if (GlobalData.getInstance().isLogin()) {
+            startActivity(new Intent(this, RecommendActivity.class));
+            return;
+        }
+
+        Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
     }
 
     private void goWeekly() {
-        startActivity(new Intent(this, WeeklyActivity.class));
+        if (GlobalData.getInstance().isLogin()) {
+            startActivity(new Intent(this, WeeklyActivity.class));
+            return;
+        }
+
+        Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
     }
 
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {

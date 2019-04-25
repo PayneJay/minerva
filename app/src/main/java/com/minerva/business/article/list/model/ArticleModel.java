@@ -6,6 +6,7 @@ import android.databinding.ObservableList;
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.list.ArticleItemViewModel;
+import com.minerva.business.article.list.IUnLoginListener;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
@@ -52,11 +53,14 @@ public class ArticleModel {
      * @param page     当前页数
      * @param observer 网络回调
      */
-    public void getArticleList(int index, int lang, String lastID, int page, Observer<? super ArticleBean> observer) {
+    public void getArticleList(int index, int lang, String lastID, int page, IUnLoginListener listener, Observer<? super ArticleBean> observer) {
         RetrofitService server = RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null).getServer();
         if (index == 1) {//是推荐模块
             //是未登录态
             if (!GlobalData.getInstance().isLogin()) {
+                if (listener != null) {
+                    listener.unLogin();
+                }
                 return;
             }
 
