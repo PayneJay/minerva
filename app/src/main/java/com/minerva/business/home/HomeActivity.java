@@ -390,6 +390,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             @Override
             public void onSuccess(SitesBean sitesBean) {
                 loading.dismiss();
+                Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_create_group_success), Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky(sitesBean);
             }
 

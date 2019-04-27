@@ -27,7 +27,6 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 public class PolymerReadViewModel extends PeriodicalDetailViewModel {
-    public ObservableList<BaseViewModel> observableItems = new ObservableArrayList<>();
     public OnItemBind<BaseViewModel> polymerizeItemBind = new OnItemBind<BaseViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
@@ -55,7 +54,7 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
         MagTitleViewModel titleViewModel = new MagTitleViewModel(context);
         titleViewModel.title.set(ResourceUtils.getString(R.string.polymer_read).substring(0, 1));
         titleViewModel.name.set(name);
-        observableItems.add(titleViewModel);
+        items.add(titleViewModel);
         requestServer();
     }
 
@@ -66,15 +65,7 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
     @Override
     protected void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
-            refreshing.set(false);
-            if (mBlankVM == null) {
-                mBlankVM = new BlankViewModel(context);
-            }
-            if (mCurrentPage == 0) {
-                removeExcludeTitle();
-                mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
-                observableItems.add(mBlankVM);
-            }
+            setNetworkError();
             return;
         }
 
@@ -83,8 +74,8 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
             public void onSuccess(PolymerRead polymerRead) {
                 refreshing.set(false);
                 mCode = polymerRead.getCode();
-
                 hasNext = polymerRead.isHas_next();
+
                 List<ArticleBean.ArticlesBean> articles = polymerRead.getArticles();
                 mData.clear();
                 mData.addAll(articles);
@@ -100,8 +91,9 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
 
     @Override
     protected void createViewModel() {
-        if (mCurrentPage == 0) {
-            removeExcludeTitle();
+        if (mCurrentPage == 0 && mData.size() == 0) {
+            setEmptyPage();
+            return;
         }
 
         for (int i = 0; i < mData.size(); i++) {
@@ -111,12 +103,13 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
             viewModel.date.set(articlesBean.getRectime());
             viewModel.imgUrl.set(articlesBean.getImg());
             viewModel.articleID = articlesBean.getId();
-            observableItems.add(viewModel);
+            items.add(viewModel);
         }
     }
 
+    @Override
     protected void removeExcludeTitle() {
-        Iterator<BaseViewModel> iterator = observableItems.iterator();
+        Iterator<BaseViewModel> iterator = items.iterator();
         while (iterator.hasNext()) {
             BaseViewModel viewModel = iterator.next();
             if (Constants.RecyclerItemType.MAG_TITLE_TYPE != viewModel.getViewType()) {

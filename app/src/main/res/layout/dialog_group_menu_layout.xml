@@ -34,6 +34,16 @@
             android:textSize="16sp" />
 
         <TextView
+            onClick="@{groupMenuVM::onDeleteClick}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/nav_dimen_size_5dp"
+            android:layout_marginTop="@dimen/nav_dimen_size_10dp"
+            android:text="@string/menu_delete_group"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <TextView
             onClick="@{groupMenuVM::onTransferClick}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

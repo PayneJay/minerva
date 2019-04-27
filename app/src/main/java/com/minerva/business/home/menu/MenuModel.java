@@ -138,4 +138,19 @@ public class MenuModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    /**
+     * 删除分组
+     *
+     * @param did      目标组
+     * @param observer 回调
+     */
+    public void removeGroup(int did, Observer<? super BaseBean> observer) {
+        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_POST, null)
+                .getServer()
+                .removeGroup(did, 1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

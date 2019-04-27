@@ -104,6 +104,7 @@
 
     <string name="dialog_title_note">提示</string>
     <string name="dialog_are_you_sure_logout">确定要注销吗？</string>
+    <string name="dialog_are_you_sure_delete">确定要删除分组{0}吗？</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_confirm">确定</string>
     <string name="update_today">今日更新</string>
@@ -162,4 +163,7 @@
     <string name="menu_edit_group_name">编辑名称</string>
     <string name="menu_delete_group">删除分组</string>
     <string name="please_select_option">请选择操作：</string>
+
+    <string name="toast_create_group_success">创建成功</string>
+    <string name="toast_update_group_success">修改成功</string>
 </resources>

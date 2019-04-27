@@ -42,7 +42,7 @@
 
             <android.support.v7.widget.RecyclerView
                 itemBinding="@{weeklyDetailVM.polymerizeItemBind}"
-                items="@{weeklyDetailVM.observableItems}"
+                items="@{weeklyDetailVM.items}"
                 loadMore="@{weeklyDetailVM::loadMore}"
                 onRecyclerScrollListener="@{weeklyDetailVM.onScrollListener}"
                 android:layout_width="match_parent"

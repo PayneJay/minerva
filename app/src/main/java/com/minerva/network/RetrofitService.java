@@ -155,5 +155,9 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/source_groups/move.json")
     Observable<BaseBean> moveSource(@Field("did") int did, @Field("sid") String sid, @Field("type") int type);
+
+    @FormUrlEncoded
+    @POST("/api/source_groups/remove.json")
+    Observable<BaseBean> removeGroup(@Field("did") int did, @Field("type") int type);
 }
 

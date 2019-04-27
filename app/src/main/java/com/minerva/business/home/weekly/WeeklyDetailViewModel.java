@@ -32,7 +32,7 @@ public class WeeklyDetailViewModel extends PolymerReadViewModel {
         titleViewModel.title.set(ResourceUtils.getString(R.string.weekly_tag_gleaning));
         name = getDateText();
         titleViewModel.name.set(name);
-        observableItems.add(titleViewModel);
+        items.add(titleViewModel);
         requestServer();
     }
 
@@ -40,14 +40,7 @@ public class WeeklyDetailViewModel extends PolymerReadViewModel {
     protected void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
-            if (mBlankVM == null) {
-                mBlankVM = new BlankViewModel(context);
-            }
-            if (mCurrentPage == 0) {
-                removeExcludeTitle();
-                mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
-                observableItems.add(mBlankVM);
-            }
+            setNetworkError();
             return;
         }
 

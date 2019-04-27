@@ -116,13 +116,7 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
 
     protected void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
-            refreshing.set(false);
-            if (mBlankVM == null) {
-                mBlankVM = new BlankViewModel(context);
-            }
-            removeExcludeTitle();
-            mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
-            items.add(mBlankVM);
+            setNetworkError();
             return;
         }
 
@@ -159,8 +153,9 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
     }
 
     protected void createViewModel() {
-        if (mCurrentPage == 0) {
-            removeExcludeTitle();
+        if (mCurrentPage == 0 && mData.size() == 0) {
+            setEmptyPage();
+            return;
         }
 
         for (int i = 0; i < mData.size(); i++) {
@@ -175,9 +170,37 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
     }
 
     /**
+     * 设置空页面
+     */
+    protected void setEmptyPage() {
+        refreshing.set(false);
+        if (mBlankVM == null) {
+            mBlankVM = new BlankViewModel(context);
+        }
+        removeExcludeTitle();
+        mBlankVM.setStatus(Constants.PageStatus.NO_DATA);
+        items.add(mBlankVM);
+    }
+
+    /**
+     * 设置网络错误页
+     */
+    protected void setNetworkError() {
+        refreshing.set(false);
+        if (mBlankVM == null) {
+            mBlankVM = new BlankViewModel(context);
+        }
+        if (mCurrentPage == 0) {
+            removeExcludeTitle();
+            mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
+            items.add(mBlankVM);
+        }
+    }
+
+    /**
      * 移除除Title外的item
      */
-    private void removeExcludeTitle() {
+    protected void removeExcludeTitle() {
         Iterator<BaseViewModel> iterator = items.iterator();
         while (iterator.hasNext()) {
             BaseViewModel viewModel = iterator.next();

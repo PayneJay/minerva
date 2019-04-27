@@ -1,9 +1,11 @@
 package com.minerva.business.site.menu;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableBoolean;
 import android.databinding.ViewDataBinding;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -24,6 +26,8 @@ import com.minerva.utils.ResourceUtils;
 import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.text.MessageFormat;
 
 public class GroupMenuViewModel extends MenuViewModel implements CreateGroupViewModel.IDialogClickListener {
     public ObservableBoolean isEditMenuGone = new ObservableBoolean(false);
@@ -58,6 +62,14 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
         showPopupMenu(SiteFragment.TYPE_GROUP);
     }
 
+    public void onDeleteClick() {
+        if (listener != null) {
+            listener.onMenuItemClick();
+        }
+
+        showConfirmDialog();
+    }
+
     public void onMarkAllClick() {
         if (listener != null) {
             listener.onMenuItemClick();
@@ -79,10 +91,43 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
             @Override
             public void onFailure(String msg) {
                 loading.dismiss();
-                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    @Override
+    public void confirm(String name) {
+        if (renamePopup != null) {
+            renamePopup.dismiss();
+        }
+
+        if (loading == null) {
+            loading = new Loading.Builder(context).show();
+        } else {
+            loading.show();
+        }
+
+        MenuModel.getInstance().renameGroup(getGroupId(), name, new NetworkObserver<BaseBean>() {
+            @Override
+            public void onSuccess(BaseBean baseBean) {
+                loading.dismiss();
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
+                EventBus.getDefault().postSticky(baseBean);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                loading.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void cancel() {
+        if (renamePopup != null) {
+            renamePopup.dismiss();
+        }
     }
 
     private void showRenameDialog() {
@@ -112,19 +157,29 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
         renamePopup.showAtLocation(((HomeActivity) context).getWindow().getDecorView(), Gravity.CENTER, 0, 0);
     }
 
-    @Override
-    public void confirm(String name) {
-        if (renamePopup != null) {
-            renamePopup.dismiss();
-        }
+    private void showConfirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
+                .setMessage(MessageFormat.format(ResourceUtils.getString(R.string.dialog_are_you_sure_delete), name))
+                .setNegativeButton(ResourceUtils.getString(R.string.dialog_cancel), null)
+                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        deleteGroup();
+                    }
+                });
+        builder.show();
+    }
 
+    private void deleteGroup() {
         if (loading == null) {
             loading = new Loading.Builder(context).show();
         } else {
             loading.show();
         }
 
-        MenuModel.getInstance().renameGroup(getGroupId(), name, new NetworkObserver<BaseBean>() {
+        MenuModel.getInstance().removeGroup(getGroupId(), new NetworkObserver<BaseBean>() {
             @Override
             public void onSuccess(BaseBean baseBean) {
                 loading.dismiss();
@@ -134,15 +189,7 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
             @Override
             public void onFailure(String msg) {
                 loading.dismiss();
-                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    public void cancel() {
-        if (renamePopup != null) {
-            renamePopup.dismiss();
-        }
     }
 }
