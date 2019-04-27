@@ -7,15 +7,16 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.minerva.R;
+import com.minerva.business.site.model.SiteModel;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.widget.touchHelper.ItemDragListener;
 import com.minerva.widget.touchHelper.ItemTouchHelperAdapter;
 import com.minerva.widget.touchHelper.ItemTouchHelperViewHolder;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,9 +24,15 @@ public class TouchAdapter extends RecyclerView.Adapter<TouchAdapter.TouchViewHol
     private List<SitesBean.ItemsBeanX> mItems;
     private ItemDragListener mListener;
 
-    public TouchAdapter(List<SitesBean.ItemsBeanX> items, ItemDragListener listener) {
-        this.mItems = items;
+    TouchAdapter(List<SitesBean.ItemsBeanX> items, ItemDragListener listener) {
         this.mListener = listener;
+        mItems = new ArrayList<>();
+        for (SitesBean.ItemsBeanX item : items) {
+            if (item.getId() == 0) {
+                continue;
+            }
+            mItems.add(item);
+        }
     }
 
     @NonNull
@@ -61,12 +68,26 @@ public class TouchAdapter extends RecyclerView.Adapter<TouchAdapter.TouchViewHol
         //互换列表中指定位置的数据
         Collections.swap(mItems, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
+        setItemsID();
     }
 
     @Override
     public void onItemDismiss(int position) {
         mItems.remove(position);
         notifyItemRemoved(position);
+        setItemsID();
+    }
+
+    private void setItemsID() {
+        StringBuilder ids = new StringBuilder();
+        for (int i = 0; i < mItems.size(); i++) {
+            if (i != mItems.size() - 1) {
+                ids.append(mItems.get(i).getId()).append(",");
+            } else {
+                ids.append(mItems.get(i).getId());
+            }
+        }
+        SiteModel.getInstance().setGroupIds(ids.toString());
     }
 
     public class TouchViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {

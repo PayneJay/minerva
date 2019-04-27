@@ -10,9 +10,9 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.utils.ResourceUtils;
 
 public class CreateGroupViewModel extends BaseViewModel {
+    public ObservableField<String> title = new ObservableField<>();
     public ObservableField<String> titleContent = new ObservableField<>();
     private IDialogClickListener listener;
-    private int type = 1;
 
     public CreateGroupViewModel(Context context) {
         super(context);

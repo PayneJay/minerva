@@ -336,6 +336,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         getWindow().setAttributes(lp);
 
         CreateGroupViewModel viewModel = new CreateGroupViewModel(this);
+        viewModel.title.set(ResourceUtils.getString(R.string.dialog_create_group));
         viewModel.setListener(this);
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_create_group_layout, null, false);
         binding.setVariable(BR.createGroupVM, viewModel);

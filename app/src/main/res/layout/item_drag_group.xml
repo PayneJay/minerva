@@ -2,14 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_dimen_size_46dp"
-    android:background="@drawable/shape_rect_with_bottom_line">
+    android:layout_marginTop="@dimen/nav_dimen_size_1dp"
+    android:background="@android:color/white">
 
     <TextView
         android:id="@+id/group_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:paddingLeft="@dimen/nav_dimen_size_15dp"
+        android:paddingStart="@dimen/nav_dimen_size_15dp"
+        android:paddingEnd="@dimen/nav_dimen_size_15dp"
         android:textColor="@color/color_000000" />
 
 </RelativeLayout>

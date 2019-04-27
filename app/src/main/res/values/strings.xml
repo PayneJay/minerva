@@ -149,8 +149,17 @@
     <string name="toolbar_use_tips">使用提示</string>
     <string name="dialog_create_group_hint">最多10个字符</string>
     <string name="dialog_create_group">创建分组</string>
+    <string name="dialog_rename_group">修改分组名称</string>
     <string name="toast_already_update">已同步更新</string>
     <string name="dialog_use_tips_content">1、长按分组名称管理分组\n2、长按订阅项管理订阅项\n3、Have Fun</string>
     <string name="toast_please_create_more_to_sort">请创建多个分组后再排序</string>
     <string name="subscribe_site">订阅站点</string>
+
+    <string name="menu_unsubscribe">取消订阅</string>
+    <string name="menu_move_group">迁移分组</string>
+    <string name="menu_move_to_group">迁移到分组：</string>
+    <string name="menu_move_subscribe">迁移订阅项</string>
+    <string name="menu_edit_group_name">编辑名称</string>
+    <string name="menu_delete_group">删除分组</string>
+    <string name="please_select_option">请选择操作：</string>
 </resources>

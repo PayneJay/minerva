@@ -131,9 +131,29 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("/api/source_groups/sort_groups.json")
-    Observable<SitesBean> sortGroups(@Field("order") String name, @Field("type") int type);
+    Observable<BaseBean> sortGroups(@Field("order") String name, @Field("type") int type);
 
     @GET("/api/sites/mark_all_read.json")
-    Observable<BaseBean> MarkAllRead();
+    Observable<BaseBean> markAllRead();
+
+    @FormUrlEncoded
+    @POST("/api/sites/mark_juhe_readed.json")
+    Observable<BaseBean> markJuheRead(@Field("did") int did);
+
+    @FormUrlEncoded
+    @POST("/api/sites/mark_unfollow.json")
+    Observable<BaseBean> markUnFollow(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("/api/source_groups/rename.json")
+    Observable<BaseBean> renameGroup(@Field("id") int id, @Field("name") String name, @Field("type") int type);
+
+    @FormUrlEncoded
+    @POST("/api/source_groups/transfer_items.json")
+    Observable<BaseBean> transferItems(@Field("tid") int tid, @Field("fid") int fid, @Field("type") int type);
+
+    @FormUrlEncoded
+    @POST("/api/source_groups/move.json")
+    Observable<BaseBean> moveSource(@Field("did") int did, @Field("sid") String sid, @Field("type") int type);
 }
 

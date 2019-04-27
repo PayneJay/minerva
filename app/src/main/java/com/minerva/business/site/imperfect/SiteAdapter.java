@@ -24,9 +24,11 @@ import java.util.List;
 class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX, SitesBean.ItemsBeanX.ItemsBean, SiteAdapter.GroupVH, SiteAdapter.ChildVH> {
     private List<SitesBean.ItemsBeanX> mList;
     private Context context;
+    private ItemLongClickListener listener;
 
-    public SiteAdapter(Context context, List<SitesBean.ItemsBeanX> list) {
+    SiteAdapter(Context context, List<SitesBean.ItemsBeanX> list, ItemLongClickListener listener) {
         this.context = context;
+        this.listener = listener;
         mList = list;
     }
 
@@ -59,9 +61,9 @@ class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX
     }
 
     @Override
-    public void onBindGroupViewHolder(GroupVH holder, final SitesBean.ItemsBeanX sampleGroupBean, boolean isExpanding) {
-        holder.nameTv.setText(sampleGroupBean.getName());
-        if (sampleGroupBean.isExpandable()) {
+    public void onBindGroupViewHolder(GroupVH holder, final SitesBean.ItemsBeanX groupBean, boolean isExpanding) {
+        holder.nameTv.setText(groupBean.getName());
+        if (groupBean.isExpandable()) {
             holder.foldIv.setVisibility(View.VISIBLE);
             holder.foldIv.setImageResource(isExpanding ? R.drawable.ic_arrow_expanding : R.drawable.ic_arrow_folding);
         } else {
@@ -72,33 +74,53 @@ class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PolymerReadActivity.class);
-                intent.putExtra(Constants.KeyExtra.POLYMER_ID, sampleGroupBean.getId());
-                intent.putExtra(Constants.KeyExtra.PERIODICAL_NAME, sampleGroupBean.getName());
+                intent.putExtra(Constants.KeyExtra.POLYMER_ID, groupBean.getId());
+                intent.putExtra(Constants.KeyExtra.PERIODICAL_NAME, groupBean.getName());
                 context.startActivity(intent);
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (listener != null) {
+                    listener.onGroupLongClick(groupBean.getId(), groupBean.getName());
+                }
+                return true;
             }
         });
     }
 
     @Override
-    public void onBindChildViewHolder(final ChildVH holder, SitesBean.ItemsBeanX groupBean, final SitesBean.ItemsBeanX.ItemsBean sampleChildBean) {
-        holder.nameTv.setText(sampleChildBean.getName());
+    public void onBindChildViewHolder(final ChildVH holder, final SitesBean.ItemsBeanX groupBean, final SitesBean.ItemsBeanX.ItemsBean childBean) {
+        holder.nameTv.setText(childBean.getName());
         holder.nameTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PeriodicalDetailActivity.class);
-                intent.putExtra(Constants.KeyExtra.PERIODICAL_ID, sampleChildBean.getId());
-                intent.putExtra(Constants.KeyExtra.PERIODICAL_IMAGE, sampleChildBean.getImage());
-                intent.putExtra(Constants.KeyExtra.PERIODICAL_NAME, sampleChildBean.getName());
+                intent.putExtra(Constants.KeyExtra.PERIODICAL_ID, childBean.getId());
+                intent.putExtra(Constants.KeyExtra.PERIODICAL_IMAGE, childBean.getImage());
+                intent.putExtra(Constants.KeyExtra.PERIODICAL_NAME, childBean.getName());
                 context.startActivity(intent);
             }
         });
 
         Glide.with(context)
-                .load(sampleChildBean.getImage())
+                .load(childBean.getImage())
                 .placeholder(R.drawable.icon_topic_default)
                 .error(R.drawable.icon_topic_default)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(holder.icon);
+
+        holder.nameTv.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (listener != null) {
+                    listener.onChildLongClick(groupBean.getId(), childBean.getId());
+                }
+                return true;
+            }
+        });
     }
 
     static class GroupVH extends BaseExpandableRecyclerViewAdapter.BaseGroupViewHolder {
@@ -128,4 +150,5 @@ class SiteAdapter extends BaseExpandableRecyclerViewAdapter<SitesBean.ItemsBeanX
             icon = itemView.findViewById(R.id.img_child_icon);
         }
     }
+
 }

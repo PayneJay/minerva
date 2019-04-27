@@ -15,6 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SiteModel {
     private static SiteModel instance;
     private List<SitesBean.ItemsBeanX> itemList;
+    private String groupIds;
 
     public static SiteModel getInstance() {
         if (instance == null) {
@@ -32,6 +33,14 @@ public class SiteModel {
 
     public void setItemList(List<SitesBean.ItemsBeanX> itemList) {
         this.itemList = itemList;
+    }
+
+    public String getGroupIds() {
+        return groupIds == null ? "" : groupIds;
+    }
+
+    public void setGroupIds(String groupIds) {
+        this.groupIds = groupIds;
     }
 
     /**

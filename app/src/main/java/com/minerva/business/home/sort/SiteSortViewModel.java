@@ -7,14 +7,22 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.minerva.R;
 import com.minerva.base.BaseActivity;
+import com.minerva.base.BaseBean;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.home.menu.MenuModel;
 import com.minerva.business.site.model.SiteModel;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.MinervaLinearLayoutManager;
+import com.minerva.network.NetworkObserver;
+import com.minerva.widget.Loading;
 import com.minerva.widget.touchHelper.ItemDragListener;
 import com.minerva.widget.touchHelper.ItemTouchHelperCallback;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -29,9 +37,13 @@ public class SiteSortViewModel extends BaseViewModel {
     public Toolbar.OnMenuItemClickListener menuItemClickListener = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
+            if (item.getItemId() == R.id.add_journal) {
+                submitSort();
+            }
             return true;
         }
     };
+
     public ItemDragListener itemDragListener = new ItemDragListener() {
         @Override
         public void onStartDrags(RecyclerView.ViewHolder viewHolder) {
@@ -40,6 +52,7 @@ public class SiteSortViewModel extends BaseViewModel {
             }
         }
     };
+    private Loading loading;
 
     SiteSortViewModel(Context context) {
         super(context);
@@ -63,5 +76,29 @@ public class SiteSortViewModel extends BaseViewModel {
         ItemTouchHelperCallback itemTouchHelperCallback = new ItemTouchHelperCallback(adapter);
         itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    private void submitSort() {
+        if (loading == null) {
+            loading = new Loading.Builder(context).show();
+        } else {
+            loading.show();
+        }
+
+        MenuModel.getInstance().sortGroups(SiteModel.getInstance().getGroupIds(), new NetworkObserver<BaseBean>() {
+            @Override
+            public void onSuccess(BaseBean baseBean) {
+                loading.dismiss();
+                EventBus.getDefault().postSticky(baseBean);
+                ((BaseActivity) context).finish();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                loading.dismiss();
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
