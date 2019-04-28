@@ -1,6 +1,5 @@
 package com.minerva.business.site.detail;
 
-import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
 
@@ -18,7 +17,7 @@ public class PeriodicalModel {
         return instance;
     }
 
-    public void getPeriodicalDetail(String aid, int page, String lastID, Observer<? super ArticleBean> observer) {
+    public void getPeriodicalDetail(String aid, int page, String lastID, Observer<? super SiteDetailBean> observer) {
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
                 .getServer()
                 .getPeriodicalDetail(aid, page, lastID, 30, 1)

@@ -20,6 +20,7 @@ import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
+import com.minerva.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -71,6 +72,7 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
     protected BlankViewModel mBlankVM;
     protected String name;
     protected boolean hasNext;
+    private PeriodicalTitleViewModel titleViewModel;
     private String periodicalID;
     private String mLastID; //最后一条id
 
@@ -81,7 +83,7 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
         periodicalID = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_ID);
         name = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_NAME);
 
-        PeriodicalTitleViewModel titleViewModel = new PeriodicalTitleViewModel(context);
+        titleViewModel = new PeriodicalTitleViewModel(context);
         titleViewModel.imgUrl.set(image);
         titleViewModel.name.set(name);
         items.add(titleViewModel);
@@ -120,11 +122,17 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
             return;
         }
 
-        PeriodicalModel.getInstance().getPeriodicalDetail(periodicalID, mCurrentPage, mLastID, new NetworkObserver<ArticleBean>() {
+        PeriodicalModel.getInstance().getPeriodicalDetail(periodicalID, mCurrentPage, mLastID, new NetworkObserver<SiteDetailBean>() {
             @Override
-            public void onSuccess(ArticleBean articleBean) {
+            public void onSuccess(SiteDetailBean siteDetailBean) {
                 refreshing.set(false);
-                handleData(articleBean);
+                SiteDetailBean.SiteBean site = siteDetailBean.getSite();
+                if (site != null && titleViewModel != null) {
+                    titleViewModel.name.set(site.getName());
+                    titleViewModel.imgUrl.set(site.getImage());
+                    titleViewModel.subscribe.set(site.isFollowed() ? ResourceUtils.getString(R.string.periodical_unsubscribe) : ResourceUtils.getString(R.string.periodical_subscribe));
+                }
+                handleData(siteDetailBean);
                 createViewModel();
             }
 
@@ -138,15 +146,15 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
     /**
      * 处理返回数据
      *
-     * @param articleBean 返回数据
+     * @param siteDetailBean 返回数据
      */
-    private void handleData(ArticleBean articleBean) {
-        if (articleBean == null) {
+    private void handleData(SiteDetailBean siteDetailBean) {
+        if (siteDetailBean == null) {
             return;
         }
 
-        hasNext = articleBean.isHas_next();
-        List<ArticleBean.ArticlesBean> articles = articleBean.getArticles();
+        hasNext = siteDetailBean.isHas_next();
+        List<ArticleBean.ArticlesBean> articles = siteDetailBean.getArticles();
         mLastID = articles.get(articles.size() - 1).getId();
         mData.clear();
         mData.addAll(articles);

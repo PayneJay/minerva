@@ -47,9 +47,9 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
             }
         }
     };
+    protected String catID;
     private boolean canEdit;
     private PopupWindow createPopup;
-    protected String catID;
     public View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

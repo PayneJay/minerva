@@ -1,4 +1,4 @@
-package com.minerva.business.home.menu;
+package com.minerva.business.site.menu;
 
 import android.content.Context;
 import android.databinding.ObservableField;

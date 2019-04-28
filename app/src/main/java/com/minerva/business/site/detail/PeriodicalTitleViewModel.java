@@ -13,7 +13,7 @@ public class PeriodicalTitleViewModel extends BaseViewModel {
     public ObservableField<String> name = new ObservableField<>();
     public ObservableField<String> subscribe = new ObservableField<>(ResourceUtils.getString(R.string.periodical_subscribe));
 
-    public PeriodicalTitleViewModel(Context context) {
+    PeriodicalTitleViewModel(Context context) {
         super(context);
         setViewType(Constants.RecyclerItemType.PERIODICAL_TITLE_TYPE);
     }

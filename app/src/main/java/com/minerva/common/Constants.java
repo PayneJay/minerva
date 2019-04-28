@@ -43,6 +43,7 @@ public class Constants {
         int MY_JOURNAL_ITEM_TYPE = 10;   //我的期刊item
         int MY_MESSAGE_ITEM_TYPE = 11;   //消息通知item
         int NO_MORE_ITEM_TYPE = 12;   //没有更多item
+        int SUBSCRIBE_SITE_CHILD_ITEM_TYPE = 13;   //站点订阅子item
     }
 
     public interface KeyExtra {

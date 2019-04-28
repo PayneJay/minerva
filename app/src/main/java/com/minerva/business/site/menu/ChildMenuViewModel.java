@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.minerva.base.BaseBean;
-import com.minerva.business.home.menu.MenuModel;
+import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.business.site.imperfect.SiteFragment;
 import com.minerva.network.NetworkObserver;
 import com.minerva.widget.Loading;

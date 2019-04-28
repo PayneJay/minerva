@@ -13,7 +13,7 @@ import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseBean;
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.home.menu.MenuModel;
+import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.business.site.model.SiteModel;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.MinervaLinearLayoutManager;

@@ -6,7 +6,7 @@
 
         <variable
             name="createGroupVM"
-            type="com.minerva.business.home.menu.CreateGroupViewModel" />
+            type="com.minerva.business.site.menu.CreateGroupViewModel" />
     </data>
 
     <android.support.v7.widget.CardView

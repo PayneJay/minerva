@@ -80,6 +80,7 @@
     <string name="toast_cache_clear_success">缓存清除成功</string>
     <string name="special_more">更多</string>
     <string name="periodical_subscribe">订阅</string>
+    <string name="periodical_unsubscribe">取消订阅</string>
     <string name="login_account_password_error">账号或密码错误！</string>
     <string name="login_please_input_account">请输入邮箱!</string>
     <string name="login_email_incorrect">邮箱格式不正确!</string>
@@ -166,4 +167,6 @@
 
     <string name="toast_create_group_success">创建成功</string>
     <string name="toast_update_group_success">修改成功</string>
+    <string name="site_all">全部站点</string>
+    <string name="site_english">英文站点</string>
 </resources>

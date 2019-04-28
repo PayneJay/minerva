@@ -29,4 +29,8 @@ public class BlankViewModel extends BaseViewModel {
                 break;
         }
     }
+
+    public String getId() {
+        return "minerva_blank_item_id";
+    }
 }

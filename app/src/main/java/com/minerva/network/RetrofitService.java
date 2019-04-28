@@ -6,6 +6,7 @@ import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.book.AllBook;
 import com.minerva.business.category.mag.model.MagDetailBean;
 import com.minerva.business.category.mag.model.MagPeriod;
+import com.minerva.business.home.subscribe.SubscribeBean;
 import com.minerva.business.home.weekly.model.WeekDetailBean;
 import com.minerva.business.home.weekly.model.WeekListBean;
 import com.minerva.business.mine.collection.model.KanBean;
@@ -16,6 +17,7 @@ import com.minerva.business.mine.message.model.MsgListBean;
 import com.minerva.business.search.model.ArticleResult;
 import com.minerva.business.search.model.SiteResult;
 import com.minerva.business.settings.model.ReadSettingBean;
+import com.minerva.business.site.detail.SiteDetailBean;
 import com.minerva.business.site.model.PolymerRead;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.business.category.model.BookBean;
@@ -50,7 +52,7 @@ public interface RetrofitService {
     Observable<BookBean> getBookList();
 
     @GET("/api/sites/{aid}.json")
-    Observable<ArticleBean> getPeriodicalDetail(@Path("aid") String aid, @Query("pn") int pn, @Query("last_id") String lastId, @Query("size") int size, @Query("is_pad") int isPad);
+    Observable<SiteDetailBean> getPeriodicalDetail(@Path("aid") String aid, @Query("pn") int pn, @Query("last_id") String lastId, @Query("size") int size, @Query("is_pad") int isPad);
 
     @GET("/api/mag/detail.json")
     Observable<MagDetailBean> getMagDetail(@Query("id") String pn, @Query("type") int type);
@@ -159,5 +161,12 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/source_groups/remove.json")
     Observable<BaseBean> removeGroup(@Field("did") int did, @Field("type") int type);
+
+    @GET("/api/sites/hot.json")
+    Observable<SubscribeBean> getSubscribeSite(@Query("cid") String cid);
+
+    @FormUrlEncoded
+    @POST("/api/sites/mark_follow.json")
+    Observable<BaseBean> markFollow(@Field("id") String id);
 }
 

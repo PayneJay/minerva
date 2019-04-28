@@ -24,7 +24,7 @@
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/site_toolbar"
                 menuItemClick="@{subscribeVM.menuItemClickListener}"
                 navigationClickListener="@{subscribeVM.listener}"
                 toolBarMenu="@{R.menu.subscribe_more_menu}"
@@ -36,6 +36,32 @@
                 app:title="@string/subscribe_site" />
 
         </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.RecyclerView
+                itemBinding="@{subscribeVM.siteGroupItemBind}"
+                items="@{subscribeVM.groupItems}"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
+
+            <View
+                android:layout_width="@dimen/nav_dimen_size_1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_EEEEEE" />
+
+            <android.support.v7.widget.RecyclerView
+                itemBinding="@{subscribeVM.siteChildItemBind}"
+                items="@{subscribeVM.childItems}"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
+        </LinearLayout>
 
     </LinearLayout>
 

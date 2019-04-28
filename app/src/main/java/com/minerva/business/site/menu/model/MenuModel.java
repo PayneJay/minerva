@@ -1,6 +1,7 @@
-package com.minerva.business.home.menu;
+package com.minerva.business.site.menu.model;
 
 import com.minerva.base.BaseBean;
+import com.minerva.business.home.subscribe.SubscribeBean;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
@@ -149,6 +150,34 @@ public class MenuModel {
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_POST, null)
                 .getServer()
                 .removeGroup(did, 1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * @param cid      类别id
+     * @param observer 回调
+     */
+    public void getSubscribeSite(String cid, Observer<? super SubscribeBean> observer) {
+        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
+                .getServer()
+                .getSubscribeSite(cid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 加订阅
+     *
+     * @param id       站点id
+     * @param observer 回调
+     */
+    public void markFollow(String id, Observer<? super BaseBean> observer) {
+        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_POST, null)
+                .getServer()
+                .markFollow(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
