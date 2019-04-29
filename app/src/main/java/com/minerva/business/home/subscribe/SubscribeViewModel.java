@@ -64,14 +64,15 @@ public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewMo
             if (item.getItemId() == R.id.siteMore) {
                 showPopupMenu();
             }
-
             return true;
         }
     };
     private Loading loading;
     private BlankViewModel mBlankVM;
-    private List<SubscribeBean.NaviBean> naviBeanList = new ArrayList<>();
+    private List<SubscribeBean.NaviBean> navBeanList = new ArrayList<>();
     private List<SubscribeBean.ItemsBean> itemBeanList = new ArrayList<>();
+    private List<SubscribeBean.ItemsBean> enItemBeanList = new ArrayList<>();
+    private boolean onlyEnglish;
 
     SubscribeViewModel(Context context) {
         super(context);
@@ -86,7 +87,6 @@ public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewMo
         return SubscribeModel.getInstance().getChildData();
     }
 
-
     @Override
     public void onNavClick(String navId) {
         if (!CommonUtils.isNetworkAvailable(context)) {
@@ -98,6 +98,16 @@ public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewMo
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        if (item.getItemId() == R.id.menu_site_all) {
+            onlyEnglish = false;
+            createViewModel();
+            return true;
+        }
+        if (item.getItemId() == R.id.menu_site_english) {
+            onlyEnglish = true;
+            createViewModel();
+            return true;
+        }
         return false;
     }
 
@@ -133,20 +143,31 @@ public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewMo
     }
 
     private void setLocalData(SubscribeBean subscribeBean, String cid) {
-        naviBeanList.clear();
+        navBeanList.clear();
         for (SubscribeBean.NaviBean nav : subscribeBean.getNavi()) {
             if (nav != null) {
                 nav.setSelected(TextUtils.equals(String.valueOf(nav.getId()), cid));
             }
-            naviBeanList.add(nav);
+            navBeanList.add(nav);
         }
         itemBeanList.clear();
         itemBeanList.addAll(subscribeBean.getItems());
+
+        enItemBeanList.clear();
+        for (SubscribeBean.ItemsBean item : itemBeanList) {
+            if (item != null && item.getLang() == 2) {//过滤出英文站点
+                enItemBeanList.add(item);
+            }
+        }
     }
 
     private void createViewModel() {
-        SubscribeModel.getInstance().setGroupData(getGroupObserverData(naviBeanList));
-        SubscribeModel.getInstance().setChildData(getChildObserverData(itemBeanList));
+        SubscribeModel.getInstance().setGroupData(getGroupObserverData(navBeanList));
+        if (onlyEnglish) {
+            SubscribeModel.getInstance().setChildData(getChildObserverData(enItemBeanList));
+        } else {
+            SubscribeModel.getInstance().setChildData(getChildObserverData(itemBeanList));
+        }
     }
 
     private ObservableList<BaseViewModel> getGroupObserverData(List<SubscribeBean.NaviBean> navi) {
