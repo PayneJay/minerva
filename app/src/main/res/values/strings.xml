@@ -169,4 +169,7 @@
     <string name="toast_update_group_success">修改成功</string>
     <string name="site_all">全部站点</string>
     <string name="site_english">英文站点</string>
+    <string name="font_small">偏小</string>
+    <string name="font_middle">适中</string>
+    <string name="font_big">偏大</string>
 </resources>

@@ -9,6 +9,8 @@
             type="com.minerva.business.mine.user.UserEditViewModel" />
 
         <import type="com.minerva.R" />
+
+        <import type="com.minerva.common.Constants.BitmapTransform" />
     </data>
 
     <LinearLayout
@@ -72,7 +74,8 @@
                         android:scaleType="fitXY"
                         app:errorThumbnail="@{@drawable/icon_menu_user}"
                         app:imageUrlThumbnail="@{userEdtVM.headUrl}"
-                        app:placeHolderThumbnail="@{@drawable/icon_menu_user}" />
+                        app:placeHolderThumbnail="@{@drawable/icon_menu_user}"
+                        app:thumbnailType="@{BitmapTransform.CIRCLE}" />
 
                 </RelativeLayout>
 

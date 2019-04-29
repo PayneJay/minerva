@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="@string/please_select_option"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             isGone="@{groupMenuVM.isEditMenuGone}"
@@ -31,7 +31,7 @@
             android:layout_marginTop="@dimen/nav_dimen_size_10dp"
             android:text="@string/menu_edit_group_name"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             onClick="@{groupMenuVM::onDeleteClick}"
@@ -41,7 +41,7 @@
             android:layout_marginTop="@dimen/nav_dimen_size_10dp"
             android:text="@string/menu_delete_group"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             onClick="@{groupMenuVM::onTransferClick}"
@@ -51,7 +51,7 @@
             android:layout_marginTop="@dimen/nav_dimen_size_10dp"
             android:text="@string/menu_move_subscribe"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             onClick="@{groupMenuVM::onMarkAllClick}"
@@ -61,7 +61,7 @@
             android:layout_marginTop="@dimen/nav_dimen_size_10dp"
             android:text="@string/toolbar_all_read"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 

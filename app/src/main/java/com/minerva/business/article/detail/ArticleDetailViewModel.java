@@ -7,13 +7,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.minerva.BR;
@@ -30,6 +33,7 @@ import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.common.WebViewActivity;
 import com.minerva.network.NetworkObserver;
+import com.minerva.utils.DisplayUtils;
 import com.minerva.utils.ResourceUtils;
 import com.minerva.widget.Loading;
 import com.umeng.socialize.ShareAction;
@@ -43,22 +47,26 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-public class ArticleDetailViewModel extends BaseViewModel implements UMShareListener, PopupMenu.OnMenuItemClickListener, ISelectJournalListener {
+public class ArticleDetailViewModel extends BaseViewModel implements UMShareListener, PopupMenu.OnMenuItemClickListener, ISelectJournalListener, IFontSelectedListener {
     public ObservableField<String> articleContent = new ObservableField<>("");
     public ObservableField<String> title = new ObservableField<>();
     public ObservableField<String> date = new ObservableField<>();
+    public ObservableInt titleTextSize = new ObservableInt(20);
+    public ObservableInt dateTextSize = new ObservableInt(14);
+    public ObservableInt contentTextSize = new ObservableInt(18);
     private ArticleDetailBean.ArticleBean article;
     private ShareAction mShareAction;
     private String articleID;
     private String mArticleLink;
     private String mMarkReadOrNotText, mCollectionOrNotText;
-    private boolean isFav; //表示是否收藏过(1已收藏/0未收藏)
     private Dialog journalListDialog;
     private Loading loading;
+    private PopupWindow fontPopup;
+    private boolean isFav; //表示是否收藏过(1已收藏/0未收藏)
+    private boolean smallSelected = false, middleSelected = true, bigSelected = false;
 
     ArticleDetailViewModel(Context context) {
         super(context);
-
         articleID = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.ARTICLE_ID);
         getArticleDetail(articleID);
     }
@@ -86,7 +94,6 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             @Override
             public void onFailure(String msg) {
                 loading.dismiss();
-                Log.e(Constants.TAG, "getArticleDetail===>failure");
             }
         });
     }
@@ -179,11 +186,39 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                 copyLink();
                 break;
             case R.id.menu_change_font_size:
+                changeFontSize();
+                break;
             case R.id.menu_open_turn_over:
                 Constants.showToast(context);
                 break;
         }
         return true;
+    }
+
+    private void changeFontSize() {
+        if (fontPopup == null) {
+            fontPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            fontPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    WindowManager.LayoutParams lp = ((BaseActivity) context).getWindow().getAttributes();
+                    lp.alpha = 1f;
+                    ((BaseActivity) context).getWindow().setAttributes(lp);
+                }
+            });
+        }
+        WindowManager.LayoutParams lp = ((BaseActivity) context).getWindow().getAttributes();
+        lp.alpha = 0.6f;
+        ((BaseActivity) context).getWindow().setAttributes(lp);
+        FontViewModel fontViewModel = new FontViewModel(context, this);
+        fontViewModel.isSmallSelected.set(smallSelected);
+        fontViewModel.isMiddleSelected.set(middleSelected);
+        fontViewModel.isBigSelected.set(bigSelected);
+        ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_font_list_layout, null, false);
+        binding.setVariable(BR.fontVM, fontViewModel);
+        binding.executePendingBindings();
+        fontPopup.setContentView(binding.getRoot());
+        fontPopup.showAtLocation(((BaseActivity) context).getWindow().getDecorView(), Gravity.CENTER, 0, 0);
     }
 
     private void goMyCollection() {
@@ -357,5 +392,44 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         if (journalListDialog != null) {
             journalListDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onSmallClick() {
+        if (fontPopup != null) {
+            fontPopup.dismiss();
+        }
+        smallSelected = true;
+        middleSelected = false;
+        bigSelected = false;
+        titleTextSize.set(16);
+        dateTextSize.set(10);
+        contentTextSize.set(14);
+    }
+
+    @Override
+    public void onMiddleClick() {
+        if (fontPopup != null) {
+            fontPopup.dismiss();
+        }
+        smallSelected = false;
+        middleSelected = true;
+        bigSelected = false;
+        titleTextSize.set(20);
+        dateTextSize.set(14);
+        contentTextSize.set(18);
+    }
+
+    @Override
+    public void onBigClick() {
+        if (fontPopup != null) {
+            fontPopup.dismiss();
+        }
+        smallSelected = false;
+        middleSelected = false;
+        bigSelected = true;
+        titleTextSize.set(26);
+        dateTextSize.set(20);
+        contentTextSize.set(24);
     }
 }

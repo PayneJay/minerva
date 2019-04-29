@@ -44,14 +44,15 @@
 
                     <TextView
                         text="@{articleDetailVM.title}"
+                        textSize="@{articleDetailVM.titleTextSize}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_FFFFFF"
-                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
                         text="@{articleDetailVM.date}"
+                        textSize="@{articleDetailVM.dateTextSize}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/nav_dimen_size_15dp"
@@ -60,14 +61,14 @@
 
                 <TextView
                     htmlSource="@{articleDetailVM.articleContent}"
+                    textSize="@{articleDetailVM.contentTextSize}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/nav_dimen_size_15dp"
                     android:lineSpacingExtra="5dp"
                     android:paddingLeft="@dimen/nav_dimen_size_15dp"
                     android:paddingRight="@dimen/nav_dimen_size_15dp"
-                    android:textColor="@color/color_000000"
-                    android:textSize="16sp" />
+                    android:textColor="@color/color_000000" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </LinearLayout>

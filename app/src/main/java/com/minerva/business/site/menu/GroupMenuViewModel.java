@@ -21,6 +21,7 @@ import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.business.site.imperfect.SiteFragment;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
+import com.minerva.utils.DisplayUtils;
 import com.minerva.utils.ResourceUtils;
 import com.minerva.widget.Loading;
 
@@ -131,7 +132,7 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
 
     private void showRenameDialog() {
         if (renamePopup == null) {
-            renamePopup = new PopupWindow(((HomeActivity) context).getWindow().getDecorView(), CommonUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            renamePopup = new PopupWindow(((HomeActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             renamePopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {

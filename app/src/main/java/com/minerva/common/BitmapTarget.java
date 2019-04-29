@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.minerva.utils.CommonUtils;
+import com.minerva.utils.DisplayUtils;
 
 public class BitmapTarget extends CustomTarget<Bitmap> {
     private Context context;
@@ -27,7 +28,7 @@ public class BitmapTarget extends CustomTarget<Bitmap> {
         this.tv = textView;
         this.urlDrawable = urlDrawable;
 
-        imgWidth = CommonUtils.getScreenWidth();
+        imgWidth = DisplayUtils.getScreenWidth();
         imgHeight = 9 * imgWidth / 16;
     }
 

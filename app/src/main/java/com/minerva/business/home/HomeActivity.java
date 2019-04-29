@@ -46,6 +46,7 @@ import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
+import com.minerva.utils.DisplayUtils;
 import com.minerva.utils.ResourceUtils;
 import com.minerva.widget.Loading;
 
@@ -321,7 +322,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
     private void showCreateGroupDialog() {
         if (createPopup == null) {
-            createPopup = new PopupWindow(getWindow().getDecorView(), CommonUtils.getScreenWidth() - 100, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            createPopup = new PopupWindow(getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             createPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {

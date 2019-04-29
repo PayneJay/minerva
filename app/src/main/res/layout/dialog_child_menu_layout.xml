@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="@string/please_select_option"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             onClick="@{childMenuVM::onMoveClick}"
@@ -30,7 +30,7 @@
             android:layout_marginTop="@dimen/nav_dimen_size_10dp"
             android:text="@string/menu_move_group"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             onClick="@{childMenuVM::onUnsubscribeClick}"
@@ -40,7 +40,7 @@
             android:layout_marginTop="@dimen/nav_dimen_size_10dp"
             android:text="@string/menu_unsubscribe"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 </layout>

@@ -297,19 +297,6 @@ public class ViewBindings {
         }
     }
 
-//    @BindingAdapter("showSoftInput")
-//    public static void showSoftInput(EditText view, boolean flag) {
-//        if (flag) {
-//            view.requestFocus();
-//            if (!TextUtils.isEmpty(view.getText())) {
-//                view.setSelection(view.getText().length());
-//            }
-//            ScreenUtils.showSoftKeyboard();
-//        } else {
-//            ScreenUtils.hideSoftKeyboard(CommonUtils.getActivityFromView(view));
-//        }
-//    }
-
     @BindingAdapter("showPassword")
     public static void showPassword(EditText view, boolean flag) {
         if (flag) {

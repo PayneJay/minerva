@@ -26,6 +26,7 @@ import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
+import com.minerva.utils.DisplayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,7 +161,7 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
 
     private void showCreateJournalDialog() {
         if (createPopup == null) {
-            createPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), CommonUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            createPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             createPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
