@@ -6,12 +6,9 @@
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
-        <!--<item name="windowActionBar">false</item>-->
-        <!--<item name="windowNoTitle">true</item>-->
     </style>
 
     <style name="Theme.SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@mipmap/img_splash3</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowNoTitle">true</item>

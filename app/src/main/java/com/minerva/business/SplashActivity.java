@@ -2,7 +2,6 @@ package com.minerva.business;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.ObservableInt;
 import android.util.Log;
 
 import com.minerva.BR;
@@ -56,12 +55,13 @@ public class SplashActivity extends BaseActivity<SplashActivity.SplashViewModel>
     }
 
     public class SplashViewModel extends BaseViewModel {
-        private int imgs[] = {R.mipmap.img_splash, R.mipmap.img_splash2, R.mipmap.img_splash3,
+        private int imgs[] = {R.mipmap.img_splash1, R.mipmap.img_splash2, R.mipmap.img_splash3,
                 R.mipmap.img_splash4, R.mipmap.img_splash6, R.mipmap.img_splash7,
                 R.mipmap.img_splash8, R.mipmap.img_splash9};
 
         SplashViewModel(Context context) {
             super(context);
+            ((SplashActivity) context).getWindow().setBackgroundDrawableResource(getImgUrl());
             delay();
         }
 
