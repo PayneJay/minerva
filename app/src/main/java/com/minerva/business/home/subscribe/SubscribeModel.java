@@ -75,8 +75,8 @@ public class SubscribeModel {
         return mGroupData;
     }
 
-    void clearGroup() {
-        getChildData().update(new ObservableArrayList<BaseViewModel>());
+    private void clearGroup() {
+        getGroupData().update(new ObservableArrayList<BaseViewModel>());
     }
 
     void setGroupData(ObservableList<BaseViewModel> observableList) {

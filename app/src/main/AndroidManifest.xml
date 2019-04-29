@@ -133,6 +133,7 @@
         <activity android:name=".business.home.weekly.WeeklyDetailActivity" />
         <activity android:name=".business.home.subscribe.SubscribeSiteActivity" />
         <activity android:name=".business.home.sort.SiteSortActivity" />
+        <activity android:name=".business.article.comment.CommentActivity" />
     </application>
 
 </manifest>

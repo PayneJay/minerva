@@ -105,7 +105,8 @@
 
     <string name="dialog_title_note">提示</string>
     <string name="dialog_are_you_sure_logout">确定要注销吗？</string>
-    <string name="dialog_are_you_sure_delete">确定要删除分组{0}吗？</string>
+    <string name="dialog_are_you_sure_delete_group">确定要删除分组{0}吗？</string>
+    <string name="dialog_are_you_sure_delete">确定要删除吗？</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_confirm">确定</string>
     <string name="update_today">今日更新</string>
@@ -167,9 +168,17 @@
 
     <string name="toast_create_group_success">创建成功</string>
     <string name="toast_update_group_success">修改成功</string>
+    <string name="toast_delete_success">删除成功</string>
     <string name="site_all">全部站点</string>
     <string name="site_english">英文站点</string>
     <string name="font_small">偏小</string>
     <string name="font_middle">适中</string>
     <string name="font_big">偏大</string>
+    <string name="article_comment">评论</string>
+    <string name="report_article_comment">发表评论</string>
+    <string name="copy_success">评论内容已复制到系统剪贴板里</string>
+    <string name="dialog_menu_copy">复制</string>
+    <string name="dialog_menu_delete">删除</string>
+    <string name="dialog_input_comment_hint">请输入评论</string>
+    <string name="please_check_your_content_empty">请检查您输入的内容，不能为空哦！</string>
 </resources>

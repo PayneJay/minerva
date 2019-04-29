@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="commentVM"
+            type="com.minerva.business.article.comment.CommentViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_EEEEEE">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                navigationClickListener="@{commentVM.backListener}"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/article_comment" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            itemBinding="@{commentVM.commentItemBind}"
+            items="@{commentVM.items}"
+            loadMore="@{commentVM::loadMore}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appBar"
+            app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            onClick="@{commentVM::onFloatingActionClick}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="@dimen/nav_dimen_size_15dp"
+            android:layout_marginBottom="@dimen/nav_dimen_size_15dp"
+            android:src="@android:drawable/ic_menu_edit" />
+
+    </RelativeLayout>
+
+</layout>

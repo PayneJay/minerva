@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="groupMenuVM"
-            type="com.minerva.business.site.menu.GroupMenuViewModel" />
+            name="commentOptVM"
+            type="com.minerva.business.article.comment.CommentOptViewModel" />
     </data>
 
     <LinearLayout
@@ -23,46 +23,23 @@
             android:textSize="18sp" />
 
         <TextView
-            isGone="@{groupMenuVM.isEditMenuGone}"
-            onClick="@{groupMenuVM::onEditClick}"
+            onClick="@{commentOptVM::onCopyClick}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/nav_dimen_size_5dp"
             android:layout_marginTop="@dimen/nav_dimen_size_10dp"
-            android:text="@string/menu_edit_group_name"
+            android:text="@string/dialog_menu_copy"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <TextView
-            onClick="@{groupMenuVM::onDeleteClick}"
+            onClick="@{commentOptVM::onDeleteClick}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/nav_dimen_size_5dp"
             android:layout_marginTop="@dimen/nav_dimen_size_10dp"
-            android:text="@string/menu_delete_group"
+            android:text="@string/dialog_menu_delete"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
-
-        <TextView
-            onClick="@{groupMenuVM::onTransferClick}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/nav_dimen_size_5dp"
-            android:layout_marginTop="@dimen/nav_dimen_size_10dp"
-            android:text="@string/menu_move_subscribe"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-
-        <TextView
-            onClick="@{groupMenuVM::onMarkAllClick}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/nav_dimen_size_5dp"
-            android:layout_marginTop="@dimen/nav_dimen_size_10dp"
-            android:text="@string/toolbar_all_read"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-
     </LinearLayout>
-
 </layout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="commentReportVM"
+            type="com.minerva.business.article.comment.CommentReportViewModel" />
+
+        <import type="com.minerva.R" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_EEEEEE"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                menuItemClick="@{commentReportVM.goListener}"
+                navigationClickListener="@{commentReportVM.backListener}"
+                toolBarMenu="@{R.menu.add_to_journal_menu}"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:paddingEnd="@dimen/nav_dimen_size_10dp"
+                app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/report_article_comment" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:gravity="start|top"
+            android:hint="@string/dialog_input_comment_hint"
+            android:padding="@dimen/nav_dimen_size_5dp"
+            android:text="@={commentReportVM.commentContent}" />
+
+    </LinearLayout>
+
+</layout>

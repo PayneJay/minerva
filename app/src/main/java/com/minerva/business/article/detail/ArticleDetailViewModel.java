@@ -24,6 +24,7 @@ import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseBean;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.article.comment.CommentActivity;
 import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.detail.model.ArticleDetailModel;
 import com.minerva.business.mine.collection.model.CollectionModel;
@@ -128,7 +129,9 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     }
 
     public void comment() {
-        Constants.showToast(context);
+        Intent intent = new Intent(context, CommentActivity.class);
+        intent.putExtra(Constants.KeyExtra.ARTICLE_ID, articleID);
+        context.startActivity(intent);
     }
 
     public void more() {

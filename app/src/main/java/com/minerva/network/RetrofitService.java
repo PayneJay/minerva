@@ -1,6 +1,8 @@
 package com.minerva.network;
 
 import com.minerva.base.BaseBean;
+import com.minerva.business.article.comment.model.CommentDetail;
+import com.minerva.business.article.comment.model.CommentListBean;
 import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.book.AllBook;
@@ -135,7 +137,7 @@ public interface RetrofitService {
     @POST("/api/source_groups/sort_groups.json")
     Observable<BaseBean> sortGroups(@Field("order") String name, @Field("type") int type);
 
-    @GET("/api/sites/mark_all_read.json")
+    @POST("/api/sites/mark_all_read.json")
     Observable<BaseBean> markAllRead();
 
     @FormUrlEncoded
@@ -168,5 +170,16 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/sites/mark_follow.json")
     Observable<BaseBean> markFollow(@Field("id") String id);
+
+    @GET("/api/comments/{aid}.json")
+    Observable<CommentListBean> getCommentsByAid(@Path("aid") String aid, @Query("show_link") int showLink, @Query("pn") int pn, @Query("size") int size);
+
+    @FormUrlEncoded
+    @POST("/api/comments.json")
+    Observable<CommentDetail> submitComment(@Field("aid") String aid, @Field("content") String content, @Field("show_link") int showLink);
+
+    @FormUrlEncoded
+    @POST("/api/comments/delete.json")
+    Observable<BaseBean> deleteCommentById(@Field("id") String id);
 }
 

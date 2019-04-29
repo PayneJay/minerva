@@ -20,7 +20,6 @@ import com.minerva.business.home.HomeActivity;
 import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.business.site.imperfect.SiteFragment;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
 import com.minerva.utils.DisplayUtils;
 import com.minerva.utils.ResourceUtils;
 import com.minerva.widget.Loading;
@@ -160,7 +159,7 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
     private void showConfirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
-                .setMessage(MessageFormat.format(ResourceUtils.getString(R.string.dialog_are_you_sure_delete), name))
+                .setMessage(MessageFormat.format(ResourceUtils.getString(R.string.dialog_are_you_sure_delete_group), name))
                 .setNegativeButton(ResourceUtils.getString(R.string.dialog_cancel), null)
                 .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
                     @Override
