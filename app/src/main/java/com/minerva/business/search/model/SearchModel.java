@@ -3,13 +3,17 @@ package com.minerva.business.search.model;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.minerva.R;
 import com.minerva.business.category.book.AllBook;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.CommonUtils;
+import com.minerva.utils.ResourceUtils;
 import com.minerva.utils.SPUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -19,6 +23,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SearchModel {
     private static SearchModel instance;
     private List<String> searchHistory = new ArrayList<>();
+    private String[] tabTitles = new String[]{ResourceUtils.getString(R.string.tab_article), ResourceUtils.getString(R.string.tab_site), ResourceUtils.getString(R.string.tab_book)};
 
     public static SearchModel getInstance() {
         if (instance == null) {
@@ -100,5 +105,9 @@ public class SearchModel {
     public void setSearchHistory(Context context, List<String> searchHistory) {
         String history = CommonUtils.toJson(searchHistory);
         SPUtils.put(context, Constants.KeyExtra.SEARCH_HISTORY_KEYWORD, history);
+    }
+
+    public List<String> getTabTitle() {
+        return Arrays.asList(tabTitles);
     }
 }

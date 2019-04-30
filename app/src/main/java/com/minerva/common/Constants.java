@@ -64,6 +64,7 @@ public class Constants {
         String COME_FROM_MINE = "come_from_mine"; //标记是从我的页面跳转过来的
         String WEEKLY_ID = "weekly_id"; //一周拾遗id
         String WEEKLY_DATE = "weekly_date"; //一周拾遗时间
+        String EXTRA_TAB = "extra_tab";
     }
 
     public interface UserInfoKey {

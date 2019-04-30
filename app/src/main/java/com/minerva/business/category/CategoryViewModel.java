@@ -13,6 +13,7 @@ import com.minerva.base.BaseFragment;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.search.SearchActivity;
 import com.minerva.business.settings.SettingsActivity;
+import com.minerva.common.Constants;
 
 public class CategoryViewModel extends BaseViewModel {
     public static ObservableInt currentItem = new ObservableInt(0);
@@ -66,7 +67,9 @@ public class CategoryViewModel extends BaseViewModel {
 
     public void onImgClick() {
         if (isBookTab.get()) {
-            context.startActivity(new Intent(context, SearchActivity.class));
+            Intent intent = new Intent(context, SearchActivity.class);
+            intent.putExtra(Constants.KeyExtra.EXTRA_TAB, 2);
+            context.startActivity(intent);
             return;
         }
 

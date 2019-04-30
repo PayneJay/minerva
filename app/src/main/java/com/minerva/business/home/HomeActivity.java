@@ -257,7 +257,9 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mySearch:
-                startActivity(new Intent(this, SearchActivity.class));
+                Intent intent = new Intent(this, SearchActivity.class);
+                intent.putExtra(Constants.KeyExtra.EXTRA_TAB, mViewPager.getCurrentItem());
+                startActivity(intent);
                 break;
             case R.id.myMore:
                 showPopupMenu();

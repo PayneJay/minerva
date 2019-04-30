@@ -60,7 +60,7 @@ public class SearchListViewModel extends BaseViewModel {
     private List<SiteResult.ResultItem> mSiteData = new ArrayList<>();
     private List<BookBean.ItemsBean.BooksBean> mBookData = new ArrayList<>();
     private BlankViewModel mBlankVM;
-    private String keyWord;
+    private String keyWord = null;
     private int mCurrentTab; //当前Tab
     private int mCurrentPage; //当前页数
     private boolean hasNext;
@@ -125,6 +125,11 @@ public class SearchListViewModel extends BaseViewModel {
                 mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
                 items.add(mBlankVM);
             }
+            return;
+        }
+
+        if (TextUtils.isEmpty(keyWord)) {
+            refreshing.set(false);
             return;
         }
 

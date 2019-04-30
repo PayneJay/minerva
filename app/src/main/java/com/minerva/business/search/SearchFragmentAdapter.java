@@ -7,18 +7,20 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.minerva.R;
 import com.minerva.base.BaseFragment;
+import com.minerva.business.search.model.SearchModel;
 import com.minerva.utils.ResourceUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchFragmentAdapter extends FragmentPagerAdapter {
-    private final String[] tabTitles = new String[]{ResourceUtils.getString(R.string.tab_article), ResourceUtils.getString(R.string.tab_site),
-            ResourceUtils.getString(R.string.tab_book)};
+    private List<String> tabTitles = new ArrayList<>();
     private ArrayList<BaseFragment> fragments = new ArrayList<>();
 
-    public SearchFragmentAdapter(FragmentManager fm) {
+    SearchFragmentAdapter(FragmentManager fm) {
         super(fm);
-        for (int i = 0; i < tabTitles.length; i++) {
+        tabTitles.addAll(SearchModel.getInstance().getTabTitle());
+        for (int i = 0; i < tabTitles.size(); i++) {
             SearchListFragment fragment = new SearchListFragment();
             fragment.setTab(i);
             fragments.add(fragment);
@@ -32,12 +34,12 @@ public class SearchFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return tabTitles.length;
+        return tabTitles.size();
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabTitles[position];
+        return tabTitles.get(position);
     }
 }

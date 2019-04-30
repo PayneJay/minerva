@@ -1,6 +1,7 @@
 package com.minerva.business.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
@@ -32,7 +33,6 @@ public class SearchViewModel extends BaseViewModel {
     public SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
-            Log.i(getClass().getSimpleName(), "onQueryTextSubmit====" + query);
             EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.QUERY_SUBMITTED, query));
             if (!searchHistory.contains(query)) {
                 searchHistory.add(query);
@@ -53,6 +53,7 @@ public class SearchViewModel extends BaseViewModel {
         EventBus.getDefault().register(this);
         List<String> history = SearchModel.getInstance().getSearchHistory(context);
         searchHistory.addAll(history);
+        gotoTab(((BaseActivity) context).getIntent());
     }
 
     @Override
@@ -60,13 +61,12 @@ public class SearchViewModel extends BaseViewModel {
         super.onEvent(eventMsg);
         if (TextUtils.equals(Constants.EventMsgKey.QUERY_ECHO, eventMsg.getMsg())) {
             inputContent.set(eventMsg.getContent());
-            Log.i(getClass().getSimpleName(), "onEvent=====" + eventMsg.getContent());
         }
     }
 
     @BindingAdapter({"searchViewPager"})
-    public static void setViewPager(TabLayout view, ViewPager viewPager) {
-        viewPager.setAdapter(new SearchFragmentAdapter(((BaseActivity) view.getContext()).getSupportFragmentManager()));
+    public static void setViewPager(final TabLayout tabLayout, ViewPager viewPager) {
+        viewPager.setAdapter(new SearchFragmentAdapter(((BaseActivity) tabLayout.getContext()).getSupportFragmentManager()));
         viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -77,6 +77,10 @@ public class SearchViewModel extends BaseViewModel {
             @Override
             public void onPageSelected(int position) {
                 currentItem.set(position);
+                TabLayout.Tab tab = tabLayout.getTabAt(position);
+                if (tab != null) {
+                    tab.select();
+                }
             }
 
             @Override
@@ -85,9 +89,9 @@ public class SearchViewModel extends BaseViewModel {
             }
         });
 
-        view.setupWithViewPager(viewPager, true);
+        tabLayout.setupWithViewPager(viewPager, true);
         viewPager.setCurrentItem(currentItem.get());
-        view.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 String format = MessageFormat.format(ResourceUtils.getString(R.string.search_bar_hint), tab.getText() != null ? tab.getText().toString() : "");
@@ -112,5 +116,11 @@ public class SearchViewModel extends BaseViewModel {
             searchView.setOnQueryTextListener(listener);
             searchView.setQuery(queryText, true);
         }
+    }
+
+    private void gotoTab(Intent intent) {
+        int tab = intent.getIntExtra(Constants.KeyExtra.EXTRA_TAB, 0);
+        hintText.set(MessageFormat.format(ResourceUtils.getString(R.string.search_bar_hint), SearchModel.getInstance().getTabTitle().get(tab)));
+        currentItem.set(tab);
     }
 }
