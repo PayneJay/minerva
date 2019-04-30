@@ -115,25 +115,45 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                     EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.SELECT_ARTICLE_LANGUAGE, 0));
                     break;
                 case R.id.toolbar_more_recommend_settings:
-                    goReadSetting();
+                    if (GlobalData.getInstance().isLogin()) {
+                        goReadSetting();
+                    } else {
+                        Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case R.id.toolbar_more_custom_channel:
                     Constants.showToast(HomeActivity.this);
                     break;
                 case R.id.toolbar_more_week_list:
-                    goWeekly();
+                    if (GlobalData.getInstance().isLogin()) {
+                        goWeekly();
+                    } else {
+                        Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case R.id.toolbar_subscribe_discover:
                     goSubscribeDiscover();
                     break;
                 case R.id.toolbar_create_group:
-                    showCreateGroupDialog();
+                    if (GlobalData.getInstance().isLogin()) {
+                        showCreateGroupDialog();
+                    } else {
+                        Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case R.id.toolbar_sort_group:
-                    goSortGroups();
+                    if (GlobalData.getInstance().isLogin()) {
+                        goSortGroups();
+                    } else {
+                        Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case R.id.toolbar_all_read:
-                    markAllRead();
+                    if (GlobalData.getInstance().isLogin()) {
+                        markAllRead();
+                    } else {
+                        Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case R.id.toolbar_use_tips:
                     showUseTips();

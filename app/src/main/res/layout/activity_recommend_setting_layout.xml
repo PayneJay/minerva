@@ -29,7 +29,8 @@
                 android:background="?attr/colorPrimary"
                 app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@string/toolbar_more_recommend_settings" />
+                app:title="@string/toolbar_more_recommend_settings"
+                app:titleTextColor="@android:color/white" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -71,8 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/nav_dimen_size_10dp"
-                android:lineSpacingExtra="@dimen/nav_dimen_size_5dp"
                 android:background="@drawable/shape_rectangle_button_white"
+                android:lineSpacingExtra="@dimen/nav_dimen_size_5dp"
                 android:padding="@dimen/nav_dimen_size_5dp"
                 android:text="@string/recommend_setting_desc" />
         </LinearLayout>

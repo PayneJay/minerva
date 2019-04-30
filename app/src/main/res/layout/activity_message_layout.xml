@@ -26,7 +26,8 @@
                 android:background="?attr/colorPrimary"
                 app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@{msgVM.mTitle}" />
+                app:title="@{msgVM.mTitle}"
+                app:titleTextColor="@android:color/white" />
 
         </android.support.design.widget.AppBarLayout>
 

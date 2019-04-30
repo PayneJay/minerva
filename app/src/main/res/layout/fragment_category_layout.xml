@@ -25,7 +25,7 @@
                 fragment="@{categoryVM.fragment}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/nav_dimen_size_10dp"
+                android:layout_marginStart="@dimen/nav_dimen_size_10dp"
                 app:categoryViewPager="@{(container)}"
                 app:tabBackground="@color/colorPrimaryDark"
                 app:tabIndicatorColor="@color/color_FFFFFF"

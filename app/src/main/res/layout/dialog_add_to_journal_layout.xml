@@ -34,7 +34,8 @@
                 android:paddingEnd="@dimen/nav_dimen_size_10dp"
                 app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@string/mine_journal" />
+                app:title="@string/mine_journal"
+                app:titleTextColor="@android:color/white" />
 
         </android.support.design.widget.AppBarLayout>
 

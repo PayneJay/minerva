@@ -83,6 +83,7 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <activity
             android:name=".business.mine.login.LoginActivity"
             android:screenOrientation="portrait" />
@@ -128,12 +129,24 @@
         <activity
             android:name=".business.mine.message.MessageActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".business.settings.RecommendActivity" />
-        <activity android:name=".business.home.weekly.WeeklyActivity" />
-        <activity android:name=".business.home.weekly.WeeklyDetailActivity" />
-        <activity android:name=".business.home.subscribe.SubscribeSiteActivity" />
-        <activity android:name=".business.home.sort.SiteSortActivity" />
-        <activity android:name=".business.article.comment.CommentActivity" />
+        <activity
+            android:name=".business.settings.RecommendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.home.weekly.WeeklyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.home.weekly.WeeklyDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.home.subscribe.SubscribeSiteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.home.sort.SiteSortActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.article.comment.CommentActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

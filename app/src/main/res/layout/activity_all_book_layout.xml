@@ -28,6 +28,7 @@
                 android:background="?attr/colorPrimary"
                 app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:titleTextColor="@android:color/white"
                 app:title="@{allBookVM.mTitle}" />
 
         </android.support.design.widget.AppBarLayout>

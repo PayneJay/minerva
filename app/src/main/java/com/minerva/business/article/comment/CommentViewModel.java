@@ -19,8 +19,10 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.comment.model.CommentDetail;
 import com.minerva.business.article.comment.model.CommentListBean;
 import com.minerva.business.article.comment.model.CommentModel;
+import com.minerva.business.home.HomeActivity;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
+import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
 import com.minerva.utils.ResourceUtils;
@@ -60,8 +62,8 @@ public class CommentViewModel extends BaseViewModel implements ICommentListener 
     private String aid;
     private List<CommentDetail.CommentBean> comments = new ArrayList<>();
     private Dialog commentDialog;
-    private int mCurrentPage;
-    private boolean hasNext;
+    private int mPage;
+    private boolean hasNext, isLoadMore;
 
     CommentViewModel(Context context) {
         super(context);
@@ -74,11 +76,18 @@ public class CommentViewModel extends BaseViewModel implements ICommentListener 
     }
 
     public void loadMore() {
-
+        isLoadMore = true;
+        if (hasNext) {
+            requestServer();
+        }
     }
 
     public void onFloatingActionClick() {
-        showCommentInputDialog();
+        if (GlobalData.getInstance().isLogin()) {
+            showCommentInputDialog();
+        } else {
+            Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -181,16 +190,22 @@ public class CommentViewModel extends BaseViewModel implements ICommentListener 
 
     private void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
-            setErrorPage();
+            if (isLoadMore) {
+                Toast.makeText(context, ResourceUtils.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+            } else {
+                setErrorPage();
+            }
             return;
         }
 
-        if (loading == null) {
-            loading = new Loading.Builder(context).show();
-        } else {
-            loading.show();
+        if (!isLoadMore) {
+            if (loading == null) {
+                loading = new Loading.Builder(context).show();
+            } else {
+                loading.show();
+            }
         }
-        CommentModel.getInstance().getCommentsByAid(aid, mCurrentPage, new NetworkObserver<CommentListBean>() {
+        CommentModel.getInstance().getCommentsByAid(aid, mPage, new NetworkObserver<CommentListBean>() {
             @Override
             public void onSuccess(CommentListBean commentListBean) {
                 loading.dismiss();
@@ -206,7 +221,7 @@ public class CommentViewModel extends BaseViewModel implements ICommentListener 
     }
 
     private void createViewModel() {
-        if (mCurrentPage == 0) {
+        if (mPage == 0) {
             CommentModel.getInstance().clear();
         }
         CommentModel.getInstance().setData(getObserverList());

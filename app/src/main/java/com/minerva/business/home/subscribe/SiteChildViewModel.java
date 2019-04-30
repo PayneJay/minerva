@@ -12,6 +12,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.site.detail.PeriodicalDetailActivity;
 import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.common.Constants;
+import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
 import com.minerva.utils.ResourceUtils;
@@ -38,6 +39,10 @@ public class SiteChildViewModel extends BaseViewModel {
     }
 
     public void onSelectedChanged() {
+        if (!GlobalData.getInstance().isLogin()) {
+            Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (!CommonUtils.isNetworkAvailable(context)) {
             Toast.makeText(context, ResourceUtils.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
             return;
