@@ -2,6 +2,7 @@ package com.minerva.business.home.subscribe;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +31,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewModel.ISubscribeNavClickListener, PopupMenu.OnMenuItemClickListener {
+    public ObservableBoolean showNetworkError = new ObservableBoolean();
     public OnItemBind<BaseViewModel> siteGroupItemBind = new OnItemBind<BaseViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
@@ -72,11 +74,11 @@ public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewMo
     private List<SubscribeBean.NaviBean> navBeanList = new ArrayList<>();
     private List<SubscribeBean.ItemsBean> itemBeanList = new ArrayList<>();
     private List<SubscribeBean.ItemsBean> enItemBeanList = new ArrayList<>();
-    private boolean onlyEnglish;
+    private boolean onlyEnglish, firstRequest = true;
+    private String mNavId = "1";
 
     SubscribeViewModel(Context context) {
         super(context);
-        requestServer();
     }
 
     public ObservableList<BaseViewModel> getGroupItems() {
@@ -87,13 +89,20 @@ public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewMo
         return SubscribeModel.getInstance().getChildData();
     }
 
+    public void retry() {
+        requestServer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requestServer();
+    }
+
     @Override
     public void onNavClick(String navId) {
-        if (!CommonUtils.isNetworkAvailable(context)) {
-            Toast.makeText(context, ResourceUtils.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        getSubscribeSite(navId);
+        this.mNavId = navId;
+        requestServer();
     }
 
     @Override
@@ -113,17 +122,19 @@ public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewMo
 
     private void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
+            showNetworkError.set(firstRequest);
             setErrorPage();
             return;
         }
 
+        firstRequest = false;
         if (loading == null) {
             loading = new Loading.Builder(context).show();
         } else {
             loading.show();
         }
 
-        getSubscribeSite("1");
+        getSubscribeSite(mNavId);
     }
 
     private void getSubscribeSite(final String cid) {
@@ -131,6 +142,7 @@ public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewMo
             @Override
             public void onSuccess(SubscribeBean subscribeBean) {
                 loading.dismiss();
+                showNetworkError.set(false);
                 setLocalData(subscribeBean, cid);
                 createViewModel();
             }

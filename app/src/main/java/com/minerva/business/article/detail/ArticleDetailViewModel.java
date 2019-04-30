@@ -110,22 +110,17 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
 
     public void share() {
         mShareAction = new ShareAction((BaseActivity) context);
-        ShareBoardConfig config = new ShareBoardConfig();
-        config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_CENTER)
-                .setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR)
-                .setShareboardBackgroundColor(ResourceUtils.getColor(R.color.color_FFFFFF));
-
         UMWeb web = new UMWeb(Constants.shareBaseUrl + articleID);
         if (article != null) {
             web.setTitle(article.getFeed_title());//标题
-            UMImage thumb = new UMImage(context, R.mipmap.icon_launcher);
+            UMImage thumb = new UMImage(context, R.mipmap.icon_minerva_share);
             web.setThumb(thumb);  //缩略图
             web.setDescription(article.getTitle());//描述
         }
 
         mShareAction.withMedia(web)
-                .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
-                .setCallback(this).open(config);
+                .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE)
+                .setCallback(this).open();
     }
 
     public void comment() {

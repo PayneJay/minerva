@@ -1,8 +1,13 @@
 package com.minerva.business.site.detail;
 
+import android.view.KeyEvent;
+
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
+import com.minerva.base.BaseBean;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class PeriodicalDetailActivity extends BaseActivity<PeriodicalDetailViewModel> {
     @Override
@@ -18,5 +23,19 @@ public class PeriodicalDetailActivity extends BaseActivity<PeriodicalDetailViewM
     @Override
     protected int getVariableID() {
         return BR.periodicalVM;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
     }
 }

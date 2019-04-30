@@ -67,11 +67,11 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
             }
         }
     };
-    protected int mCurrentPage; //当前页数
     protected List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
     protected BlankViewModel mBlankVM;
     protected String name;
     protected boolean hasNext;
+    protected int mCurrentPage; //当前页数
     private PeriodicalTitleViewModel titleViewModel;
     private String periodicalID;
     private String mLastID; //最后一条id
@@ -86,6 +86,7 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
         titleViewModel = new PeriodicalTitleViewModel(context);
         titleViewModel.imgUrl.set(image);
         titleViewModel.name.set(name);
+        titleViewModel.setId(periodicalID);
         items.add(titleViewModel);
 
         requestServer();
@@ -128,6 +129,7 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
                 refreshing.set(false);
                 SiteDetailBean.SiteBean site = siteDetailBean.getSite();
                 if (site != null && titleViewModel != null) {
+                    titleViewModel.setFollow(site.isFollowed());
                     titleViewModel.name.set(site.getName());
                     titleViewModel.imgUrl.set(site.getImage());
                     titleViewModel.subscribe.set(site.isFollowed() ? ResourceUtils.getString(R.string.periodical_unsubscribe) : ResourceUtils.getString(R.string.periodical_subscribe));

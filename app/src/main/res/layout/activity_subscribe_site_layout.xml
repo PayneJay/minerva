@@ -9,6 +9,8 @@
             type="com.minerva.business.home.subscribe.SubscribeViewModel" />
 
         <import type="com.minerva.R" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
@@ -39,6 +41,7 @@
         </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
+            isGone="@{subscribeVM.showNetworkError}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -62,6 +65,30 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
+        </LinearLayout>
+
+        <LinearLayout
+            onClick="@{subscribeVM::retry}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{subscribeVM.showNetworkError ? View.VISIBLE : View.GONE}">
+
+            <ImageView
+                android:layout_width="@dimen/nav_dimen_size_60dp"
+                android:layout_height="@dimen/nav_dimen_size_60dp"
+                android:imageSrc="@{R.drawable.icon_network_exception}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+                android:gravity="center"
+                android:maxWidth="150dp"
+                android:text="@string/network_error"
+                android:textColor="@color/color_8a8a8a"
+                android:textSize="16sp" />
         </LinearLayout>
 
     </LinearLayout>
