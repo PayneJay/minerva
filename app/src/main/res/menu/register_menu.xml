@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/siteMore"
-        android:icon="@mipmap/icon_more"
+        android:id="@+id/register"
+        android:icon="@mipmap/icon_register"
         android:title=""
         app:showAsAction="ifRoom|withText" />
 </menu>

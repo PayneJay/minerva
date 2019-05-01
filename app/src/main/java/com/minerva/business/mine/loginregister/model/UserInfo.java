@@ -1,4 +1,4 @@
-package com.minerva.business.mine.login.model;
+package com.minerva.business.mine.loginregister.model;
 
 import com.minerva.base.BaseBean;
 

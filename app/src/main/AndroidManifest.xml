@@ -85,7 +85,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity
-            android:name=".business.mine.login.LoginActivity"
+            android:name=".business.mine.loginregister.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".business.mine.about.AboutActivity"
@@ -146,6 +146,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".business.article.comment.CommentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.mine.loginregister.RegisterActivity"
             android:screenOrientation="portrait" />
     </application>
 

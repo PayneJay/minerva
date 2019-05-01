@@ -30,6 +30,8 @@
 
     <string name="action_sign_in_short">action_sign_in_short</string>
     <string name="action_sign_in">登录</string>
+    <string name="action_register">邮箱注册</string>
+    <string name="action_click_register">完成注册</string>
     <string name="about_introduction_content">Minerva以技术为驱动，以聚合挖掘为核心，打造个性推荐和订阅，给你一站式的阅读。 更汇聚优质公开课和线下活动，让信息知识获取更便捷。 万千网友汇聚于此，公诸同好，交流学习</string>
     <string name="about_version">版本：1.0.0</string>
     <string name="about_website">Web版：http://www.minerva.com/</string>
@@ -83,9 +85,9 @@
     <string name="periodical_unsubscribe">取消订阅</string>
     <string name="login_account_password_error">账号或密码错误！</string>
     <string name="login_please_input_account">请输入邮箱!</string>
-    <string name="login_email_incorrect">邮箱格式不正确!</string>
+    <string name="login_email_incorrect">来个正经邮箱吧...</string>
     <string name="login_please_input_password">请输入密码!</string>
-    <string name="login_please_input_password_at_least_6">请输入至少6位密码!</string>
+    <string name="login_please_input_password_at_least_6">请输入6~20位的密码!</string>
     <string name="login_verifying">正在验证…</string>
     <string name="logout_ing">正在注销…</string>
     <string name="login_success">登录成功！</string>
@@ -181,4 +183,14 @@
     <string name="dialog_menu_delete">删除</string>
     <string name="dialog_input_comment_hint">请输入评论</string>
     <string name="please_check_your_content_empty">请检查您输入的内容，不能为空哦！</string>
+    <string name="register_email">邮箱</string>
+    <string name="register_password">密码(6～20位)</string>
+    <string name="register_repeat_password">重复密码</string>
+    <string name="register_check_password_identical">请检查两次输入密码是否一致</string>
+    <string name="toast_registing">正在注册…</string>
+    <string name="action_send_email_again">再次发送验证邮件</string>
+    <string name="action_finish_verify">完成验证</string>
+    <string name="register_verify_desc">已向{0}发送验证邮件，请查收完成验证。如果没有收到邮件，可以重新发送邮件，</string>
+    <string name="action_register_verify">验证邮箱</string>
+    <string name="resend_success">邮件发送成功，请查收！</string>
 </resources>

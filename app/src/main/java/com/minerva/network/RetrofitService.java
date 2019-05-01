@@ -13,8 +13,8 @@ import com.minerva.business.home.weekly.model.WeekDetailBean;
 import com.minerva.business.home.weekly.model.WeekListBean;
 import com.minerva.business.mine.collection.model.KanBean;
 import com.minerva.business.mine.collection.model.UnFavBean;
-import com.minerva.business.mine.login.model.LoginParams;
-import com.minerva.business.mine.login.model.UserInfo;
+import com.minerva.business.mine.loginregister.model.LoginParams;
+import com.minerva.business.mine.loginregister.model.UserInfo;
 import com.minerva.business.mine.message.model.MsgListBean;
 import com.minerva.business.search.model.ArticleResult;
 import com.minerva.business.search.model.SiteResult;
@@ -181,5 +181,17 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/comments/delete.json")
     Observable<BaseBean> deleteCommentById(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("/api/signup/register_by_email.json")
+    Observable<BaseBean> registerByEmail(@Field("email") String email, @Field("name") String name, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("/api/signup/check_confirm.json")
+    Observable<BaseBean> checkConfirm(@Field("email") String email, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("/api/signup/resend_register.json")
+    Observable<BaseBean> resendRegister(@Field("email") String email);
 }
 

@@ -14,18 +14,18 @@
     </data>
 
     <android.support.v7.widget.CardView
+        onClick="@{articleItemVM::viewDetail}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/nav_dimen_size_10dp"
         android:layout_marginTop="@dimen/nav_dimen_size_5dp"
         android:layout_marginRight="@dimen/nav_dimen_size_10dp"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         app:cardCornerRadius="@dimen/nav_dimen_size_5dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-            onClick="@{articleItemVM::viewDetail}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rectangle_button_white"

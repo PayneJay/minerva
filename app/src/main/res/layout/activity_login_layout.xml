@@ -6,7 +6,9 @@
 
         <variable
             name="loginVM"
-            type="com.minerva.business.mine.login.LoginViewModel" />
+            type="com.minerva.business.mine.loginregister.LoginViewModel" />
+
+        <import type="com.minerva.R" />
     </data>
 
     <LinearLayout
@@ -15,10 +17,25 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <com.minerva.widget.TitleBar
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/nav_dimen_size_46dp"
-            android:background="@color/colorPrimaryDark" />
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                menuItemClick="@{loginVM.menuItemClickListener}"
+                navigationClickListener="@{loginVM.listener}"
+                toolBarMenu="@{R.menu.register_menu}"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/action_sign_in"
+                app:titleTextColor="@android:color/white" />
+
+        </android.support.design.widget.AppBarLayout>
 
         <!-- Login progress -->
         <ProgressBar
@@ -32,8 +49,8 @@
             android:id="@+id/login_form"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="32dp"
-            android:paddingEnd="32dp">
+            android:padding="@dimen/nav_dimen_size_36dp"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:id="@+id/email_login_form"
@@ -51,6 +68,7 @@
                     android:layout_marginBottom="48dp"
                     android:fontFamily="cursive"
                     android:text="@string/app_name"
+                    android:textColor="@android:color/black"
                     android:textSize="48sp"
                     android:textStyle="bold" />
 

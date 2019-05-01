@@ -12,7 +12,7 @@ import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.article.list.model.ArticleModel;
-import com.minerva.business.mine.login.LoginActivity;
+import com.minerva.business.mine.loginregister.LoginActivity;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
