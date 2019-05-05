@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        minerva {
-            keyAlias 'key'
+        config {
+            keyAlias 'minerva'
             keyPassword 'android'
-            storeFile file('./minerva.jks')
+            storeFile file('/Users/weipengjie/Documents/workspace/Minerva/app/minerva.jks')
             storePassword 'android'
         }
     }
@@ -22,6 +22,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     dataBinding {

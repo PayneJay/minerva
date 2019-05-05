@@ -11,6 +11,7 @@ import android.databinding.ObservableInt;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -160,6 +161,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
 
     @Override
     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+        Log.i("share", throwable.getMessage(), throwable);
         Toast.makeText(context, "分享失败了……" + throwable.getMessage(), Toast.LENGTH_LONG).show();
     }
 
