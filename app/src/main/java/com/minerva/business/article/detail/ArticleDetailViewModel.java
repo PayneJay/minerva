@@ -113,8 +113,13 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         mShareAction = new ShareAction((BaseActivity) context);
         UMWeb web = new UMWeb(Constants.shareBaseUrl + articleID);
         if (article != null) {
+            UMImage thumb;
+            if (TextUtils.isEmpty(article.getImg())) {
+                thumb = new UMImage(context, R.mipmap.icon_launcher);
+            } else {
+                thumb = new UMImage(context, article.getImg());
+            }
             web.setTitle(article.getFeed_title());//标题
-            UMImage thumb = new UMImage(context, R.mipmap.icon_minerva_share);
             web.setThumb(thumb);  //缩略图
             web.setDescription(article.getTitle());//描述
         }
