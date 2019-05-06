@@ -48,12 +48,27 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_hot_flag"
+                    isGone="@{articleItemVM.isHotFlagGone}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="@dimen/nav_dimen_size_5dp"
+                    android:layout_marginTop="@dimen/nav_dimen_size_10dp"
+                    android:background="@drawable/shape_rectangle_red"
+                    android:maxLines="1"
+                    android:text="@string/article_hot_flag"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="11sp" />
+
+                <TextView
                     text="@{articleItemVM.date}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="@dimen/nav_dimen_size_10dp"
                     android:layout_toStartOf="@+id/image"
+                    android:layout_toEndOf="@id/tv_hot_flag"
                     android:maxLines="1"
                     android:textColor="@color/color_8a8a8a"
                     android:textSize="12sp" />

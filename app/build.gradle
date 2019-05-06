@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'minerva'
             keyPassword 'android'
-            storeFile file('/Users/weipengjie/Documents/workspace/Minerva/app/minerva.jks')
+            storeFile file('minerva.jks')
             storePassword 'android'
         }
     }

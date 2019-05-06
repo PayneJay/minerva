@@ -127,8 +127,9 @@ public class ArticleListViewModel extends BaseViewModel {
                 ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
                 ArticleBean.ArticlesBean articlesBean = mData.get(i);
                 viewModel.content.set(articlesBean.getTitle());
-                viewModel.date.set(articlesBean.getRectime());
+                viewModel.date.set(articlesBean.getFeed_title() + "  " + articlesBean.getRectime());
                 viewModel.imgUrl.set(articlesBean.getImg());
+                viewModel.isHotFlagGone.set(articlesBean.getSt() != 2);
                 viewModel.articleID = articlesBean.getId();
                 items.add(viewModel);
             }
