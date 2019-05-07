@@ -65,6 +65,7 @@ public class CategoryViewModel extends BaseViewModel {
                 .setNormalBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
                 .setSelectedBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
                 .setTabItemWith(200)
+                .setCurrentTab(currentItem.get())
                 .build();
     }
 

@@ -98,7 +98,7 @@ public class TabLayoutHelper {
                         }
 
                         View indicator = customView.findViewById(R.id.view_indicator);
-                        if (j == 0) {
+                        if (j == builder.getCurrentTab()) {
                             int color = builder.getSelectedTextColor();
                             if (color == 0) {
                                 color = Color.BLACK;
@@ -170,6 +170,7 @@ public class TabLayoutHelper {
         private int tabItemPadding;
         private int tabItemMarginRight;
         private int tabItemMarginLeft;
+        private int currentTab;
         private TabLayout tabLayout;
 
         public int getTabItemPadding() {
@@ -321,6 +322,15 @@ public class TabLayoutHelper {
 
         public Builder setTabItemMarginLeft(int tabItemMarginLeft) {
             this.tabItemMarginLeft = tabItemMarginLeft;
+            return this;
+        }
+
+        public int getCurrentTab() {
+            return currentTab;
+        }
+
+        public Builder setCurrentTab(int currentTab) {
+            this.currentTab = currentTab;
             return this;
         }
 
