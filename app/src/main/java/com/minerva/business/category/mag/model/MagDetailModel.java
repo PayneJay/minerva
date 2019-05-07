@@ -5,7 +5,6 @@ import android.databinding.ObservableList;
 
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.category.mag.MagChildViewModel;
-import com.minerva.business.category.mag.SpecialChildViewModel;
 import com.minerva.business.category.mag.SpecialGroupViewModel;
 
 import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList;
