@@ -1,6 +1,7 @@
 package com.minerva.business.home;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,21 +32,20 @@ import android.widget.Toast;
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseBean;
-import com.minerva.business.site.menu.CreateGroupViewModel;
-import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.business.home.sort.SiteSortActivity;
 import com.minerva.business.home.subscribe.SubscribeSiteActivity;
 import com.minerva.business.home.weekly.WeeklyActivity;
 import com.minerva.business.search.SearchActivity;
 import com.minerva.business.settings.RecommendActivity;
 import com.minerva.business.settings.SettingsActivity;
+import com.minerva.business.site.menu.CreateGroupViewModel;
+import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.business.site.model.SiteModel;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
 import com.minerva.utils.DisplayUtils;
 import com.minerva.utils.ResourceUtils;
 import com.minerva.widget.Loading;
@@ -60,6 +60,8 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private MenuItem mNavMenuItem;
     private MenuItem menuSearch, menuMore, menuSettings;
     private Toolbar mToolbar;
+    private PopupWindow createPopup;
+    private Loading loading;
     private boolean isExit;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -72,29 +74,17 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             mToolbar.setVisibility(View.VISIBLE);
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mViewPager.setCurrentItem(0);
-                    menuSearch.setVisible(true);
-                    menuMore.setVisible(true);
-                    menuSettings.setVisible(false);
+                    setCurrentPage(0, true, false);
                     return true;
                 case R.id.navigation_dashboard:
-                    mViewPager.setCurrentItem(1);
-                    menuSearch.setVisible(true);
-                    menuMore.setVisible(true);
-                    menuSettings.setVisible(false);
+                    setCurrentPage(1, true, false);
                     return true;
                 case R.id.navigation_notifications:
-                    mViewPager.setCurrentItem(2);
-                    menuSearch.setVisible(false);
-                    menuMore.setVisible(false);
-                    menuSettings.setVisible(true);
+                    setCurrentPage(2, false, true);
                     mToolbar.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_profile:
-                    menuSearch.setVisible(false);
-                    menuMore.setVisible(false);
-                    menuSettings.setVisible(true);
-                    mViewPager.setCurrentItem(3);
+                    setCurrentPage(3, false, true);
                     return true;
             }
             return false;
@@ -115,45 +105,25 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                     EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.SELECT_ARTICLE_LANGUAGE, 0));
                     break;
                 case R.id.toolbar_more_recommend_settings:
-                    if (GlobalData.getInstance().isLogin()) {
-                        goReadSetting();
-                    } else {
-                        Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
-                    }
+                    goReadSetting();
                     break;
                 case R.id.toolbar_more_custom_channel:
                     Constants.showToast(HomeActivity.this);
                     break;
                 case R.id.toolbar_more_week_list:
-                    if (GlobalData.getInstance().isLogin()) {
-                        goWeekly();
-                    } else {
-                        Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
-                    }
+                    goWeekly();
                     break;
                 case R.id.toolbar_subscribe_discover:
                     goSubscribeDiscover();
                     break;
                 case R.id.toolbar_create_group:
-                    if (GlobalData.getInstance().isLogin()) {
-                        showCreateGroupDialog();
-                    } else {
-                        Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
-                    }
+                    showCreateGroupDialog();
                     break;
                 case R.id.toolbar_sort_group:
-                    if (GlobalData.getInstance().isLogin()) {
-                        goSortGroups();
-                    } else {
-                        Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
-                    }
+                    goSortGroups();
                     break;
                 case R.id.toolbar_all_read:
-                    if (GlobalData.getInstance().isLogin()) {
-                        markAllRead();
-                    } else {
-                        Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
-                    }
+                    markAllRead();
                     break;
                 case R.id.toolbar_use_tips:
                     showUseTips();
@@ -165,40 +135,6 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             return true;
         }
     };
-
-    private PopupWindow createPopup;
-    private Loading loading;
-
-    private void showUseTips() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
-                .setMessage(ResourceUtils.getString(R.string.dialog_use_tips_content))
-                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        builder.show();
-    }
-
-    private void goReadSetting() {
-        if (GlobalData.getInstance().isLogin()) {
-            startActivity(new Intent(this, RecommendActivity.class));
-            return;
-        }
-
-        Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
-    }
-
-    private void goWeekly() {
-        if (GlobalData.getInstance().isLogin()) {
-            startActivity(new Intent(this, WeeklyActivity.class));
-            return;
-        }
-
-        Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
-    }
 
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
@@ -284,6 +220,37 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         return true;
     }
 
+    @Override
+    public void confirm(String name) {
+        if (createPopup != null) {
+            createPopup.dismiss();
+        }
+
+        if (loading == null) {
+            loading = new Loading.Builder(this).show();
+        }
+        MenuModel.getInstance().createGroup(name, new NetworkObserver<SitesBean>() {
+            @Override
+            public void onSuccess(SitesBean sitesBean) {
+                loading.dismiss();
+                Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_create_group_success), Toast.LENGTH_SHORT).show();
+                EventBus.getDefault().postSticky(sitesBean);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                loading.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void cancel() {
+        if (createPopup != null) {
+            createPopup.dismiss();
+        }
+    }
+
     /**
      * double quite the app
      */
@@ -320,12 +287,20 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         }
     }
 
+    private void setCurrentPage(int tab, boolean b, boolean b2) {
+        mViewPager.setCurrentItem(tab);
+        menuSearch.setVisible(b);
+        menuMore.setVisible(b);
+        menuSettings.setVisible(b2);
+    }
+
     private void setUpViewPager() {
         HomeViewPagerFragmentAdapter adapter = new HomeViewPagerFragmentAdapter(getSupportFragmentManager());
         mViewPager.addOnPageChangeListener(mPageChangeListener);
         mViewPager.setAdapter(adapter);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void showPopupMenu() {
         PopupMenu popupMenu = new PopupMenu(this, mToolbar);
         switch (mViewPager.getCurrentItem()) {
@@ -342,7 +317,14 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         popupMenu.show();
     }
 
+    /**
+     * 显示创建分组Dialog
+     */
     private void showCreateGroupDialog() {
+        if (!GlobalData.getInstance().isLogin()) {
+            Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (createPopup == null) {
             createPopup = new PopupWindow(getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             createPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -368,11 +350,21 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         createPopup.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
     }
 
+    /**
+     * 跳转订阅发现
+     */
     private void goSubscribeDiscover() {
         startActivity(new Intent(this, SubscribeSiteActivity.class));
     }
 
+    /**
+     * 跳转分组排序
+     */
     private void goSortGroups() {
+        if (!GlobalData.getInstance().isLogin()) {
+            Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            return;
+        }
         List<SitesBean.ItemsBeanX> itemList = SiteModel.getInstance().getItemList();
         if (itemList.size() <= 1) {
             Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_create_more_to_sort), Toast.LENGTH_SHORT).show();
@@ -381,7 +373,14 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         startActivity(new Intent(this, SiteSortActivity.class));
     }
 
+    /**
+     * 全部标为已读
+     */
     private void markAllRead() {
+        if (GlobalData.getInstance().isLogin()) {
+            Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (loading == null) {
             loading = new Loading.Builder(this).show();
         }
@@ -400,34 +399,43 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         });
     }
 
-    @Override
-    public void confirm(String name) {
-        if (createPopup != null) {
-            createPopup.dismiss();
-        }
-
-        if (loading == null) {
-            loading = new Loading.Builder(this).show();
-        }
-        MenuModel.getInstance().createGroup(name, new NetworkObserver<SitesBean>() {
-            @Override
-            public void onSuccess(SitesBean sitesBean) {
-                loading.dismiss();
-                Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_create_group_success), Toast.LENGTH_SHORT).show();
-                EventBus.getDefault().postSticky(sitesBean);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                loading.dismiss();
-            }
-        });
+    /**
+     * 显示使用提示
+     */
+    private void showUseTips() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
+                .setMessage(ResourceUtils.getString(R.string.dialog_use_tips_content))
+                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.show();
     }
 
-    @Override
-    public void cancel() {
-        if (createPopup != null) {
-            createPopup.dismiss();
+    /**
+     * 跳转阅读设置
+     */
+    private void goReadSetting() {
+        if (GlobalData.getInstance().isLogin()) {
+            startActivity(new Intent(this, RecommendActivity.class));
+            return;
         }
+
+        Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 跳转一周拾遗
+     */
+    private void goWeekly() {
+        if (GlobalData.getInstance().isLogin()) {
+            startActivity(new Intent(this, WeeklyActivity.class));
+            return;
+        }
+
+        Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
     }
 }

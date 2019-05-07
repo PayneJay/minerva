@@ -32,7 +32,7 @@
                 app:tabIndicatorHeight="@dimen/nav_dimen_size_3dp"
                 app:tabSelectedTextColor="@color/color_FFFFFF"
                 app:tabTextAppearance="@style/categoryTabLayoutStyle"
-                app:tabTextColor="@color/color_70FFFFFF" />
+                app:tabTextColor="@color/color_CFFFFFFF" />
 
             <ImageView
                 onClick="@{categoryVM::onImgClick}"

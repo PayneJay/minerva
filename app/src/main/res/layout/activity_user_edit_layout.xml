@@ -68,10 +68,12 @@
                         android:textSize="16sp" />
 
                     <ImageView
-                        android:layout_width="@dimen/nav_dimen_size_36dp"
-                        android:layout_height="@dimen/nav_dimen_size_36dp"
+                        android:layout_width="@dimen/nav_dimen_size_40dp"
+                        android:layout_height="@dimen/nav_dimen_size_40dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_margin="@dimen/nav_dimen_size_10dp"
+                        android:layout_marginTop="@dimen/nav_dimen_size_5dp"
+                        android:layout_marginEnd="@dimen/nav_dimen_size_10dp"
+                        android:layout_marginBottom="@dimen/nav_dimen_size_5dp"
                         android:scaleType="fitXY"
                         app:errorThumbnail="@{@drawable/icon_menu_user}"
                         app:imageUrlThumbnail="@{userEdtVM.headUrl}"

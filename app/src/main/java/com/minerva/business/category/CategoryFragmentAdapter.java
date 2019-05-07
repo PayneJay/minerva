@@ -17,7 +17,7 @@ class CategoryFragmentAdapter extends FragmentPagerAdapter {
     private final String[] tabTitles = new String[]{ResourceUtils.getString(R.string.tab_special), ResourceUtils.getString(R.string.tab_book)};
     private ArrayList<BaseFragment> fragments = new ArrayList<>();
 
-    public CategoryFragmentAdapter(FragmentManager fm) {
+    CategoryFragmentAdapter(FragmentManager fm) {
         super(fm);
         fragments.add(new SpecialFragment());
         fragments.add(new BookFragment());

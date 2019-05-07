@@ -20,20 +20,20 @@
 
     <style name="tabLayoutStyle" parent="Base.Widget.Design.TabLayout">
         <item name="tabBackground">@color/colorPrimaryDark</item>
-        <item name="tabIndicatorColor">@color/color_FFFFFF</item>
+        <item name="tabIndicatorColor">@android:color/white</item>
         <item name="tabIndicatorHeight">3dp</item>
-        <item name="tabSelectedTextColor">@color/color_FFFFFF</item>
+        <item name="tabSelectedTextColor">@android:color/white</item>
     </style>
 
     <style name="tabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/color_70FFFFFF</item>
+        <item name="android:textColor">@color/color_CFFFFFFF</item>
     </style>
 
     <style name="categoryTabLayoutStyle" parent="Base.Widget.Design.TabLayout">
         <item name="tabSelectedTextColor">@color/color_FFFFFF</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/color_70FFFFFF</item>
+        <item name="android:textColor">@color/color_CFFFFFFF</item>
     </style>
 
     <style name="mineItemStyle">

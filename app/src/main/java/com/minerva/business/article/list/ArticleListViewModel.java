@@ -53,10 +53,10 @@ public class ArticleListViewModel extends BaseViewModel {
     protected int mCurrentPage; //当前页数
     protected BlankViewModel mBlankVM;
     protected List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
+    private Loading loading;
     private String mLastID; //最后一条id
     private int mCurrentTab; //当前Tab
     private boolean hasNext;
-    private Loading loading;
 
     ArticleListViewModel(Context context, int tab) {
         super(context);

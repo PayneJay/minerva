@@ -6,14 +6,18 @@ import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
+import com.minerva.R;
 import com.minerva.base.BaseFragment;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.search.SearchActivity;
 import com.minerva.business.settings.SettingsActivity;
 import com.minerva.common.Constants;
+import com.minerva.common.TabLayoutHelper;
+import com.minerva.utils.ResourceUtils;
 
 public class CategoryViewModel extends BaseViewModel {
     public static ObservableInt currentItem = new ObservableInt(0);
@@ -25,7 +29,7 @@ public class CategoryViewModel extends BaseViewModel {
     }
 
     @BindingAdapter({"categoryViewPager", "fragment"})
-    public static void setViewPager(TabLayout view, ViewPager viewPager, BaseFragment fragment) {
+    public static void setViewPager(TabLayout tabLayout, ViewPager viewPager, BaseFragment fragment) {
         viewPager.setAdapter(new CategoryFragmentAdapter(fragment.getChildFragmentManager()));
         viewPager.setOffscreenPageLimit(0);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -46,23 +50,22 @@ public class CategoryViewModel extends BaseViewModel {
             }
         });
 
-        view.setupWithViewPager(viewPager, true);
+        tabLayout.setupWithViewPager(viewPager, true);
         viewPager.setCurrentItem(currentItem.get());
-        view.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        new TabLayoutHelper.Builder(tabLayout)
+                .setIndicatorColor(Color.WHITE)
+                .setIndicatorHeight(8)
+                .setIndicatorWith(150)
+                .setIndicatorDrawable(R.drawable.shape_tab_line)
+                .setSelectedTextColor(Color.WHITE)
+                .setNormalTextColor(ResourceUtils.getColor(R.color.color_CFFFFFFF))
+                .setSelectedTextSize(18)
+                .setNormalTextSize(18)
+                .setSelectedBold(true)
+                .setNormalBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
+                .setSelectedBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
+                .setTabItemWith(200)
+                .build();
     }
 
     public void onImgClick() {
