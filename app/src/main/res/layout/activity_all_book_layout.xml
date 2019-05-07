@@ -28,8 +28,8 @@
                 android:background="?attr/colorPrimary"
                 app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:titleTextColor="@android:color/white"
-                app:title="@{allBookVM.mTitle}" />
+                app:title="@{allBookVM.mTitle}"
+                app:titleTextColor="@android:color/white" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -38,7 +38,8 @@
             onRefreshListener="@{allBookVM.onRefreshListener}"
             refreshing="@{allBookVM.refreshing}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
 
             <android.support.v7.widget.RecyclerView
                 itemBinding="@{allBookVM.periodItemBind}"

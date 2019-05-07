@@ -12,7 +12,7 @@ import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.list.ArticleItemViewModel;
 import com.minerva.business.article.list.model.ArticleBean;
-import com.minerva.business.category.book.AllBook;
+import com.minerva.business.category.book.model.AllBook;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.search.model.ArticleResult;
 import com.minerva.business.search.model.SearchModel;

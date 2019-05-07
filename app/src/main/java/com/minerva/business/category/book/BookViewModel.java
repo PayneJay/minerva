@@ -10,11 +10,15 @@ import android.support.v7.widget.GridLayoutManager;
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.category.book.model.BookModel;
 import com.minerva.business.category.mag.SpecialGroupViewModel;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.SpecialModel;
+import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
+import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
+import com.minerva.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +26,8 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class BookViewModel extends BaseViewModel {
+public class BookViewModel extends BaseViewModel implements IPageStateListener {
     public ObservableBoolean refreshing = new ObservableBoolean();
-    public static ObservableList<BaseViewModel> items = new ObservableArrayList<>();
     public OnItemBind<BaseViewModel> bookItemBind = new OnItemBind<BaseViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
@@ -42,7 +45,7 @@ public class BookViewModel extends BaseViewModel {
         }
     };
     public GridLayoutManager glManager;
-
+    private BlankViewModel mBlankVM;
     private List<BookBean.ItemsBean> beanXList = new ArrayList<>();
 
     BookViewModel(Context context) {
@@ -52,6 +55,11 @@ public class BookViewModel extends BaseViewModel {
 
     private void requestServer() {
         refreshing.set(true);
+        if (!CommonUtils.isNetworkAvailable(context)) {
+            refreshing.set(false);
+            setPageByState(Constants.PageStatus.NETWORK_EXCEPTION);
+            return;
+        }
         SpecialModel.getInstance().getBookList(new NetworkObserver<BookBean>() {
             @Override
             public void onSuccess(BookBean bookBean) {
@@ -64,8 +72,6 @@ public class BookViewModel extends BaseViewModel {
             @Override
             public void onFailure(String msg) {
                 refreshing.set(false);
-                beanXList.clear();
-                beanXList.addAll(SpecialModel.getInstance().generateBookData());
                 createViewModel();
             }
         });
@@ -75,6 +81,10 @@ public class BookViewModel extends BaseViewModel {
         return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
     }
 
+    public ObservableList<BaseViewModel> getItems() {
+        return BookModel.getInstance().getData();
+    }
+
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
@@ -82,13 +92,26 @@ public class BookViewModel extends BaseViewModel {
         }
     };
 
+
+    @Override
+    public void setPageByState(int state) {
+        if (mBlankVM == null) {
+            mBlankVM = new BlankViewModel(context);
+        }
+        mBlankVM.setStatus(state);
+        BookModel.getInstance().clear();
+        ObservableList<BaseViewModel> temp = new ObservableArrayList<>();
+        temp.add(mBlankVM);
+        BookModel.getInstance().setData(temp);
+    }
+
     void setGirdLayoutManager() {
         glManager = new GridLayoutManager(context, 3);
         glManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 try {
-                    if (items.get(position).getViewType() != Constants.RecyclerItemType.SPECIAL_CHILD_TYPE) {
+                    if (getItems().get(position).getViewType() != Constants.RecyclerItemType.SPECIAL_CHILD_TYPE) {
                         return 3;
                     } else {
                         return 1;
@@ -102,16 +125,22 @@ public class BookViewModel extends BaseViewModel {
 
     private void createViewModel() {
         if (beanXList.size() <= 0) {
+            setPageByState(Constants.PageStatus.NO_DATA);
             return;
         }
 
-        items.clear();
+        BookModel.getInstance().setData(getObservableList());
+    }
+
+    private ObservableList<BaseViewModel> getObservableList() {
+        ObservableList<BaseViewModel> temp = new ObservableArrayList<>();
         for (BookBean.ItemsBean groupItem : beanXList) {
             SpecialGroupViewModel groupViewModel = new SpecialGroupViewModel(context);
             groupViewModel.groupName.set(groupItem.getTagName());
             groupViewModel.type = groupItem.getTagId();
             groupViewModel.tabType = Constants.CategoryTabType.TAB_BOOK;
-            items.add(groupViewModel);
+            groupViewModel.setId(groupItem.getTagId() + "");
+            temp.add(groupViewModel);
 
             List<BookBean.ItemsBean.BooksBean> beanList = groupItem.getBooks();
             if (beanList.size() > 0) {
@@ -120,10 +149,13 @@ public class BookViewModel extends BaseViewModel {
                     childViewModel.childName.set(childItem.getTitle());
                     childViewModel.imgUrl.set(childItem.getThumb());
                     childViewModel.link = childItem.getLink();
-                    items.add(childViewModel);
+                    childViewModel.setId(childItem.getId());
+                    temp.add(childViewModel);
                 }
             }
         }
+        return temp;
     }
+
 }
 

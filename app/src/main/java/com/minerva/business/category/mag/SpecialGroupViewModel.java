@@ -15,10 +15,19 @@ public class SpecialGroupViewModel extends BaseViewModel {
     public ObservableField<String> menuName = new ObservableField<>(ResourceUtils.getString(R.string.special_more));
     public int type;//服务器端的type
     public String tabType;// tab类型,详情见CategoryTabType
+    private String id;
 
     public SpecialGroupViewModel(Context context) {
         super(context);
         setViewType(Constants.RecyclerItemType.SPECIAL_GROUP_TYPE);
+    }
+
+    public String getId() {
+        return id == null ? "" : id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void onMoreClick() {

@@ -1,6 +1,6 @@
 package com.minerva.business.category.model;
 
-import com.minerva.business.category.book.AllBook;
+import com.minerva.business.category.book.model.AllBook;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.CommonUtils;

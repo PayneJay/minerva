@@ -29,6 +29,13 @@ public class WebViewViewModel extends BaseViewModel {
         linkUrl.set(link);
     }
 
+    public View.OnClickListener backListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ((BaseActivity) context).finish();
+        }
+    };
+
     @BindingAdapter({"webUrl", "progressBar"})
     public static void setWebViewSettings(WebView webView, String link, final ProgressBar progressBar) {
         final WebSettings settings = webView.getSettings();

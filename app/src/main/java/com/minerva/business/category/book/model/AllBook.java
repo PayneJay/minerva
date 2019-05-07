@@ -1,4 +1,4 @@
-package com.minerva.business.category.book;
+package com.minerva.business.category.book.model;
 
 import com.minerva.base.BaseBean;
 import com.minerva.business.category.model.BookBean;

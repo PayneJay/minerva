@@ -11,11 +11,13 @@ import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.category.mag.model.MagListModel;
 import com.minerva.business.category.mag.model.MagModel;
 import com.minerva.business.category.mag.model.MagPeriod;
 import com.minerva.business.category.model.MagBean;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
+import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
 
@@ -25,9 +27,8 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class PeriodViewModel extends BaseViewModel {
+public class PeriodViewModel extends BaseViewModel implements IPageStateListener {
     public ObservableBoolean refreshing = new ObservableBoolean();
-    public ObservableList<BaseViewModel> items = new ObservableArrayList<>();
     public OnItemBind<BaseViewModel> periodItemBind = new OnItemBind<BaseViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
@@ -49,22 +50,21 @@ public class PeriodViewModel extends BaseViewModel {
     };
     public String mTitle;
     private List<MagBean.ItemsBeanX.ItemsBean> beanList = new ArrayList<>();
-    private BlankViewModel mBlankVM;
     private int mType;
 
-    public PeriodViewModel(Context context) {
+    PeriodViewModel(Context context) {
         super(context);
         mType = ((BaseActivity) context).getIntent().getIntExtra(Constants.KeyExtra.COLUMN_MAG_TYPE, 0);
         mTitle = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.COLUMN_MAG_TITLE);
         requestServer();
     }
 
-    public PeriodViewModel(Context context, String className) {
-        super(context);
-    }
-
     public int[] getColors() {
         return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
+    }
+
+    public ObservableList<BaseViewModel> getItems() {
+        return MagListModel.getInstance().getData();
     }
 
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
@@ -75,15 +75,15 @@ public class PeriodViewModel extends BaseViewModel {
         }
     };
 
+    @Override
+    public void setPageByState(int state) {
+
+    }
+
     private void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
-            if (mBlankVM == null) {
-                mBlankVM = new BlankViewModel(context);
-            }
-            mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
-            items.clear();
-            items.add(mBlankVM);
+            setPageByState(Constants.PageStatus.NETWORK_EXCEPTION);
             return;
         }
 
@@ -105,13 +105,15 @@ public class PeriodViewModel extends BaseViewModel {
 
     private void createViewModel() {
         if (beanList.size() <= 0) {
-            if (mBlankVM != null) {
-                mBlankVM.setStatus(Constants.PageStatus.NO_DATA);
-            }
+            setPageByState(Constants.PageStatus.NO_DATA);
             return;
         }
 
-        items.clear();
+        MagListModel.getInstance().setData(getObservableList());
+    }
+
+    private ObservableList<BaseViewModel> getObservableList() {
+        ObservableList<BaseViewModel> temp = new ObservableArrayList<>();
         for (MagBean.ItemsBeanX.ItemsBean childItem : beanList) {
             SpecialChildViewModel childViewModel = new SpecialChildViewModel(context);
             childViewModel.childName.set(childItem.getTitle());
@@ -119,7 +121,8 @@ public class PeriodViewModel extends BaseViewModel {
             childViewModel.magID = childItem.getId();
             childViewModel.type = childItem.getType();
             childViewModel.setDate(childItem.getTime());
-            items.add(childViewModel);
+            temp.add(childViewModel);
         }
+        return temp;
     }
 }

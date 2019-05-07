@@ -1,7 +1,6 @@
 package com.minerva.business.category.book;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseFragment;
+import com.minerva.business.category.book.model.BookModel;
 
 public class BookFragment extends BaseFragment<BookViewModel> {
     private BookViewModel bookViewModel;
@@ -35,5 +35,11 @@ public class BookFragment extends BaseFragment<BookViewModel> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         bookViewModel.setGirdLayoutManager();
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        BookModel.getInstance().onDestroy();
     }
 }

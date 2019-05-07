@@ -5,7 +5,7 @@ import com.minerva.business.article.comment.model.CommentDetail;
 import com.minerva.business.article.comment.model.CommentListBean;
 import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.model.ArticleBean;
-import com.minerva.business.category.book.AllBook;
+import com.minerva.business.category.book.model.AllBook;
 import com.minerva.business.category.mag.model.MagDetailBean;
 import com.minerva.business.category.mag.model.MagPeriod;
 import com.minerva.business.home.subscribe.SubscribeBean;
