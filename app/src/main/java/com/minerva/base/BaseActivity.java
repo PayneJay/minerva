@@ -1,18 +1,11 @@
 package com.minerva.base;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-
-/**
- * Created by nayibo on 2018/3/23.
- */
 
 public abstract class BaseActivity<T extends BaseViewModel> extends FragmentActivity {
     protected ViewDataBinding binding;

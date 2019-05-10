@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="commentItemVM"
+            type="com.minerva.business.article.comment.CommentItemViewModel" />
+
+        <import type="com.minerva.common.Constants.BitmapTransform" />
+    </data>
+
+    <LinearLayout
+        onLongClick="@{commentItemVM::onItemLongClick}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rect_with_bottom_line"
+        android:orientation="vertical"
+        android:padding="@dimen/nav_dimen_size_10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_head_icon"
+                errorThumbnail="@{@drawable/icon_menu_user}"
+                imageUrlThumbnail="@{commentItemVM.headUrl}"
+                placeHolderThumbnail="@{@drawable/icon_menu_user}"
+                thumbnailType="@{BitmapTransform.CIRCLE}"
+                android:layout_width="@dimen/nav_dimen_size_46dp"
+                android:layout_height="@dimen/nav_dimen_size_46dp"
+                android:layout_alignParentStart="true"
+                android:scaleType="fitXY" />
+
+            <TextView
+                text="@{commentItemVM.userName}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="@dimen/nav_dimen_size_10dp"
+                android:layout_toEndOf="@id/iv_head_icon"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                text="@{commentItemVM.commentDate}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/nav_dimen_size_10dp"
+                android:layout_toEndOf="@id/iv_head_icon"
+                android:textColor="@color/color_8a8a8a"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <TextView
+            text="@{commentItemVM.commentText}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/nav_dimen_size_10dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</layout>

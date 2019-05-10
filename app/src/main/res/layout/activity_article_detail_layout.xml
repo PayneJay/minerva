@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="host"
+            type="com.minerva.business.article.detail.ArticleDetailActivity" />
+
+        <variable
+            name="articleDetailVM"
+            type="com.minerva.business.article.detail.ArticleDetailViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.minerva.widget.TitleBar
+            android:id="@+id/title_bar"
+            commentClick="@{articleDetailVM::comment}"
+            moreClick="@{articleDetailVM::more}"
+            shareClick="@{articleDetailVM::share}"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_dimen_size_46dp" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:orientation="vertical"
+                    android:padding="@dimen/nav_dimen_size_15dp">
+
+                    <TextView
+                        text="@{articleDetailVM.title}"
+                        textSize="@{articleDetailVM.titleTextSize}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_FFFFFF"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        text="@{articleDetailVM.date}"
+                        textSize="@{articleDetailVM.dateTextSize}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+                        android:textColor="@color/color_FFFFFF" />
+                </LinearLayout>
+
+                <TextView
+                    htmlSource="@{articleDetailVM.articleContent}"
+                    textSize="@{articleDetailVM.contentTextSize}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+                    android:lineSpacingExtra="5dp"
+                    android:paddingLeft="@dimen/nav_dimen_size_15dp"
+                    android:paddingRight="@dimen/nav_dimen_size_15dp"
+                    android:textColor="@color/color_000000" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+</layout>

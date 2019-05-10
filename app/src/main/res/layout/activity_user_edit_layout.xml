@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="userEdtVM"
+            type="com.minerva.business.mine.user.UserEditViewModel" />
+
+        <import type="com.minerva.R" />
+
+        <import type="com.minerva.common.Constants.BitmapTransform" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_EEEEEE"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                menuItemClick="@{userEdtVM.menuItemClickListener}"
+                navigationClickListener="@{userEdtVM.listener}"
+                toolBarMenu="@{R.menu.logout_menu}"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/user_edit_title"
+                app:titleTextColor="@android:color/white" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_EEEEEE">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    onClick="@{userEdtVM::onHeadClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/nav_dimen_size_10dp"
+                    android:background="@drawable/shape_rect_with_bottom_line">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:text="@string/user_edit_head"
+                        android:textColor="@color/color_000000"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/nav_dimen_size_40dp"
+                        android:layout_height="@dimen/nav_dimen_size_40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/nav_dimen_size_5dp"
+                        android:layout_marginEnd="@dimen/nav_dimen_size_10dp"
+                        android:layout_marginBottom="@dimen/nav_dimen_size_5dp"
+                        android:scaleType="fitXY"
+                        app:errorThumbnail="@{@drawable/icon_menu_user}"
+                        app:imageUrlThumbnail="@{userEdtVM.headUrl}"
+                        app:placeHolderThumbnail="@{@drawable/icon_menu_user}"
+                        app:thumbnailType="@{BitmapTransform.CIRCLE}" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    onClick="@{userEdtVM::onNameClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/nav_dimen_size_10dp"
+                    android:background="@drawable/shape_rect_with_bottom_line">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:text="@string/user_edit_user_name"
+                        android:textColor="@color/color_000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        text="@{userEdtVM.userName}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:textColor="@color/color_8a8a8a" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    onClick="@{userEdtVM::onEmailClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rect_with_bottom_line">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:text="@string/user_edit_email"
+                        android:textColor="@color/color_000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        text="@{userEdtVM.email}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:textColor="@color/color_8a8a8a" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    onClick="@{userEdtVM::onPwdClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rect_with_bottom_line">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:text="@string/user_edit_password"
+                        android:textColor="@color/color_000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        text="@{userEdtVM.password}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:textColor="@color/color_8a8a8a" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    onClick="@{userEdtVM::onWeiboClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/nav_dimen_size_10dp"
+                    android:background="@drawable/shape_rect_with_bottom_line">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:text="@string/user_edit_weibo"
+                        android:textColor="@color/color_000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        text="@{userEdtVM.weibo}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:textColor="@color/color_8a8a8a" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    onClick="@{userEdtVM::onQQClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rect_with_bottom_line">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:text="@string/user_edit_qq"
+                        android:textColor="@color/color_000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        text="@{userEdtVM.QQ}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:textColor="@color/color_8a8a8a" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    onClick="@{userEdtVM::onWechatClick}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rect_with_bottom_line">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:text="@string/user_edit_wechat"
+                        android:textColor="@color/color_000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        text="@{userEdtVM.wechat}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:padding="@dimen/nav_dimen_size_10dp"
+                        android:textColor="@color/color_8a8a8a" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+</layout>

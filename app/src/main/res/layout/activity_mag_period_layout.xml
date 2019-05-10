@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="periodVM"
+            type="com.minerva.business.category.mag.PeriodViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_EEEEEE"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                navigationClickListener="@{periodVM.listener}"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@{periodVM.mTitle}"
+                app:titleTextColor="@android:color/white" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            colorSchemeColors="@{periodVM.colors}"
+            onRefreshListener="@{periodVM.onRefreshListener}"
+            refreshing="@{periodVM.refreshing}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                itemBinding="@{periodVM.periodItemBind}"
+                items="@{periodVM.items}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+</layout>

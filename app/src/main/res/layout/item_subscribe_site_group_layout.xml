@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="subscribeGroupVM"
+            type="com.minerva.business.home.subscribe.SiteGroupViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.minerva.R" />
+    </data>
+
+    <LinearLayout
+        onClick="@{subscribeGroupVM::onItemClick}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rect_with_bottom_line"
+        android:orientation="horizontal">
+
+        <View
+            bg="@{subscribeGroupVM.isSelected ? R.color.colorPrimary : R.color.color_FFFFFF}"
+            android:layout_width="@dimen/nav_dimen_size_5dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            color="@{subscribeGroupVM.isSelected ? R.color.colorPrimary : R.color.color_000000}"
+            text="@{subscribeGroupVM.groupName}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/nav_dimen_size_15dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</layout>

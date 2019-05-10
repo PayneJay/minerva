@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="categoryVM"
+            type="com.minerva.business.category.CategoryViewModel" />
+
+        <import type="com.minerva.R" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark">
+
+            <android.support.design.widget.TabLayout
+                fragment="@{categoryVM.fragment}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/nav_dimen_size_10dp"
+                app:categoryViewPager="@{(container)}"
+                app:tabBackground="@color/colorPrimaryDark"
+                app:tabIndicatorColor="@color/color_FFFFFF"
+                app:tabIndicatorHeight="@dimen/nav_dimen_size_3dp"
+                app:tabSelectedTextColor="@color/color_FFFFFF"
+                app:tabTextAppearance="@style/categoryTabLayoutStyle"
+                app:tabTextColor="@color/color_CFFFFFFF" />
+
+            <ImageView
+                onClick="@{categoryVM::onImgClick}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:imageSrc="@{categoryVM.isBookTab ? R.mipmap.icon_search : R.mipmap.icon_settings}"
+                android:paddingRight="@dimen/nav_dimen_size_15dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_dimen_size_1dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/container"
+            gotoItem="@{categoryVM.currentItem}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </LinearLayout>
+</layout>

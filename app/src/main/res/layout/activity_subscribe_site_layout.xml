@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="subscribeVM"
+            type="com.minerva.business.home.subscribe.SubscribeViewModel" />
+
+        <import type="com.minerva.R" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_EEEEEE"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/site_toolbar"
+                menuItemClick="@{subscribeVM.menuItemClickListener}"
+                navigationClickListener="@{subscribeVM.listener}"
+                toolBarMenu="@{R.menu.subscribe_more_menu}"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/subscribe_site"
+                app:titleTextColor="@android:color/white" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            isGone="@{subscribeVM.showNetworkError}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.RecyclerView
+                itemBinding="@{subscribeVM.siteGroupItemBind}"
+                items="@{subscribeVM.groupItems}"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
+
+            <View
+                android:layout_width="@dimen/nav_dimen_size_1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_EEEEEE" />
+
+            <android.support.v7.widget.RecyclerView
+                itemBinding="@{subscribeVM.siteChildItemBind}"
+                items="@{subscribeVM.childItems}"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
+        </LinearLayout>
+
+        <LinearLayout
+            onClick="@{subscribeVM::retry}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{subscribeVM.showNetworkError ? View.VISIBLE : View.GONE}">
+
+            <ImageView
+                android:layout_width="@dimen/nav_dimen_size_60dp"
+                android:layout_height="@dimen/nav_dimen_size_60dp"
+                android:imageSrc="@{R.drawable.icon_network_exception}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+                android:gravity="center"
+                android:maxWidth="150dp"
+                android:text="@string/network_error"
+                android:textColor="@color/color_8a8a8a"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="specialChildVM"
+            type="com.minerva.business.category.mag.SpecialChildViewModel" />
+    </data>
+
+    <RelativeLayout
+        onClick="@{specialChildVM::onItemClick}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rect_with_bottom_line">
+
+        <TextView
+            text="@{specialChildVM.childName}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:padding="@dimen/nav_dimen_size_10dp"
+            android:textColor="@color/color_000000"
+            android:textSize="16sp" />
+
+        <TextView
+            text="@{specialChildVM.dateText}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/nav_dimen_size_10dp"
+            android:textColor="@color/color_8a8a8a" />
+
+    </RelativeLayout>
+
+</layout>

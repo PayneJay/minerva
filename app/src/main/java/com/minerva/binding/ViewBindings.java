@@ -9,30 +9,42 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.minerva.common.Constants;
+import com.minerva.common.HtmlImageGetter;
+import com.minerva.utils.CommonUtils;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.File;
-
-
-/**
- * Created by nayibo on 2018/4/2.
- */
+import java.util.List;
 
 public class ViewBindings {
 
@@ -145,16 +157,52 @@ public class ViewBindings {
                 .into(imageView);
     }
 
-    @BindingAdapter({"imageUrlThumbnail", "placeHolderThumbnail", "errorThumbnail"})
-    public static void loadImageWithThumbnal(final ImageView imageView, String url, Drawable holderDrawable, Drawable errorDrawable) {
-        Glide.with(imageView.getContext())
-                .load(url)
-                .placeholder(holderDrawable)
-                .error(errorDrawable)
-                .centerCrop()
-                .thumbnail(0.1f)
-                .dontAnimate()
-                .into(imageView);
+    /**
+     * Glide加载网络图片
+     *
+     * @param imageView      image控件
+     * @param url            图片链接
+     * @param holderDrawable 默认图片
+     * @param errorDrawable  错误图片
+     * @param type           类型（圆形/圆角）
+     * @param corners        圆角弧度
+     */
+    @BindingAdapter(value = {"imageUrlThumbnail", "placeHolderThumbnail", "errorThumbnail", "thumbnailType", "thumbnailCorners"}, requireAll = false)
+    public static void loadImageWithThumbnail(final ImageView imageView, String url, Drawable holderDrawable, Drawable errorDrawable, int type, int corners) {
+        switch (type) {
+            case Constants.BitmapTransform.CIRCLE:
+                Glide.with(imageView.getContext())
+                        .load(url)
+                        .placeholder(holderDrawable)
+                        .error(errorDrawable)
+                        .centerCrop()
+                        .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                        .thumbnail(0.1f)
+                        .dontAnimate()
+                        .into(imageView);
+                break;
+            case Constants.BitmapTransform.ROUNDED:
+                Glide.with(imageView.getContext())
+                        .load(url)
+                        .placeholder(holderDrawable)
+                        .error(errorDrawable)
+                        .centerCrop()
+                        .apply(RequestOptions.bitmapTransform(new RoundedCorners(corners)))
+                        .thumbnail(0.1f)
+                        .dontAnimate()
+                        .into(imageView);
+                break;
+            default:
+                Glide.with(imageView.getContext())
+                        .load(url)
+                        .placeholder(holderDrawable)
+                        .error(errorDrawable)
+                        .centerCrop()
+                        .thumbnail(0.1f)
+                        .dontAnimate()
+                        .into(imageView);
+                break;
+        }
     }
 
     /**
@@ -223,7 +271,7 @@ public class ViewBindings {
     }
 
     @BindingAdapter("color")
-    public static void setText(TextView textView, int colorResId) {
+    public static void setTextColor(TextView textView, int colorResId) {
         textView.setTextColor(ContextCompat.getColor(textView.getContext(), colorResId));
     }
 
@@ -248,19 +296,6 @@ public class ViewBindings {
             editText.addTextChangedListener(listener);
         }
     }
-
-//    @BindingAdapter("showSoftInput")
-//    public static void showSoftInput(EditText view, boolean flag) {
-//        if (flag) {
-//            view.requestFocus();
-//            if (!TextUtils.isEmpty(view.getText())) {
-//                view.setSelection(view.getText().length());
-//            }
-//            ScreenUtils.showSoftKeyboard();
-//        } else {
-//            ScreenUtils.hideSoftKeyboard(CommonUtils.getActivityFromView(view));
-//        }
-//    }
 
     @BindingAdapter("showPassword")
     public static void showPassword(EditText view, boolean flag) {
@@ -305,7 +340,7 @@ public class ViewBindings {
     }
 
     @BindingAdapter(value = {"bg"})
-    public static void setTextViewBg(TextView view, int res) {
+    public static void setViewBg(View view, int res) {
         view.setBackgroundResource(res);
     }
 
@@ -354,16 +389,41 @@ public class ViewBindings {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, dimenSize);
     }
 
-//    @BindingAdapter("textWatcher")
-//    public static void setTextWatcher(EditText editText,TextWatcher textWatcher){
-//        editText.addTextChangedListener(textWatcher);
-//    }
+    @BindingAdapter({"htmlSource"})
+    public static void setImageGetter(TextView textView, String source) {
+        if (!TextUtils.isEmpty(source)) {
+            Document doc = Jsoup.parse(source);
+            CommonUtils.handlerPreTag(doc);
+        }
+
+        HtmlImageGetter imageGetter = new HtmlImageGetter(textView.getContext(), textView);
+        textView.setText(Html.fromHtml(source, imageGetter, null));
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
 
     @BindingAdapter("enabled")
     public static void setClickable(TextView textView, boolean enabled) {
         textView.setEnabled(enabled);
     }
 
+    @BindingAdapter("checkedListener")
+    public static void setCheckBoxListener(CheckBox checkBox, CompoundButton.OnCheckedChangeListener listener) {
+        if (listener != null) {
+            checkBox.setOnCheckedChangeListener(listener);
+        }
+    }
+
+    @BindingAdapter(value = {"spinnerItemSelectedListener", "spinnerOptions", "spinnerSelectedPosition"})
+    public static <T> void setSpinnerListener(Spinner spinner, AdapterView.OnItemSelectedListener listener, List<T> options, int position) {
+        ArrayAdapter<T> spinnerAdapter = new ArrayAdapter<>(spinner.getContext(),
+                android.R.layout.simple_spinner_item, options);
+        //下拉的样式res
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //绑定 Adapter到控件
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setSelection(position, true);
+        spinner.setOnItemSelectedListener(listener);
+    }
 
     public interface ClickHandler {
         void onClick();

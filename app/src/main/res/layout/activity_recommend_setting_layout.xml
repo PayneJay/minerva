@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="recSettingVM"
+            type="com.minerva.business.settings.RecommendSettingViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_EEEEEE"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                navigationClickListener="@{recSettingVM.listener}"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/toolbar_more_recommend_settings"
+                app:titleTextColor="@android:color/white" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/nav_dimen_size_50dp"
+            android:layout_marginTop="@dimen/nav_dimen_size_20dp"
+            android:layout_marginRight="@dimen/nav_dimen_size_50dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recommend_setting_language" />
+
+            <android.support.v7.widget.RecyclerView
+                itemBinding="@{recSettingVM.selectItemBind}"
+                items="@{recSettingVM.items}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/nav_dimen_size_10dp"
+                app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
+
+            <Button
+                android:id="@+id/email_sign_in_button"
+                style="?android:textAppearanceSmall"
+                onClick="@{recSettingVM::submit}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/nav_dimen_size_10dp"
+                android:background="@drawable/shape_rectangle_button_parimary_dark"
+                android:padding="@dimen/nav_dimen_size_5dp"
+                android:text="@string/recommend_setting_submit"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/nav_dimen_size_10dp"
+                android:background="@drawable/shape_rectangle_button_white"
+                android:lineSpacingExtra="@dimen/nav_dimen_size_5dp"
+                android:padding="@dimen/nav_dimen_size_5dp"
+                android:text="@string/recommend_setting_desc" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="periodicalTitleVM"
+            type="com.minerva.business.site.detail.PeriodicalTitleViewModel" />
+
+        <import type="com.minerva.common.Constants.BitmapTransform" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:padding="@dimen/nav_dimen_size_20dp">
+
+        <ImageView
+            errorThumbnail="@{@drawable/icon_topic_default}"
+            imageUrlThumbnail="@{periodicalTitleVM.imgUrl}"
+            placeHolderThumbnail="@{@drawable/icon_topic_default}"
+            thumbnailType="@{BitmapTransform.CIRCLE}"
+            android:layout_width="@dimen/nav_dimen_size_60dp"
+            android:layout_height="@dimen/nav_dimen_size_60dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY" />
+
+        <TextView
+            text="@{periodicalTitleVM.name}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            onClick="@{periodicalTitleVM::onSubscribeClick}"
+            text="@{periodicalTitleVM.subscribe}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+            android:background="@drawable/shape_rectangle_stroke_button_white"
+            android:gravity="center"
+            android:paddingLeft="@dimen/nav_dimen_size_20dp"
+            android:paddingTop="@dimen/nav_dimen_size_5dp"
+            android:paddingRight="@dimen/nav_dimen_size_20dp"
+            android:paddingBottom="@dimen/nav_dimen_size_5dp"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</layout>

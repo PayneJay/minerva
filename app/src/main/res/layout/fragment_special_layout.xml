@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="specialVM"
-            type="com.minerva.special.SpecialViewModel" />
+            type="com.minerva.business.category.mag.SpecialViewModel" />
     </data>
 
     <LinearLayout
@@ -13,9 +14,20 @@
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="专栏" />
+        <android.support.v4.widget.SwipeRefreshLayout
+            colorSchemeColors="@{specialVM.colors}"
+            onRefreshListener="@{specialVM.onRefreshListener}"
+            refreshing="@{specialVM.refreshing}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                itemBinding="@{specialVM.specialItemBind}"
+                items="@{specialVM.items}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
     </LinearLayout>
 </layout>

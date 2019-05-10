@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="titleBarVM"
+            type="com.minerva.widget.TitleBar.TitleBarViewModel" />
+
+        <import type="com.minerva.R" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_dimen_size_46dp"
+        android:background="@color/colorPrimaryDark"
+        android:paddingLeft="@dimen/nav_dimen_size_15dp"
+        android:paddingRight="@dimen/nav_dimen_size_15dp">
+
+        <ImageView
+            onClick="@{titleBarVM::goBack}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@{R.drawable.abc_ic_ab_back_mtrl_am_alpha}" />
+
+        <ImageView
+            android:id="@+id/image_share"
+            isGone="@{titleBarVM.isShareGone}"
+            onClick="@{titleBarVM::share}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/image_comment"
+            android:layout_toLeftOf="@+id/image_comment"
+            android:padding="@dimen/nav_dimen_size_10dp"
+            android:src="@{R.drawable.abc_ic_menu_share_mtrl_alpha}" />
+
+        <ImageView
+            android:id="@+id/image_comment"
+            isGone="@{titleBarVM.isCommentGone}"
+            onClick="@{titleBarVM::goComment}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/image_more"
+            android:layout_toLeftOf="@+id/image_more"
+            android:padding="@dimen/nav_dimen_size_10dp"
+            android:src="@{R.drawable.actionbar_article_comment}" />
+
+        <ImageView
+            android:id="@+id/image_more"
+            isGone="@{titleBarVM.isMoreGone}"
+            onClick="@{titleBarVM::getMore}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@{R.mipmap.icon_more}" />
+
+    </RelativeLayout>
+</layout>

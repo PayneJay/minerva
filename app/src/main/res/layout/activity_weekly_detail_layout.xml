@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="weeklyDetailVM"
+            type="com.minerva.business.home.weekly.WeeklyDetailViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                navigationClickListener="@{weeklyDetailVM.backListener}"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@{weeklyDetailVM.title}"
+                app:titleTextColor="@android:color/white" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            colorSchemeColors="@{weeklyDetailVM.colors}"
+            onRefreshListener="@{weeklyDetailVM.onRefreshListener}"
+            refreshing="@{weeklyDetailVM.refreshing}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                itemBinding="@{weeklyDetailVM.polymerizeItemBind}"
+                items="@{weeklyDetailVM.items}"
+                loadMore="@{weeklyDetailVM::loadMore}"
+                onRecyclerScrollListener="@{weeklyDetailVM.onScrollListener}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                app:layoutManager="com.minerva.common.MinervaLinearLayoutManager" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+</layout>

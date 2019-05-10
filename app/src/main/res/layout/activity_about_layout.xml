@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="aboutVM"
+            type="com.minerva.business.mine.about.AboutViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_EEEEEE"
+        android:orientation="vertical">
+
+        <com.minerva.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_dimen_size_46dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+            android:background="@android:color/white"
+            android:fontFamily="cursive"
+            android:gravity="center"
+            android:padding="@dimen/nav_dimen_size_15dp"
+            android:text="@string/app_name"
+            android:textColor="@color/color_000000"
+            android:textSize="48sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:lineSpacingMultiplier="1.3"
+            android:paddingLeft="@dimen/nav_dimen_size_15dp"
+            android:paddingRight="@dimen/nav_dimen_size_15dp"
+            android:paddingBottom="@dimen/nav_dimen_size_15dp"
+            android:text="@string/about_introduction_content"
+            android:textColor="@color/color_000000" />
+
+        <TextView
+            style="@style/mineItemStyle"
+            android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+            android:text="@string/about_version" />
+
+        <TextView
+            style="@style/mineItemStyle"
+            android:text="@string/about_website" />
+
+        <TextView
+            style="@style/mineItemStyle"
+            android:text="@string/about_share" />
+
+        <TextView
+            style="@style/mineItemStyle"
+            android:text="@string/about_grant_star" />
+
+    </LinearLayout>
+
+</layout>

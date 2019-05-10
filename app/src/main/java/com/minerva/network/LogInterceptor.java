@@ -2,17 +2,13 @@ package com.minerva.network;
 
 import android.util.Log;
 
-import com.minerva.Constants;
+import com.minerva.common.Constants;
 
 import java.io.IOException;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-
-/**
- * Created by nayibo on 2017/7/26.
- */
 
 public class LogInterceptor implements Interceptor {
     @Override

@@ -5,8 +5,8 @@ import android.text.TextUtils;
 import android.webkit.WebSettings;
 import android.widget.Toast;
 
-import com.minerva.Constants;
-import com.minerva.GlobalData;
+import com.minerva.common.Constants;
+import com.minerva.common.GlobalData;
 import com.minerva.R;
 
 import java.io.IOException;
@@ -19,10 +19,6 @@ import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-
-/**
- * Created by nayibo on 2017/7/25.
- */
 
 public class NetworkInterceptor implements Interceptor {
     private HashMap<String, String> mHeaders;
@@ -67,7 +63,7 @@ public class NetworkInterceptor implements Interceptor {
                 .addHeader("User-Agent", getUserAgent())
                 .build();
 
-        if (GlobalData.isLogin()) {
+        if (GlobalData.getInstance().isLogin()) {
             build = request.newBuilder()
                     .headers(getHeaders(request))
                     .removeHeader("User-Agent")
@@ -77,7 +73,6 @@ public class NetworkInterceptor implements Interceptor {
         }
 
         Response response = chain.proceed(build);
-        Toast.makeText(Constants.application, R.string.network_error, Toast.LENGTH_SHORT).show();
         return response;
     }
 

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="settingsVM"
+            type="com.minerva.business.settings.SettingsViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_EEEEEE"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                navigationClickListener="@{settingsVM.listener}"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/settings_title"
+                app:titleTextColor="@android:color/white" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_EEEEEE">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/mineItemStyle"
+                    onClick="@{settingsVM::clearCache}"
+                    text="@{settingsVM.clearCacheText}"
+                    android:layout_marginTop="@dimen/nav_dimen_size_15dp" />
+
+                <TextView
+                    style="@style/mineItemStyle"
+                    android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+                    android:text="@string/settings_load_image_wifi" />
+
+                <TextView
+                    style="@style/mineItemStyle"
+                    android:text="@string/settings_page_turning_by_scroll" />
+
+                <TextView
+                    style="@style/mineItemStyle"
+                    android:text="@string/settings_open_url_browser" />
+
+                <TextView
+                    style="@style/mineItemStyle"
+                    android:text="@string/settings_page_turning_by_voice_key" />
+
+                <TextView
+                    style="@style/mineItemStyle"
+                    android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+                    android:text="@string/settings_font_size_modify" />
+
+                <TextView
+                    style="@style/mineItemStyle"
+                    android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+                    android:text="@string/settings_share_settings" />
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+</layout>

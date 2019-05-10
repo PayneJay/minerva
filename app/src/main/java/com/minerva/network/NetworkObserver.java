@@ -1,14 +1,13 @@
 package com.minerva.network;
 
 
+import android.widget.Toast;
+
+import com.minerva.common.Constants;
 import com.minerva.base.BaseBean;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-
-/**
- * Created by nayibo on 2018/3/26.
- */
 
 public abstract class NetworkObserver<T extends BaseBean> implements Observer<T> {
     public NetworkObserver() {
@@ -16,7 +15,7 @@ public abstract class NetworkObserver<T extends BaseBean> implements Observer<T>
 
     public abstract void onSuccess(T t);
 
-    public abstract void onFailure();
+    public abstract void onFailure(String msg);
 
     @Override
     public void onSubscribe(Disposable d) {
@@ -28,13 +27,14 @@ public abstract class NetworkObserver<T extends BaseBean> implements Observer<T>
         if (response.isSuccess()) {
             onSuccess(response);
         } else {
-            onFailure();
+            Toast.makeText(Constants.application, response.getError(), Toast.LENGTH_SHORT).show();
+            onFailure(response.getError());
         }
     }
 
     @Override
     public void onError(Throwable e) {
-        onFailure();
+        onFailure(e.getMessage());
     }
 
     @Override
