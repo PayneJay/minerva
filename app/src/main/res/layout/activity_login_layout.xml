@@ -6,7 +6,7 @@
 
         <variable
             name="loginVM"
-            type="com.minerva.business.mine.loginregister.LoginViewModel" />
+            type="com.minerva.business.mine.signinout.LoginViewModel" />
 
         <import type="com.minerva.R" />
     </data>

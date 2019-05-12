@@ -1,4 +1,4 @@
-package com.minerva.business.mine.loginregister;
+package com.minerva.business.mine.signinout;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -18,15 +18,10 @@ import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseBean;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.SplashActivity;
-import com.minerva.business.article.detail.AddToJournalViewModel;
-import com.minerva.business.mine.loginregister.model.LoginRegisterModel;
-import com.minerva.business.mine.loginregister.model.UserInfo;
-import com.minerva.common.Constants;
-import com.minerva.common.EventMsg;
+import com.minerva.business.mine.signinout.model.LoginRegisterModel;
+import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;

@@ -1,4 +1,4 @@
-package com.minerva.business.mine.loginregister.model;
+package com.minerva.business.mine.signinout.model;
 
 import android.content.Context;
 import android.text.TextUtils;

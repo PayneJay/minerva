@@ -13,7 +13,7 @@ import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.mine.about.AboutActivity;
 import com.minerva.business.mine.collection.MyCollectionActivity;
 import com.minerva.business.mine.journal.MyJournalActivity;
-import com.minerva.business.mine.loginregister.LoginActivity;
+import com.minerva.business.mine.signinout.LoginActivity;
 import com.minerva.business.mine.message.MessageActivity;
 import com.minerva.business.mine.read.ReadLaterActivity;
 import com.minerva.business.mine.read.model.ReadModel;

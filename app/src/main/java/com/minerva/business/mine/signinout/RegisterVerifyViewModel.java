@@ -1,4 +1,4 @@
-package com.minerva.business.mine.loginregister;
+package com.minerva.business.mine.signinout;
 
 import android.content.Context;
 import android.databinding.ObservableField;
@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.minerva.R;
 import com.minerva.base.BaseBean;
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.mine.loginregister.model.LoginRegisterModel;
+import com.minerva.business.mine.signinout.model.LoginRegisterModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtils;
 

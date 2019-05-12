@@ -16,6 +16,9 @@ public class MinervaApp extends Application {
         initUmeng();
     }
 
+    /**
+     * 初始化友盟相关
+     */
     private void initUmeng() {
         UMConfigure.init(this, "5c776a0df1f556755c001104"
                 , "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
