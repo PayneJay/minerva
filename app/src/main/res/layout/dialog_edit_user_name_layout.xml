@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="editPwdVM"
-            type="com.minerva.business.mine.user.UpdatePwdViewModel" />
+            name="editUserNameVM"
+            type="com.minerva.business.mine.user.UpdateNameViewModel" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <TextView
-                text="@{editPwdVM.title}"
+                text="@{editUserNameVM.title}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/nav_dimen_size_40dp"
                 android:gravity="center"
@@ -39,36 +39,11 @@
                 android:layout_marginStart="@dimen/nav_dimen_size_5dp"
                 android:layout_marginEnd="@dimen/nav_dimen_size_5dp"
                 android:background="@android:color/white"
-                android:hint="@string/dialog_current_password"
-                android:inputType="textPassword"
-                android:padding="@dimen/nav_dimen_size_2dp"
-                android:text="@={editPwdVM.currentPwd}" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/nav_dimen_size_40dp"
-                android:layout_marginStart="@dimen/nav_dimen_size_5dp"
-                android:layout_marginTop="@dimen/nav_dimen_size_5dp"
-                android:layout_marginEnd="@dimen/nav_dimen_size_5dp"
-                android:background="@android:color/white"
-                android:hint="@string/dialog_new_password"
-                android:inputType="textPassword"
+                android:hint="@string/dialog_hint_user_name"
+                android:inputType="text"
                 android:maxLength="20"
                 android:padding="@dimen/nav_dimen_size_2dp"
-                android:text="@={editPwdVM.newPwd}" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/nav_dimen_size_40dp"
-                android:layout_marginStart="@dimen/nav_dimen_size_5dp"
-                android:layout_marginTop="@dimen/nav_dimen_size_5dp"
-                android:layout_marginEnd="@dimen/nav_dimen_size_5dp"
-                android:background="@android:color/white"
-                android:hint="@string/dialog_repeat_password"
-                android:inputType="textPassword"
-                android:maxLength="20"
-                android:padding="@dimen/nav_dimen_size_2dp"
-                android:text="@={editPwdVM.repeatPwd}" />
+                android:text="@={editUserNameVM.content}" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,7 +54,7 @@
                 android:padding="@dimen/nav_dimen_size_5dp">
 
                 <TextView
-                    onClick="@{editPwdVM::onCancelClick}"
+                    onClick="@{editUserNameVM::onCancelClick}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -96,7 +71,7 @@
                     android:background="@color/color_EEEEEE" />
 
                 <TextView
-                    onClick="@{editPwdVM::onConfirmClick}"
+                    onClick="@{editUserNameVM::onConfirmClick}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

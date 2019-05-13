@@ -25,7 +25,7 @@ public class SiteChildViewModel extends BaseViewModel {
     private String id;
     private Loading loading;
 
-    SiteChildViewModel(Context context) {
+    public SiteChildViewModel(Context context) {
         super(context);
         setViewType(Constants.RecyclerItemType.SUBSCRIBE_SITE_CHILD_ITEM_TYPE);
     }

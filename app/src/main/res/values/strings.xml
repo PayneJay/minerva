@@ -1,203 +1,226 @@
 <resources>
-    <string name="app_name">Minerva</string>
-    <string name="tab_article">文章</string>
-    <string name="tab_site">站点</string>
-    <string name="tab_special">专栏</string>
-    <string name="tab_book">图书</string>
-    <string name="tab_category">分类</string>
-    <string name="tab_personal">我的</string>
-    <string name="network_error">当前网络异常，请刷新重试或检查网络</string>
+    <string name="about_grant_star">给个好评吧</string>
+    <string name="about_introduction_content">Minerva以技术为驱动，以聚合挖掘为核心，打造个性推荐和订阅，给你一站式的阅读。 更汇聚优质公开课和线下活动，让信息知识获取更便捷。 万千网友汇聚于此，公诸同好，交流学习</string>
+    <string name="about_share">分享给好友</string>
+    <string name="about_version">版本：1.0.0</string>
+    <string name="about_website">Web版：http://www.minerva.com/</string>
 
+    <string name="action_click_register">完成注册</string>
+    <string name="action_finish_verify">完成验证</string>
+    <string name="action_register">邮箱注册</string>
+    <string name="action_register_verify">验证邮箱</string>
+    <string name="action_send_email_again">再次发送验证邮件</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_sign_in_short">action_sign_in_short</string>
+
+    <string name="app_name">Minerva</string>
+
+    <string name="article_comment">评论</string>
+    <string name="article_design">设计</string>
+    <string name="article_digital">数码</string>
     <string name="article_hot">热门</string>
+    <string name="article_hot_flag">热</string>
+    <string name="article_marketing">营销</string>
     <string name="article_recommend">推荐</string>
     <string name="article_science_technology">科技</string>
     <string name="article_start_up">创业</string>
-    <string name="article_digital">数码</string>
     <string name="article_technology">技术</string>
-    <string name="article_design">设计</string>
-    <string name="article_marketing">营销</string>
 
-    <string name="mine_to_be_read">我的待读</string>
-    <string name="mine_collection">我的收藏</string>
-    <string name="mine_journal">我的推刊</string>
-    <string name="mine_notification">消息通知</string>
-    <string name="mine_read_history">阅读历史</string>
-    <string name="mine_night_mode">夜间模式</string>
-    <string name="mine_offline_read">离线阅读</string>
-    <string name="mine_upgrade">检查更新</string>
-    <string name="mine_feedback">意见反馈</string>
-    <string name="mine_about_us">关于我们</string>
-    <string name="mine_click_login">点击登录</string>
+    <string name="copy_success">评论内容已复制到系统剪贴板里</string>
 
-    <string name="action_sign_in_short">action_sign_in_short</string>
-    <string name="action_sign_in">登录</string>
-    <string name="action_register">邮箱注册</string>
-    <string name="action_click_register">完成注册</string>
-    <string name="about_introduction_content">Minerva以技术为驱动，以聚合挖掘为核心，打造个性推荐和订阅，给你一站式的阅读。 更汇聚优质公开课和线下活动，让信息知识获取更便捷。 万千网友汇聚于此，公诸同好，交流学习</string>
-    <string name="about_version">版本：1.0.0</string>
-    <string name="about_website">Web版：http://www.minerva.com/</string>
-    <string name="about_share">分享给好友</string>
-    <string name="about_grant_star">给个好评吧</string>
-
-    <string name="recommend_to_login">智能推荐，从登录开始</string>
-    <string name="site_group_science_media">科技媒体</string>
-    <string name="site_group_digit_app">数码应用</string>
-    <string name="site_group_product_design">产品设计</string>
-    <string name="site_group_mobile_dev">移动开发</string>
-    <string name="site_group_default">默认分组</string>
+    <string name="dialog_are_you_sure_delete">确定要删除吗？</string>
+    <string name="dialog_are_you_sure_delete_group">确定要删除分组{0}吗？</string>
+    <string name="dialog_are_you_sure_logout">确定要注销吗？</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_confirm">确定</string>
+    <string name="dialog_create_group">创建分组</string>
+    <string name="dialog_create_group_hint">最多10个字符</string>
+    <string name="dialog_create_journal">创建新推刊</string>
+    <string name="dialog_create_journal_desc_hint">描述（可选，最多64个字符）</string>
+    <string name="dialog_create_journal_title_hint">标题（最多20个字符）</string>
+    <string name="dialog_current_password">当前密码</string>
+    <string name="dialog_edit_login_email">更改登录邮箱</string>
+    <string name="dialog_edit_password">修改密码</string>
+    <string name="dialog_edit_user_name">更改用户名</string>
+    <string name="dialog_hint_email_address">邮箱地址</string>
+    <string name="dialog_hint_user_name">最多20个字符</string>
+    <string name="dialog_input_comment_hint">请输入评论</string>
+    <string name="dialog_menu_copy">复制</string>
+    <string name="dialog_menu_delete">删除</string>
+    <string name="dialog_new_password">新密码（6~20个字符）</string>
+    <string name="dialog_only_show_me">仅自己可见</string>
+    <string name="dialog_read_update_success">修改完成，后续将以此偏好设置为依据。</string>
+    <string name="dialog_rename_group">修改分组名称</string>
+    <string name="dialog_repeat_password">重复密码</string>
+    <string name="dialog_title_note">提示</string>
+    <string name="dialog_use_tips_content">1、长按分组名称管理分组\n2、长按订阅项管理订阅项\n3、Have Fun</string>
 
     <string name="exit_by_double_click">再按一下退出！</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="toolbar_more_chinese">仅中文</string>
-    <string name="toolbar_more_english">仅英文</string>
-    <string name="toolbar_more_mix">中英混合</string>
-    <string name="toolbar_more_recommend_settings">推荐设置</string>
-    <string name="toolbar_more_custom_channel">定制频道</string>
-    <string name="toolbar_more_week_list">一周拾遗</string>
 
-    <string name="toolbar_menu_add_read">添加待读</string>
-    <string name="toolbar_menu_cancel_read">取消待读</string>
-    <string name="toolbar_menu_add_collection">添加收藏</string>
-    <string name="toolbar_menu_cancel_collection">取消收藏</string>
-    <string name="toolbar_menu_change_font_size">调整字号</string>
-    <string name="toolbar_menu_open_turn_over">打开翻页</string>
-    <string name="toolbar_menu_view_original">查看原文</string>
-    <string name="toolbar_menu_copy_link">复制链接</string>
+    <string name="font_big">偏大</string>
+    <string name="font_middle">适中</string>
+    <string name="font_small">偏小</string>
 
+    <string name="jd_book_store">图书购买</string>
+
+    <string name="login_account_password_error">账号或密码错误！</string>
+    <string name="login_email_incorrect">来个正经邮箱吧...</string>
+    <string name="login_please_input_account">请输入邮箱!</string>
+    <string name="login_please_input_password">请输入密码!</string>
+    <string name="login_please_input_password_at_least_6">请输入6~20位的密码!</string>
+    <string name="login_prompt_email">请输入邮箱</string>
+    <string name="login_prompt_password">请输入密码</string>
+    <string name="login_success">登录成功！</string>
+    <string name="login_verifying">正在验证…</string>
+
+    <string name="logout_ing">正在注销…</string>
+
+    <string name="menu_delete_group">删除分组</string>
+    <string name="menu_edit_group_name">编辑名称</string>
+    <string name="menu_move_group">迁移分组</string>
+    <string name="menu_move_subscribe">迁移订阅项</string>
+    <string name="menu_move_to_group">迁移到分组：</string>
+    <string name="menu_unsubscribe">取消订阅</string>
+
+    <string name="mine_about_us">关于我们</string>
+    <string name="mine_click_login">点击登录</string>
+    <string name="mine_collection">我的收藏</string>
+    <string name="mine_feedback">意见反馈</string>
+    <string name="mine_journal">我的推刊</string>
+    <string name="mine_night_mode">夜间模式</string>
+    <string name="mine_notification">消息通知</string>
+    <string name="mine_offline_read">离线阅读</string>
+    <string name="mine_read_history">阅读历史</string>
+    <string name="mine_to_be_read">我的待读</string>
+    <string name="mine_upgrade">检查更新</string>
+
+    <string name="network_error">当前网络异常，请刷新重试或检查网络</string>
+
+    <string name="no_data">暂时还没有数据哦！</string>
+    <string name="no_more_data">哥，这回真没了！</string>
+
+    <string name="periodical_subscribe">订阅</string>
+    <string name="periodical_unsubscribe">取消订阅</string>
+
+    <string name="please_check_your_content_empty">请检查您输入的内容，不能为空哦！</string>
+    <string name="please_select_option">请选择操作：</string>
+
+    <string name="polymer_read">聚合阅读</string>
+
+    <string name="recommend_setting_desc">我们推荐的文章除了来自中文站点，还有大量来自英文站点的。如果你有阅读英文内容的需要，可以通过修改设置实现。修改的设置会在后续的推荐中生效。对于科技类内容，考虑到国内的编译情况，清冽建议选择仅中文或者仅英文。</string>
+    <string name="recommend_setting_language">推荐文章语言设置：</string>
+    <string name="recommend_setting_submit">提交</string>
+    <string name="recommend_to_login">智能推荐，从登录开始</string>
+
+    <string name="register_check_password_identical">请检查两次输入密码是否一致</string>
+    <string name="register_email">邮箱</string>
+    <string name="register_password">密码(6～20位)</string>
+    <string name="register_repeat_password">重复密码</string>
+    <string name="register_verify_desc">已向{0}发送验证邮件，请查收完成验证。如果没有收到邮件，可以重新发送邮件。</string>
+
+    <string name="report_article_comment">发表评论</string>
+
+    <string name="resend_success">邮件发送成功，请查收！</string>
+
+    <string name="search_bar_hint">请输入{0}标题片段</string>
+
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="settings_clear_cache">清除缓存({0})</string>
+    <string name="settings_font_size_modify">正文字号大小调整</string>
+    <string name="settings_load_image_wifi">仅WIFI时加载正文图片</string>
+    <string name="settings_open_url_browser">外部浏览器打开正文链接</string>
+    <string name="settings_page_turning_by_scroll">正文左右滑动翻页</string>
+    <string name="settings_page_turning_by_voice_key">正文音量键翻页</string>
+    <string name="settings_share_settings">分享设置</string>
+    <string name="settings_title">相关设置</string>
+
+    <string name="site_all">全部站点</string>
+    <string name="site_english">英文站点</string>
+    <string name="site_group_default">默认分组</string>
+    <string name="site_group_digit_app">数码应用</string>
+    <string name="site_group_mobile_dev">移动开发</string>
+    <string name="site_group_product_design">产品设计</string>
+    <string name="site_group_science_media">科技媒体</string>
+
+    <string name="special_more">更多</string>
+
+    <string name="subscribe_site">订阅站点</string>
+
+    <string name="tab_article">文章</string>
+    <string name="tab_book">图书</string>
+    <string name="tab_category">分类</string>
+    <string name="tab_personal">我的</string>
+    <string name="tab_site">站点</string>
+    <string name="tab_special">专栏</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="search_bar_hint">请输入{0}标题片段</string>
-    <string name="settings_clear_cache">清除缓存({0})</string>
-    <string name="settings_load_image_wifi">仅WIFI时加载正文图片</string>
-    <string name="settings_page_turning_by_scroll">正文左右滑动翻页</string>
-    <string name="settings_open_url_browser">外部浏览器打开正文链接</string>
-    <string name="settings_page_turning_by_voice_key">正文音量键翻页</string>
-    <string name="settings_font_size_modify">正文字号大小调整</string>
-    <string name="settings_share_settings">分享设置</string>
-    <string name="settings_title">相关设置</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
+    <string name="toast_already_new">已是最新版本</string>
+    <string name="toast_already_update">已同步更新</string>
     <string name="toast_cache_clear_success">缓存清除成功</string>
-    <string name="special_more">更多</string>
-    <string name="periodical_subscribe">订阅</string>
-    <string name="periodical_unsubscribe">取消订阅</string>
-    <string name="login_account_password_error">账号或密码错误！</string>
-    <string name="login_please_input_account">请输入邮箱!</string>
-    <string name="login_email_incorrect">来个正经邮箱吧...</string>
-    <string name="login_please_input_password">请输入密码!</string>
-    <string name="login_please_input_password_at_least_6">请输入6~20位的密码!</string>
-    <string name="login_verifying">正在验证…</string>
-    <string name="logout_ing">正在注销…</string>
-    <string name="login_success">登录成功！</string>
-    <string name="login_prompt_email">请输入邮箱</string>
-    <string name="login_prompt_password">请输入密码</string>
-
-    <string name="user_edit_title">编辑信息</string>
-    <string name="user_edit_click_to_update">点击修改</string>
-    <string name="user_edit_click_to_relate">点击关联</string>
-    <string name="user_edit_head">头像</string>
-    <string name="user_edit_user_name">用户名</string>
-    <string name="user_edit_email">登录邮箱</string>
-    <string name="user_edit_password">密码</string>
-    <string name="user_edit_weibo">微博</string>
-    <string name="user_edit_qq">QQ</string>
-    <string name="user_edit_wechat">微信</string>
-
-    <string name="dialog_title_note">提示</string>
-    <string name="dialog_are_you_sure_logout">确定要注销吗？</string>
-    <string name="dialog_are_you_sure_delete_group">确定要删除分组{0}吗？</string>
-    <string name="dialog_are_you_sure_delete">确定要删除吗？</string>
-    <string name="dialog_cancel">取消</string>
-    <string name="dialog_confirm">确定</string>
-    <string name="update_today">今日更新</string>
-
-    <string name="umeng_share_button_custom">自定义分享按钮</string>
-    <string name="polymer_read">聚合阅读</string>
-    <string name="no_data">暂时还没有数据哦！</string>
-    <string name="toast_mark_read_later">已添加待读</string>
-    <string name="toast_operate_fail">操作失败</string>
+    <string name="toast_cancel_collection_later">已取消收藏</string>
     <string name="toast_cancel_read_later">已取消待读</string>
     <string name="toast_copy_clipboard">已复制到剪贴板</string>
-    <string name="toast_please_login_first">请先登录</string>
-    <string name="toast_cancel_collection_later">已取消收藏</string>
-    <string name="toast_mark_collection_later">已收藏</string>
-    <string name="toast_request_server_failed">请求服务器失败</string>
-    <string name="dialog_create_journal">创建新推刊</string>
-    <string name="dialog_only_show_me">仅自己可见</string>
-    <string name="dialog_create_journal_title_hint">标题（最多20个字符）</string>
-    <string name="dialog_create_journal_desc_hint">描述（可选，最多64个字符）</string>
+    <string name="toast_create_group_success">创建成功</string>
+    <string name="toast_delete_success">删除成功</string>
     <string name="toast_journal_char_error">字符长度不符</string>
-    <string name="toast_already_new">已是最新版本</string>
+    <string name="toast_mark_collection_later">已收藏</string>
+    <string name="toast_mark_read_later">已添加待读</string>
+    <string name="toast_operate_fail">操作失败</string>
+    <string name="toast_please_create_more_to_sort">请创建多个分组后再排序</string>
+    <string name="toast_please_login_first">请先登录</string>
+    <string name="toast_registing">正在注册…</string>
+    <string name="toast_request_server_failed">请求服务器失败</string>
+    <string name="toast_update_group_success">修改成功</string>
 
-    <string name="recommend_setting_language">推荐文章语言设置：</string>
-    <string name="recommend_setting_desc">我们推荐的文章除了来自中文站点，还有大量来自英文站点的。如果你有阅读英文内容的需要，可以通过修改设置实现。修改的设置会在后续的推荐中生效。对于科技类内容，考虑到国内的编译情况，清冽建议选择仅中文或者仅英文。</string>
-    <string name="recommend_setting_submit">提交</string>
-    <string name="dialog_read_update_success">修改完成，后续将以此偏好设置为依据。</string>
-    <string name="no_more_data">哥，这回真没了！</string>
+    <string name="toolbar_all_read">全部已读</string>
+    <string name="toolbar_create_group">新建分组</string>
+    <string name="toolbar_menu_add_collection">添加收藏</string>
+    <string name="toolbar_menu_add_read">添加待读</string>
+    <string name="toolbar_menu_cancel_collection">取消收藏</string>
+    <string name="toolbar_menu_cancel_read">取消待读</string>
+    <string name="toolbar_menu_change_font_size">调整字号</string>
+    <string name="toolbar_menu_copy_link">复制链接</string>
+    <string name="toolbar_menu_open_turn_over">打开翻页</string>
+    <string name="toolbar_menu_view_original">查看原文</string>
+    <string name="toolbar_more_chinese">仅中文</string>
+    <string name="toolbar_more_custom_channel">定制频道</string>
+    <string name="toolbar_more_english">仅英文</string>
+    <string name="toolbar_more_mix">中英混合</string>
+    <string name="toolbar_more_recommend_settings">推荐设置</string>
+    <string name="toolbar_more_week_list">一周拾遗</string>
+    <string name="toolbar_sort_group">分组排序</string>
+    <string name="toolbar_subscribe_discover">订阅发现</string>
+    <string name="toolbar_use_tips">使用提示</string>
 
-    <string name="week_traditional_monday">壹</string>
-    <string name="week_traditional_tuesday">貳</string>
-    <string name="week_traditional_wednesday">叁</string>
-    <string name="week_traditional_thursday">肆</string>
+    <string name="umeng_share_button_custom">自定义分享按钮</string>
+
+    <string name="update_today">今日更新</string>
+
+    <string name="user_edit_click_to_relate">点击关联</string>
+    <string name="user_edit_click_to_update">点击修改</string>
+    <string name="user_edit_email">登录邮箱</string>
+    <string name="user_edit_head">头像</string>
+    <string name="user_edit_password">密码</string>
+    <string name="user_edit_qq">QQ</string>
+    <string name="user_edit_title">编辑信息</string>
+    <string name="user_edit_user_name">用户名</string>
+    <string name="user_edit_wechat">微信</string>
+    <string name="user_edit_weibo">微博</string>
+
     <string name="week_traditional_friday">伍</string>
+    <string name="week_traditional_monday">壹</string>
     <string name="week_traditional_saturday">陸</string>
     <string name="week_traditional_sunday">柒</string>
+    <string name="week_traditional_thursday">肆</string>
+    <string name="week_traditional_tuesday">貳</string>
+    <string name="week_traditional_wednesday">叁</string>
 
-    <string name="weekly_tag_gleaning">拾</string>
     <string name="weekly_month_week">{0}月第{1}周</string>
-    <string name="toolbar_subscribe_discover">订阅发现</string>
-    <string name="toolbar_create_group">新建分组</string>
-    <string name="toolbar_sort_group">分组排序</string>
-    <string name="toolbar_all_read">全部已读</string>
-    <string name="toolbar_use_tips">使用提示</string>
-    <string name="dialog_create_group_hint">最多10个字符</string>
-    <string name="dialog_create_group">创建分组</string>
-    <string name="dialog_rename_group">修改分组名称</string>
-    <string name="toast_already_update">已同步更新</string>
-    <string name="dialog_use_tips_content">1、长按分组名称管理分组\n2、长按订阅项管理订阅项\n3、Have Fun</string>
-    <string name="toast_please_create_more_to_sort">请创建多个分组后再排序</string>
-    <string name="subscribe_site">订阅站点</string>
-
-    <string name="menu_unsubscribe">取消订阅</string>
-    <string name="menu_move_group">迁移分组</string>
-    <string name="menu_move_to_group">迁移到分组：</string>
-    <string name="menu_move_subscribe">迁移订阅项</string>
-    <string name="menu_edit_group_name">编辑名称</string>
-    <string name="menu_delete_group">删除分组</string>
-    <string name="please_select_option">请选择操作：</string>
-
-    <string name="toast_create_group_success">创建成功</string>
-    <string name="toast_update_group_success">修改成功</string>
-    <string name="toast_delete_success">删除成功</string>
-    <string name="site_all">全部站点</string>
-    <string name="site_english">英文站点</string>
-    <string name="font_small">偏小</string>
-    <string name="font_middle">适中</string>
-    <string name="font_big">偏大</string>
-    <string name="article_comment">评论</string>
-    <string name="report_article_comment">发表评论</string>
-    <string name="copy_success">评论内容已复制到系统剪贴板里</string>
-    <string name="dialog_menu_copy">复制</string>
-    <string name="dialog_menu_delete">删除</string>
-    <string name="dialog_input_comment_hint">请输入评论</string>
-    <string name="please_check_your_content_empty">请检查您输入的内容，不能为空哦！</string>
-    <string name="register_email">邮箱</string>
-    <string name="register_password">密码(6～20位)</string>
-    <string name="register_repeat_password">重复密码</string>
-    <string name="register_check_password_identical">请检查两次输入密码是否一致</string>
-    <string name="toast_registing">正在注册…</string>
-    <string name="action_send_email_again">再次发送验证邮件</string>
-    <string name="action_finish_verify">完成验证</string>
-    <string name="register_verify_desc">已向{0}发送验证邮件，请查收完成验证。如果没有收到邮件，可以重新发送邮件。</string>
-    <string name="action_register_verify">验证邮箱</string>
-    <string name="resend_success">邮件发送成功，请查收！</string>
-    <string name="article_hot_flag">热</string>
-    <string name="jd_book_store">图书购买</string>
-    <string name="dialog_edit_password">修改密码</string>
-    <string name="dialog_current_password">当前密码</string>
-    <string name="dialog_new_password">新密码（6~20个字符）</string>
-    <string name="dialog_repeat_password">重复密码</string>
+    <string name="weekly_tag_gleaning">拾</string>
 </resources>
