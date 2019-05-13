@@ -9,7 +9,7 @@ import com.minerva.common.Constants;
 public class MagChildViewModel extends SpecialChildViewModel {
     public String articleID;
 
-    public MagChildViewModel(Context context) {
+    MagChildViewModel(Context context) {
         super(context);
         setViewType(Constants.RecyclerItemType.MAG_CHILD_TYPE);
     }

@@ -330,7 +330,7 @@ public class ViewBindings {
     @BindingAdapter("colorSchemeColors")
     public static void setColorSchemeColors(SwipeRefreshLayout refreshLayout, int[] colors) {
         if (refreshLayout != null) {
-            refreshLayout.setColorSchemeColors(colors);
+            refreshLayout.setColorSchemeResources(colors);
         }
     }
 

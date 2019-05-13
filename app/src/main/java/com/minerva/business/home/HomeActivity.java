@@ -72,6 +72,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private Context context;
     private boolean isExit;
 
+    //底部导航Tab点击事件处理
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -99,6 +100,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         }
     };
 
+    //右上角菜单项点击事件处理
     private PopupMenu.OnMenuItemClickListener mMoreMenuClickListener = new PopupMenu.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
@@ -144,6 +146,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         }
     };
 
+    //Tab页面切换监听
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -287,6 +290,9 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         }
     }
 
+    /**
+     * 请求必须权限
+     */
     private void requestNeedPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
             String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION,
@@ -297,6 +303,13 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         }
     }
 
+    /**
+     * 设置当前页面
+     *
+     * @param tab tab
+     * @param b   搜索icon是否显示
+     * @param b2  设置icon是否显示
+     */
     private void setCurrentPage(int tab, boolean b, boolean b2) {
         mViewPager.setCurrentItem(tab);
         menuSearch.setVisible(b);
@@ -304,12 +317,18 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         menuSettings.setVisible(b2);
     }
 
+    /**
+     * 设置ViewPager
+     */
     private void setUpViewPager() {
         HomeViewPagerFragmentAdapter adapter = new HomeViewPagerFragmentAdapter(getSupportFragmentManager());
         mViewPager.addOnPageChangeListener(mPageChangeListener);
         mViewPager.setAdapter(adapter);
     }
 
+    /**
+     * 显示菜单popup
+     */
     @SuppressLint("ClickableViewAccessibility")
     private void showPopupMenu() {
         PopupMenu popupMenu = new PopupMenu(this, mToolbar);
@@ -449,6 +468,9 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 获取用户信息
+     */
     private void getUserInfo() {
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
                 .getServer()

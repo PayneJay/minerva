@@ -16,6 +16,7 @@ import com.minerva.business.mine.message.model.MsgListBean;
 import com.minerva.business.mine.message.model.MsgModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
+import com.minerva.common.RefreshListViewModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
 import com.minerva.utils.ResourceUtils;
@@ -26,8 +27,7 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class MessageViewModel extends BaseViewModel {
-    public ObservableBoolean refreshing = new ObservableBoolean();
+public class MessageViewModel extends RefreshListViewModel {
     public ObservableField<String> mTitle = new ObservableField<>(ResourceUtils.getString(R.string.mine_notification));
     public ObservableList<BaseViewModel> items = new ObservableArrayList<>();
     public OnItemBind<BaseViewModel> msgItemBind = new OnItemBind<BaseViewModel>() {
@@ -57,10 +57,6 @@ public class MessageViewModel extends BaseViewModel {
         requestServer();
     }
 
-    public int[] getColors() {
-        return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
-    }
-
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
@@ -69,7 +65,8 @@ public class MessageViewModel extends BaseViewModel {
         }
     };
 
-    private void requestServer() {
+    @Override
+    protected void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
             if (mBlankVM == null) {
@@ -97,7 +94,8 @@ public class MessageViewModel extends BaseViewModel {
         });
     }
 
-    private void createViewModel() {
+    @Override
+    protected void createViewModel() {
         items.clear();
         for (MsgListBean.ItemsBean itemBean : itemsBeanList) {
             if (itemBean == null) {

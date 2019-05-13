@@ -67,6 +67,11 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * 事件订阅回调
+     *
+     * @param sitesBean
+     */
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onEvent(SitesBean sitesBean) {
         if (sitesBean != null) {
@@ -77,6 +82,11 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         }
     }
 
+    /**
+     * 事件订阅回调
+     *
+     * @param baseBean
+     */
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onEvent(BaseBean baseBean) {
         if (baseBean != null && baseBean.isSuccess()) {
@@ -110,6 +120,9 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         }
     }
 
+    /**
+     * 请求服务器
+     */
     private void requestServer() {
         swipeRefreshLayout.setRefreshing(true);
         SiteModel.getInstance().getSiteList(new NetworkObserver<SitesBean>() {
@@ -131,8 +144,12 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         });
     }
 
+    /**
+     * 初始化页面
+     */
     private void initView() {
         swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.color_1E90FF, R.color.color_FF77FF);
         swipeRefreshLayout.setOnRefreshListener(this);
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new MinervaLinearLayoutManager(getActivity()));
@@ -140,7 +157,9 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         recyclerView.setAdapter(mAdapter);
     }
 
-
+    /**
+     * 刷新页面
+     */
     private void notifyDataSetChanged() {
         if (mAdapter != null) {
             mAdapter.setList(mList);
@@ -148,6 +167,14 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         }
     }
 
+    /**
+     * 显示操作菜单框
+     *
+     * @param type    类型
+     * @param groupId 组ID
+     * @param childId 子ID
+     * @param name    名称
+     */
     private void showPopupMenu(String type, int groupId, String childId, String name) {
         if (menuPopup == null) {
             menuPopup = new PopupWindow(getActivity().getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);

@@ -158,7 +158,9 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
         return temp;
     }
 
-
+    /**
+     * 显示创建期刊的Dialog
+     */
     private void showCreateJournalDialog() {
         if (createPopup == null) {
             createPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);

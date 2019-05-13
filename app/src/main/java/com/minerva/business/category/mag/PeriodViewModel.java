@@ -2,7 +2,6 @@ package com.minerva.business.category.mag;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -15,7 +14,7 @@ import com.minerva.business.category.mag.model.MagListModel;
 import com.minerva.business.category.mag.model.MagModel;
 import com.minerva.business.category.mag.model.MagPeriod;
 import com.minerva.business.category.model.MagBean;
-import com.minerva.common.BlankViewModel;
+import com.minerva.common.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
@@ -27,8 +26,7 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class PeriodViewModel extends BaseViewModel implements IPageStateListener {
-    public ObservableBoolean refreshing = new ObservableBoolean();
+public class PeriodViewModel extends RefreshListViewModel implements IPageStateListener {
     public OnItemBind<BaseViewModel> periodItemBind = new OnItemBind<BaseViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
@@ -59,10 +57,6 @@ public class PeriodViewModel extends BaseViewModel implements IPageStateListener
         requestServer();
     }
 
-    public int[] getColors() {
-        return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
-    }
-
     public ObservableList<BaseViewModel> getItems() {
         return MagListModel.getInstance().getData();
     }
@@ -80,7 +74,8 @@ public class PeriodViewModel extends BaseViewModel implements IPageStateListener
 
     }
 
-    private void requestServer() {
+    @Override
+    protected void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
             setPageByState(Constants.PageStatus.NETWORK_EXCEPTION);
@@ -103,7 +98,8 @@ public class PeriodViewModel extends BaseViewModel implements IPageStateListener
         });
     }
 
-    private void createViewModel() {
+    @Override
+    protected void createViewModel() {
         if (beanList.size() <= 0) {
             setPageByState(Constants.PageStatus.NO_DATA);
             return;

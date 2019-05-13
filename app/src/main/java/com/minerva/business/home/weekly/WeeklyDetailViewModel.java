@@ -61,6 +61,11 @@ public class WeeklyDetailViewModel extends PolymerReadViewModel {
         });
     }
 
+    /**
+     * 格式化日期
+     *
+     * @return
+     */
     private String getDateText() {
         int month = DateUtils.getMonthByDate(new Date(weekTime));
         int weekOfMonth = DateUtils.getWeekOfMonth(new Date(weekTime));

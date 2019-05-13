@@ -10,18 +10,18 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.home.subscribe.model.SubscribeBean;
+import com.minerva.business.home.subscribe.model.SubscribeModel;
 import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
-import com.minerva.utils.ResourceUtils;
 import com.minerva.widget.Loading;
 
 import java.util.ArrayList;

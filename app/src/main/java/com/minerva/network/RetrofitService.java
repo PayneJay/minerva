@@ -8,7 +8,7 @@ import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.book.model.AllBook;
 import com.minerva.business.category.mag.model.MagDetailBean;
 import com.minerva.business.category.mag.model.MagPeriod;
-import com.minerva.business.home.subscribe.SubscribeBean;
+import com.minerva.business.home.subscribe.model.SubscribeBean;
 import com.minerva.business.home.weekly.model.WeekDetailBean;
 import com.minerva.business.home.weekly.model.WeekListBean;
 import com.minerva.business.mine.collection.model.KanBean;
