@@ -8,6 +8,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.databinding.ViewDataBinding;
 import android.os.Process;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -33,14 +34,14 @@ import com.minerva.utils.SPUtils;
 import static android.support.v7.app.AlertDialog.Builder;
 import static android.support.v7.app.AlertDialog.OnClickListener;
 
-public class UserEditViewModel extends BaseViewModel implements EditPwdViewModel.IDialogClickListener {
+public class UserEditViewModel extends BaseViewModel implements IDialogClickListener {
     public ObservableField<String> headUrl = new ObservableField<>();
     public ObservableField<String> userName = new ObservableField<>();
     public ObservableField<String> email = new ObservableField<>();
     public ObservableField<String> password = new ObservableField<>(ResourceUtils.getString(R.string.user_edit_click_to_update));
-    public ObservableField<String> weibo = new ObservableField<>(ResourceUtils.getString(R.string.user_edit_click_to_relate));
-    public ObservableField<String> QQ = new ObservableField<>(ResourceUtils.getString(R.string.user_edit_click_to_relate));
-    public ObservableField<String> wechat = new ObservableField<>(ResourceUtils.getString(R.string.user_edit_click_to_relate));
+    public ObservableField<String> weibo = new ObservableField<>("——");
+    public ObservableField<String> QQ = new ObservableField<>("——");
+    public ObservableField<String> wechat = new ObservableField<>("——");
 
     public View.OnClickListener listener = new View.OnClickListener() {
         @Override
@@ -62,21 +63,7 @@ public class UserEditViewModel extends BaseViewModel implements EditPwdViewModel
 
     UserEditViewModel(Context context) {
         super(context);
-        headUrl.set((String) SPUtils.get(context, Constants.UserInfoKey.USER_PROFILE, ""));
-        userName.set((String) SPUtils.get(context, Constants.UserInfoKey.USER_NAME, "——"));
-        email.set((String) SPUtils.get(context, Constants.UserInfoKey.USER_EMAIL, "——"));
-        String weiboName = (String) SPUtils.get(context, Constants.UserInfoKey.WEIBO, "");
-        String qqName = (String) SPUtils.get(context, Constants.UserInfoKey.QQ, "");
-        String wechatName = (String) SPUtils.get(context, Constants.UserInfoKey.WECHAT, "");
-        if (!TextUtils.isEmpty(weiboName)) {
-            weibo.set(weiboName);
-        }
-        if (!TextUtils.isEmpty(qqName)) {
-            QQ.set(qqName);
-        }
-        if (!TextUtils.isEmpty(wechatName)) {
-            wechat.set(wechatName);
-        }
+        initView(context);
     }
 
     @BindingAdapter({"toolBarMenu", "menuItemClick"})
@@ -91,53 +78,54 @@ public class UserEditViewModel extends BaseViewModel implements EditPwdViewModel
      * 点击头像
      */
     public void onHeadClick() {
-        Constants.showToast(context);
+//        Constants.showToast(context);
     }
 
     /**
      * 点击用户名
      */
     public void onNameClick() {
-        Constants.showToast(context);
+        showUpdateUserInfoDialog("nickName");
     }
 
     /**
      * 点击邮箱
      */
     public void onEmailClick() {
-        Constants.showToast(context);
+        showUpdateUserInfoDialog("email");
     }
 
     /**
      * 点击密码
      */
     public void onPwdClick() {
-        showEditPwdDialog();
+        showUpdateUserInfoDialog("password");
     }
 
     /**
      * 点击微博
      */
     public void onWeiboClick() {
-        Constants.showToast(context);
+//        Constants.showToast(context);
     }
 
     /**
      * 点击QQ
      */
     public void onQQClick() {
-        Constants.showToast(context);
+//        Constants.showToast(context);
     }
 
     /**
      * 点击微信
      */
     public void onWechatClick() {
-        Constants.showToast(context);
+//        Constants.showToast(context);
     }
 
     @Override
     public void confirm() {
+        initView(context);
         if (editPwdPopup != null) {
             editPwdPopup.dismiss();
         }
@@ -149,6 +137,18 @@ public class UserEditViewModel extends BaseViewModel implements EditPwdViewModel
         if (editPwdPopup != null) {
             editPwdPopup.dismiss();
         }
+    }
+
+    private void initView(Context context) {
+        headUrl.set((String) SPUtils.get(context, Constants.UserInfoKey.USER_PROFILE, ""));
+        userName.set((String) SPUtils.get(context, Constants.UserInfoKey.USER_NAME, "——"));
+        email.set((String) SPUtils.get(context, Constants.UserInfoKey.USER_EMAIL, "——"));
+        String weiboName = (String) SPUtils.get(context, Constants.UserInfoKey.WEIBO, "——");
+        String qqName = (String) SPUtils.get(context, Constants.UserInfoKey.QQ, "——");
+        String wechatName = (String) SPUtils.get(context, Constants.UserInfoKey.WECHAT, "——");
+        weibo.set(weiboName);
+        QQ.set(qqName);
+        wechat.set(wechatName);
     }
 
     private void logOut() {
@@ -185,9 +185,11 @@ public class UserEditViewModel extends BaseViewModel implements EditPwdViewModel
     }
 
     /**
-     * 修改密码Dialog
+     * 修改用户名/邮箱/密码Dialog
+     *
+     * @param editType 类型
      */
-    private void showEditPwdDialog() {
+    private void showUpdateUserInfoDialog(String editType) {
         if (editPwdPopup == null) {
             editPwdPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             editPwdPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -202,14 +204,47 @@ public class UserEditViewModel extends BaseViewModel implements EditPwdViewModel
         WindowManager.LayoutParams lp = ((BaseActivity) context).getWindow().getAttributes();
         lp.alpha = 0.6f;
         ((BaseActivity) context).getWindow().setAttributes(lp);
+        ViewDataBinding binding = null;
+        if (TextUtils.equals(editType, "password")) {
+            binding = getUpdatePwdBinding();
+        } else if (TextUtils.equals(editType, "nickName")) {
+            binding = getUpdateNameBinding();
+        } else if (TextUtils.equals(editType, "email")) {
+            binding = getUpdateEmailBinding();
+        }
 
-        EditPwdViewModel viewModel = new EditPwdViewModel(context);
+        if (binding != null) {
+            binding.executePendingBindings();
+            editPwdPopup.setContentView(binding.getRoot());
+        }
+        editPwdPopup.showAtLocation(((BaseActivity) context).getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+    }
+
+    private ViewDataBinding getUpdateEmailBinding() {
+        UpdateEmailViewModel viewModel = new UpdateEmailViewModel(context);
+        viewModel.title.set(ResourceUtils.getString(R.string.dialog_edit_login_email));
+        viewModel.setListener(this);
+        ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_edit_login_email_layout, null, false);
+        binding.setVariable(BR.editUserEmailVM, viewModel);
+        return binding;
+    }
+
+    private ViewDataBinding getUpdateNameBinding() {
+        UpdateNameViewModel viewModel = new UpdateNameViewModel(context);
+        viewModel.title.set(ResourceUtils.getString(R.string.dialog_edit_user_name));
+        viewModel.content.set(userName.get());
+        viewModel.setListener(this);
+        ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_edit_user_name_layout, null, false);
+        binding.setVariable(BR.editUserNameVM, viewModel);
+        return binding;
+    }
+
+    private ViewDataBinding getUpdatePwdBinding() {
+        UpdatePwdViewModel viewModel = new UpdatePwdViewModel(context);
         viewModel.title.set(ResourceUtils.getString(R.string.dialog_edit_password));
         viewModel.setListener(this);
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_edit_password_layout, null, false);
         binding.setVariable(BR.editPwdVM, viewModel);
-        binding.executePendingBindings();
-        editPwdPopup.setContentView(binding.getRoot());
-        editPwdPopup.showAtLocation(((BaseActivity) context).getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+        return binding;
     }
 }

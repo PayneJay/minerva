@@ -107,9 +107,9 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                 case R.id.toolbar_more_recommend_settings:
                     goReadSetting();
                     break;
-                case R.id.toolbar_more_custom_channel:
-                    Constants.showToast(HomeActivity.this);
-                    break;
+//                case R.id.toolbar_more_custom_channel:
+//                    Constants.showToast(HomeActivity.this);
+//                    break;
                 case R.id.toolbar_more_week_list:
                     goWeekly();
                     break;

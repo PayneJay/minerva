@@ -106,12 +106,14 @@
                 style="@style/mineItemStyle"
                 onClick="@{myVM::switchModel}"
                 android:layout_marginTop="@dimen/nav_dimen_size_15dp"
-                android:text="@string/mine_night_mode" />
+                android:text="@string/mine_night_mode"
+                android:visibility="gone" />
 
             <TextView
                 style="@style/mineItemStyle"
                 onClick="@{myVM::readOffline}"
-                android:text="@string/mine_offline_read" />
+                android:text="@string/mine_offline_read"
+                android:visibility="gone" />
 
             <TextView
                 style="@style/mineItemStyle"
@@ -121,7 +123,8 @@
             <TextView
                 style="@style/mineItemStyle"
                 onClick="@{myVM::goFeedback}"
-                android:text="@string/mine_feedback" />
+                android:text="@string/mine_feedback"
+                android:visibility="gone" />
 
             <TextView
                 style="@style/mineItemStyle"

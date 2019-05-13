@@ -40,7 +40,11 @@
     <string name="dialog_create_journal_desc_hint">描述（可选，最多64个字符）</string>
     <string name="dialog_create_journal_title_hint">标题（最多20个字符）</string>
     <string name="dialog_current_password">当前密码</string>
+    <string name="dialog_edit_login_email">更改登录邮箱</string>
     <string name="dialog_edit_password">修改密码</string>
+    <string name="dialog_edit_user_name">更改用户名</string>
+    <string name="dialog_hint_email_address">邮箱地址</string>
+    <string name="dialog_hint_user_name">最多20个字符</string>
     <string name="dialog_input_comment_hint">请输入评论</string>
     <string name="dialog_menu_copy">复制</string>
     <string name="dialog_menu_delete">删除</string>

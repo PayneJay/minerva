@@ -16,9 +16,9 @@
         android:id="@+id/toolbar_more_recommend_settings"
         android:title="@string/toolbar_more_recommend_settings" />
 
-    <item
-        android:id="@+id/toolbar_more_custom_channel"
-        android:title="@string/toolbar_more_custom_channel" />
+    <!--<item-->
+        <!--android:id="@+id/toolbar_more_custom_channel"-->
+        <!--android:title="@string/toolbar_more_custom_channel" />-->
 
     <item
         android:id="@+id/toolbar_more_week_list"

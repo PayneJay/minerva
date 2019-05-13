@@ -14,6 +14,7 @@ import com.minerva.business.article.list.ArticleItemViewModel;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.book.model.AllBook;
 import com.minerva.business.category.model.BookBean;
+import com.minerva.business.home.subscribe.SiteChildViewModel;
 import com.minerva.business.search.model.ArticleResult;
 import com.minerva.business.search.model.SearchModel;
 import com.minerva.business.search.model.SiteResult;
@@ -41,8 +42,8 @@ public class SearchListViewModel extends BaseViewModel {
                 case Constants.RecyclerItemType.ARTICLE_COMMON_TYPE:
                     itemBinding.set(BR.articleItemVM, R.layout.item_article_common_layout);
                     break;
-                case Constants.RecyclerItemType.SEARCH_SITE_TYPE:
-                    itemBinding.set(BR.resultSiteVM, R.layout.item_search_site_layout);
+                case Constants.RecyclerItemType.SUBSCRIBE_SITE_CHILD_ITEM_TYPE:
+                    itemBinding.set(BR.subscribeChildVM, R.layout.item_subscribe_site_child_layout);
                     break;
                 case Constants.RecyclerItemType.SEARCH_BOOK_TYPE:
                     itemBinding.set(BR.resultBookVM, R.layout.item_search_book_layout);
@@ -239,10 +240,11 @@ public class SearchListViewModel extends BaseViewModel {
         }
 
         for (SiteResult.ResultItem siteResult : mSiteData) {
-            ResultSiteViewModel viewModel = new ResultSiteViewModel(context);
-            viewModel.imgUrl.set(siteResult.getImage());
-            viewModel.name.set(siteResult.getName());
-            viewModel.id = siteResult.getId();
+            SiteChildViewModel viewModel = new SiteChildViewModel(context);
+            viewModel.childName.set(siteResult.getName());
+            viewModel.childIcon.set(siteResult.getImage());
+            viewModel.isSelected.set(siteResult.isFollowed());
+            viewModel.setId(siteResult.getId());
             items.add(viewModel);
         }
     }

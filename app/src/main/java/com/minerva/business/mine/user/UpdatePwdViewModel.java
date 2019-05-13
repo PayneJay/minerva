@@ -17,7 +17,7 @@ import com.minerva.widget.Loading;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class EditPwdViewModel extends BaseViewModel {
+public class UpdatePwdViewModel extends BaseViewModel {
     public ObservableField<String> title = new ObservableField<>();
     public ObservableField<String> currentPwd = new ObservableField<>("");
     public ObservableField<String> newPwd = new ObservableField<>("");
@@ -25,7 +25,7 @@ public class EditPwdViewModel extends BaseViewModel {
     private IDialogClickListener listener;
     private Loading loading;
 
-    EditPwdViewModel(Context context) {
+    UpdatePwdViewModel(Context context) {
         super(context);
     }
 
@@ -84,9 +84,4 @@ public class EditPwdViewModel extends BaseViewModel {
                 });
     }
 
-    public interface IDialogClickListener {
-        void confirm();
-
-        void cancel();
-    }
 }

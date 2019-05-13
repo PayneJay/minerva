@@ -197,5 +197,13 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/users/update_password.json")
     Observable<BaseBean> updatePassword(@Field("old") String oldPassword, @Field("pwd") String password);
+
+    @FormUrlEncoded
+    @POST("/api/users/update_info.json")
+    Observable<UserInfo> updateUserInfo(@Field("name") String name);
+
+    @FormUrlEncoded
+    @POST("/api/users/update_email.json")
+    Observable<UserInfo> updateUserEmail(@Field("email") String email);
 }
 
