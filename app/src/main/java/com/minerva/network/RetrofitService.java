@@ -205,5 +205,8 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/users/update_email.json")
     Observable<UserInfo> updateUserEmail(@Field("email") String email);
+
+    @GET("/api/users/my_info.json")
+    Observable<UserInfo> getUserInfo();
 }
 

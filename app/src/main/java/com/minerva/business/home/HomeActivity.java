@@ -3,6 +3,7 @@ package com.minerva.business.home;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -35,6 +36,8 @@ import com.minerva.base.BaseBean;
 import com.minerva.business.home.sort.SiteSortActivity;
 import com.minerva.business.home.subscribe.SubscribeSiteActivity;
 import com.minerva.business.home.weekly.WeeklyActivity;
+import com.minerva.business.mine.signinout.model.LoginRegisterModel;
+import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.business.search.SearchActivity;
 import com.minerva.business.settings.RecommendActivity;
 import com.minerva.business.settings.SettingsActivity;
@@ -46,6 +49,7 @@ import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
+import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.DisplayUtils;
 import com.minerva.utils.ResourceUtils;
 import com.minerva.widget.Loading;
@@ -53,6 +57,9 @@ import com.minerva.widget.Loading;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, CreateGroupViewModel.IDialogClickListener {
     private ViewPager mViewPager;
@@ -62,6 +69,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private Toolbar mToolbar;
     private PopupWindow createPopup;
     private Loading loading;
+    private Context context;
     private boolean isExit;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -108,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                     goReadSetting();
                     break;
 //                case R.id.toolbar_more_custom_channel:
-//                    Constants.showToast(HomeActivity.this);
+//                    Constants.showToast(context);
 //                    break;
                 case R.id.toolbar_more_week_list:
                     goWeekly();
@@ -129,7 +137,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                     showUseTips();
                     break;
                 default:
-                    Constants.showToast(HomeActivity.this);
+                    Constants.showToast(context);
                     break;
             }
             return true;
@@ -162,6 +170,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         requestNeedPermissions();
         setContentView(R.layout.activity_main);
 
@@ -173,6 +182,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         mNavigationView = findViewById(R.id.navigation);
         mNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         setUpViewPager();
+        getUserInfo();
     }
 
     @Override
@@ -233,7 +243,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             @Override
             public void onSuccess(SitesBean sitesBean) {
                 loading.dismiss();
-                Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_create_group_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_create_group_success), Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky(sitesBean);
             }
 
@@ -322,7 +332,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      */
     private void showCreateGroupDialog() {
         if (!GlobalData.getInstance().isLogin()) {
-            Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
             return;
         }
         if (createPopup == null) {
@@ -362,7 +372,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      */
     private void goSortGroups() {
         if (!GlobalData.getInstance().isLogin()) {
-            Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
             return;
         }
         List<SitesBean.ItemsBeanX> itemList = SiteModel.getInstance().getItemList();
@@ -378,7 +388,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      */
     private void markAllRead() {
         if (GlobalData.getInstance().isLogin()) {
-            Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
             return;
         }
         if (loading == null) {
@@ -389,7 +399,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             @Override
             public void onSuccess(BaseBean baseBean) {
                 loading.dismiss();
-                Toast.makeText(HomeActivity.this, ResourceUtils.getString(R.string.toast_already_update), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtils.getString(R.string.toast_already_update), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -437,5 +447,27 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         }
 
         Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+    }
+
+    private void getUserInfo() {
+        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
+                .getServer()
+                .getUserInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new NetworkObserver<UserInfo>() {
+                    @Override
+                    public void onSuccess(UserInfo userInfo) {
+                        UserInfo.UserBean user = userInfo.getUser();
+                        if (user != null) {
+                            LoginRegisterModel.getInstance().saveUserInfo(context, user);
+                            EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.LOGIN_SUCCESS));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                    }
+                });
     }
 }
