@@ -1,10 +1,9 @@
-package com.minerva.business.mine.loginregister;
+package com.minerva.business.mine.signinout;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.ObservableField;
-import android.os.Process;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,20 +11,15 @@ import android.widget.Toast;
 
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
-import com.minerva.base.BaseBean;
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.SplashActivity;
-import com.minerva.business.mine.loginregister.model.LoginRegisterModel;
-import com.minerva.business.mine.loginregister.model.UserInfo;
+import com.minerva.business.mine.signinout.model.LoginRegisterModel;
+import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtils;
-import com.minerva.utils.SPUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 public class LoginViewModel extends BaseViewModel {
     public ObservableField<String> email = new ObservableField<>();

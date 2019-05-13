@@ -13,8 +13,8 @@ import com.minerva.business.home.weekly.model.WeekDetailBean;
 import com.minerva.business.home.weekly.model.WeekListBean;
 import com.minerva.business.mine.collection.model.KanBean;
 import com.minerva.business.mine.collection.model.UnFavBean;
-import com.minerva.business.mine.loginregister.model.LoginParams;
-import com.minerva.business.mine.loginregister.model.UserInfo;
+import com.minerva.business.mine.signinout.model.LoginParams;
+import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.business.mine.message.model.MsgListBean;
 import com.minerva.business.search.model.ArticleResult;
 import com.minerva.business.search.model.SiteResult;
@@ -187,11 +187,15 @@ public interface RetrofitService {
     Observable<BaseBean> registerByEmail(@Field("email") String email, @Field("name") String name, @Field("password") String password);
 
     @FormUrlEncoded
+    @POST("/api/signup/resend_register.json")
+    Observable<BaseBean> resendRegister(@Field("email") String email);
+
+    @FormUrlEncoded
     @POST("/api/signup/check_confirm.json")
     Observable<BaseBean> checkConfirm(@Field("email") String email, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("/api/signup/resend_register.json")
-    Observable<BaseBean> resendRegister(@Field("email") String email);
+    @POST("/api/users/update_password.json")
+    Observable<BaseBean> updatePassword(@Field("old") String oldPassword, @Field("pwd") String password);
 }
 

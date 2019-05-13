@@ -4,26 +4,36 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
+import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
+import android.databinding.ViewDataBinding;
 import android.os.Process;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
+import android.widget.Toast;
 
+import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.SplashActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
+import com.minerva.utils.DisplayUtils;
 import com.minerva.utils.ResourceUtils;
 import com.minerva.utils.SPUtils;
 
 import static android.support.v7.app.AlertDialog.Builder;
 import static android.support.v7.app.AlertDialog.OnClickListener;
 
-public class UserEditViewModel extends BaseViewModel {
+public class UserEditViewModel extends BaseViewModel implements EditPwdViewModel.IDialogClickListener {
     public ObservableField<String> headUrl = new ObservableField<>();
     public ObservableField<String> userName = new ObservableField<>();
     public ObservableField<String> email = new ObservableField<>();
@@ -48,6 +58,7 @@ public class UserEditViewModel extends BaseViewModel {
             return true;
         }
     };
+    private PopupWindow editPwdPopup;
 
     UserEditViewModel(Context context) {
         super(context);
@@ -101,7 +112,7 @@ public class UserEditViewModel extends BaseViewModel {
      * 点击密码
      */
     public void onPwdClick() {
-        Constants.showToast(context);
+        showEditPwdDialog();
     }
 
     /**
@@ -123,6 +134,21 @@ public class UserEditViewModel extends BaseViewModel {
      */
     public void onWechatClick() {
         Constants.showToast(context);
+    }
+
+    @Override
+    public void confirm() {
+        if (editPwdPopup != null) {
+            editPwdPopup.dismiss();
+        }
+        Toast.makeText(context, ResourceUtils.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void cancel() {
+        if (editPwdPopup != null) {
+            editPwdPopup.dismiss();
+        }
     }
 
     private void logOut() {
@@ -158,4 +184,32 @@ public class UserEditViewModel extends BaseViewModel {
         System.exit(0);
     }
 
+    /**
+     * 修改密码Dialog
+     */
+    private void showEditPwdDialog() {
+        if (editPwdPopup == null) {
+            editPwdPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            editPwdPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    WindowManager.LayoutParams lp = ((BaseActivity) context).getWindow().getAttributes();
+                    lp.alpha = 1f;
+                    ((BaseActivity) context).getWindow().setAttributes(lp);
+                }
+            });
+        }
+        WindowManager.LayoutParams lp = ((BaseActivity) context).getWindow().getAttributes();
+        lp.alpha = 0.6f;
+        ((BaseActivity) context).getWindow().setAttributes(lp);
+
+        EditPwdViewModel viewModel = new EditPwdViewModel(context);
+        viewModel.title.set(ResourceUtils.getString(R.string.dialog_edit_password));
+        viewModel.setListener(this);
+        ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_edit_password_layout, null, false);
+        binding.setVariable(BR.editPwdVM, viewModel);
+        binding.executePendingBindings();
+        editPwdPopup.setContentView(binding.getRoot());
+        editPwdPopup.showAtLocation(((BaseActivity) context).getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+    }
 }

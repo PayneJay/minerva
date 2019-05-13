@@ -1,4 +1,4 @@
-package com.minerva.business.mine.loginregister.model;
+package com.minerva.business.mine.signinout.model;
 
 public class LoginParams {
     private String email;

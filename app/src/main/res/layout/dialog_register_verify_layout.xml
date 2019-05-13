@@ -6,7 +6,7 @@
 
         <variable
             name="registerVerifyVM"
-            type="com.minerva.business.mine.loginregister.RegisterVerifyViewModel" />
+            type="com.minerva.business.mine.signinout.RegisterVerifyViewModel" />
     </data>
 
     <LinearLayout

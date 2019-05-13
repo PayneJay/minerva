@@ -12,14 +12,13 @@ import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.article.list.model.ArticleModel;
-import com.minerva.business.mine.loginregister.LoginActivity;
+import com.minerva.business.mine.signinout.LoginActivity;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.NoMoreViewModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
-import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -53,7 +52,6 @@ public class ArticleListViewModel extends BaseViewModel {
     protected int mCurrentPage; //当前页数
     protected BlankViewModel mBlankVM;
     protected List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
-    private Loading loading;
     private String mLastID; //最后一条id
     private int mCurrentTab; //当前Tab
     private boolean hasNext;
@@ -62,6 +60,7 @@ public class ArticleListViewModel extends BaseViewModel {
         super(context);
         this.mCurrentTab = tab;
         EventBus.getDefault().register(this);
+        refreshing.set(true);
         requestServer();
     }
 
@@ -158,22 +157,16 @@ public class ArticleListViewModel extends BaseViewModel {
             return;
         }
 
-        if (loading == null) {
-            loading = new Loading.Builder(context).show();
-        }
-
         ArticleModel.getInstance().getArticleList(mCurrentTab, getLanguage(), mLastID, mCurrentPage,
                 new IUnLoginListener() {
                     @Override
                     public void unLogin() {
-                        loading.dismiss();
                         refreshing.set(false);
                     }
                 }, new NetworkObserver<ArticleBean>() {
                     @Override
                     public void onSuccess(ArticleBean articleBean) {
                         refreshing.set(false);
-                        loading.dismiss();
                         isRecommendGone.set(true);
                         handleData(articleBean);
                         createViewModel();
@@ -182,7 +175,6 @@ public class ArticleListViewModel extends BaseViewModel {
                     @Override
                     public void onFailure(String msg) {
                         refreshing.set(false);
-                        loading.dismiss();
                         createViewModel();
                     }
                 });

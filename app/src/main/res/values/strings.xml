@@ -196,4 +196,8 @@
     <string name="resend_success">邮件发送成功，请查收！</string>
     <string name="article_hot_flag">热</string>
     <string name="jd_book_store">图书购买</string>
+    <string name="dialog_edit_password">修改密码</string>
+    <string name="dialog_current_password">当前密码</string>
+    <string name="dialog_new_password">新密码（6~20个字符）</string>
+    <string name="dialog_repeat_password">重复密码</string>
 </resources>

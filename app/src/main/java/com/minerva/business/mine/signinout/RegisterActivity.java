@@ -1,4 +1,4 @@
-package com.minerva.business.mine.loginregister;
+package com.minerva.business.mine.signinout;
 
 import com.minerva.R;
 import com.minerva.BR;

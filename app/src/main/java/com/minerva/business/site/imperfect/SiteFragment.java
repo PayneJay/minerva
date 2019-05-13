@@ -15,12 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseBean;
-import com.minerva.business.home.HomeActivity;
 import com.minerva.business.site.menu.ChildMenuViewModel;
 import com.minerva.business.site.menu.GroupMenuViewModel;
 import com.minerva.business.site.menu.IPopupMenuItemClickListener;
@@ -29,9 +27,7 @@ import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.GlobalData;
 import com.minerva.common.MinervaLinearLayoutManager;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
 import com.minerva.utils.DisplayUtils;
-import com.minerva.utils.ResourceUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
