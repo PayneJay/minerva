@@ -18,7 +18,7 @@ public class ChildMenuViewModel extends MenuViewModel {
 
     public void onMoveClick() {
         if (listener != null) {
-            listener.onMenuItemClick();
+            listener.onMenuOperateSuccess();
         }
 
         showPopupMenu(SiteFragment.TYPE_CHILD);
@@ -26,7 +26,7 @@ public class ChildMenuViewModel extends MenuViewModel {
 
     public void onUnsubscribeClick() {
         if (listener != null) {
-            listener.onMenuItemClick();
+            listener.onMenuOperateSuccess();
         }
 
         if (loading == null) {

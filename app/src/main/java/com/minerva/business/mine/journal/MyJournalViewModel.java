@@ -1,6 +1,7 @@
 package com.minerva.business.mine.journal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
@@ -21,12 +22,18 @@ import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.list.ArticleListViewModel;
 import com.minerva.business.mine.collection.model.KanBean;
+import com.minerva.business.mine.journal.kan.FavKansActivity;
 import com.minerva.business.mine.journal.model.JournalModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
 import com.minerva.utils.DisplayUtils;
+import com.minerva.utils.ResourceUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +77,6 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
 
     protected MyJournalViewModel(Context context) {
         super(context, context.getClass().getSimpleName());
-        requestServer();
     }
 
     public ObservableList<BaseViewModel> getItems() {
@@ -79,6 +85,12 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
 
     public void setCanEdit(boolean canEdit) {
         this.canEdit = canEdit;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requestServer();
     }
 
     @Override
@@ -178,6 +190,7 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
         ((BaseActivity) context).getWindow().setAttributes(lp);
 
         CreateJournalViewModel viewModel = new CreateJournalViewModel(context);
+        viewModel.titleText.set(ResourceUtils.getString(R.string.dialog_create_journal));
         viewModel.setListener(this);
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_create_journal_layout, null, false);
         binding.setVariable(BR.createJournalVM, viewModel);
@@ -216,16 +229,22 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
     }
 
     @Override
-    public void onItemClick(String id) {
+    public void onItemClick(String id, boolean canSelected) {
         catID = id;
-        List<KanBean.ItemsBean> kanList = JournalModel.getInstance().getKanList();
-        List<KanBean.ItemsBean> tempList = new ArrayList<>();
-        for (KanBean.ItemsBean item : kanList) {
-            item.setSelected(TextUtils.equals(id, item.getId()));
-            tempList.add(item);
-        }
+        if (canSelected) {
+            List<KanBean.ItemsBean> kanList = JournalModel.getInstance().getKanList();
+            List<KanBean.ItemsBean> tempList = new ArrayList<>();
+            for (KanBean.ItemsBean item : kanList) {
+                item.setSelected(TextUtils.equals(id, item.getId()));
+                tempList.add(item);
+            }
 
-        JournalModel.getInstance().setKanList(tempList);
-        JournalModel.getInstance().setData(getObserverList());
+            JournalModel.getInstance().setKanList(tempList);
+            JournalModel.getInstance().setData(getObserverList());
+        } else {
+            Intent intent = new Intent(context, FavKansActivity.class);
+            intent.putExtra(Constants.KeyExtra.FAV_KAN_ID, id);
+            context.startActivity(intent);
+        }
     }
 }

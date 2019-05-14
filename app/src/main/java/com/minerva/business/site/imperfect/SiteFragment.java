@@ -114,7 +114,7 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     @Override
-    public void onMenuItemClick() {
+    public void onMenuOperateSuccess() {
         if (menuPopup != null) {
             menuPopup.dismiss();
         }

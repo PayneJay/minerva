@@ -7,12 +7,13 @@ import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.book.model.AllBook;
 import com.minerva.business.category.mag.model.MagDetailBean;
-import com.minerva.business.category.mag.model.MagPeriod;
+import com.minerva.business.category.mag.model.MagPeriodBean;
 import com.minerva.business.home.subscribe.model.SubscribeBean;
 import com.minerva.business.home.weekly.model.WeekDetailBean;
 import com.minerva.business.home.weekly.model.WeekListBean;
 import com.minerva.business.mine.collection.model.KanBean;
 import com.minerva.business.mine.collection.model.UnFavBean;
+import com.minerva.business.mine.journal.kan.model.FavKanBean;
 import com.minerva.business.mine.signinout.model.LoginParams;
 import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.business.mine.message.model.MsgListBean;
@@ -63,7 +64,7 @@ public interface RetrofitService {
     Observable<UserInfo> login(@Body LoginParams params);
 
     @GET("/api/mag/period_list.json")
-    Observable<MagPeriod> getMagPeriodList(@Query("type") int type);
+    Observable<MagPeriodBean> getMagPeriodList(@Query("type") int type);
 
     @GET("/api/books/tag.json")
     Observable<AllBook> getAllBookList(@Query("tag") int tag, @Query("pn") int pn);
@@ -106,9 +107,24 @@ public interface RetrofitService {
     @GET("/api/kans/my.json")
     Observable<KanBean> getKanList();
 
+    @GET("/api/kans/{id}.json")
+    Observable<FavKanBean> getFavKansById(@Path("id") String id);
+
     @FormUrlEncoded
     @POST("/api/kans.json")
     Observable<KanBean> createJournal(@Field("name") String name, @Field("desc") String desc, @Field("type") int type);
+
+    @FormUrlEncoded
+    @POST("/api/kans/update_info.json")
+    Observable<KanBean> updateKan(@Field("id") String id, @Field("name") String name, @Field("desc") String desc, @Field("type") int type);
+
+    @FormUrlEncoded
+    @POST("/api/kans/migrate.json")
+    Observable<BaseBean> migrateKan(@Field("id") String id, @Field("target_id") String targetId);
+
+    @FormUrlEncoded
+    @POST("/api/kans/delete.json")
+    Observable<BaseBean> deleteKanById(@Field("id") String id);
 
     @GET("/api/articles/late.json")
     Observable<ArticleBean> getLateList(@Query("size") int size, @Query("is_pad") int isPad);
@@ -209,4 +225,3 @@ public interface RetrofitService {
     @GET("/api/users/my_info.json")
     Observable<UserInfo> getUserInfo();
 }
-

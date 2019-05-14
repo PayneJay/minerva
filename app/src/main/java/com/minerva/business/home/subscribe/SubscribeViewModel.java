@@ -226,6 +226,9 @@ public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewMo
         return temp;
     }
 
+    /**
+     * 设置错误页
+     */
     private void setErrorPage() {
         ObservableList<BaseViewModel> temp = new ObservableArrayList<>();
         if (mBlankVM == null) {
@@ -237,6 +240,9 @@ public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewMo
         SubscribeModel.getInstance().setChildData(temp);
     }
 
+    /**
+     * 显示菜单选项
+     */
     private void showPopupMenu() {
         PopupMenu popupMenu = new PopupMenu(context, ((BaseActivity) context).getWindow().getDecorView().getRootView().findViewById(R.id.site_toolbar));
         popupMenu.getMenuInflater().inflate(R.menu.subscribe_popup_menu, popupMenu.getMenu());

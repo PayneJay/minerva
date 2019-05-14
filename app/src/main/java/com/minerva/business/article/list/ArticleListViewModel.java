@@ -49,12 +49,12 @@ public class ArticleListViewModel extends RefreshListViewModel {
             }
         }
     };
-    protected int mCurrentPage; //当前页数
     protected BlankViewModel mBlankVM;
     protected List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
+    protected boolean hasNext;
+    protected int mCurrentPage; //当前页数
     private String mLastID; //最后一条id
     private int mCurrentTab; //当前Tab
-    private boolean hasNext;
 
     ArticleListViewModel(Context context, int tab) {
         super(context);

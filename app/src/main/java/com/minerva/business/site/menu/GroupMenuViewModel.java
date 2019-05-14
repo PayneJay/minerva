@@ -47,7 +47,7 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
 
     public void onEditClick() {
         if (listener != null) {
-            listener.onMenuItemClick();
+            listener.onMenuOperateSuccess();
         }
 
         showRenameDialog();
@@ -55,7 +55,7 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
 
     public void onTransferClick() {
         if (listener != null) {
-            listener.onMenuItemClick();
+            listener.onMenuOperateSuccess();
         }
 
         showPopupMenu(SiteFragment.TYPE_GROUP);
@@ -63,7 +63,7 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
 
     public void onDeleteClick() {
         if (listener != null) {
-            listener.onMenuItemClick();
+            listener.onMenuOperateSuccess();
         }
 
         showConfirmDialog();
@@ -71,7 +71,7 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
 
     public void onMarkAllClick() {
         if (listener != null) {
-            listener.onMenuItemClick();
+            listener.onMenuOperateSuccess();
         }
 
         if (loading == null) {

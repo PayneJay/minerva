@@ -28,7 +28,7 @@ public class SiteViewModel extends BaseViewModel {
     private String childId;
     private int groupId;
 
-    SiteViewModel(Context context) {
+    public SiteViewModel(Context context) {
         super(context);
     }
 
@@ -40,7 +40,7 @@ public class SiteViewModel extends BaseViewModel {
         this.groupId = groupId;
     }
 
-    void createItemViewModel(IPopupMenuItemClickListener listener) {
+    public void createItemViewModel(IPopupMenuItemClickListener listener) {
         List<SitesBean.ItemsBeanX> itemList = SiteModel.getInstance().getItemList();
         for (SitesBean.ItemsBeanX item : itemList) {
             if (item.getId() == groupId) {

@@ -23,6 +23,11 @@ public class JournalItemViewModel extends BaseViewModel {
         id = item.getId();
     }
 
+    /**
+     * 设置当前条目选中或不选中
+     *
+     * @param isSelected 是否选中
+     */
     void setIsSelected(boolean isSelected) {
         if (canEdit.get()) {
             this.isSelected.set(isSelected);
@@ -41,13 +46,16 @@ public class JournalItemViewModel extends BaseViewModel {
         this.mListener = listener;
     }
 
+    /**
+     * 当前条目的点击事件
+     */
     public void onItemClick() {
-        if (canEdit.get() && mListener != null) {
-            mListener.onItemClick(id);
+        if (mListener != null) {
+            mListener.onItemClick(id, canEdit.get());
         }
     }
 
     public interface IItemClickListener {
-        void onItemClick(String id);
+        void onItemClick(String id, boolean canSelected);
     }
 }

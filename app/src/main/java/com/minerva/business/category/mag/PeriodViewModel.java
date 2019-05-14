@@ -12,7 +12,7 @@ import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.category.mag.model.MagListModel;
 import com.minerva.business.category.mag.model.MagModel;
-import com.minerva.business.category.mag.model.MagPeriod;
+import com.minerva.business.category.mag.model.MagPeriodBean;
 import com.minerva.business.category.model.MagBean;
 import com.minerva.common.RefreshListViewModel;
 import com.minerva.common.Constants;
@@ -82,9 +82,9 @@ public class PeriodViewModel extends RefreshListViewModel implements IPageStateL
             return;
         }
 
-        MagModel.getInstance().getMagPeriodList(mType, new NetworkObserver<MagPeriod>() {
+        MagModel.getInstance().getMagPeriodList(mType, new NetworkObserver<MagPeriodBean>() {
             @Override
-            public void onSuccess(MagPeriod magPeriod) {
+            public void onSuccess(MagPeriodBean magPeriod) {
                 refreshing.set(false);
                 beanList.clear();
                 beanList.addAll(magPeriod.getItems());

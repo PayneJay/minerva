@@ -4,7 +4,6 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.category.book.BookChildViewModel;
 import com.minerva.business.category.mag.SpecialChildViewModel;
 import com.minerva.business.category.mag.SpecialGroupViewModel;
 import com.minerva.common.Constants;
@@ -48,7 +47,7 @@ public class MagModel {
      * @param type     期刊类型
      * @param observer 回调
      */
-    public void getMagPeriodList(int type, Observer<? super MagPeriod> observer) {
+    public void getMagPeriodList(int type, Observer<? super MagPeriodBean> observer) {
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
                 .getServer()
                 .getMagPeriodList(type)

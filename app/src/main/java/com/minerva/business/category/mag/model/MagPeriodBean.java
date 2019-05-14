@@ -6,7 +6,7 @@ import com.minerva.business.category.model.MagBean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MagPeriod extends BaseBean {
+public class MagPeriodBean extends BaseBean {
 
     private List<MagBean.ItemsBeanX.ItemsBean> items = new ArrayList<>();
 
