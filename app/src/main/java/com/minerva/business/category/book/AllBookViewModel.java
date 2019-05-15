@@ -2,7 +2,6 @@ package com.minerva.business.category.book;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,11 +13,10 @@ import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.category.book.model.AllBook;
 import com.minerva.business.category.book.model.AllBookModel;
-import com.minerva.business.category.book.model.AllBookModel;
-import com.minerva.business.category.mag.SpecialGroupViewModel;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.SpecialModel;
 import com.minerva.common.BlankViewModel;
+import com.minerva.common.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
@@ -30,8 +28,7 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class AllBookViewModel extends BaseViewModel implements IPageStateListener {
-    public ObservableBoolean refreshing = new ObservableBoolean();
+public class AllBookViewModel extends RefreshListViewModel implements IPageStateListener {
     public OnItemBind<BaseViewModel> periodItemBind = new OnItemBind<BaseViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
@@ -64,10 +61,6 @@ public class AllBookViewModel extends BaseViewModel implements IPageStateListene
         mTitle = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.COLUMN_MAG_TITLE);
         refreshing.set(true);
         requestServer();
-    }
-
-    public int[] getColors() {
-        return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
     }
 
     public ObservableList<BaseViewModel> getItems() {
@@ -122,7 +115,8 @@ public class AllBookViewModel extends BaseViewModel implements IPageStateListene
         AllBookModel.getInstance().setData(temp);
     }
 
-    private void requestServer() {
+    @Override
+    protected void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
             if (mCurrentPage == 0) {
@@ -150,7 +144,8 @@ public class AllBookViewModel extends BaseViewModel implements IPageStateListene
         });
     }
 
-    private void createViewModel() {
+    @Override
+    protected void createViewModel() {
         if (mCurrentPage == 0) {
             AllBookModel.getInstance().clear();
             if (beanList.size() <= 0) {

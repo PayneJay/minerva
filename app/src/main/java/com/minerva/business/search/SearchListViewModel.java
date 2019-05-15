@@ -2,7 +2,6 @@ package com.minerva.business.search;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -21,6 +20,7 @@ import com.minerva.business.search.model.SiteResult;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
+import com.minerva.common.RefreshListViewModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
 
@@ -32,8 +32,7 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class SearchListViewModel extends BaseViewModel {
-    public ObservableBoolean refreshing = new ObservableBoolean();
+public class SearchListViewModel extends RefreshListViewModel {
     public ObservableList<BaseViewModel> items = new ObservableArrayList<>();
     public OnItemBind<BaseViewModel> resultItemBind = new OnItemBind<BaseViewModel>() {
         @Override
@@ -73,10 +72,6 @@ public class SearchListViewModel extends BaseViewModel {
         setSearchHistory();
     }
 
-    public int[] getColors() {
-        return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
-    }
-
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
@@ -113,7 +108,8 @@ public class SearchListViewModel extends BaseViewModel {
         }
     }
 
-    private void requestServer() {
+    @Override
+    protected void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
 

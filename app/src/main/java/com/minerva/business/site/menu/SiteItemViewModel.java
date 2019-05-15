@@ -40,7 +40,7 @@ public class SiteItemViewModel extends BaseViewModel {
 
     public void onItemClick() {
         if (listener != null) {
-            listener.onMenuItemClick();
+            listener.onMenuOperateSuccess();
         }
 
         if (loading == null) {

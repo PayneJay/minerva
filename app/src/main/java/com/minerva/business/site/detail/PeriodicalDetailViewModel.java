@@ -2,7 +2,6 @@ package com.minerva.business.site.detail;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,6 +17,7 @@ import com.minerva.business.article.list.ArticleItemViewModel;
 import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
+import com.minerva.common.RefreshListViewModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
 import com.minerva.utils.ResourceUtils;
@@ -29,9 +29,8 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class PeriodicalDetailViewModel extends BaseViewModel {
+public class PeriodicalDetailViewModel extends RefreshListViewModel {
     public ObservableField<String> title = new ObservableField<>();
-    public ObservableBoolean refreshing = new ObservableBoolean();
     public ObservableList<BaseViewModel> items = new ObservableArrayList<>();
     public OnItemBind<BaseViewModel> periodicalItemBind = new OnItemBind<BaseViewModel>() {
         @Override
@@ -96,10 +95,6 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
         super(context);
     }
 
-    public int[] getColors() {
-        return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
-    }
-
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
@@ -117,6 +112,7 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
         }
     }
 
+    @Override
     protected void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
             setNetworkError();
@@ -162,6 +158,7 @@ public class PeriodicalDetailViewModel extends BaseViewModel {
         mData.addAll(articles);
     }
 
+    @Override
     protected void createViewModel() {
         if (mCurrentPage == 0 && mData.size() == 0) {
             setEmptyPage();

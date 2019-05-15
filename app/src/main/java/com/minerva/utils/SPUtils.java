@@ -3,8 +3,6 @@ package com.minerva.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Map;
 
 public class SPUtils {

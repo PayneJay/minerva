@@ -2,7 +2,6 @@ package com.minerva.business.category.mag;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
 
@@ -13,6 +12,7 @@ import com.minerva.business.category.mag.model.MagModel;
 import com.minerva.business.category.model.MagBean;
 import com.minerva.business.category.model.SpecialModel;
 import com.minerva.common.BlankViewModel;
+import com.minerva.common.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
@@ -24,8 +24,7 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class SpecialViewModel extends BaseViewModel implements IPageStateListener {
-    public ObservableBoolean refreshing = new ObservableBoolean();
+public class SpecialViewModel extends RefreshListViewModel implements IPageStateListener {
     public OnItemBind<BaseViewModel> specialItemBind = new OnItemBind<BaseViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
@@ -50,10 +49,6 @@ public class SpecialViewModel extends BaseViewModel implements IPageStateListene
         requestServer();
     }
 
-    public int[] getColors() {
-        return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
-    }
-
     public ObservableList<BaseViewModel> getItems() {
         return MagModel.getInstance().getData();
     }
@@ -64,7 +59,6 @@ public class SpecialViewModel extends BaseViewModel implements IPageStateListene
             requestServer();
         }
     };
-
 
     @Override
     public void setPageByState(int state) {
@@ -78,7 +72,8 @@ public class SpecialViewModel extends BaseViewModel implements IPageStateListene
         MagModel.getInstance().setData(temp);
     }
 
-    private void requestServer() {
+    @Override
+    protected void requestServer() {
         refreshing.set(true);
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
@@ -102,7 +97,8 @@ public class SpecialViewModel extends BaseViewModel implements IPageStateListene
         });
     }
 
-    private void createViewModel() {
+    @Override
+    protected void createViewModel() {
         if (beanXList.size() <= 0) {
             setPageByState(Constants.PageStatus.NO_DATA);
             return;

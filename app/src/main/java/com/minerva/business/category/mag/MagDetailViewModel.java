@@ -2,7 +2,6 @@ package com.minerva.business.category.mag;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +19,7 @@ import com.minerva.business.category.mag.model.MagDetailBean;
 import com.minerva.business.category.mag.model.MagDetailModel;
 import com.minerva.business.category.mag.model.MagModel;
 import com.minerva.common.BlankViewModel;
+import com.minerva.common.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
@@ -32,9 +32,8 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class MagDetailViewModel extends BaseViewModel implements IPageStateListener {
+public class MagDetailViewModel extends RefreshListViewModel implements IPageStateListener {
     public ObservableField<String> title = new ObservableField<>();
-    public ObservableBoolean refreshing = new ObservableBoolean();
     public OnItemBind<BaseViewModel> magItemBind = new OnItemBind<BaseViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
@@ -97,10 +96,6 @@ public class MagDetailViewModel extends BaseViewModel implements IPageStateListe
         requestServer();
     }
 
-    public int[] getColors() {
-        return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
-    }
-
     public ObservableList<BaseViewModel> getItems() {
         return MagDetailModel.getInstance().getData();
     }
@@ -129,7 +124,8 @@ public class MagDetailViewModel extends BaseViewModel implements IPageStateListe
         MagModel.getInstance().setData(temp);
     }
 
-    private void requestServer() {
+    @Override
+    protected void requestServer() {
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
             removeExcludeTitle();
@@ -153,7 +149,8 @@ public class MagDetailViewModel extends BaseViewModel implements IPageStateListe
         });
     }
 
-    private void createViewModel() {
+    @Override
+    protected void createViewModel() {
         if (mData.size() <= 0) {
             setPageByState(Constants.PageStatus.NO_DATA);
             return;

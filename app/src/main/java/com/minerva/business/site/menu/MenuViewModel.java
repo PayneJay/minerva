@@ -48,7 +48,7 @@ public class MenuViewModel extends BaseViewModel implements IPopupMenuItemClickL
     }
 
     @Override
-    public void onMenuItemClick() {
+    public void onMenuOperateSuccess() {
         if (menuPopup != null) {
             menuPopup.dismiss();
         }

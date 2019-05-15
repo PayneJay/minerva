@@ -1,7 +1,7 @@
 package com.minerva.business.site.menu.model;
 
 import com.minerva.base.BaseBean;
-import com.minerva.business.home.subscribe.SubscribeBean;
+import com.minerva.business.home.subscribe.model.SubscribeBean;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;

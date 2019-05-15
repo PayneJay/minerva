@@ -2,7 +2,6 @@ package com.minerva.business.home.weekly;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -14,6 +13,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.home.weekly.model.WeeklyModel;
 import com.minerva.business.home.weekly.model.WeekListBean;
 import com.minerva.common.BlankViewModel;
+import com.minerva.common.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtils;
@@ -24,8 +24,7 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class WeeklyViewModel extends BaseViewModel {
-    public ObservableBoolean refreshing = new ObservableBoolean();
+public class WeeklyViewModel extends RefreshListViewModel {
     public OnItemBind<BaseViewModel> weeklyItemBind = new OnItemBind<BaseViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, BaseViewModel item) {
@@ -51,10 +50,6 @@ public class WeeklyViewModel extends BaseViewModel {
         requestServer();
     }
 
-    public int[] getColors() {
-        return new int[]{R.color.color_1E90FF, R.color.color_FF77FF, R.color.color_00AEAE};
-    }
-
     public ObservableList<BaseViewModel> getItems() {
         return WeeklyModel.getInstance().getData();
     }
@@ -66,7 +61,8 @@ public class WeeklyViewModel extends BaseViewModel {
         }
     };
 
-    private void requestServer() {
+    @Override
+    protected void requestServer() {
         refreshing.set(true);
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);

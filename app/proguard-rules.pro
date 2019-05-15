@@ -21,18 +21,41 @@
 #-renamesourcefileattribute SourceFile
 
 #---------------------------------基本指令区-----------------------
-
--optimizationpasses 5  #指定代码的压缩级别
--dontpreverify  #预校验
--verbose  #指定日志级别
+# 设置混淆的压缩比率 0 ~ 7
+-optimizationpasses 5
+# 混淆时不使用大小写混合，混淆后的类名为小写
+-dontusemixedcaseclassnames
+# 指定不去忽略非公共库的类
+-dontskipnonpubliclibraryclasses
+# 指定不去忽略非公共库的成员
 -dontskipnonpubliclibraryclassmembers
--dontusemixedcaseclassnames  #包名不混合大小写
--ignorewarnings  #忽略警告
--printmapping proguardMapping.txt  #生成原类名和混淆后的类名的映射文件
--optimizations !code/simplification/cast,!field/*,!class/merging/*  #混淆时所采用的算法
+# 混淆时不做预校验
+-dontpreverify
+# 混淆时不记录日志
+-verbose
+# 忽略警告
+-ignorewarning
+# 代码优化
+-dontshrink
+# 不优化输入的类文件
+-dontoptimize
+# 保留注解不混淆
 -keepattributes *Annotation*,InnerClasses
+# 避免混淆泛型
 -keepattributes Signature
+# 保留代码行号，方便异常信息的追踪
 -keepattributes SourceFile,LineNumberTable
+# 混淆采用的算法
+-optimizations !code/simplification/cast,!field/*,!class/merging/*
+
+# dump.txt文件列出apk包内所有class的内部结构
+-dump class_files.txt
+# seeds.txt文件列出未混淆的类和成员
+-printseeds seeds.txt
+# usage.txt文件列出从apk中删除的代码
+-printusage unused.txt
+# mapping.txt文件列出混淆前后的映射
+-printmapping mapping.txt
 
 
 #---------------------------------默认保留区------------------------
@@ -86,9 +109,19 @@
  *;
 }
 
--keep public class com.minerva.business.site.**
--keep public class com.minerva.business.site.model.SitesBean
--keep public class * extends com.minerva.base.BaseBean
+-keep public class com.minerva.business.site.** { *; }
+-keep public interface com.minerva.network.** { *; }
+-keep public class com.minerva.utils.** { *; }
+-keep public class * extends com.minerva.base.BaseBean { *; }
+
+# 对于带有回调函数的onXXEvent、**On*Listener的，不能被混淆
+-keepclassmembers class * {
+    void *(**On*Event);
+    void *(**On*Listener);
+}
+
+# Tablayout反射修改下划线宽度导致的tabtrip空指针问题 - 需要可打开
+-keep class android.support.design.widget.TabLayout{*;}
 
 -keepclassmembers class * {
     void *(*Event);

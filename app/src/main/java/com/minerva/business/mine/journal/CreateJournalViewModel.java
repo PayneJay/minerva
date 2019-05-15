@@ -1,6 +1,7 @@
 package com.minerva.business.mine.journal;
 
 import android.content.Context;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
 import android.widget.CompoundButton;
@@ -11,8 +12,10 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.utils.ResourceUtils;
 
 public class CreateJournalViewModel extends BaseViewModel {
+    public ObservableField<String> titleText = new ObservableField<>();
     public ObservableField<String> titleContent = new ObservableField<>();
     public ObservableField<String> desContent = new ObservableField<>();
+    public ObservableBoolean onlyShowSelf = new ObservableBoolean();
     public CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -22,7 +25,7 @@ public class CreateJournalViewModel extends BaseViewModel {
     private IDialogClickListener listener;
     private int type = 1;
 
-    CreateJournalViewModel(Context context) {
+    public CreateJournalViewModel(Context context) {
         super(context);
     }
 

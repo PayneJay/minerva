@@ -15,6 +15,7 @@ import com.minerva.business.category.mag.SpecialGroupViewModel;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.SpecialModel;
 import com.minerva.common.BlankViewModel;
+import com.minerva.common.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
@@ -26,7 +27,7 @@ import java.util.List;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class BookViewModel extends BaseViewModel implements IPageStateListener {
+public class BookViewModel extends RefreshListViewModel implements IPageStateListener {
     public ObservableBoolean refreshing = new ObservableBoolean();
     public OnItemBind<BaseViewModel> bookItemBind = new OnItemBind<BaseViewModel>() {
         @Override
@@ -53,7 +54,8 @@ public class BookViewModel extends BaseViewModel implements IPageStateListener {
         requestServer();
     }
 
-    private void requestServer() {
+    @Override
+    protected void requestServer() {
         refreshing.set(true);
         if (!CommonUtils.isNetworkAvailable(context)) {
             refreshing.set(false);
@@ -77,10 +79,6 @@ public class BookViewModel extends BaseViewModel implements IPageStateListener {
         });
     }
 
-    public int[] getColors() {
-        return new int[]{R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
-    }
-
     public ObservableList<BaseViewModel> getItems() {
         return BookModel.getInstance().getData();
     }
@@ -91,7 +89,6 @@ public class BookViewModel extends BaseViewModel implements IPageStateListener {
             requestServer();
         }
     };
-
 
     @Override
     public void setPageByState(int state) {
@@ -123,7 +120,8 @@ public class BookViewModel extends BaseViewModel implements IPageStateListener {
         });
     }
 
-    private void createViewModel() {
+    @Override
+    protected void createViewModel() {
         if (beanXList.size() <= 0) {
             setPageByState(Constants.PageStatus.NO_DATA);
             return;

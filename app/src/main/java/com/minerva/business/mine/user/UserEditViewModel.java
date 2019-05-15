@@ -68,7 +68,9 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
 
     @BindingAdapter({"toolBarMenu", "menuItemClick"})
     public static void setToolBarMenu(Toolbar toolbar, int menuRes, Toolbar.OnMenuItemClickListener menuItemClick) {
-        toolbar.inflateMenu(menuRes);
+        if (menuRes != 0) {
+            toolbar.inflateMenu(menuRes);
+        }
         if (menuItemClick != null) {
             toolbar.setOnMenuItemClickListener(menuItemClick);
         }

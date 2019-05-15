@@ -38,6 +38,9 @@ public class SiteChildViewModel extends BaseViewModel {
         this.id = id;
     }
 
+    /**
+     * 点击添加/取消订阅按钮
+     */
     public void onSelectedChanged() {
         if (!GlobalData.getInstance().isLogin()) {
             Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
@@ -69,6 +72,9 @@ public class SiteChildViewModel extends BaseViewModel {
         context.startActivity(intent);
     }
 
+    /**
+     * 标记订阅
+     */
     private void markFollow() {
         MenuModel.getInstance().markFollow(id, new NetworkObserver<BaseBean>() {
             @Override
@@ -84,6 +90,9 @@ public class SiteChildViewModel extends BaseViewModel {
         });
     }
 
+    /**
+     * 取消订阅
+     */
     private void markUnFollow() {
         MenuModel.getInstance().markUnFollow(id, new NetworkObserver<BaseBean>() {
             @Override

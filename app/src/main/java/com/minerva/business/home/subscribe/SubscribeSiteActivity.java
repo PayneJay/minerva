@@ -6,6 +6,7 @@ import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseBean;
+import com.minerva.business.home.subscribe.model.SubscribeModel;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -14,6 +14,7 @@ import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.article.list.model.ArticleModel;
 import com.minerva.business.mine.signinout.LoginActivity;
 import com.minerva.common.BlankViewModel;
+import com.minerva.common.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.NoMoreViewModel;
@@ -29,8 +30,7 @@ import java.util.Map;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
-public class ArticleListViewModel extends BaseViewModel {
-    public ObservableBoolean refreshing = new ObservableBoolean();
+public class ArticleListViewModel extends RefreshListViewModel {
     public ObservableBoolean isRecommendGone = new ObservableBoolean();
     public ObservableList<BaseViewModel> items = new ObservableArrayList<>();
     public OnItemBind<BaseViewModel> articleItemBind = new OnItemBind<BaseViewModel>() {
@@ -49,12 +49,12 @@ public class ArticleListViewModel extends BaseViewModel {
             }
         }
     };
-    protected int mCurrentPage; //当前页数
     protected BlankViewModel mBlankVM;
     protected List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
+    protected boolean hasNext;
+    protected int mCurrentPage; //当前页数
     private String mLastID; //最后一条id
     private int mCurrentTab; //当前Tab
-    private boolean hasNext;
 
     ArticleListViewModel(Context context, int tab) {
         super(context);
@@ -66,10 +66,6 @@ public class ArticleListViewModel extends BaseViewModel {
 
     public ArticleListViewModel(Context context, String className) {
         super(context);
-    }
-
-    public int[] getColors() {
-        return new int[]{R.color.color_1E90FF, R.color.color_FF77FF, R.color.color_00AEAE};
     }
 
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {

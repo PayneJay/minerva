@@ -49,7 +49,7 @@ public class ArticleDetailModel {
     }
 
     /**
-     * 添加待读
+     * 添加待读(登录状态下)
      *
      * @param aid      文章id
      * @param observer 回调
@@ -94,7 +94,7 @@ public class ArticleDetailModel {
     }
 
     /**
-     * 获取已添加的待读文章
+     * 获取已添加的待读文章（未登录）
      *
      * @param context context
      * @param key     sp缓存的key
@@ -115,7 +115,7 @@ public class ArticleDetailModel {
     }
 
     /**
-     * 添加待读文章
+     * 添加待读文章（未登录）
      *
      * @param context context
      * @param article 待读文章
@@ -130,7 +130,7 @@ public class ArticleDetailModel {
     }
 
     /**
-     * 取消待读文章
+     * 取消待读文章（未登录）
      *
      * @param context context
      * @param id      待读文章

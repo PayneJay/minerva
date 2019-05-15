@@ -150,6 +150,9 @@
         <activity
             android:name=".business.mine.signinout.RegisterActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.mine.journal.kan.FavKansActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
