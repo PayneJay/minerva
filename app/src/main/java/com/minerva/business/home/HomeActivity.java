@@ -406,7 +406,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      * 全部标为已读
      */
     private void markAllRead() {
-        if (GlobalData.getInstance().isLogin()) {
+        if (!GlobalData.getInstance().isLogin()) {
             Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
             return;
         }

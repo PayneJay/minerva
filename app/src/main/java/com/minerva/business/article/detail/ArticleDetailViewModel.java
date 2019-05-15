@@ -43,7 +43,6 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
-import com.umeng.socialize.shareboard.ShareBoardConfig;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -70,12 +69,19 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     ArticleDetailViewModel(Context context) {
         super(context);
         articleID = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.ARTICLE_ID);
-        getArticleDetail(articleID);
+        getArticleDetailById(articleID);
     }
 
-    private void getArticleDetail(String articleID) {
+    /**
+     * 获取文章详情内容
+     *
+     * @param articleID 文章id
+     */
+    private void getArticleDetailById(String articleID) {
         if (loading == null) {
             loading = new Loading.Builder(context).show();
+        } else {
+            loading.show();
         }
         ArticleDetailModel.getInstance().getArticleDetail(articleID, new NetworkObserver<ArticleDetailBean>() {
             @Override
@@ -88,7 +94,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                     title.set(article.getTitle());
                     date.set(article.getFeed_title() + "   " + article.getTime());
                     mArticleLink = article.getUrl();
-
+                    //添加到阅读历史
                     ArticleDetailModel.getInstance().addArticleWithKey(context, article, Constants.KeyExtra.READ_HISTORY_MAP);
                 }
             }
@@ -109,6 +115,9 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         isFav = TextUtils.equals(like, "1");
     }
 
+    /**
+     * 分享
+     */
     public void share() {
         mShareAction = new ShareAction((BaseActivity) context);
         UMWeb web = new UMWeb(Constants.shareBaseUrl + articleID);
@@ -129,12 +138,18 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                 .setCallback(this).open();
     }
 
+    /**
+     * 评论
+     */
     public void comment() {
         Intent intent = new Intent(context, CommentActivity.class);
         intent.putExtra(Constants.KeyExtra.ARTICLE_ID, articleID);
         context.startActivity(intent);
     }
 
+    /**
+     * 更多菜单
+     */
     public void more() {
         final Map<String, Object> readLater = ArticleDetailModel.getInstance().getArticlesByKey(context, Constants.KeyExtra.READ_LATER_MAP);
         if (readLater.keySet().contains(articleID)) {
@@ -161,18 +176,15 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
 
     @Override
     public void onResult(SHARE_MEDIA share_media) {
-        Toast.makeText(context, "分享成功了……", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
         Log.i("share", throwable.getMessage(), throwable);
-        Toast.makeText(context, "分享失败了……" + throwable.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
-        Toast.makeText(context, "分享取消了……", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -200,6 +212,9 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         return true;
     }
 
+    /**
+     * 改变字体大小
+     */
     private void changeFontSize() {
         if (fontPopup == null) {
             fontPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -226,6 +241,9 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         fontPopup.showAtLocation(((BaseActivity) context).getWindow().getDecorView(), Gravity.CENTER, 0, 0);
     }
 
+    /**
+     * 点击收藏
+     */
     private void goMyCollection() {
         if (!GlobalData.getInstance().isLogin()) {
             Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
@@ -235,16 +253,22 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         if (isFav) {
             cancelFavorite();
         } else {
-            showAddJournalDialog();
+            showAddFavKanDialog();
         }
     }
 
+    /**
+     * 查看原文
+     */
     private void viewOriginal() {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra(Constants.KeyExtra.BOOK_JD_LINK, mArticleLink);
         context.startActivity(intent);
     }
 
+    /**
+     * 复制链接地址
+     */
     private void copyLink() {
         //获取剪贴板管理器：
         ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -258,6 +282,9 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         Toast.makeText(context, ResourceUtils.getString(R.string.toast_copy_clipboard), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 标记未读或者待读
+     */
     private void markOrCancelRead() {
         final Map<String, Object> readLater = ArticleDetailModel.getInstance().getArticlesByKey(context, Constants.KeyExtra.READ_LATER_MAP);
         if (readLater.keySet().contains(articleID)) {
@@ -269,6 +296,9 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         }
     }
 
+    /**
+     * 标记已读
+     */
     private void markRead() {
         if (!GlobalData.getInstance().isLogin()) {
             ArticleDetailModel.getInstance().addArticleWithKey(context, article, Constants.KeyExtra.READ_LATER_MAP);
@@ -290,6 +320,9 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         });
     }
 
+    /**
+     * 取消待读
+     */
     private void cancelRead() {
         if (!GlobalData.getInstance().isLogin()) {
             ArticleDetailModel.getInstance().removeArticleByKey(context, articleID, Constants.KeyExtra.READ_LATER_MAP);
@@ -362,6 +395,9 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         }
     }
 
+    /**
+     * 显示详情页菜单
+     */
     private void showPopupMenu() {
         PopupMenu popupMenu = new PopupMenu(context, ((BaseActivity) context).getWindow().getDecorView().getRootView().findViewById(R.id.title_bar));
         popupMenu.getMenuInflater().inflate(R.menu.article_detail_popup_menu, popupMenu.getMenu());
@@ -372,7 +408,10 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         popupMenu.show();
     }
 
-    private void showAddJournalDialog() {
+    /**
+     * 添加收藏时的推刊列表
+     */
+    private void showAddFavKanDialog() {
         if (journalListDialog == null) {
             journalListDialog = new Dialog(context, R.style.SlideBottomDialogStyle);
         }
