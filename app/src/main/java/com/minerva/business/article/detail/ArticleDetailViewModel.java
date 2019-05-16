@@ -9,6 +9,8 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.databinding.ViewDataBinding;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.Toast;
@@ -47,6 +50,7 @@ import com.umeng.socialize.media.UMWeb;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
+import java.util.Random;
 
 public class ArticleDetailViewModel extends BaseViewModel implements UMShareListener, PopupMenu.OnMenuItemClickListener, ISelectJournalListener, IFontSelectedListener {
     public ObservableField<String> articleContent = new ObservableField<>("");
@@ -55,6 +59,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     public ObservableInt titleTextSize = new ObservableInt(20);
     public ObservableInt dateTextSize = new ObservableInt(14);
     public ObservableInt contentTextSize = new ObservableInt(18);
+    public ObservableInt backgroundColor = new ObservableInt(R.color.colorPrimary);
     private ArticleDetailBean.ArticleBean article;
     private ShareAction mShareAction;
     private String articleID;
@@ -69,7 +74,30 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     ArticleDetailViewModel(Context context) {
         super(context);
         articleID = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.ARTICLE_ID);
+        setBackgroundColor();
         getArticleDetailById(articleID);
+    }
+
+    /**
+     * 设置背景色
+     */
+    private void setBackgroundColor() {
+        Random random = new Random();
+        int[] colors = new int[]{R.color.colorPrimary, R.color.color_6F00D2,
+                R.color.color_1E90FF, R.color.color_7A8B8B, R.color.color_9AC0CD,
+                R.color.color_8B658B, R.color.colorAccent};
+        int i = random.nextInt(colors.length);
+        backgroundColor.set(colors[i]);
+
+        //设置状态栏颜色
+        Window window = ((BaseActivity) context).getWindow();
+        //After LOLLIPOP not translucent status bar
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //Then call setStatusBarColor.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(ResourceUtils.getColor(colors[i]));
+        }
     }
 
     /**

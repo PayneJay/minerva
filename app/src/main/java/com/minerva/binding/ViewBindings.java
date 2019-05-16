@@ -344,6 +344,11 @@ public class ViewBindings {
         view.setBackgroundResource(res);
     }
 
+    @BindingAdapter(value = {"bgColor"})
+    public static void setViewBgColor(View view, int res) {
+        view.setBackgroundColor(res);
+    }
+
     @BindingAdapter(value = {"scrollToPositionWithOffset"})
     public static void scrollToPositionWithOffset(RecyclerView recyclerView, LinearLayoutManager linearLayoutManager) {
         int position = linearLayoutManager.findFirstVisibleItemPosition();
@@ -439,10 +444,6 @@ public class ViewBindings {
 
     public interface OnClickListener {
         void onItemClick();
-    }
-
-    public interface StartTouchListener {
-        void start(int position);
     }
 
     public interface OnCheckHandler {
