@@ -50,7 +50,7 @@
     <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@color/colorPrimary</item>
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
     <declare-styleable name="Round_Image_View">
