@@ -21,7 +21,9 @@ public class WeeklyItemViewModel extends BaseViewModel {
     public ObservableInt colorRes = new ObservableInt(Color.RED);
     private String id;
     private long time;
-    private int[] colors = {R.color.colorPrimary, R.color.color_FF0000, R.color.color_3FE280, R.color.color_6F00D2, R.color.color_1E90FF, R.color.color_00AEAE};
+    private int[] colors = {R.color.color_FF0000, R.color.colorPrimary, R.color.color_6F00D2,
+            R.color.color_1E90FF, R.color.color_FF77FF, R.color.color_548B54,
+            R.color.color_8B658B, R.color.color_3FE280, R.color.colorAccent};
 
     WeeklyItemViewModel(Context context, WeekListBean.ItemsBean item) {
         super(context);

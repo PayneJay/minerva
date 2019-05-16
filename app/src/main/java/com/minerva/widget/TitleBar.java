@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableInt;
 import android.databinding.ViewDataBinding;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -54,6 +55,11 @@ public class TitleBar extends LinearLayout {
         view.getViewModel().isMoreGone.set(click == null);
     }
 
+    @BindingAdapter("titleBarBg")
+    public static void setTitleBarBg(TitleBar view, int color) {
+        view.getViewModel().bgColor.set(color);
+    }
+
     private void init() {
         mViewModel = new TitleBarViewModel();
         ViewDataBinding bind = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.title_bar_layout, null, false);
@@ -66,6 +72,7 @@ public class TitleBar extends LinearLayout {
         public ObservableBoolean isShareGone = new ObservableBoolean(true);
         public ObservableBoolean isCommentGone = new ObservableBoolean(true);
         public ObservableBoolean isMoreGone = new ObservableBoolean(true);
+        public ObservableInt bgColor = new ObservableInt(R.color.colorPrimaryDark);
 
         ViewBindings.ClickHandler onShareClick;
         ViewBindings.ClickHandler onCommentClick;
