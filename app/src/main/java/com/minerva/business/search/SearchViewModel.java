@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
@@ -17,6 +18,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.search.model.SearchModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
+import com.minerva.common.TabLayoutHelper;
 import com.minerva.utils.ResourceUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -91,6 +93,21 @@ public class SearchViewModel extends BaseViewModel {
 
         tabLayout.setupWithViewPager(viewPager, true);
         viewPager.setCurrentItem(currentItem.get());
+        new TabLayoutHelper.Builder(tabLayout)
+                .setIndicatorColor(Color.WHITE)
+                .setIndicatorHeight(8)
+                .setIndicatorWith(150)
+                .setIndicatorDrawable(R.drawable.shape_tab_line)
+                .setSelectedTextColor(Color.WHITE)
+                .setNormalTextColor(ResourceUtils.getColor(R.color.color_CFFFFFFF))
+                .setSelectedTextSize(16)
+                .setNormalTextSize(14)
+                .setSelectedBold(true)
+                .setNormalBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
+                .setSelectedBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
+                .setCurrentTab(currentItem.get())
+                .setTabItemWith(200)
+                .build();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
