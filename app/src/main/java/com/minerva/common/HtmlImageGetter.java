@@ -27,10 +27,21 @@ public class HtmlImageGetter implements Html.ImageGetter {
                 drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight());
         urlDrawable.setDrawable(drawable);
-        Glide.with(context)
-                .asBitmap()
-                .load(source)
-                .into(new BitmapTarget(context, tv, urlDrawable));
+        if (source.endsWith(".gif")) {
+            Glide.with(context)
+                    .asGif()
+                    .centerCrop()
+                    .fitCenter()
+                    .load(source)
+                    .into(new GifTarget(context, tv, urlDrawable));
+        } else {
+            Glide.with(context)
+                    .asBitmap()
+                    .centerCrop()
+                    .fitCenter()
+                    .load(source)
+                    .into(new BitmapTarget(context, tv, urlDrawable));
+        }
         return urlDrawable;
     }
 }
