@@ -13,10 +13,10 @@ import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.mine.about.AboutActivity;
 import com.minerva.business.mine.collection.MyCollectionActivity;
 import com.minerva.business.mine.journal.MyJournalActivity;
-import com.minerva.business.mine.signinout.LoginActivity;
 import com.minerva.business.mine.message.MessageActivity;
 import com.minerva.business.mine.read.ReadLaterActivity;
 import com.minerva.business.mine.read.model.ReadModel;
+import com.minerva.business.mine.signinout.LoginActivity;
 import com.minerva.business.mine.user.UserEditActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
@@ -40,47 +40,7 @@ public class MyViewModel extends BaseViewModel {
     MyViewModel(Context context) {
         super(context);
         EventBus.getDefault().register(this);
-        setUnreadPoint();
         updateStatus();
-    }
-
-    private void setUnreadPoint() {
-        if (GlobalData.getInstance().isLogin()) {
-            setUnReadByServer();
-        } else {
-            setUnReadByLocal();
-        }
-    }
-
-    private void setUnReadByServer() {
-        ReadModel.getInstance().getLateList(new NetworkObserver<ArticleBean>() {
-            @Override
-            public void onSuccess(ArticleBean articleBean) {
-                List<ArticleBean.ArticlesBean> articles = articleBean.getArticles();
-                int size = (articles == null) ? 0 : articles.size();
-                setUnReadCount(size);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-            }
-        });
-    }
-
-    private void setUnReadCount(int size) {
-        unReadCount.set(size > 0 ? String.valueOf(size) : "");
-        if (size > 0 && size < 100) {
-            unReadCount.set(String.valueOf(size));
-        } else if (size > 99) {
-            unReadCount.set("99+");
-        } else {
-            unReadCount.set("");
-        }
-    }
-
-    private void setUnReadByLocal() {
-        Map<String, Object> articles = ArticleDetailModel.getInstance().getArticlesByKey(context, Constants.KeyExtra.READ_LATER_MAP);
-        setUnReadCount(articles.size());
     }
 
     public void goLogin() {
@@ -147,11 +107,64 @@ public class MyViewModel extends BaseViewModel {
     }
 
     @Override
+    public void onVisible(boolean isVisibleToUser) {
+        super.onVisible(isVisibleToUser);
+        if (isVisibleToUser) {
+            setUnreadPoint();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUnreadPoint();
+    }
+
+    @Override
     public void onEvent(EventMsg eventMsg) {
         super.onEvent(eventMsg);
         if (TextUtils.equals(eventMsg.getMsg(), Constants.EventMsgKey.LOGIN_SUCCESS)) {
             updateStatus();
         }
+    }
+
+    private void setUnreadPoint() {
+        if (GlobalData.getInstance().isLogin()) {
+            setUnReadByServer();
+        } else {
+            setUnReadByLocal();
+        }
+    }
+
+    private void setUnReadByServer() {
+        ReadModel.getInstance().getLateList(new NetworkObserver<ArticleBean>() {
+            @Override
+            public void onSuccess(ArticleBean articleBean) {
+                List<ArticleBean.ArticlesBean> articles = articleBean.getArticles();
+                int size = (articles == null) ? 0 : articles.size();
+                setUnReadCount(size);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+            }
+        });
+    }
+
+    private void setUnReadCount(int size) {
+        unReadCount.set(size > 0 ? String.valueOf(size) : "");
+        if (size > 0 && size < 100) {
+            unReadCount.set(String.valueOf(size));
+        } else if (size > 99) {
+            unReadCount.set("99+");
+        } else {
+            unReadCount.set("");
+        }
+    }
+
+    private void setUnReadByLocal() {
+        Map<String, Object> articles = ArticleDetailModel.getInstance().getArticlesByKey(context, Constants.KeyExtra.READ_LATER_MAP);
+        setUnReadCount(articles.size());
     }
 
     /**
