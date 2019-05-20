@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="bookDetailVM"
+            name="webViewVM"
             type="com.minerva.common.WebViewViewModel" />
     </data>
 
@@ -21,13 +21,13 @@
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
-                navigationClickListener="@{bookDetailVM.backListener}"
+                navigationClickListener="@{webViewVM.backListener}"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@string/jd_book_store"
+                app:title="@{webViewVM.titleText}"
                 app:titleTextColor="@android:color/white" />
 
         </android.support.design.widget.AppBarLayout>
@@ -42,7 +42,7 @@
         <WebView
             android:id="@+id/webView"
             progressBar="@{progressBar}"
-            webUrl="@{bookDetailVM.linkUrl}"
+            webUrl="@{webViewVM.linkUrl}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/color_3FE280" />

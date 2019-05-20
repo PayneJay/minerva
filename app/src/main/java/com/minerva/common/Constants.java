@@ -56,7 +56,8 @@ public class Constants {
         String COLUMN_MAG_NUMBER = "column_mag_number";
         String COLUMN_MAG_TITLE = "column_mag_title";
         String COLUMN_MAG_TYPE = "column_mag_type";
-        String BOOK_JD_LINK = "book_jd_link"; //图书京东商城链接
+        String WEB_URL_LINK = "web_url_link"; //跳转webView链接
+        String WEB_VIEW_TITLE = "web_view_title"; //webView标题
 
         String SEARCH_HISTORY_KEYWORD = "search_history_keyword"; //关键字查询
         String READ_LATER_MAP = "read_later_map"; //待读文章

@@ -289,7 +289,8 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
      */
     private void viewOriginal() {
         Intent intent = new Intent(context, WebViewActivity.class);
-        intent.putExtra(Constants.KeyExtra.BOOK_JD_LINK, mArticleLink);
+        intent.putExtra(Constants.KeyExtra.WEB_URL_LINK, mArticleLink);
+        intent.putExtra(Constants.KeyExtra.WEB_VIEW_TITLE, ResourceUtils.getString(R.string.toolbar_menu_view_original));
         context.startActivity(intent);
     }
 
