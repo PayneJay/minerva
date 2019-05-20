@@ -12,8 +12,7 @@ import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.CommonUtils;
 import com.minerva.utils.SPUtils;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ArticleDetailModel {
     private static ArticleDetailModel instance;
-    private Map<String, Object> readArticleMap = new HashMap<>();
+    private LinkedHashMap<String, Object> readArticleMap = new LinkedHashMap<>();
 
     private ArticleDetailModel() {
     }
@@ -79,34 +78,19 @@ public class ArticleDetailModel {
     }
 
     /**
-     * 添加收藏
-     *
-     * @param aid      文章ID
-     * @param observer 回调
-     */
-    public void addCollection(String aid, Observer<? super BaseBean> observer) {
-        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_POST, null)
-                .getServer()
-                .addCollection(aid)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-
-    /**
      * 获取已添加的待读文章（未登录）
      *
      * @param context context
      * @param key     sp缓存的key
      * @return map
      */
-    public Map<String, Object> getArticlesByKey(Context context, String key) {
+    public LinkedHashMap<String, Object> getArticlesByKey(Context context, String key) {
         String history = (String) SPUtils.get(context, key, "");
         if (TextUtils.isEmpty(history)) {
             return readArticleMap;
         }
 
-        Map<String, ArticleDetailBean.ArticleBean> map = new Gson().fromJson(history, new TypeToken<HashMap<String, ArticleDetailBean.ArticleBean>>() {
+        LinkedHashMap<String, ArticleDetailBean.ArticleBean> map = new Gson().fromJson(history, new TypeToken<LinkedHashMap<String, ArticleDetailBean.ArticleBean>>() {
         }.getType());
 
         readArticleMap.clear();
@@ -122,11 +106,11 @@ public class ArticleDetailModel {
      * @param key     sp缓存的key
      */
     public void addArticleWithKey(Context context, ArticleDetailBean.ArticleBean article, String key) {
-        Map<String, Object> readLater = getArticlesByKey(context, key);
+        LinkedHashMap<String, Object> readLater = getArticlesByKey(context, key);
         readLater.put(article.getId(), article);
 
-        String map = CommonUtils.toJson(readLater);
-        SPUtils.put(context, key, map);
+        String mapString = CommonUtils.toJson(readLater);
+        SPUtils.put(context, key, mapString);
     }
 
     /**
@@ -137,7 +121,7 @@ public class ArticleDetailModel {
      * @param key     sp缓存的key
      */
     public void removeArticleByKey(Context context, String id, String key) {
-        Map<String, Object> readLater = getArticlesByKey(context, key);
+        LinkedHashMap<String, Object> readLater = getArticlesByKey(context, key);
         readLater.remove(id);
 
         String map = CommonUtils.toJson(readLater);

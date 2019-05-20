@@ -130,7 +130,7 @@ public class LoginRegisterModel {
     /**
      * 说明:验证密码格式
      *
-     * @param context
+     * @param context  context
      * @param password icon_password
      * @return 密码格式正确或错误
      */
@@ -145,6 +145,14 @@ public class LoginRegisterModel {
         return true;
     }
 
+    /**
+     * 检查两次输入密码是否一致
+     *
+     * @param context    context
+     * @param password   密码
+     * @param confirmPwd 确认密码
+     * @return
+     */
     public boolean isPasswordIdentical(Context context, String password, String confirmPwd) {
         if (TextUtils.equals(password, confirmPwd)) {
             return true;
@@ -154,16 +162,23 @@ public class LoginRegisterModel {
         return false;
     }
 
+    /**
+     * 保存用户信息
+     *
+     * @param context context
+     * @param user    data
+     */
     public void saveUserInfo(Context context, UserInfo.UserBean user) {
         SPUtils.put(context, Constants.UserInfoKey.USER_ID, user.getUid());
         SPUtils.put(context, Constants.UserInfoKey.USER_TOKEN, user.getToken());
-
         SPUtils.put(context, Constants.UserInfoKey.USER_PROFILE, user.getProfile());
         SPUtils.put(context, Constants.UserInfoKey.USER_NAME, user.getName());
         SPUtils.put(context, Constants.UserInfoKey.USER_EMAIL, user.getEmail());
         SPUtils.put(context, Constants.UserInfoKey.WEIBO, user.getWeibo_name());
         SPUtils.put(context, Constants.UserInfoKey.QQ, user.getQq_name());
         SPUtils.put(context, Constants.UserInfoKey.WECHAT, user.getWeixin_name());
+        //存储最近一次的邮箱
+        SPUtils.put(context, Constants.KeyExtra.LAST_LOGIN_EMAIL, user.getEmail());
     }
 
     private void showToast(Context context, String msg) {

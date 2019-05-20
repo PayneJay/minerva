@@ -1,4 +1,4 @@
-package com.minerva.common;
+package com.minerva.common.image;
 
 import android.content.Context;
 import android.graphics.Bitmap;

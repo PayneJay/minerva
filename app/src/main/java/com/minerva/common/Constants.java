@@ -67,7 +67,7 @@ public class Constants {
         String WEEKLY_DATE = "weekly_date"; //一周拾遗时间
         String EXTRA_TAB = "extra_tab";
         String FAV_KAN_ID = "fav_kan_id";
-        String UPDATE_KAN_LIST = "update_kan_list";
+        String LAST_LOGIN_EMAIL = "last_login_email";
     }
 
     public interface UserInfoKey {
