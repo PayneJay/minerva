@@ -37,7 +37,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.minerva.common.Constants;
-import com.minerva.common.HtmlImageGetter;
+import com.minerva.common.image.HtmlImageGetter;
 import com.minerva.utils.CommonUtils;
 
 import org.jsoup.Jsoup;

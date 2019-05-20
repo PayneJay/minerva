@@ -22,6 +22,7 @@ import com.minerva.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 public class ReadLaterViewModel extends ArticleListViewModel {
@@ -109,13 +110,19 @@ public class ReadLaterViewModel extends ArticleListViewModel {
             return;
         }
 
-        for (Object obj : readLater.values()) {
-            if (obj instanceof ArticleDetailBean.ArticleBean) {
-                mLocalData.add((ArticleDetailBean.ArticleBean) obj);
+        //反向遍历map
+        ListIterator<Map.Entry<String, Object>> iterator = new ArrayList<>(readLater.entrySet()).listIterator(readLater.size());
+        while (iterator.hasPrevious()) {
+            Map.Entry<String, Object> previous = iterator.previous();
+            if (previous.getValue() instanceof ArticleDetailBean.ArticleBean) {
+                mLocalData.add((ArticleDetailBean.ArticleBean) previous.getValue());
             }
         }
     }
 
+    /**
+     * 根据页面类型设置加载内容
+     */
     private void setContentByMode() {
         switch (mKey) {
             case Constants.KeyExtra.READ_LATER_MAP:

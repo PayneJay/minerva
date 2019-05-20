@@ -18,6 +18,7 @@ import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.SPUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -45,6 +46,7 @@ public class LoginViewModel extends BaseViewModel {
     LoginViewModel(Context context) {
         super(context);
         EventBus.getDefault().register(this);
+        setLastLoginEmail();
     }
 
     public void signIn() {
@@ -52,6 +54,14 @@ public class LoginViewModel extends BaseViewModel {
                 && LoginRegisterModel.getInstance().isPasswordValid(context, password.get())) {
             login();
         }
+    }
+
+    /**
+     * 设置最近一次登录的邮箱
+     */
+    private void setLastLoginEmail() {
+        String lastEmail = (String) SPUtils.get(context, Constants.KeyExtra.LAST_LOGIN_EMAIL, "");
+        email.set(lastEmail);
     }
 
     private void login() {
