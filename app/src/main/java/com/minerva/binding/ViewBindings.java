@@ -396,13 +396,14 @@ public class ViewBindings {
 
     @BindingAdapter({"htmlSource"})
     public static void setImageGetter(TextView textView, String source) {
+        String html = source;
         if (!TextUtils.isEmpty(source)) {
             Document doc = Jsoup.parse(source);
-            CommonUtils.handlerPreTag(doc);
+            html = CommonUtils.handlerPreTag(doc);
         }
 
         HtmlImageGetter imageGetter = new HtmlImageGetter(textView.getContext(), textView);
-        textView.setText(Html.fromHtml(source, imageGetter, null));
+        textView.setText(Html.fromHtml(html, imageGetter, null));
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 

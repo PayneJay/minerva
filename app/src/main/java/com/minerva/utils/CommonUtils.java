@@ -3,7 +3,6 @@ package com.minerva.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.DisplayMetrics;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,6 +12,7 @@ import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.MagBean;
 import com.minerva.common.Constants;
 
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -103,17 +103,15 @@ public class CommonUtils {
     /**
      * 处理代码显示问题.
      *
-     * @param chapter 章节内容的html元素。
+     * @param document 章节内容的html元素。
      */
-    public static void handlerPreTag(Element chapter) {
-        if (chapter == null) {
-            return;
-        }
-
-        Elements preElems = chapter.select("pre");
+    public static String handlerPreTag(Document document) {
+        Elements preElems = document.select("pre");
         for (Element elem : preElems) {
             elem.html(elem.html().replaceAll("\n", "<br/>").replaceAll(" ", " "));
         }
+
+        return document.outerHtml();
     }
 
 }
