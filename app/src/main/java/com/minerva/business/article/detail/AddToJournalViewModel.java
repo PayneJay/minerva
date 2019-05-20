@@ -34,6 +34,7 @@ public class AddToJournalViewModel extends MyJournalViewModel {
 
     AddToJournalViewModel(Context context) {
         super(context);
+        requestServer();
     }
 
     public void setListener(ISelectJournalListener listener) {

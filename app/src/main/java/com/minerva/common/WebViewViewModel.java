@@ -6,7 +6,6 @@ import android.databinding.ObservableField;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -18,15 +17,17 @@ import android.widget.ProgressBar;
 
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
-import com.minerva.common.Constants;
 
 public class WebViewViewModel extends BaseViewModel {
     public ObservableField<String> linkUrl = new ObservableField<>();
+    public ObservableField<String> titleText = new ObservableField<>();
 
     WebViewViewModel(Context context) {
         super(context);
-        String link = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.BOOK_JD_LINK);
+        String link = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.WEB_URL_LINK);
+        String title = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.WEB_VIEW_TITLE);
         linkUrl.set(link);
+        titleText.set(title);
     }
 
     public View.OnClickListener backListener = new View.OnClickListener() {
@@ -51,7 +52,6 @@ public class WebViewViewModel extends BaseViewModel {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 progressBar.setVisibility(View.VISIBLE);
-
             }
 
             //设置结束加载函数
@@ -85,8 +85,6 @@ public class WebViewViewModel extends BaseViewModel {
             @Override
             public void onReceivedTitle(WebView view, String title) {
             }
-
-
             //获取加载进度
             @Override
             public void onProgressChanged(WebView view, int newProgress) {

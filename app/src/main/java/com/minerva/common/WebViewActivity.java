@@ -7,7 +7,7 @@ import com.minerva.base.BaseActivity;
 public class WebViewActivity extends BaseActivity<WebViewViewModel> {
     @Override
     protected int getLayoutResID() {
-        return R.layout.activity_book_detail_layout;
+        return R.layout.activity_web_view_layout;
     }
 
     @Override
@@ -17,6 +17,6 @@ public class WebViewActivity extends BaseActivity<WebViewViewModel> {
 
     @Override
     protected int getVariableID() {
-        return BR.bookDetailVM;
+        return BR.webViewVM;
     }
 }
