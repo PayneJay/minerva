@@ -21,7 +21,7 @@ import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
+import com.minerva.utils.CommonUtil;
 import com.minerva.widget.Loading;
 
 import java.util.ArrayList;
@@ -121,7 +121,7 @@ public class SubscribeViewModel extends BaseViewModel implements SiteGroupViewMo
     }
 
     private void requestServer() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             showNetworkError.set(firstRequest);
             setErrorPage();
             return;

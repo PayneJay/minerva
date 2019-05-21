@@ -22,7 +22,7 @@ import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.RefreshListViewModel;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
+import com.minerva.utils.CommonUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -110,7 +110,7 @@ public class SearchListViewModel extends RefreshListViewModel {
 
     @Override
     protected void requestServer() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             refreshing.set(false);
 
             if (mCurrentPage == 0) {

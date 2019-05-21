@@ -10,7 +10,7 @@ import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.ResourceUtil;
 import com.minerva.widget.Loading;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -36,7 +36,7 @@ public class UpdateEmailViewModel extends BaseViewModel {
 
     public void onConfirmClick() {
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(content.get()).matches()) {
-            Toast.makeText(context, ResourceUtils.getString(R.string.login_email_incorrect), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtil.getString(R.string.login_email_incorrect), Toast.LENGTH_SHORT).show();
             return;
         }
         updateEmail();

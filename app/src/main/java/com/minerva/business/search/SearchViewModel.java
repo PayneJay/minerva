@@ -10,7 +10,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
@@ -19,7 +18,7 @@ import com.minerva.business.search.model.SearchModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.TabLayoutHelper;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.ResourceUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -99,19 +98,19 @@ public class SearchViewModel extends BaseViewModel {
                 .setIndicatorWith(150)
                 .setIndicatorDrawable(R.drawable.shape_tab_line)
                 .setSelectedTextColor(Color.WHITE)
-                .setNormalTextColor(ResourceUtils.getColor(R.color.color_CFFFFFFF))
+                .setNormalTextColor(ResourceUtil.getColor(R.color.color_CFFFFFFF))
                 .setSelectedTextSize(16)
                 .setNormalTextSize(14)
                 .setSelectedBold(true)
-                .setNormalBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
-                .setSelectedBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
+                .setNormalBackgroundColor(ResourceUtil.getColor(R.color.colorPrimaryDark))
+                .setSelectedBackgroundColor(ResourceUtil.getColor(R.color.colorPrimaryDark))
                 .setCurrentTab(currentItem.get())
                 .setTabItemWith(200)
                 .build();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                String format = MessageFormat.format(ResourceUtils.getString(R.string.search_bar_hint), tab.getText() != null ? tab.getText().toString() : "");
+                String format = MessageFormat.format(ResourceUtil.getString(R.string.search_bar_hint), tab.getText() != null ? tab.getText().toString() : "");
                 hintText.set(format);
             }
 
@@ -137,7 +136,7 @@ public class SearchViewModel extends BaseViewModel {
 
     private void gotoTab(Intent intent) {
         int tab = intent.getIntExtra(Constants.KeyExtra.EXTRA_TAB, 0);
-        hintText.set(MessageFormat.format(ResourceUtils.getString(R.string.search_bar_hint), SearchModel.getInstance().getTabTitle().get(tab)));
+        hintText.set(MessageFormat.format(ResourceUtil.getString(R.string.search_bar_hint), SearchModel.getInstance().getTabTitle().get(tab)));
         currentItem.set(tab);
     }
 }

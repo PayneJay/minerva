@@ -7,9 +7,9 @@ import com.minerva.R;
 import com.minerva.business.category.book.model.AllBook;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.ResourceUtils;
-import com.minerva.utils.SPUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.SPUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SearchModel {
     private static SearchModel instance;
     private List<String> searchHistory = new ArrayList<>();
-    private String[] tabTitles = new String[]{ResourceUtils.getString(R.string.tab_article), ResourceUtils.getString(R.string.tab_site), ResourceUtils.getString(R.string.tab_book)};
+    private String[] tabTitles = new String[]{ResourceUtil.getString(R.string.tab_article), ResourceUtil.getString(R.string.tab_site), ResourceUtil.getString(R.string.tab_book)};
 
     public static SearchModel getInstance() {
         if (instance == null) {
@@ -85,13 +85,13 @@ public class SearchModel {
      * @return 搜索列表
      */
     public List<String> getSearchHistory(Context context) {
-        String history = (String) SPUtils.get(context, Constants.KeyExtra.SEARCH_HISTORY_KEYWORD, "");
+        String history = (String) SPUtil.get(context, Constants.KeyExtra.SEARCH_HISTORY_KEYWORD, "");
         if (TextUtils.isEmpty(history)) {
             return searchHistory;
         }
 
         searchHistory.clear();
-        searchHistory.addAll(CommonUtils.json2List(history));
+        searchHistory.addAll(CommonUtil.json2List(history));
         return searchHistory;
     }
 
@@ -102,8 +102,8 @@ public class SearchModel {
      * @param searchHistory 搜索历史
      */
     public void setSearchHistory(Context context, List<String> searchHistory) {
-        String history = CommonUtils.toJson(searchHistory);
-        SPUtils.put(context, Constants.KeyExtra.SEARCH_HISTORY_KEYWORD, history);
+        String history = CommonUtil.toJson(searchHistory);
+        SPUtil.put(context, Constants.KeyExtra.SEARCH_HISTORY_KEYWORD, history);
     }
 
     public List<String> getTabTitle() {

@@ -19,7 +19,7 @@ import com.minerva.common.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
+import com.minerva.utils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public class BookViewModel extends RefreshListViewModel implements IPageStateLis
     @Override
     protected void requestServer() {
         refreshing.set(true);
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             refreshing.set(false);
             setPageByState(Constants.PageStatus.NETWORK_EXCEPTION);
             return;

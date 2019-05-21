@@ -7,7 +7,7 @@ import android.widget.Toast;
 public class Constants {
     public static Application application;
 
-    public static final String TAG = "com.minerva";
+    public static final String TAG = "***com.minerva***";
 
     public static final String HOST = "http://api.tuicool.com";
 

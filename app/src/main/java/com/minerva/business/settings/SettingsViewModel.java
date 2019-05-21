@@ -11,8 +11,8 @@ import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.common.Constants;
-import com.minerva.utils.FileUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.FileUtil;
+import com.minerva.utils.ResourceUtil;
 
 import java.io.File;
 import java.text.MessageFormat;
@@ -31,16 +31,16 @@ public class SettingsViewModel extends BaseViewModel {
 
         try {
             File file = Constants.application.getCacheDir();
-            clearCacheText.set(MessageFormat.format(ResourceUtils.getString(R.string.settings_clear_cache), FileUtils.getCacheSize(file)));
+            clearCacheText.set(MessageFormat.format(ResourceUtil.getString(R.string.settings_clear_cache), FileUtil.getCacheSize(file)));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void clearCache() {
-        FileUtils.clearAllCache(context);
-        clearCacheText.set(MessageFormat.format(ResourceUtils.getString(R.string.settings_clear_cache), "0kb"));
-        Toast.makeText(context, ResourceUtils.getString(R.string.toast_cache_clear_success), Toast.LENGTH_SHORT).show();
+        FileUtil.clearAllCache(context);
+        clearCacheText.set(MessageFormat.format(ResourceUtil.getString(R.string.settings_clear_cache), "0kb"));
+        Toast.makeText(context, ResourceUtil.getString(R.string.toast_cache_clear_success), Toast.LENGTH_SHORT).show();
     }
 
     @BindingAdapter("navigationClickListener")

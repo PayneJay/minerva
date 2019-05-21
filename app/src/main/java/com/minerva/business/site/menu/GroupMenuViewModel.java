@@ -20,8 +20,8 @@ import com.minerva.business.home.HomeActivity;
 import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.business.site.imperfect.SiteFragment;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.DisplayUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.DisplayUtil;
+import com.minerva.utils.ResourceUtil;
 import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
@@ -111,7 +111,7 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
             @Override
             public void onSuccess(BaseBean baseBean) {
                 loading.dismiss();
-                Toast.makeText(context, ResourceUtils.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtil.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky(baseBean);
             }
 
@@ -131,7 +131,7 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
 
     private void showRenameDialog() {
         if (renamePopup == null) {
-            renamePopup = new PopupWindow(((HomeActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            renamePopup = new PopupWindow(((HomeActivity) context).getWindow().getDecorView(), DisplayUtil.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             renamePopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -146,7 +146,7 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
         ((HomeActivity) context).getWindow().setAttributes(lp);
 
         CreateGroupViewModel viewModel = new CreateGroupViewModel(context);
-        viewModel.title.set(ResourceUtils.getString(R.string.dialog_rename_group));
+        viewModel.title.set(ResourceUtil.getString(R.string.dialog_rename_group));
         viewModel.titleContent.set(name);
         viewModel.setListener(this);
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_create_group_layout, null, false);
@@ -158,10 +158,10 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
 
     private void showConfirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
-                .setMessage(MessageFormat.format(ResourceUtils.getString(R.string.dialog_are_you_sure_delete_group), name))
-                .setNegativeButton(ResourceUtils.getString(R.string.dialog_cancel), null)
-                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
+                .setTitle(ResourceUtil.getString(R.string.dialog_title_note))
+                .setMessage(MessageFormat.format(ResourceUtil.getString(R.string.dialog_are_you_sure_delete_group), name))
+                .setNegativeButton(ResourceUtil.getString(R.string.dialog_cancel), null)
+                .setPositiveButton(ResourceUtil.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

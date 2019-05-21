@@ -10,10 +10,9 @@ import com.minerva.R;
 import com.minerva.base.BaseBean;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.mine.journal.kan.model.FavKanModel;
-import com.minerva.business.site.menu.IPopupMenuItemClickListener;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.ResourceUtil;
 import com.minerva.widget.Loading;
 
 import java.text.MessageFormat;
@@ -42,10 +41,10 @@ public class KanItemViewModel extends BaseViewModel {
      */
     private void showConfirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
-                .setMessage(MessageFormat.format(ResourceUtils.getString(R.string.dialog_are_you_sure_migrate_kan), kanName.get()))
-                .setNegativeButton(ResourceUtils.getString(R.string.dialog_cancel), null)
-                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
+                .setTitle(ResourceUtil.getString(R.string.dialog_title_note))
+                .setMessage(MessageFormat.format(ResourceUtil.getString(R.string.dialog_are_you_sure_migrate_kan), kanName.get()))
+                .setNegativeButton(ResourceUtil.getString(R.string.dialog_cancel), null)
+                .setPositiveButton(ResourceUtil.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -59,8 +58,8 @@ public class KanItemViewModel extends BaseViewModel {
      * 执行迁移分组操作
      */
     private void migrateKan() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
-            Toast.makeText(context, ResourceUtils.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+        if (!CommonUtil.isNetworkAvailable(context)) {
+            Toast.makeText(context, ResourceUtil.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
             return;
         }
 

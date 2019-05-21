@@ -2,10 +2,13 @@ package com.minerva.business.article.detail;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.util.Log;
 
+import com.iflytek.sunflower.FlowerCollector;
 import com.minerva.R;
 import com.minerva.BR;
 import com.minerva.base.BaseActivity;
+import com.minerva.common.Constants;
 import com.umeng.socialize.UMShareAPI;
 
 public class ArticleDetailActivity extends BaseActivity<ArticleDetailViewModel> {
@@ -47,8 +50,27 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailViewModel> 
     }
 
     @Override
+    protected void onResume() {
+        //移动数据统计分析
+        FlowerCollector.onResume(this);
+        FlowerCollector.onPageStart(getLocalClassName());
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        //移动数据统计分析
+        FlowerCollector.onPageEnd(getLocalClassName());
+        FlowerCollector.onPause(this);
+        super.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         UMShareAPI.get(this).release();
+        if (detailViewModel != null) {
+            detailViewModel.onDetach();
+        }
     }
 }

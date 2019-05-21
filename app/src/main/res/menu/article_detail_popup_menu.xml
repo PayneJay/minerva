@@ -12,9 +12,9 @@
         android:id="@+id/menu_change_font_size"
         android:title="@string/toolbar_menu_change_font_size" />
 
-    <!--<item-->
-        <!--android:id="@+id/menu_open_turn_over"-->
-        <!--android:title="@string/toolbar_menu_open_turn_over" />-->
+    <item
+        android:id="@+id/menu_open_voice_broadcast"
+        android:title="@string/toolbar_menu_voice_broadcast" />
 
     <item
         android:id="@+id/menu_view_original"

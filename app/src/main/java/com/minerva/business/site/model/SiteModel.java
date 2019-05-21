@@ -3,7 +3,7 @@ package com.minerva.business.site.model;
 
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.utils.CommonUtils;
+import com.minerva.utils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class SiteModel {
      * @return 返回站点信息列表数据
      */
     public List<SitesBean.ItemsBeanX> loadLocalData() {
-        SitesBean bean = CommonUtils.getSiteListFromJson();
+        SitesBean bean = CommonUtil.getSiteListFromJson();
 
         List<SitesBean.ItemsBeanX> list = new ArrayList<>();
         for (int i = 0; i < bean.getItems().size(); i++) {

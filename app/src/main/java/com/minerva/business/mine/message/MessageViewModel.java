@@ -2,7 +2,6 @@ package com.minerva.business.mine.message;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,8 +17,8 @@ import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.RefreshListViewModel;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.ResourceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 public class MessageViewModel extends RefreshListViewModel {
-    public ObservableField<String> mTitle = new ObservableField<>(ResourceUtils.getString(R.string.mine_notification));
+    public ObservableField<String> mTitle = new ObservableField<>(ResourceUtil.getString(R.string.mine_notification));
     public ObservableList<BaseViewModel> items = new ObservableArrayList<>();
     public OnItemBind<BaseViewModel> msgItemBind = new OnItemBind<BaseViewModel>() {
         @Override
@@ -67,7 +66,7 @@ public class MessageViewModel extends RefreshListViewModel {
 
     @Override
     protected void requestServer() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             refreshing.set(false);
             if (mBlankVM == null) {
                 mBlankVM = new BlankViewModel(context);

@@ -9,8 +9,8 @@ import com.google.gson.reflect.TypeToken;
 import com.minerva.base.BaseBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.SPUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.SPUtil;
 
 import java.util.LinkedHashMap;
 
@@ -85,7 +85,7 @@ public class ArticleDetailModel {
      * @return map
      */
     public LinkedHashMap<String, Object> getArticlesByKey(Context context, String key) {
-        String history = (String) SPUtils.get(context, key, "");
+        String history = (String) SPUtil.get(context, key, "");
         if (TextUtils.isEmpty(history)) {
             return readArticleMap;
         }
@@ -109,8 +109,8 @@ public class ArticleDetailModel {
         LinkedHashMap<String, Object> readLater = getArticlesByKey(context, key);
         readLater.put(article.getId(), article);
 
-        String mapString = CommonUtils.toJson(readLater);
-        SPUtils.put(context, key, mapString);
+        String mapString = CommonUtil.toJson(readLater);
+        SPUtil.put(context, key, mapString);
     }
 
     /**
@@ -124,8 +124,8 @@ public class ArticleDetailModel {
         LinkedHashMap<String, Object> readLater = getArticlesByKey(context, key);
         readLater.remove(id);
 
-        String map = CommonUtils.toJson(readLater);
-        SPUtils.put(context, key, map);
+        String map = CommonUtil.toJson(readLater);
+        SPUtil.put(context, key, map);
     }
 
 }

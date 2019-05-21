@@ -5,10 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.minerva.R;
 import com.minerva.base.BaseFragment;
 import com.minerva.business.search.model.SearchModel;
-import com.minerva.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;

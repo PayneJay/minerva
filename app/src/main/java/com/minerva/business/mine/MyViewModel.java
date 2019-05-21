@@ -22,8 +22,8 @@ import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.ResourceUtils;
-import com.minerva.utils.SPUtils;
+import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.SPUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,7 +33,7 @@ import java.util.Map;
 import static com.minerva.common.Constants.showToast;
 
 public class MyViewModel extends BaseViewModel {
-    public ObservableField<String> userName = new ObservableField<>(ResourceUtils.getString(R.string.mine_click_login));
+    public ObservableField<String> userName = new ObservableField<>(ResourceUtil.getString(R.string.mine_click_login));
     public ObservableField<String> headUrl = new ObservableField<>();
     public ObservableField<String> unReadCount = new ObservableField<>("");
 
@@ -68,7 +68,7 @@ public class MyViewModel extends BaseViewModel {
             return;
         }
 
-        Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
     }
 
     public void goNotification() {
@@ -77,7 +77,7 @@ public class MyViewModel extends BaseViewModel {
             return;
         }
 
-        Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
     }
 
     public void goHistory() {
@@ -95,7 +95,7 @@ public class MyViewModel extends BaseViewModel {
     }
 
     public void checkUpgrade() {
-        Toast.makeText(context, ResourceUtils.getString(R.string.toast_already_new), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, ResourceUtil.getString(R.string.toast_already_new), Toast.LENGTH_SHORT).show();
     }
 
     public void goFeedback() {
@@ -172,8 +172,8 @@ public class MyViewModel extends BaseViewModel {
      */
     private void updateStatus() {
         if (GlobalData.getInstance().isLogin()) {
-            headUrl.set((String) SPUtils.get(context, Constants.UserInfoKey.USER_PROFILE, ""));
-            userName.set((String) SPUtils.get(context, Constants.UserInfoKey.USER_NAME, "——"));
+            headUrl.set((String) SPUtil.get(context, Constants.UserInfoKey.USER_PROFILE, ""));
+            userName.set((String) SPUtil.get(context, Constants.UserInfoKey.USER_NAME, "——"));
         }
     }
 

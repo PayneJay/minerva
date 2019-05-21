@@ -17,8 +17,8 @@ import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.ResourceUtils;
-import com.minerva.utils.SPUtils;
+import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.SPUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -60,7 +60,7 @@ public class LoginViewModel extends BaseViewModel {
      * 设置最近一次登录的邮箱
      */
     private void setLastLoginEmail() {
-        String lastEmail = (String) SPUtils.get(context, Constants.KeyExtra.LAST_LOGIN_EMAIL, "");
+        String lastEmail = (String) SPUtil.get(context, Constants.KeyExtra.LAST_LOGIN_EMAIL, "");
         email.set(lastEmail);
     }
 
@@ -71,7 +71,7 @@ public class LoginViewModel extends BaseViewModel {
             @Override
             public void onSuccess(UserInfo userInfo) {
                 mProgressDialog.dismiss();
-                Toast.makeText(context, ResourceUtils.getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtil.getString(R.string.login_success), Toast.LENGTH_SHORT).show();
                 UserInfo.UserBean user = userInfo.getUser();
                 if (user != null) {
                     LoginRegisterModel.getInstance().saveUserInfo(context, user);
@@ -93,7 +93,7 @@ public class LoginViewModel extends BaseViewModel {
     private void showDialog() {
         mProgressDialog = new ProgressDialog(context, R.style.AppTheme_Dark_Dialog);
         mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage(ResourceUtils.getString(R.string.login_verifying));
+        mProgressDialog.setMessage(ResourceUtil.getString(R.string.login_verifying));
         mProgressDialog.show();
     }
 }

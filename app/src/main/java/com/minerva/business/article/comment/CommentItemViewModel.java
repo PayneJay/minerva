@@ -19,8 +19,8 @@ import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
-import com.minerva.utils.DisplayUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.DisplayUtil;
+import com.minerva.utils.ResourceUtil;
 
 public class CommentItemViewModel extends BaseViewModel implements CommentOptViewModel.ICommentOperateListener {
     public ObservableField<String> headUrl = new ObservableField<>();
@@ -66,7 +66,7 @@ public class CommentItemViewModel extends BaseViewModel implements CommentOptVie
             cm.setPrimaryClip(mClipData);
         }
 
-        Toast.makeText(context, ResourceUtils.getString(R.string.copy_success), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, ResourceUtil.getString(R.string.copy_success), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class CommentItemViewModel extends BaseViewModel implements CommentOptVie
 
     private void showMenuPopup() {
         if (operatePopup == null) {
-            operatePopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            operatePopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtil.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             operatePopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -102,10 +102,10 @@ public class CommentItemViewModel extends BaseViewModel implements CommentOptVie
 
     private void showConfirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
-                .setMessage(ResourceUtils.getString(R.string.dialog_are_you_sure_delete))
-                .setNegativeButton(ResourceUtils.getString(R.string.dialog_cancel), null)
-                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
+                .setTitle(ResourceUtil.getString(R.string.dialog_title_note))
+                .setMessage(ResourceUtil.getString(R.string.dialog_are_you_sure_delete))
+                .setNegativeButton(ResourceUtil.getString(R.string.dialog_cancel), null)
+                .setPositiveButton(ResourceUtil.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

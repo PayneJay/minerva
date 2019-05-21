@@ -38,7 +38,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.minerva.common.Constants;
 import com.minerva.common.image.HtmlImageGetter;
-import com.minerva.utils.CommonUtils;
+import com.minerva.utils.HtmlUtil;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -399,7 +399,7 @@ public class ViewBindings {
         String html = source;
         if (!TextUtils.isEmpty(source)) {
             Document doc = Jsoup.parse(source);
-            html = CommonUtils.handlerPreTag(doc);
+            html = HtmlUtil.handlerPreTag(doc);
         }
 
         HtmlImageGetter imageGetter = new HtmlImageGetter(textView.getContext(), textView);

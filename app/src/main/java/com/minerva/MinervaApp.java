@@ -2,6 +2,8 @@ package com.minerva;
 
 import android.app.Application;
 
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.minerva.common.Constants;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
@@ -12,14 +14,20 @@ public class MinervaApp extends Application {
     public void onCreate() {
         super.onCreate();
         Constants.application = this;
+        initUMeng();
+        initXFYun();
+    }
 
-        initUmeng();
+    private void initXFYun() {
+        // 将“12345678”替换成您申请的APPID，申请地址：http://www.xfyun.cn
+        // 请勿在“=”与appid之间添加任何空字符或者转义符
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5ce399db");
     }
 
     /**
      * 初始化友盟相关
      */
-    private void initUmeng() {
+    private void initUMeng() {
         UMConfigure.init(this, "5c776a0df1f556755c001104"
                 , "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         UMShareAPI.get(this);

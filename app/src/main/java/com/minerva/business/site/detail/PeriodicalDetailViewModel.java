@@ -19,8 +19,8 @@ import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.RefreshListViewModel;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.ResourceUtil;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -114,7 +114,7 @@ public class PeriodicalDetailViewModel extends RefreshListViewModel {
 
     @Override
     protected void requestServer() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             setNetworkError();
             return;
         }
@@ -128,7 +128,7 @@ public class PeriodicalDetailViewModel extends RefreshListViewModel {
                     titleViewModel.setFollow(site.isFollowed());
                     titleViewModel.name.set(site.getName());
                     titleViewModel.imgUrl.set(site.getImage());
-                    titleViewModel.subscribe.set(site.isFollowed() ? ResourceUtils.getString(R.string.periodical_unsubscribe) : ResourceUtils.getString(R.string.periodical_subscribe));
+                    titleViewModel.subscribe.set(site.isFollowed() ? ResourceUtil.getString(R.string.periodical_unsubscribe) : ResourceUtil.getString(R.string.periodical_subscribe));
                 }
                 handleData(siteDetailBean);
                 createViewModel();

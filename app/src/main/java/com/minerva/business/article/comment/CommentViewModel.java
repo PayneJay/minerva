@@ -19,13 +19,12 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.comment.model.CommentDetail;
 import com.minerva.business.article.comment.model.CommentListBean;
 import com.minerva.business.article.comment.model.CommentModel;
-import com.minerva.business.home.HomeActivity;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.ResourceUtil;
 import com.minerva.widget.Loading;
 
 import java.util.ArrayList;
@@ -86,7 +85,7 @@ public class CommentViewModel extends BaseViewModel implements ICommentListener 
         if (GlobalData.getInstance().isLogin()) {
             showCommentInputDialog();
         } else {
-            Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -127,7 +126,7 @@ public class CommentViewModel extends BaseViewModel implements ICommentListener 
     @Override
     public void onCommentSubmit(String comment) {
         if (TextUtils.isEmpty(comment)) {
-            Toast.makeText(context, ResourceUtils.getString(R.string.please_check_your_content_empty), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtil.getString(R.string.please_check_your_content_empty), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -175,8 +174,8 @@ public class CommentViewModel extends BaseViewModel implements ICommentListener 
     }
 
     private boolean checkNetwork() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
-            Toast.makeText(context, ResourceUtils.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+        if (!CommonUtil.isNetworkAvailable(context)) {
+            Toast.makeText(context, ResourceUtil.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -189,9 +188,9 @@ public class CommentViewModel extends BaseViewModel implements ICommentListener 
     }
 
     private void requestServer() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             if (isLoadMore) {
-                Toast.makeText(context, ResourceUtils.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtil.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
             } else {
                 setErrorPage();
             }

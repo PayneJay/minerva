@@ -21,7 +21,7 @@ import com.minerva.business.SplashActivity;
 import com.minerva.business.mine.signinout.model.LoginRegisterModel;
 import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.ResourceUtil;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -71,7 +71,7 @@ public class RegisterViewModel extends BaseViewModel implements RegisterVerifyVi
     private void showDialog() {
         mProgressDialog = new ProgressDialog(context, R.style.AppTheme_Dark_Dialog);
         mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage(ResourceUtils.getString(R.string.toast_registing));
+        mProgressDialog.setMessage(ResourceUtil.getString(R.string.toast_registing));
         mProgressDialog.show();
     }
 
