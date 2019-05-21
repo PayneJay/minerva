@@ -33,6 +33,11 @@ android {
             signingConfig signingConfigs.config
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
     dataBinding {
         enabled = true
     }
@@ -74,4 +79,7 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.11.3'
     //cardview
     implementation 'com.android.support:cardview-v7:27.1.1'
+    //讯飞
+    implementation files('libs/Msc.jar')
+    implementation files('libs/Sunflower.jar')
 }

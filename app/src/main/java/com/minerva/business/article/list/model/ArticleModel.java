@@ -7,12 +7,11 @@ import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.list.ArticleItemViewModel;
 import com.minerva.business.article.list.IUnLoginListener;
-import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.network.RetrofitService;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.ResourceUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,14 +85,14 @@ public class ArticleModel {
      */
     public List<ArticleType> getTabTypes() {
         List<ArticleType> list = new ArrayList<>();
-        list.add(new ArticleType(ResourceUtils.getString(R.string.article_hot), "0"));
-        list.add(new ArticleType(ResourceUtils.getString(R.string.article_recommend), "0"));
-        list.add(new ArticleType(ResourceUtils.getString(R.string.article_science_technology), "101000000"));
-        list.add(new ArticleType(ResourceUtils.getString(R.string.article_start_up), "101040000"));
-        list.add(new ArticleType(ResourceUtils.getString(R.string.article_digital), "101050000"));
-        list.add(new ArticleType(ResourceUtils.getString(R.string.article_technology), "20"));
-        list.add(new ArticleType(ResourceUtils.getString(R.string.article_design), "108000000"));
-        list.add(new ArticleType(ResourceUtils.getString(R.string.article_marketing), "114000000"));
+        list.add(new ArticleType(ResourceUtil.getString(R.string.article_hot), "0"));
+        list.add(new ArticleType(ResourceUtil.getString(R.string.article_recommend), "0"));
+        list.add(new ArticleType(ResourceUtil.getString(R.string.article_science_technology), "101000000"));
+        list.add(new ArticleType(ResourceUtil.getString(R.string.article_start_up), "101040000"));
+        list.add(new ArticleType(ResourceUtil.getString(R.string.article_digital), "101050000"));
+        list.add(new ArticleType(ResourceUtil.getString(R.string.article_technology), "20"));
+        list.add(new ArticleType(ResourceUtil.getString(R.string.article_design), "108000000"));
+        list.add(new ArticleType(ResourceUtil.getString(R.string.article_marketing), "114000000"));
 
         return list;
     }

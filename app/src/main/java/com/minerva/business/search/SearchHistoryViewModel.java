@@ -7,8 +7,6 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.search.model.SearchModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.SPUtils;
 
 import org.greenrobot.eventbus.EventBus;
 

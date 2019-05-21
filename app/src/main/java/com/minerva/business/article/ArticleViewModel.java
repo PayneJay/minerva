@@ -12,7 +12,7 @@ import com.minerva.R;
 import com.minerva.base.BaseFragment;
 import com.minerva.base.BaseViewModel;
 import com.minerva.common.TabLayoutHelper;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.ResourceUtil;
 
 public class ArticleViewModel extends BaseViewModel {
     public static ObservableInt currentItem = new ObservableInt(0);
@@ -51,12 +51,12 @@ public class ArticleViewModel extends BaseViewModel {
                 .setIndicatorWith(150)
                 .setIndicatorDrawable(R.drawable.shape_tab_line)
                 .setSelectedTextColor(Color.WHITE)
-                .setNormalTextColor(ResourceUtils.getColor(R.color.color_CFFFFFFF))
+                .setNormalTextColor(ResourceUtil.getColor(R.color.color_CFFFFFFF))
                 .setSelectedTextSize(16)
                 .setNormalTextSize(14)
                 .setSelectedBold(true)
-                .setNormalBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
-                .setSelectedBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
+                .setNormalBackgroundColor(ResourceUtil.getColor(R.color.colorPrimaryDark))
+                .setSelectedBackgroundColor(ResourceUtil.getColor(R.color.colorPrimaryDark))
                 .setCurrentTab(currentItem.get())
                 .setTabItemWith(200)
                 .build();

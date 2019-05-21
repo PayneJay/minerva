@@ -23,7 +23,7 @@ import com.minerva.common.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
+import com.minerva.utils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -126,7 +126,7 @@ public class MagDetailViewModel extends RefreshListViewModel implements IPageSta
 
     @Override
     protected void requestServer() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             refreshing.set(false);
             removeExcludeTitle();
             setPageByState(Constants.PageStatus.NETWORK_EXCEPTION);

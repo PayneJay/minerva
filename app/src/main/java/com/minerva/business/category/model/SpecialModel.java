@@ -3,7 +3,7 @@ package com.minerva.business.category.model;
 import com.minerva.business.category.book.model.AllBook;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.utils.CommonUtils;
+import com.minerva.utils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +26,14 @@ public class SpecialModel {
     }
 
     public List<MagBean.ItemsBeanX> generateColumnData() {
-        MagBean bean = CommonUtils.getSpecialListFromJson();
+        MagBean bean = CommonUtil.getSpecialListFromJson();
         List<MagBean.ItemsBeanX> list = new ArrayList<>();
         list.addAll(bean.getItems());
         return list;
     }
 
     public List<BookBean.ItemsBean> generateBookData() {
-        BookBean bean = CommonUtils.getBookListFromJson();
+        BookBean bean = CommonUtil.getBookListFromJson();
         List<BookBean.ItemsBean> list = new ArrayList<>();
         list.addAll(bean.getItems());
         return list;

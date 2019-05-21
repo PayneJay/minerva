@@ -19,7 +19,7 @@ import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.NoMoreViewModel;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
+import com.minerva.utils.CommonUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -140,7 +140,7 @@ public class ArticleListViewModel extends RefreshListViewModel {
     }
 
     protected void requestServer() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             refreshing.set(false);
             if (mBlankVM == null) {
                 mBlankVM = new BlankViewModel(context);

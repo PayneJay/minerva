@@ -14,8 +14,8 @@ import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.ResourceUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -31,7 +31,7 @@ public class CollectionViewModel extends ArticleListViewModel {
     CollectionViewModel(Context context) {
         super(context, context.getClass().getSimpleName());
         EventBus.getDefault().register(this);
-        mTitle = ResourceUtils.getString(R.string.mine_collection);
+        mTitle = ResourceUtil.getString(R.string.mine_collection);
         requestServer();
     }
 
@@ -42,7 +42,7 @@ public class CollectionViewModel extends ArticleListViewModel {
             return;
         }
 
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             setNetworkError();
             return;
         }

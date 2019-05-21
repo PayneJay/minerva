@@ -6,8 +6,6 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.minerva.R;
-import com.minerva.base.BaseActivity;
-import com.minerva.base.BaseBean;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.mine.signinout.model.LoginRegisterModel;
 import com.minerva.business.mine.signinout.model.UserInfo;
@@ -15,7 +13,7 @@ import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.network.NetworkObserver;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.ResourceUtil;
 import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,7 +41,7 @@ public class UpdateNameViewModel extends BaseViewModel {
 
     public void onConfirmClick() {
         if (TextUtils.isEmpty(content.get())) {
-            Toast.makeText(context, ResourceUtils.getString(R.string.please_check_your_content_empty), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtil.getString(R.string.please_check_your_content_empty), Toast.LENGTH_SHORT).show();
             return;
         }
         updateUserName();

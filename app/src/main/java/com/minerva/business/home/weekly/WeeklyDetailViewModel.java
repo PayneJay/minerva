@@ -9,12 +9,11 @@ import com.minerva.business.category.mag.MagTitleViewModel;
 import com.minerva.business.home.weekly.model.WeekDetailBean;
 import com.minerva.business.home.weekly.model.WeeklyModel;
 import com.minerva.business.site.PolymerReadViewModel;
-import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.DateUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.DateUtil;
+import com.minerva.utils.ResourceUtil;
 
 import java.text.MessageFormat;
 import java.util.Date;
@@ -29,7 +28,7 @@ public class WeeklyDetailViewModel extends PolymerReadViewModel {
         weekId = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.WEEKLY_ID);
         weekTime = ((BaseActivity) context).getIntent().getLongExtra(Constants.KeyExtra.WEEKLY_DATE, 0);
         MagTitleViewModel titleViewModel = new MagTitleViewModel(context);
-        titleViewModel.title.set(ResourceUtils.getString(R.string.weekly_tag_gleaning));
+        titleViewModel.title.set(ResourceUtil.getString(R.string.weekly_tag_gleaning));
         name = getDateText();
         titleViewModel.name.set(name);
         items.add(titleViewModel);
@@ -38,7 +37,7 @@ public class WeeklyDetailViewModel extends PolymerReadViewModel {
 
     @Override
     protected void requestServer() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             refreshing.set(false);
             setNetworkError();
             return;
@@ -67,8 +66,8 @@ public class WeeklyDetailViewModel extends PolymerReadViewModel {
      * @return
      */
     private String getDateText() {
-        int month = DateUtils.getMonthByDate(new Date(weekTime));
-        int weekOfMonth = DateUtils.getWeekOfMonth(new Date(weekTime));
-        return MessageFormat.format(ResourceUtils.getString(R.string.weekly_month_week), month, weekOfMonth);
+        int month = DateUtil.getMonthByDate(new Date(weekTime));
+        int weekOfMonth = DateUtil.getWeekOfMonth(new Date(weekTime));
+        return MessageFormat.format(ResourceUtil.getString(R.string.weekly_month_week), month, weekOfMonth);
     }
 }

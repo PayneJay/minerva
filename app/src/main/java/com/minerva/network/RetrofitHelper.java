@@ -1,11 +1,9 @@
 package com.minerva.network;
 
 import android.util.Base64;
-import android.util.Log;
 
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
-import com.minerva.utils.SPUtils;
 
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
@@ -81,7 +79,6 @@ public class RetrofitHelper {
         String passWord = GlobalData.getInstance().getToken();
         String base64;
         base64 = Base64.encodeToString((userName + ":" + passWord).getBytes(), Base64.NO_WRAP);
-        Log.i(Constants.TAG, "auth===" + base64);
         return "Basic " + base64;
     }
 

@@ -1,8 +1,6 @@
 package com.minerva.business.site;
 
 import android.content.Context;
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
 
 import com.minerva.BR;
 import com.minerva.R;
@@ -14,11 +12,10 @@ import com.minerva.business.category.mag.MagTitleViewModel;
 import com.minerva.business.site.detail.PeriodicalDetailViewModel;
 import com.minerva.business.site.model.PolymerRead;
 import com.minerva.business.site.model.SiteModel;
-import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.ResourceUtil;
 
 import java.util.Iterator;
 import java.util.List;
@@ -52,7 +49,7 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
         name = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.PERIODICAL_NAME);
 
         MagTitleViewModel titleViewModel = new MagTitleViewModel(context);
-        titleViewModel.title.set(ResourceUtils.getString(R.string.polymer_read).substring(0, 1));
+        titleViewModel.title.set(ResourceUtil.getString(R.string.polymer_read).substring(0, 1));
         titleViewModel.name.set(name);
         items.add(titleViewModel);
         requestServer();
@@ -64,7 +61,7 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
 
     @Override
     protected void requestServer() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             setNetworkError();
             return;
         }

@@ -10,7 +10,7 @@ import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.home.weekly.model.WeekListBean;
 import com.minerva.common.Constants;
-import com.minerva.utils.DateUtils;
+import com.minerva.utils.DateUtil;
 
 import java.util.Date;
 import java.util.Random;
@@ -48,8 +48,8 @@ public class WeeklyItemViewModel extends BaseViewModel {
     }
 
     private void initView(WeekListBean.ItemsBean item) {
-        dateText.set(DateUtils.date2Str(new Date(item.getTime()), "MM/dd"));
-        weekText.set(DateUtils.getWeek(new Date(item.getTime())));
+        dateText.set(DateUtil.date2Str(new Date(item.getTime()), "MM/dd"));
+        weekText.set(DateUtil.getWeek(new Date(item.getTime())));
         Random random = new Random();
         int nextInt = random.nextInt(colors.length);
         colorRes.set(colors[nextInt]);

@@ -11,16 +11,19 @@
             name="articleDetailVM"
             type="com.minerva.business.article.detail.ArticleDetailViewModel" />
 
+        <import type="android.view.View" />
+
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.minerva.widget.TitleBar
             android:id="@+id/title_bar"
             commentClick="@{articleDetailVM::comment}"
+            isNetworkAvailable="@{articleDetailVM.isNetworkAvailable}"
             moreClick="@{articleDetailVM::more}"
             shareClick="@{articleDetailVM::share}"
             titleBarBg="@{articleDetailVM.backgroundColor}"
@@ -28,6 +31,7 @@
             android:layout_height="@dimen/nav_dimen_size_46dp" />
 
         <android.support.v4.widget.NestedScrollView
+            isGone="@{articleDetailVM.isException}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -72,6 +76,29 @@
                     android:textColor="@color/color_000000" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{articleDetailVM.isException ? View.VISIBLE : View.GONE}">
+
+            <ImageView
+                android:layout_width="@dimen/nav_dimen_size_60dp"
+                android:layout_height="@dimen/nav_dimen_size_60dp"
+                android:imageSrc="@{articleDetailVM.drawableRes}" />
+
+            <TextView
+                text="@{articleDetailVM.description}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+                android:gravity="center"
+                android:maxWidth="150dp"
+                android:textColor="@color/color_8a8a8a"
+                android:textSize="16sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </layout>

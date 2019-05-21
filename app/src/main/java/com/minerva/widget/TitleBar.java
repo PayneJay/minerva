@@ -40,24 +40,28 @@ public class TitleBar extends LinearLayout {
     @BindingAdapter("shareClick")
     public static void setShareClick(TitleBar view, ViewBindings.ClickHandler click) {
         view.getViewModel().onShareClick = click;
-        view.getViewModel().isShareGone.set(click == null);
     }
 
     @BindingAdapter("commentClick")
     public static void setCommentClick(TitleBar view, ViewBindings.ClickHandler click) {
         view.getViewModel().onCommentClick = click;
-        view.getViewModel().isCommentGone.set(click == null);
     }
 
     @BindingAdapter("moreClick")
     public static void setMoreClick(TitleBar view, ViewBindings.ClickHandler click) {
         view.getViewModel().onMoreClick = click;
-        view.getViewModel().isMoreGone.set(click == null);
     }
 
     @BindingAdapter("titleBarBg")
     public static void setTitleBarBg(TitleBar view, int color) {
         view.getViewModel().bgColor.set(color);
+    }
+
+    @BindingAdapter("isNetworkAvailable")
+    public static void isNetworkAvailable(TitleBar view, boolean isAvailable) {
+        view.getViewModel().isCommentGone.set(!isAvailable);
+        view.getViewModel().isShareGone.set(!isAvailable);
+        view.getViewModel().isMoreGone.set(!isAvailable);
     }
 
     private void init() {

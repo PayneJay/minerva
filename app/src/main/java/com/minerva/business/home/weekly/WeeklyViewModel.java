@@ -16,7 +16,7 @@ import com.minerva.common.BlankViewModel;
 import com.minerva.common.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
+import com.minerva.utils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +64,7 @@ public class WeeklyViewModel extends RefreshListViewModel {
     @Override
     protected void requestServer() {
         refreshing.set(true);
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             refreshing.set(false);
             setErrorPage(Constants.PageStatus.NETWORK_EXCEPTION);
             return;

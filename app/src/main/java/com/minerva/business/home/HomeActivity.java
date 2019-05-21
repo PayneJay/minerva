@@ -50,8 +50,8 @@ import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.utils.DisplayUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.DisplayUtil;
+import com.minerva.utils.ResourceUtil;
 import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
@@ -246,7 +246,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             @Override
             public void onSuccess(SitesBean sitesBean) {
                 loading.dismiss();
-                Toast.makeText(context, ResourceUtils.getString(R.string.toast_create_group_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtil.getString(R.string.toast_create_group_success), Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky(sitesBean);
             }
 
@@ -270,7 +270,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private void exitByDoubleClick() {
         if (!isExit) {
             isExit = true;
-            Toast.makeText(this, ResourceUtils.getString(R.string.exit_by_double_click), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, ResourceUtil.getString(R.string.exit_by_double_click), Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -298,7 +298,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE,
                     Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW,
-                    Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
+                    Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS, Manifest.permission.WRITE_SETTINGS};
             ActivityCompat.requestPermissions(this, mPermissionList, 123);
         }
     }
@@ -351,11 +351,11 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      */
     private void showCreateGroupDialog() {
         if (!GlobalData.getInstance().isLogin()) {
-            Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
             return;
         }
         if (createPopup == null) {
-            createPopup = new PopupWindow(getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            createPopup = new PopupWindow(getWindow().getDecorView(), DisplayUtil.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             createPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -370,7 +370,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         getWindow().setAttributes(lp);
 
         CreateGroupViewModel viewModel = new CreateGroupViewModel(this);
-        viewModel.title.set(ResourceUtils.getString(R.string.dialog_create_group));
+        viewModel.title.set(ResourceUtil.getString(R.string.dialog_create_group));
         viewModel.setListener(this);
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_create_group_layout, null, false);
         binding.setVariable(BR.createGroupVM, viewModel);
@@ -391,12 +391,12 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      */
     private void goSortGroups() {
         if (!GlobalData.getInstance().isLogin()) {
-            Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
             return;
         }
         List<SitesBean.ItemsBeanX> itemList = SiteModel.getInstance().getItemList();
         if (itemList.size() <= 1) {
-            Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_create_more_to_sort), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, ResourceUtil.getString(R.string.toast_please_create_more_to_sort), Toast.LENGTH_SHORT).show();
             return;
         }
         startActivity(new Intent(this, SiteSortActivity.class));
@@ -407,7 +407,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      */
     private void markAllRead() {
         if (!GlobalData.getInstance().isLogin()) {
-            Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
             return;
         }
         if (loading == null) {
@@ -418,7 +418,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             @Override
             public void onSuccess(BaseBean baseBean) {
                 loading.dismiss();
-                Toast.makeText(context, ResourceUtils.getString(R.string.toast_already_update), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtil.getString(R.string.toast_already_update), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -433,9 +433,9 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      */
     private void showUseTips() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
-                .setMessage(ResourceUtils.getString(R.string.dialog_use_tips_content))
-                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
+                .setTitle(ResourceUtil.getString(R.string.dialog_title_note))
+                .setMessage(ResourceUtil.getString(R.string.dialog_use_tips_content))
+                .setPositiveButton(ResourceUtil.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -453,7 +453,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             return;
         }
 
-        Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -465,7 +465,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             return;
         }
 
-        Toast.makeText(this, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
     }
 
     /**

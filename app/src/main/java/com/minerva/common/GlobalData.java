@@ -2,7 +2,7 @@ package com.minerva.common;
 
 import android.text.TextUtils;
 
-import com.minerva.utils.SPUtils;
+import com.minerva.utils.SPUtil;
 
 public class GlobalData {
 
@@ -23,31 +23,31 @@ public class GlobalData {
      * @return
      */
     public boolean isLogin() {
-        String uid = (String) SPUtils.get(Constants.application, Constants.UserInfoKey.USER_ID, "");
-        String token = (String) SPUtils.get(Constants.application, Constants.UserInfoKey.USER_TOKEN, "");
+        String uid = (String) SPUtil.get(Constants.application, Constants.UserInfoKey.USER_ID, "");
+        String token = (String) SPUtil.get(Constants.application, Constants.UserInfoKey.USER_TOKEN, "");
         return !TextUtils.isEmpty(uid) && !TextUtils.isEmpty(token);
     }
 
     public String getUid() {
-        return (String) SPUtils.get(Constants.application, Constants.UserInfoKey.USER_ID, "10.2.62.44");
+        return (String) SPUtil.get(Constants.application, Constants.UserInfoKey.USER_ID, "10.2.62.44");
     }
 
     public String getToken() {
-        return (String) SPUtils.get(Constants.application, Constants.UserInfoKey.USER_TOKEN, "tuicool");
+        return (String) SPUtil.get(Constants.application, Constants.UserInfoKey.USER_TOKEN, "tuicool");
     }
 
     /**
      * 清空登录状态，用户信息
      */
     public void clear() {
-        SPUtils.put(Constants.application, Constants.UserInfoKey.USER_ID, "");
-        SPUtils.put(Constants.application, Constants.UserInfoKey.USER_TOKEN, "");
+        SPUtil.put(Constants.application, Constants.UserInfoKey.USER_ID, "");
+        SPUtil.put(Constants.application, Constants.UserInfoKey.USER_TOKEN, "");
 
-        SPUtils.put(Constants.application, Constants.UserInfoKey.USER_PROFILE, "");
-        SPUtils.put(Constants.application, Constants.UserInfoKey.USER_NAME, "");
-        SPUtils.put(Constants.application, Constants.UserInfoKey.USER_EMAIL, "");
-        SPUtils.put(Constants.application, Constants.UserInfoKey.WEIBO, "");
-        SPUtils.put(Constants.application, Constants.UserInfoKey.QQ, "");
-        SPUtils.put(Constants.application, Constants.UserInfoKey.WECHAT, "");
+        SPUtil.put(Constants.application, Constants.UserInfoKey.USER_PROFILE, "");
+        SPUtil.put(Constants.application, Constants.UserInfoKey.USER_NAME, "");
+        SPUtil.put(Constants.application, Constants.UserInfoKey.USER_EMAIL, "");
+        SPUtil.put(Constants.application, Constants.UserInfoKey.WEIBO, "");
+        SPUtil.put(Constants.application, Constants.UserInfoKey.QQ, "");
+        SPUtil.put(Constants.application, Constants.UserInfoKey.WECHAT, "");
     }
 }

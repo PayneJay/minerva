@@ -11,8 +11,8 @@ import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.ResourceUtil;
 import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,7 +20,7 @@ import org.greenrobot.eventbus.EventBus;
 public class PeriodicalTitleViewModel extends BaseViewModel {
     public ObservableField<String> imgUrl = new ObservableField<>();
     public ObservableField<String> name = new ObservableField<>();
-    public ObservableField<String> subscribe = new ObservableField<>(ResourceUtils.getString(R.string.periodical_subscribe));
+    public ObservableField<String> subscribe = new ObservableField<>(ResourceUtil.getString(R.string.periodical_subscribe));
     private Loading loading;
     private String id;
     private boolean isFollow;
@@ -48,12 +48,12 @@ public class PeriodicalTitleViewModel extends BaseViewModel {
 
     public void onSubscribeClick() {
         if (!GlobalData.getInstance().isLogin()) {
-            Toast.makeText(context, ResourceUtils.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (!CommonUtils.isNetworkAvailable(context)) {
-            Toast.makeText(context, ResourceUtils.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+        if (!CommonUtil.isNetworkAvailable(context)) {
+            Toast.makeText(context, ResourceUtil.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -75,7 +75,7 @@ public class PeriodicalTitleViewModel extends BaseViewModel {
             @Override
             public void onSuccess(BaseBean baseBean) {
                 loading.dismiss();
-                subscribe.set(ResourceUtils.getString(R.string.periodical_unsubscribe));
+                subscribe.set(ResourceUtil.getString(R.string.periodical_unsubscribe));
                 EventBus.getDefault().postSticky(baseBean);
             }
 
@@ -91,7 +91,7 @@ public class PeriodicalTitleViewModel extends BaseViewModel {
             @Override
             public void onSuccess(BaseBean baseBean) {
                 loading.dismiss();
-                subscribe.set(ResourceUtils.getString(R.string.periodical_subscribe));
+                subscribe.set(ResourceUtil.getString(R.string.periodical_subscribe));
                 EventBus.getDefault().postSticky(baseBean);
             }
 

@@ -10,7 +10,7 @@ import com.minerva.base.BaseBean;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.mine.signinout.model.LoginRegisterModel;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.ResourceUtil;
 
 import java.text.MessageFormat;
 
@@ -34,14 +34,14 @@ public class RegisterVerifyViewModel extends BaseViewModel {
 
     void setRegisterEmail(String registerEmail) {
         this.email = registerEmail;
-        descText.set(MessageFormat.format(ResourceUtils.getString(R.string.register_verify_desc), registerEmail));
+        descText.set(MessageFormat.format(ResourceUtil.getString(R.string.register_verify_desc), registerEmail));
     }
 
     public void sendEmailAgain() {
         LoginRegisterModel.getInstance().resendRegister(email, new NetworkObserver<BaseBean>() {
             @Override
             public void onSuccess(BaseBean baseBean) {
-                Toast.makeText(context, ResourceUtils.getString(R.string.resend_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtil.getString(R.string.resend_success), Toast.LENGTH_SHORT).show();
             }
 
             @Override

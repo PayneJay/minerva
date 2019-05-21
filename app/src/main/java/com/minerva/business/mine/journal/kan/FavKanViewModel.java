@@ -36,9 +36,9 @@ import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.DisplayUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.DisplayUtil;
+import com.minerva.utils.ResourceUtil;
 import com.minerva.widget.Loading;
 
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class FavKanViewModel extends ArticleListViewModel implements IPageStateL
 
     @Override
     protected void requestServer() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             refreshing.set(false);
             if (mCurrentPage == 0) {
                 setPageByState(Constants.PageStatus.NETWORK_EXCEPTION);
@@ -177,7 +177,7 @@ public class FavKanViewModel extends ArticleListViewModel implements IPageStateL
                 loading.dismiss();
                 refreshing.set(true);
                 requestServer();
-                Toast.makeText(context, ResourceUtils.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ResourceUtil.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
                 for (KanBean.ItemsBean item : kanBean.getItems()) {
                     if (TextUtils.equals(item.getId(), kanId)) {
                         titleText.set(item.getName());
@@ -219,7 +219,7 @@ public class FavKanViewModel extends ArticleListViewModel implements IPageStateL
      */
     private void showEditPopup() {
         if (editKanPopup == null) {
-            editKanPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            editKanPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtil.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             editKanPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -234,7 +234,7 @@ public class FavKanViewModel extends ArticleListViewModel implements IPageStateL
         ((BaseActivity) context).getWindow().setAttributes(lp);
 
         CreateJournalViewModel viewModel = new CreateJournalViewModel(context);
-        viewModel.titleText.set(ResourceUtils.getString(R.string.dialog_edit_journal));
+        viewModel.titleText.set(ResourceUtil.getString(R.string.dialog_edit_journal));
         viewModel.titleContent.set(titleText.get());
         viewModel.desContent.set(kanDesc);
         viewModel.onlyShowSelf.set(onlyShowSelf);
@@ -251,7 +251,7 @@ public class FavKanViewModel extends ArticleListViewModel implements IPageStateL
      */
     private void showMigratePopup() {
         if (moveKanPopup == null) {
-            moveKanPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 2 / 3, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            moveKanPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtil.getScreenWidth() * 2 / 3, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             moveKanPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -279,10 +279,10 @@ public class FavKanViewModel extends ArticleListViewModel implements IPageStateL
      */
     private void showDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
-                .setMessage(ResourceUtils.getString(R.string.dialog_are_you_sure_delete_kan))
-                .setNegativeButton(ResourceUtils.getString(R.string.dialog_cancel), null)
-                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
+                .setTitle(ResourceUtil.getString(R.string.dialog_title_note))
+                .setMessage(ResourceUtil.getString(R.string.dialog_are_you_sure_delete_kan))
+                .setNegativeButton(ResourceUtil.getString(R.string.dialog_cancel), null)
+                .setPositiveButton(ResourceUtil.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

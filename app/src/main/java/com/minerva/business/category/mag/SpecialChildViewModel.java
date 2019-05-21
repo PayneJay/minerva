@@ -7,8 +7,8 @@ import android.databinding.ObservableField;
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.common.Constants;
-import com.minerva.utils.DateUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.DateUtil;
+import com.minerva.utils.ResourceUtil;
 
 import java.util.Date;
 
@@ -24,11 +24,11 @@ public class SpecialChildViewModel extends BaseViewModel {
     }
 
     public void setDate(long time) {
-        if (DateUtils.isToday(time)) {
-            dateText.set(ResourceUtils.getString(R.string.update_today));
+        if (DateUtil.isToday(time)) {
+            dateText.set(ResourceUtil.getString(R.string.update_today));
             return;
         }
-        dateText.set(DateUtils.date2Str(new Date(time), "MM月dd日"));
+        dateText.set(DateUtil.date2Str(new Date(time), "MM月dd日"));
     }
 
     public void onItemClick() {

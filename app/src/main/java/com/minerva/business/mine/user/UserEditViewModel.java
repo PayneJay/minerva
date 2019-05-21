@@ -8,7 +8,6 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.databinding.ViewDataBinding;
 import android.os.Process;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -27,9 +26,9 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.SplashActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
-import com.minerva.utils.DisplayUtils;
-import com.minerva.utils.ResourceUtils;
-import com.minerva.utils.SPUtils;
+import com.minerva.utils.DisplayUtil;
+import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.SPUtil;
 
 import static android.support.v7.app.AlertDialog.Builder;
 import static android.support.v7.app.AlertDialog.OnClickListener;
@@ -38,7 +37,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
     public ObservableField<String> headUrl = new ObservableField<>();
     public ObservableField<String> userName = new ObservableField<>();
     public ObservableField<String> email = new ObservableField<>();
-    public ObservableField<String> password = new ObservableField<>(ResourceUtils.getString(R.string.user_edit_click_to_update));
+    public ObservableField<String> password = new ObservableField<>(ResourceUtil.getString(R.string.user_edit_click_to_update));
     public ObservableField<String> weibo = new ObservableField<>("——");
     public ObservableField<String> QQ = new ObservableField<>("——");
     public ObservableField<String> wechat = new ObservableField<>("——");
@@ -131,7 +130,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
         if (editPwdPopup != null) {
             editPwdPopup.dismiss();
         }
-        Toast.makeText(context, ResourceUtils.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, ResourceUtil.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -142,12 +141,12 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
     }
 
     private void initView(Context context) {
-        headUrl.set((String) SPUtils.get(context, Constants.UserInfoKey.USER_PROFILE, ""));
-        userName.set((String) SPUtils.get(context, Constants.UserInfoKey.USER_NAME, "——"));
-        email.set((String) SPUtils.get(context, Constants.UserInfoKey.USER_EMAIL, "——"));
-        String weiboName = (String) SPUtils.get(context, Constants.UserInfoKey.WEIBO, "——");
-        String qqName = (String) SPUtils.get(context, Constants.UserInfoKey.QQ, "——");
-        String wechatName = (String) SPUtils.get(context, Constants.UserInfoKey.WECHAT, "——");
+        headUrl.set((String) SPUtil.get(context, Constants.UserInfoKey.USER_PROFILE, ""));
+        userName.set((String) SPUtil.get(context, Constants.UserInfoKey.USER_NAME, "——"));
+        email.set((String) SPUtil.get(context, Constants.UserInfoKey.USER_EMAIL, "——"));
+        String weiboName = (String) SPUtil.get(context, Constants.UserInfoKey.WEIBO, "——");
+        String qqName = (String) SPUtil.get(context, Constants.UserInfoKey.QQ, "——");
+        String wechatName = (String) SPUtil.get(context, Constants.UserInfoKey.WECHAT, "——");
         weibo.set(weiboName);
         QQ.set(qqName);
         wechat.set(wechatName);
@@ -163,10 +162,10 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
      */
     private void showDialog() {
         Builder builder = new Builder(context)
-                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
-                .setMessage(ResourceUtils.getString(R.string.dialog_are_you_sure_logout))
-                .setNegativeButton(ResourceUtils.getString(R.string.dialog_cancel), null)
-                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new OnClickListener() {
+                .setTitle(ResourceUtil.getString(R.string.dialog_title_note))
+                .setMessage(ResourceUtil.getString(R.string.dialog_are_you_sure_logout))
+                .setNegativeButton(ResourceUtil.getString(R.string.dialog_cancel), null)
+                .setPositiveButton(ResourceUtil.getString(R.string.dialog_confirm), new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -193,7 +192,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
      */
     private void showUpdateUserInfoDialog(String editType) {
         if (editPwdPopup == null) {
-            editPwdPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            editPwdPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtil.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             editPwdPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -224,7 +223,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
 
     private ViewDataBinding getUpdateEmailBinding() {
         UpdateEmailViewModel viewModel = new UpdateEmailViewModel(context);
-        viewModel.title.set(ResourceUtils.getString(R.string.dialog_edit_login_email));
+        viewModel.title.set(ResourceUtil.getString(R.string.dialog_edit_login_email));
         viewModel.setListener(this);
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_edit_login_email_layout, null, false);
         binding.setVariable(BR.editUserEmailVM, viewModel);
@@ -233,7 +232,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
 
     private ViewDataBinding getUpdateNameBinding() {
         UpdateNameViewModel viewModel = new UpdateNameViewModel(context);
-        viewModel.title.set(ResourceUtils.getString(R.string.dialog_edit_user_name));
+        viewModel.title.set(ResourceUtil.getString(R.string.dialog_edit_user_name));
         viewModel.content.set(userName.get());
         viewModel.setListener(this);
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_edit_user_name_layout, null, false);
@@ -243,7 +242,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
 
     private ViewDataBinding getUpdatePwdBinding() {
         UpdatePwdViewModel viewModel = new UpdatePwdViewModel(context);
-        viewModel.title.set(ResourceUtils.getString(R.string.dialog_edit_password));
+        viewModel.title.set(ResourceUtil.getString(R.string.dialog_edit_password));
         viewModel.setListener(this);
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_edit_password_layout, null, false);
         binding.setVariable(BR.editPwdVM, viewModel);

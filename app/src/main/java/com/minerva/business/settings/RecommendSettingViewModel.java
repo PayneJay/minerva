@@ -17,7 +17,7 @@ import com.minerva.business.settings.model.OptionsBean;
 import com.minerva.business.settings.model.ReadSettingBean;
 import com.minerva.business.settings.model.SettingModel;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.ResourceUtil;
 import com.minerva.widget.Loading;
 
 import java.util.ArrayList;
@@ -145,9 +145,9 @@ public class RecommendSettingViewModel extends BaseViewModel {
 
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                .setTitle(ResourceUtils.getString(R.string.dialog_title_note))
-                .setMessage(ResourceUtils.getString(R.string.dialog_read_update_success))
-                .setPositiveButton(ResourceUtils.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
+                .setTitle(ResourceUtil.getString(R.string.dialog_title_note))
+                .setMessage(ResourceUtil.getString(R.string.dialog_read_update_success))
+                .setPositiveButton(ResourceUtil.getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

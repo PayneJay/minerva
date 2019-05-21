@@ -27,13 +27,9 @@ import com.minerva.business.mine.journal.model.JournalModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.DisplayUtils;
-import com.minerva.utils.ResourceUtils;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.DisplayUtil;
+import com.minerva.utils.ResourceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +91,7 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
 
     @Override
     protected void requestServer() {
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             setNetworkError();
             return;
         }
@@ -175,7 +171,7 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
      */
     private void showCreateJournalDialog() {
         if (createPopup == null) {
-            createPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtils.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            createPopup = new PopupWindow(((BaseActivity) context).getWindow().getDecorView(), DisplayUtil.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             createPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -190,7 +186,7 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
         ((BaseActivity) context).getWindow().setAttributes(lp);
 
         CreateJournalViewModel viewModel = new CreateJournalViewModel(context);
-        viewModel.titleText.set(ResourceUtils.getString(R.string.dialog_create_journal));
+        viewModel.titleText.set(ResourceUtil.getString(R.string.dialog_create_journal));
         viewModel.setListener(this);
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_create_journal_layout, null, false);
         binding.setVariable(BR.createJournalVM, viewModel);

@@ -17,7 +17,7 @@ import com.minerva.business.search.SearchActivity;
 import com.minerva.business.settings.SettingsActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.TabLayoutHelper;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.ResourceUtil;
 
 public class CategoryViewModel extends BaseViewModel {
     public static ObservableInt currentItem = new ObservableInt(0);
@@ -58,12 +58,12 @@ public class CategoryViewModel extends BaseViewModel {
                 .setIndicatorWith(150)
                 .setIndicatorDrawable(R.drawable.shape_tab_line)
                 .setSelectedTextColor(Color.WHITE)
-                .setNormalTextColor(ResourceUtils.getColor(R.color.color_CFFFFFFF))
+                .setNormalTextColor(ResourceUtil.getColor(R.color.color_CFFFFFFF))
                 .setSelectedTextSize(18)
                 .setNormalTextSize(18)
                 .setSelectedBold(true)
-                .setNormalBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
-                .setSelectedBackgroundColor(ResourceUtils.getColor(R.color.colorPrimaryDark))
+                .setNormalBackgroundColor(ResourceUtil.getColor(R.color.colorPrimaryDark))
+                .setSelectedBackgroundColor(ResourceUtil.getColor(R.color.colorPrimaryDark))
                 .setTabItemWith(200)
                 .setCurrentTab(currentItem.get())
                 .build();

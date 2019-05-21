@@ -17,8 +17,8 @@ import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
-import com.minerva.utils.CommonUtils;
-import com.minerva.utils.ResourceUtils;
+import com.minerva.utils.CommonUtil;
+import com.minerva.utils.ResourceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.ListIterator;
 import java.util.Map;
 
 public class ReadLaterViewModel extends ArticleListViewModel {
-    public ObservableField<String> mTitle = new ObservableField<>(ResourceUtils.getString(R.string.mine_to_be_read));
+    public ObservableField<String> mTitle = new ObservableField<>(ResourceUtil.getString(R.string.mine_to_be_read));
     public View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -50,7 +50,7 @@ public class ReadLaterViewModel extends ArticleListViewModel {
             return;
         }
 
-        if (!CommonUtils.isNetworkAvailable(context)) {
+        if (!CommonUtil.isNetworkAvailable(context)) {
             refreshing.set(false);
             if (mBlankVM == null) {
                 mBlankVM = new BlankViewModel(context);
@@ -126,7 +126,7 @@ public class ReadLaterViewModel extends ArticleListViewModel {
     private void setContentByMode() {
         switch (mKey) {
             case Constants.KeyExtra.READ_LATER_MAP:
-                mTitle.set(ResourceUtils.getString(R.string.mine_to_be_read));
+                mTitle.set(ResourceUtil.getString(R.string.mine_to_be_read));
                 if (GlobalData.getInstance().isLogin()) {
                     requestServer();
                 } else {
@@ -135,7 +135,7 @@ public class ReadLaterViewModel extends ArticleListViewModel {
                 }
                 break;
             case Constants.KeyExtra.READ_HISTORY_MAP:
-                mTitle.set(ResourceUtils.getString(R.string.mine_read_history));
+                mTitle.set(ResourceUtil.getString(R.string.mine_read_history));
                 setReadLaterData(context);
                 createViewModelByLocal();
                 break;

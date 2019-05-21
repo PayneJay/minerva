@@ -8,8 +8,8 @@ import com.minerva.R;
 import com.minerva.base.BaseBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.utils.ResourceUtils;
-import com.minerva.utils.SPUtils;
+import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.SPUtil;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -117,10 +117,10 @@ public class LoginRegisterModel {
      */
     public boolean isEmailValid(Context context, String email) {
         if (TextUtils.isEmpty(email) || email.length() == 0) {
-            showToast(context, ResourceUtils.getString(R.string.login_please_input_account));
+            showToast(context, ResourceUtil.getString(R.string.login_please_input_account));
             return false;
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            showToast(context, ResourceUtils.getString(R.string.login_email_incorrect));
+            showToast(context, ResourceUtil.getString(R.string.login_email_incorrect));
             return false;
         }
         return true;
@@ -136,10 +136,10 @@ public class LoginRegisterModel {
      */
     public boolean isPasswordValid(Context context, String password) {
         if (TextUtils.isEmpty(password) || password.length() == 0) {
-            showToast(context, ResourceUtils.getString(R.string.login_please_input_password));
+            showToast(context, ResourceUtil.getString(R.string.login_please_input_password));
             return false;
         } else if (password.length() < 6 || password.length() > 20) {
-            showToast(context, ResourceUtils.getString(R.string.login_please_input_password_at_least_6));
+            showToast(context, ResourceUtil.getString(R.string.login_please_input_password_at_least_6));
             return false;
         }
         return true;
@@ -158,7 +158,7 @@ public class LoginRegisterModel {
             return true;
         }
 
-        showToast(context, ResourceUtils.getString(R.string.register_check_password_identical));
+        showToast(context, ResourceUtil.getString(R.string.register_check_password_identical));
         return false;
     }
 
@@ -169,16 +169,16 @@ public class LoginRegisterModel {
      * @param user    data
      */
     public void saveUserInfo(Context context, UserInfo.UserBean user) {
-        SPUtils.put(context, Constants.UserInfoKey.USER_ID, user.getUid());
-        SPUtils.put(context, Constants.UserInfoKey.USER_TOKEN, user.getToken());
-        SPUtils.put(context, Constants.UserInfoKey.USER_PROFILE, user.getProfile());
-        SPUtils.put(context, Constants.UserInfoKey.USER_NAME, user.getName());
-        SPUtils.put(context, Constants.UserInfoKey.USER_EMAIL, user.getEmail());
-        SPUtils.put(context, Constants.UserInfoKey.WEIBO, user.getWeibo_name());
-        SPUtils.put(context, Constants.UserInfoKey.QQ, user.getQq_name());
-        SPUtils.put(context, Constants.UserInfoKey.WECHAT, user.getWeixin_name());
+        SPUtil.put(context, Constants.UserInfoKey.USER_ID, user.getUid());
+        SPUtil.put(context, Constants.UserInfoKey.USER_TOKEN, user.getToken());
+        SPUtil.put(context, Constants.UserInfoKey.USER_PROFILE, user.getProfile());
+        SPUtil.put(context, Constants.UserInfoKey.USER_NAME, user.getName());
+        SPUtil.put(context, Constants.UserInfoKey.USER_EMAIL, user.getEmail());
+        SPUtil.put(context, Constants.UserInfoKey.WEIBO, user.getWeibo_name());
+        SPUtil.put(context, Constants.UserInfoKey.QQ, user.getQq_name());
+        SPUtil.put(context, Constants.UserInfoKey.WECHAT, user.getWeixin_name());
         //存储最近一次的邮箱
-        SPUtils.put(context, Constants.KeyExtra.LAST_LOGIN_EMAIL, user.getEmail());
+        SPUtil.put(context, Constants.KeyExtra.LAST_LOGIN_EMAIL, user.getEmail());
     }
 
     private void showToast(Context context, String msg) {
