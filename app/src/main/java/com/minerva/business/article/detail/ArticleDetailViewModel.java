@@ -11,6 +11,7 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.databinding.ViewDataBinding;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
@@ -349,7 +350,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         }
         //2.合成参数设置，详见《 MSC Reference Manual》 SpeechSynthesizer 类
         //设置发音人（更多在线发音人，用户可参见 附录 13.2
-        mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan"); // 设置发音人
+        mTts.setParameter(SpeechConstant.VOICE_NAME, getSpeaker()); // 设置发音人
         mTts.setParameter(SpeechConstant.SPEED, "50");// 设置语速
         mTts.setParameter(SpeechConstant.VOLUME, "80");// 设置音量，范围 0~100
         mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端
@@ -357,6 +358,20 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         //保存在 SD 卡需要在 AndroidManifest.xml 添加写 SD 卡权限
         //仅支持保存为 pcm 和 wav 格式， 如果不需要保存合成音频，注释该行代码
         //mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, "./sdcard/iflytek.pcm");
+    }
+
+    @NonNull
+    private String getSpeaker() {
+        if (article != null){
+            if (article.getLang() == 1){
+                return "xiaoyan";
+            }
+
+            if (article.getLang() == 2){
+                return "catherine";
+            }
+        }
+        return "xiaoyan";
     }
 
     /**
