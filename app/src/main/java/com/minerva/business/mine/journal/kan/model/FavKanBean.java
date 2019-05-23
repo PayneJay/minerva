@@ -1,7 +1,7 @@
 package com.minerva.business.mine.journal.kan.model;
 
 import com.minerva.base.BaseBean;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.mine.collection.model.KanBean;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class FavKanBean extends BaseBean {
 
     private KanBean.ItemsBean kan;
     private boolean has_next;
-    private List<ArticleBean.ArticlesBean> articles;
+    private List<ArticleDetailBean.ArticleBean> articles;
 
     public KanBean.ItemsBean getKan() {
         return kan;
@@ -35,14 +35,14 @@ public class FavKanBean extends BaseBean {
         this.has_next = has_next;
     }
 
-    public List<ArticleBean.ArticlesBean> getArticles() {
+    public List<ArticleDetailBean.ArticleBean> getArticles() {
         if (articles == null) {
             return new ArrayList<>();
         }
         return articles;
     }
 
-    public void setArticles(List<ArticleBean.ArticlesBean> articles) {
+    public void setArticles(List<ArticleDetailBean.ArticleBean> articles) {
         this.articles = articles;
     }
 }

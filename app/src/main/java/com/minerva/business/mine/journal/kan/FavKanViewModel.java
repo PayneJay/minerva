@@ -25,9 +25,9 @@ import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseBean;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.ArticleItemViewModel;
 import com.minerva.business.article.list.ArticleListViewModel;
-import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.mine.collection.model.KanBean;
 import com.minerva.business.mine.journal.CreateJournalViewModel;
 import com.minerva.business.mine.journal.kan.model.FavKanBean;
@@ -46,7 +46,7 @@ import java.util.List;
 
 public class FavKanViewModel extends ArticleListViewModel implements IPageStateListener, PopupMenu.OnMenuItemClickListener, CreateJournalViewModel.IDialogClickListener, IKanOperateListener {
     private String kanId;
-    private List<ArticleBean.ArticlesBean> articleList = new ArrayList<>();
+    private List<ArticleDetailBean.ArticleBean> articleList = new ArrayList<>();
     public ObservableField<String> titleText = new ObservableField<>("");
     public View.OnClickListener listener = new View.OnClickListener() {
         @Override
@@ -319,7 +319,7 @@ public class FavKanViewModel extends ArticleListViewModel implements IPageStateL
     private ObservableList<BaseViewModel> getObservableList() {
         ObservableList<BaseViewModel> temp = new ObservableArrayList<>();
         temp.addAll(getItems());
-        for (ArticleBean.ArticlesBean article : articleList) {
+        for (ArticleDetailBean.ArticleBean article : articleList) {
             ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
             viewModel.content.set(article.getTitle());
             viewModel.date.set(article.getFeed_title() + "  " + article.getRectime());

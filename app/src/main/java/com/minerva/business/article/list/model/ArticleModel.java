@@ -52,7 +52,7 @@ public class ArticleModel {
      * @param page     当前页数
      * @param observer 网络回调
      */
-    public void getArticleList(int index, int lang, String lastID, int page, IUnLoginListener listener, Observer<? super ArticleBean> observer) {
+    public void getArticleList(int index, int lang, String lastID, int page, IUnLoginListener listener, Observer<? super ArticleListBean> observer) {
         RetrofitService server = RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null).getServer();
         if (index == 1) {//是推荐模块
             //是未登录态

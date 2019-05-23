@@ -1,7 +1,7 @@
 package com.minerva.business.site.detail;
 
 import com.minerva.base.BaseBean;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class SiteDetailBean extends BaseBean {
 
     private SiteBean site;
     private boolean has_next;
-    private List<ArticleBean.ArticlesBean> articles;
+    private List<ArticleDetailBean.ArticleBean> articles;
 
     public SiteBean getSite() {
         return site;
@@ -34,14 +34,14 @@ public class SiteDetailBean extends BaseBean {
         this.has_next = has_next;
     }
 
-    public List<ArticleBean.ArticlesBean> getArticles() {
+    public List<ArticleDetailBean.ArticleBean> getArticles() {
         if (articles == null) {
             return new ArrayList<>();
         }
         return articles;
     }
 
-    public void setArticles(List<ArticleBean.ArticlesBean> articles) {
+    public void setArticles(List<ArticleDetailBean.ArticleBean> articles) {
         this.articles = articles;
     }
 

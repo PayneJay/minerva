@@ -1,7 +1,7 @@
 package com.minerva.business.home.weekly.model;
 
 import com.minerva.base.BaseBean;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class WeekDetailBean extends BaseBean {
      */
 
     private WeeklyBean weekly;
-    private List<ArticleBean.ArticlesBean> articles;
+    private List<ArticleDetailBean.ArticleBean> articles;
 
     public WeeklyBean getWeekly() {
         return weekly;
@@ -24,14 +24,14 @@ public class WeekDetailBean extends BaseBean {
         this.weekly = weekly;
     }
 
-    public List<ArticleBean.ArticlesBean> getArticles() {
+    public List<ArticleDetailBean.ArticleBean> getArticles() {
         if (articles == null) {
             return new ArrayList<>();
         }
         return articles;
     }
 
-    public void setArticles(List<ArticleBean.ArticlesBean> articles) {
+    public void setArticles(List<ArticleDetailBean.ArticleBean> articles) {
         this.articles = articles;
     }
 

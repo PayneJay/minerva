@@ -9,8 +9,8 @@ import android.text.TextUtils;
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.ArticleItemViewModel;
-import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.book.model.AllBook;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.home.subscribe.SiteChildViewModel;
@@ -56,7 +56,7 @@ public class SearchListViewModel extends RefreshListViewModel {
             }
         }
     };
-    private List<ArticleBean.ArticlesBean> mArticleData = new ArrayList<>();
+    private List<ArticleDetailBean.ArticleBean> mArticleData = new ArrayList<>();
     private List<SiteResult.ResultItem> mSiteData = new ArrayList<>();
     private List<BookBean.ItemsBean.BooksBean> mBookData = new ArrayList<>();
     private BlankViewModel mBlankVM;
@@ -151,7 +151,7 @@ public class SearchListViewModel extends RefreshListViewModel {
 
                 hasNext = articleResult.isHas_next();
                 mCurrentPage = articleResult.getPn();
-                List<ArticleBean.ArticlesBean> articles = articleResult.getArticles();
+                List<ArticleDetailBean.ArticleBean> articles = articleResult.getArticles();
                 if (articles.size() > 0) {
                     mArticleData.clear();
                     mArticleData.addAll(articles);
@@ -220,7 +220,7 @@ public class SearchListViewModel extends RefreshListViewModel {
             items.clear();
         }
 
-        for (ArticleBean.ArticlesBean articlesBean : mArticleData) {
+        for (ArticleDetailBean.ArticleBean articlesBean : mArticleData) {
             ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
             viewModel.content.set(articlesBean.getTitle());
             viewModel.date.set(articlesBean.getRectime());

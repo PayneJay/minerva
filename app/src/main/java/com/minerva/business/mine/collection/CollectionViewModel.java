@@ -7,7 +7,7 @@ import android.view.View;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.business.article.list.ArticleListViewModel;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.list.model.ArticleListBean;
 import com.minerva.business.mine.collection.model.CollectionModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
@@ -47,16 +47,16 @@ public class CollectionViewModel extends ArticleListViewModel {
             return;
         }
 
-        CollectionModel.getInstance().getMyCollections(mCurrentPage, new NetworkObserver<ArticleBean>() {
+        CollectionModel.getInstance().getMyCollections(mCurrentPage, new NetworkObserver<ArticleListBean>() {
             @Override
-            public void onSuccess(ArticleBean articleBean) {
+            public void onSuccess(ArticleListBean articleListBean) {
                 refreshing.set(false);
-                if (articleBean == null || articleBean.getArticles().size() <= 0) {
+                if (articleListBean == null || articleListBean.getArticles().size() <= 0) {
                     setEmptyPage();
                     return;
                 }
 
-                handleData(articleBean);
+                handleData(articleListBean);
                 createViewModel();
             }
 

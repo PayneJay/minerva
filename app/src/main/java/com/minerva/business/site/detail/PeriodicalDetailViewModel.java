@@ -13,8 +13,8 @@ import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.ArticleItemViewModel;
-import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.RefreshListViewModel;
@@ -66,7 +66,7 @@ public class PeriodicalDetailViewModel extends RefreshListViewModel {
             }
         }
     };
-    protected List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
+    protected List<ArticleDetailBean.ArticleBean> mData = new ArrayList<>();
     protected BlankViewModel mBlankVM;
     protected String name;
     protected boolean hasNext;
@@ -152,7 +152,7 @@ public class PeriodicalDetailViewModel extends RefreshListViewModel {
         }
 
         hasNext = siteDetailBean.isHas_next();
-        List<ArticleBean.ArticlesBean> articles = siteDetailBean.getArticles();
+        List<ArticleDetailBean.ArticleBean> articles = siteDetailBean.getArticles();
         mLastID = articles.get(articles.size() - 1).getId();
         mData.clear();
         mData.addAll(articles);
@@ -167,7 +167,7 @@ public class PeriodicalDetailViewModel extends RefreshListViewModel {
 
         for (int i = 0; i < mData.size(); i++) {
             ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
-            ArticleBean.ArticlesBean articlesBean = mData.get(i);
+            ArticleDetailBean.ArticleBean articlesBean = mData.get(i);
             viewModel.content.set(articlesBean.getTitle());
             viewModel.date.set(articlesBean.getRectime());
             viewModel.imgUrl.set(articlesBean.getImg());

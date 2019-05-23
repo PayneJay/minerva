@@ -10,7 +10,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
+import com.minerva.business.article.list.model.ArticleListBean;
 import com.minerva.business.article.list.model.ArticleModel;
 import com.minerva.business.mine.signinout.LoginActivity;
 import com.minerva.common.BlankViewModel;
@@ -50,7 +51,7 @@ public class ArticleListViewModel extends RefreshListViewModel {
         }
     };
     protected BlankViewModel mBlankVM;
-    protected List<ArticleBean.ArticlesBean> mData = new ArrayList<>();
+    protected List<ArticleDetailBean.ArticleBean> mData = new ArrayList<>();
     protected boolean hasNext;
     protected int mCurrentPage; //当前页数
     private String mLastID; //最后一条id
@@ -118,14 +119,13 @@ public class ArticleListViewModel extends RefreshListViewModel {
             items.clear();
         }
         if (mData.size() > 0) {
-            for (int i = 0; i < mData.size(); i++) {
+            for (ArticleDetailBean.ArticleBean articleBean : mData) {
                 ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
-                ArticleBean.ArticlesBean articlesBean = mData.get(i);
-                viewModel.content.set(articlesBean.getTitle());
-                viewModel.date.set(articlesBean.getFeed_title() + "  " + articlesBean.getRectime());
-                viewModel.imgUrl.set(articlesBean.getImg());
-                viewModel.isHotFlagGone.set(articlesBean.getSt() != 2);
-                viewModel.articleID = articlesBean.getId();
+                viewModel.content.set(articleBean.getTitle());
+                viewModel.date.set(articleBean.getFeed_title() + "  " + articleBean.getRectime());
+                viewModel.imgUrl.set(articleBean.getImg());
+                viewModel.isHotFlagGone.set(articleBean.getSt() != 2);
+                viewModel.articleID = articleBean.getId();
                 items.add(viewModel);
             }
 
@@ -159,12 +159,12 @@ public class ArticleListViewModel extends RefreshListViewModel {
                     public void unLogin() {
                         refreshing.set(false);
                     }
-                }, new NetworkObserver<ArticleBean>() {
+                }, new NetworkObserver<ArticleListBean>() {
                     @Override
-                    public void onSuccess(ArticleBean articleBean) {
+                    public void onSuccess(ArticleListBean articleListBean) {
                         refreshing.set(false);
                         isRecommendGone.set(true);
-                        handleData(articleBean);
+                        handleData(articleListBean);
                         createViewModel();
                     }
 
@@ -184,17 +184,17 @@ public class ArticleListViewModel extends RefreshListViewModel {
     /**
      * 处理返回数据
      *
-     * @param articleBean 返回数据
+     * @param articleListBean 返回数据
      */
-    protected void handleData(ArticleBean articleBean) {
+    protected void handleData(ArticleListBean articleListBean) {
         mData.clear();
-        if (articleBean == null || articleBean.getArticles().size() <= 0) {
+        if (articleListBean == null || articleListBean.getArticles().size() <= 0) {
             return;
         }
 
-        List<ArticleBean.ArticlesBean> articles = articleBean.getArticles();
-        mCurrentPage = articleBean.getPn();
-        hasNext = articleBean.isHas_next();
+        List<ArticleDetailBean.ArticleBean> articles = articleListBean.getArticles();
+        mCurrentPage = articleListBean.getPn();
+        hasNext = articleListBean.isHas_next();
         mLastID = articles.get(articles.size() - 1).getId();
         mData.addAll(articles);
     }
