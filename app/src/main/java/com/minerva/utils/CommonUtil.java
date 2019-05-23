@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.list.model.ArticleListBean;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.MagBean;
@@ -36,8 +36,8 @@ public class CommonUtil {
         return getBeanFormAssetJson("books.json", type);
     }
 
-    public static ArticleBean getArticleListFromJson() {
-        Type type = new TypeToken<ArticleBean>() {
+    public static ArticleListBean getArticleListFromJson() {
+        Type type = new TypeToken<ArticleListBean>() {
         }.getType();
         return getBeanFormAssetJson("articles.json", type);
     }

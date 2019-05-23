@@ -1,6 +1,6 @@
 package com.minerva.business.mine.collection.model;
 
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.list.model.ArticleListBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
 
@@ -23,7 +23,7 @@ public class CollectionModel {
      *
      * @param observer 回调
      */
-    public void getMyCollections(int page, Observer<? super ArticleBean> observer) {
+    public void getMyCollections(int page, Observer<? super ArticleListBean> observer) {
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
                 .getServer()
                 .getMyCollections(page, 30, 1)

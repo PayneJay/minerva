@@ -4,7 +4,7 @@ import com.minerva.base.BaseBean;
 import com.minerva.business.article.comment.model.CommentDetail;
 import com.minerva.business.article.comment.model.CommentListBean;
 import com.minerva.business.article.detail.model.ArticleDetailBean;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.list.model.ArticleListBean;
 import com.minerva.business.category.book.model.AllBook;
 import com.minerva.business.category.mag.model.MagDetailBean;
 import com.minerva.business.category.mag.model.MagPeriodBean;
@@ -37,10 +37,10 @@ import retrofit2.http.Query;
 
 public interface RetrofitService {
     @GET("/api/articles/hot.json")
-    Observable<ArticleBean> getHotArticles(@Query("size") int size, @Query("lang") int lang, @Query("cid") String cid, @Query("is_pad") int isPad, @Query("last_id") String lastId, @Query("pn") int pn);
+    Observable<ArticleListBean> getHotArticles(@Query("size") int size, @Query("lang") int lang, @Query("cid") String cid, @Query("is_pad") int isPad, @Query("last_id") String lastId, @Query("pn") int pn);
 
     @GET("/api/articles/rec.json")
-    Observable<ArticleBean> getRecArticles(@Query("size") int size, @Query("lang") int lang, @Query("cid") String cid, @Query("is_pad") int isPad, @Query("last_id") String lastId, @Query("pn") int pn);
+    Observable<ArticleListBean> getRecArticles(@Query("size") int size, @Query("lang") int lang, @Query("cid") String cid, @Query("is_pad") int isPad, @Query("last_id") String lastId, @Query("pn") int pn);
 
     @GET("/api/articles/{aid}.json")
     Observable<ArticleDetailBean> getArticleDetail(@Path("aid") String aid, @Query("need_image_meta") int need_image_meta, @Query("type") int type);
@@ -94,7 +94,7 @@ public interface RetrofitService {
     Observable<BaseBean> addCollection(@Field("article_id") String id);
 
     @GET("/api/articles/my.json")
-    Observable<ArticleBean> getMyCollections(@Query("page") int page, @Query("size") int size, @Query("is_pad") int isPad);
+    Observable<ArticleListBean> getMyCollections(@Query("page") int page, @Query("size") int size, @Query("is_pad") int isPad);
 
     @FormUrlEncoded
     @POST("/api/articles/do_fav.json")
@@ -127,7 +127,7 @@ public interface RetrofitService {
     Observable<BaseBean> deleteKanById(@Field("id") String id);
 
     @GET("/api/articles/late.json")
-    Observable<ArticleBean> getLateList(@Query("size") int size, @Query("is_pad") int isPad);
+    Observable<ArticleListBean> getLateList(@Query("size") int size, @Query("is_pad") int isPad);
 
     @GET("/api/notifications/list.json")
     Observable<MsgListBean> getMessageList();

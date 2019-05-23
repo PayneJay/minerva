@@ -8,8 +8,9 @@ import android.widget.Toast;
 
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.detail.model.ArticleDetailModel;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.list.model.ArticleListBean;
 import com.minerva.business.mine.about.AboutActivity;
 import com.minerva.business.mine.collection.MyCollectionActivity;
 import com.minerva.business.mine.journal.MyJournalActivity;
@@ -137,10 +138,10 @@ public class MyViewModel extends BaseViewModel {
     }
 
     private void setUnReadByServer() {
-        ReadModel.getInstance().getLateList(new NetworkObserver<ArticleBean>() {
+        ReadModel.getInstance().getLateList(new NetworkObserver<ArticleListBean>() {
             @Override
-            public void onSuccess(ArticleBean articleBean) {
-                List<ArticleBean.ArticlesBean> articles = articleBean.getArticles();
+            public void onSuccess(ArticleListBean articleListBean) {
+                List<ArticleDetailBean.ArticleBean> articles = articleListBean.getArticles();
                 int size = (articles == null) ? 0 : articles.size();
                 setUnReadCount(size);
             }

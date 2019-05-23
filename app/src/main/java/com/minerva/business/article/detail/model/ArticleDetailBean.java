@@ -52,6 +52,11 @@ public class ArticleDetailBean extends BaseBean {
         private String img;
         private List<ImagesBean> images;
         private List<TopicsBean> topics;
+        private String rectime;
+        private long uts;
+        private String abs;
+        private int st;
+        private int go;
 
         public String getId() {
             return id;
@@ -139,6 +144,46 @@ public class ArticleDetailBean extends BaseBean {
 
         public void setTopics(List<TopicsBean> topics) {
             this.topics = topics;
+        }
+
+        public String getRectime() {
+            return rectime == null ? "" : rectime;
+        }
+
+        public void setRectime(String rectime) {
+            this.rectime = rectime;
+        }
+
+        public long getUts() {
+            return uts;
+        }
+
+        public void setUts(long uts) {
+            this.uts = uts;
+        }
+
+        public String getAbs() {
+            return abs == null ? "" : abs;
+        }
+
+        public void setAbs(String abs) {
+            this.abs = abs;
+        }
+
+        public int getSt() {
+            return st;
+        }
+
+        public void setSt(int st) {
+            this.st = st;
+        }
+
+        public int getGo() {
+            return go;
+        }
+
+        public void setGo(int go) {
+            this.go = go;
         }
 
         public static class ImagesBean {

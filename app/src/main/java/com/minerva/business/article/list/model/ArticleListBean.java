@@ -1,11 +1,12 @@
 package com.minerva.business.article.list.model;
 
 import com.minerva.base.BaseBean;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArticleBean extends BaseBean {
+public class ArticleListBean extends BaseBean {
 
     /**
      * has_next : true
@@ -21,7 +22,7 @@ public class ArticleBean extends BaseBean {
     private int pn;
     private CatsBean cats;
     private int cid;
-    private List<ArticlesBean> articles = new ArrayList<>();
+    private List<ArticleDetailBean.ArticleBean> articles = new ArrayList<>();
 
     public boolean isHas_next() {
         return has_next;
@@ -63,11 +64,14 @@ public class ArticleBean extends BaseBean {
         this.cid = cid;
     }
 
-    public List<ArticlesBean> getArticles() {
+    public List<ArticleDetailBean.ArticleBean> getArticles() {
+        if (articles == null) {
+            return new ArrayList<>();
+        }
         return articles;
     }
 
-    public void setArticles(List<ArticlesBean> articles) {
+    public void setArticles(List<ArticleDetailBean.ArticleBean> articles) {
         this.articles = articles;
     }
 
@@ -95,7 +99,7 @@ public class ArticleBean extends BaseBean {
         }
 
         public String getDesc() {
-            return desc;
+            return desc == null ? "" : desc;
         }
 
         public void setDesc(String desc) {
@@ -103,7 +107,7 @@ public class ArticleBean extends BaseBean {
         }
 
         public String getSeo() {
-            return seo;
+            return seo == null ? "" : seo;
         }
 
         public void setSeo(String seo) {
@@ -111,6 +115,9 @@ public class ArticleBean extends BaseBean {
         }
 
         public List<Integer> getExclude() {
+            if (exclude == null) {
+                return new ArrayList<>();
+            }
             return exclude;
         }
 
@@ -119,127 +126,14 @@ public class ArticleBean extends BaseBean {
         }
 
         public List<Integer> getInclude() {
+            if (include == null) {
+                return new ArrayList<>();
+            }
             return include;
         }
 
         public void setInclude(List<Integer> include) {
             this.include = include;
-        }
-    }
-
-    public static class ArticlesBean {
-        /**
-         * id : niiae26
-         * title : MangoDB再遭重创 大客户Lyft即将弃用改投亚马逊
-         * time : 02-27 15:34
-         * rectime : 02-27 15:55
-         * uts : 1551254141217
-         * feed_title : 创见
-         * img : https://aimg0.tuicool.com/rEjyqmJ.jpg
-         * abs :
-         * cmt : 0
-         * st : 0
-         * go : 0
-         */
-
-        private String id;
-        private String title;
-        private String time;
-        private String rectime;
-        private long uts;
-        private String feed_title;
-        private String img;
-        private String abs;
-        private int cmt;
-        private int st;
-        private int go;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-
-        public String getRectime() {
-            return rectime;
-        }
-
-        public void setRectime(String rectime) {
-            this.rectime = rectime;
-        }
-
-        public long getUts() {
-            return uts;
-        }
-
-        public void setUts(long uts) {
-            this.uts = uts;
-        }
-
-        public String getFeed_title() {
-            return feed_title;
-        }
-
-        public void setFeed_title(String feed_title) {
-            this.feed_title = feed_title;
-        }
-
-        public String getImg() {
-            return img;
-        }
-
-        public void setImg(String img) {
-            this.img = img;
-        }
-
-        public String getAbs() {
-            return abs;
-        }
-
-        public void setAbs(String abs) {
-            this.abs = abs;
-        }
-
-        public int getCmt() {
-            return cmt;
-        }
-
-        public void setCmt(int cmt) {
-            this.cmt = cmt;
-        }
-
-        public int getSt() {
-            return st;
-        }
-
-        public void setSt(int st) {
-            this.st = st;
-        }
-
-        public int getGo() {
-            return go;
-        }
-
-        public void setGo(int go) {
-            this.go = go;
         }
     }
 }

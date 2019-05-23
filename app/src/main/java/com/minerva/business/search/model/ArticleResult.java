@@ -1,7 +1,7 @@
 package com.minerva.business.search.model;
 
 import com.minerva.base.BaseBean;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class ArticleResult extends BaseBean {
     private int lang;
     private int total;
     private boolean has_next;
-    private List<ArticleBean.ArticlesBean> articles = new ArrayList<>();
+    private List<ArticleDetailBean.ArticleBean> articles = new ArrayList<>();
 
     public int getPn() {
         return pn;
@@ -63,11 +63,11 @@ public class ArticleResult extends BaseBean {
         this.has_next = has_next;
     }
 
-    public List<ArticleBean.ArticlesBean> getArticles() {
+    public List<ArticleDetailBean.ArticleBean> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<ArticleBean.ArticlesBean> articles) {
+    public void setArticles(List<ArticleDetailBean.ArticleBean> articles) {
         this.articles = articles;
     }
 }

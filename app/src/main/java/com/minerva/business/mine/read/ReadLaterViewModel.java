@@ -11,7 +11,7 @@ import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.detail.model.ArticleDetailModel;
 import com.minerva.business.article.list.ArticleItemViewModel;
 import com.minerva.business.article.list.ArticleListViewModel;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.list.model.ArticleListBean;
 import com.minerva.business.mine.read.model.ReadModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
@@ -64,13 +64,14 @@ public class ReadLaterViewModel extends ArticleListViewModel {
         }
 
         refreshing.set(true);
-        ReadModel.getInstance().getLateList(new NetworkObserver<ArticleBean>() {
+        ReadModel.getInstance().getLateList(new NetworkObserver<ArticleListBean>() {
             @Override
-            public void onSuccess(ArticleBean articleBean) {
+            public void onSuccess(ArticleListBean articleListBean) {
                 refreshing.set(false);
                 mData.clear();
-                mData.addAll(articleBean.getArticles());
+                mData.addAll(articleListBean.getArticles());
                 createViewModel();
+                addToReadLater(articleListBean.getArticles());
             }
 
             @Override
@@ -78,6 +79,20 @@ public class ReadLaterViewModel extends ArticleListViewModel {
                 refreshing.set(false);
             }
         });
+    }
+
+    /**
+     * 添加到待读列表
+     *
+     * @param articles 待读文章列表
+     */
+    private void addToReadLater(List<ArticleDetailBean.ArticleBean> articles) {
+        for (ArticleDetailBean.ArticleBean article : articles) {
+            if (null == article) {
+                continue;
+            }
+            ArticleDetailModel.getInstance().addArticleWithKey(context, article, Constants.KeyExtra.READ_LATER_MAP);
+        }
     }
 
     private void createViewModelByLocal() {
@@ -118,6 +133,8 @@ public class ReadLaterViewModel extends ArticleListViewModel {
                 mLocalData.add((ArticleDetailBean.ArticleBean) previous.getValue());
             }
         }
+
+        createViewModelByLocal();
     }
 
     /**
@@ -131,13 +148,11 @@ public class ReadLaterViewModel extends ArticleListViewModel {
                     requestServer();
                 } else {
                     setReadLaterData(context);
-                    createViewModelByLocal();
                 }
                 break;
             case Constants.KeyExtra.READ_HISTORY_MAP:
                 mTitle.set(ResourceUtil.getString(R.string.mine_read_history));
                 setReadLaterData(context);
-                createViewModelByLocal();
                 break;
         }
     }

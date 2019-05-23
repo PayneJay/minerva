@@ -1,6 +1,6 @@
 package com.minerva.business.mine.read.model;
 
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.list.model.ArticleListBean;
 import com.minerva.common.Constants;
 import com.minerva.network.RetrofitHelper;
 
@@ -23,7 +23,7 @@ public class ReadModel {
      *
      * @param observer 回调
      */
-    public void getLateList(Observer<? super ArticleBean> observer) {
+    public void getLateList(Observer<? super ArticleListBean> observer) {
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
                 .getServer()
                 .getLateList(200, 1)

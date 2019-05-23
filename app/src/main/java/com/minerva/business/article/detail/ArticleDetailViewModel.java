@@ -368,7 +368,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             }
 
             if (article.getLang() == 2){
-                return "catherine";
+                return "henry";
             }
         }
         return "xiaoyan";

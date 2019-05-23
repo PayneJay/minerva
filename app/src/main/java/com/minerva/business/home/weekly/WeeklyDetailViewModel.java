@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.category.mag.MagTitleViewModel;
 import com.minerva.business.home.weekly.model.WeekDetailBean;
 import com.minerva.business.home.weekly.model.WeeklyModel;
@@ -47,7 +47,7 @@ public class WeeklyDetailViewModel extends PolymerReadViewModel {
             @Override
             public void onSuccess(WeekDetailBean weekDetailBean) {
                 refreshing.set(false);
-                List<ArticleBean.ArticlesBean> articles = weekDetailBean.getArticles();
+                List<ArticleDetailBean.ArticleBean> articles = weekDetailBean.getArticles();
                 mData.clear();
                 mData.addAll(articles);
                 createViewModel();

@@ -87,7 +87,7 @@ public class ArticleDetailModel {
     public LinkedHashMap<String, Object> getArticlesByKey(Context context, String key) {
         String history = (String) SPUtil.get(context, key, "");
         if (TextUtils.isEmpty(history)) {
-            return readArticleMap;
+            return new LinkedHashMap<>();
         }
 
         LinkedHashMap<String, ArticleDetailBean.ArticleBean> map = new Gson().fromJson(history, new TypeToken<LinkedHashMap<String, ArticleDetailBean.ArticleBean>>() {
@@ -99,7 +99,7 @@ public class ArticleDetailModel {
     }
 
     /**
-     * 添加待读文章（未登录）
+     * 添加待读(阅读历史)文章（未登录）
      *
      * @param context context
      * @param article 待读文章

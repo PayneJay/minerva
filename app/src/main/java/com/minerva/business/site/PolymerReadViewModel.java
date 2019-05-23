@@ -6,8 +6,8 @@ import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.ArticleItemViewModel;
-import com.minerva.business.article.list.model.ArticleBean;
 import com.minerva.business.category.mag.MagTitleViewModel;
 import com.minerva.business.site.detail.PeriodicalDetailViewModel;
 import com.minerva.business.site.model.PolymerRead;
@@ -73,7 +73,7 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
                 mCode = polymerRead.getCode();
                 hasNext = polymerRead.isHas_next();
 
-                List<ArticleBean.ArticlesBean> articles = polymerRead.getArticles();
+                List<ArticleDetailBean.ArticleBean> articles = polymerRead.getArticles();
                 mData.clear();
                 mData.addAll(articles);
                 createViewModel();
@@ -95,7 +95,7 @@ public class PolymerReadViewModel extends PeriodicalDetailViewModel {
 
         for (int i = 0; i < mData.size(); i++) {
             ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
-            ArticleBean.ArticlesBean articlesBean = mData.get(i);
+            ArticleDetailBean.ArticleBean articlesBean = mData.get(i);
             viewModel.content.set(articlesBean.getTitle());
             viewModel.date.set(articlesBean.getRectime());
             viewModel.imgUrl.set(articlesBean.getImg());

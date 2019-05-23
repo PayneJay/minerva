@@ -16,6 +16,9 @@ public class HtmlUtil {
     private static final String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; // 定义style的正则表达式
     private static final String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
     private static final String regEx_space = "\\s*|\t|\r|\n";//定义空格回车换行符
+    // 定义一些特殊字符的正则表达式 如：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    private static final String regEx_special = "\\&[a-zA-Z]{1,10};";
+
 
     /**
      * @param htmlStr 带标签的html字符串
@@ -34,16 +37,19 @@ public class HtmlUtil {
         Matcher m_html = p_html.matcher(htmlStr);
         htmlStr = m_html.replaceAll(""); // 过滤html标签
 
+        Pattern p_special = Pattern.compile(regEx_special, Pattern.CASE_INSENSITIVE);
+        Matcher m_special = p_special.matcher(htmlStr);
+        htmlStr = m_special.replaceAll(""); // 过滤特殊字符标签
+
         Pattern p_space = Pattern.compile(regEx_space, Pattern.CASE_INSENSITIVE);
         Matcher m_space = p_space.matcher(htmlStr);
         htmlStr = m_space.replaceAll(""); // 过滤空格回车标签
+
         return htmlStr.trim(); // 返回文本字符串
     }
 
     public static String getTextFromHtml(String htmlStr) {
         htmlStr = delHTMLTag(htmlStr);
-        htmlStr = htmlStr.replaceAll(" ", "");
-        Log.e(Constants.TAG, "**********htmlStr = " + htmlStr.length());
         if (htmlStr.length() > 4096) {
             return htmlStr.substring(0, 4096);
         }

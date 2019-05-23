@@ -1,7 +1,7 @@
 package com.minerva.business.site.model;
 
 import com.minerva.base.BaseBean;
-import com.minerva.business.article.list.model.ArticleBean;
+import com.minerva.business.article.detail.model.ArticleDetailBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class PolymerRead extends BaseBean {
     private long time;
     private String tip;
     private String code;
-    private List<ArticleBean.ArticlesBean> articles = new ArrayList<>();
+    private List<ArticleDetailBean.ArticleBean> articles = new ArrayList<>();
 
     public boolean isHas_next() {
         return has_next;
@@ -63,11 +63,11 @@ public class PolymerRead extends BaseBean {
         this.code = code;
     }
 
-    public List<ArticleBean.ArticlesBean> getArticles() {
+    public List<ArticleDetailBean.ArticleBean> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<ArticleBean.ArticlesBean> articles) {
+    public void setArticles(List<ArticleDetailBean.ArticleBean> articles) {
         this.articles = articles;
     }
 }
