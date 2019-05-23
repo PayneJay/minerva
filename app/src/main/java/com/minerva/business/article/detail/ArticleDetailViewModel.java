@@ -183,9 +183,9 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             case R.id.menu_change_font_size:
                 changeFontSize();
                 break;
-            case R.id.menu_open_voice_broadcast:
-                speakText();
-                break;
+//            case R.id.menu_open_voice_broadcast:
+//                speakText();
+//                break;
         }
         return true;
     }
