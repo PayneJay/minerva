@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 
+import com.umeng.analytics.MobclickAgent;
+
 public abstract class BaseActivity<T extends BaseViewModel> extends FragmentActivity {
     protected ViewDataBinding binding;
     private T mViewModel;
@@ -32,6 +34,13 @@ public abstract class BaseActivity<T extends BaseViewModel> extends FragmentActi
         if (mViewModel != null) {
             mViewModel.onResume();
         }
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override

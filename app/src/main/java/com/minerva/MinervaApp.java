@@ -5,6 +5,7 @@ import android.app.Application;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.minerva.common.Constants;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -31,6 +32,9 @@ public class MinervaApp extends Application {
         UMConfigure.init(this, "5c776a0df1f556755c001104"
                 , "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         UMShareAPI.get(this);
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+        // 将默认Session间隔时长改为40秒。
+        MobclickAgent.setSessionContinueMillis(1000 * 40);
     }
 
     static {
