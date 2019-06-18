@@ -1,6 +1,8 @@
 package com.minerva.business.article.detail.model;
 
 
+import android.support.annotation.NonNull;
+
 import com.minerva.MinervaApp;
 import com.minerva.base.BaseBean;
 import com.minerva.common.Constants;
@@ -79,16 +81,11 @@ public class ArticleDetailModel {
      */
     public void addReadHistory(ArticleDetailBean.ArticleBean article) {
         ArticleDao articleDao = ((MinervaApp) Constants.application).getDaoSession().getArticleDao();
-        Article articleNew = new Article();
-        articleNew.setAid(article.getId());
-        articleNew.setTitle(article.getTitle());
-        articleNew.setFeed_title(article.getFeed_title());
-        articleNew.setTime(article.getTime());
-        articleNew.setImg(article.getImg());
+        Article articleNew = getArticle(article);
         articleNew.setType(1);
         Article articleQuery = queryById(article.getId());
         if (articleQuery == null) {
-            articleDao.insertOrReplace(articleNew);
+            articleDao.insert(articleNew);
         }
     }
 
@@ -99,14 +96,9 @@ public class ArticleDetailModel {
      */
     public void addUnRead(ArticleDetailBean.ArticleBean article) {
         ArticleDao articleDao = ((MinervaApp) Constants.application).getDaoSession().getArticleDao();
-        Article articleNew = new Article();
-        articleNew.setAid(article.getId());
-        articleNew.setTitle(article.getTitle());
-        articleNew.setFeed_title(article.getFeed_title());
-        articleNew.setTime(article.getTime());
-        articleNew.setImg(article.getImg());
-        articleNew.setType(1);
-        articleDao.insert(articleNew);
+        Article articleNew = getArticle(article);
+        articleNew.setType(0);
+        articleDao.insertOrReplace(articleNew);
     }
 
     /**
@@ -130,7 +122,7 @@ public class ArticleDetailModel {
     public Article queryById(String id) {
         ArticleDao articleDao = ((MinervaApp) Constants.application).getDaoSession().getArticleDao();
         Article article = articleDao.queryBuilder()
-                .where(ArticleDao.Properties.Id.eq(id), ArticleDao.Properties.Type.eq(0))
+                .where(ArticleDao.Properties.Aid.eq(id), ArticleDao.Properties.Type.eq(0))
                 .build()
                 .unique();
         return article;
@@ -146,9 +138,22 @@ public class ArticleDetailModel {
         ArticleDao articleDao = ((MinervaApp) Constants.application).getDaoSession().getArticleDao();
         List<Article> articles = articleDao.queryBuilder()
                 .where(ArticleDao.Properties.Type.eq(type))
+                .orderDesc(ArticleDao.Properties.Timestamp)
                 .build()
                 .list();
         return articles;
+    }
+
+    @NonNull
+    private Article getArticle(ArticleDetailBean.ArticleBean article) {
+        Article articleNew = new Article();
+        articleNew.setAid(article.getId());
+        articleNew.setTitle(article.getTitle());
+        articleNew.setFeed_title(article.getFeed_title());
+        articleNew.setTime(article.getTime());
+        articleNew.setImg(article.getImg());
+        articleNew.setTimestamp(System.currentTimeMillis());
+        return articleNew;
     }
 
 }

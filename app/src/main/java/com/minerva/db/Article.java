@@ -2,13 +2,10 @@ package com.minerva.db;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
 
 @Entity
 public class Article {
-    @Id(autoincrement = true)
-    private long id;
-
+    private long timestamp;//入库时间戳
     private String aid;
     private String title;
     private String time;
@@ -16,9 +13,10 @@ public class Article {
     private String img;
     private int type;//0：待读列表，1：阅读历史
 
-    @Generated(hash = 1025068939)
-    public Article(String aid, String title, String time, String feed_title,
-                   String img, int type) {
+    @Generated(hash = 1652618)
+    public Article(long timestamp, String aid, String title, String time,
+                   String feed_title, String img, int type) {
+        this.timestamp = timestamp;
         this.aid = aid;
         this.title = title;
         this.time = time;
@@ -29,6 +27,14 @@ public class Article {
 
     @Generated(hash = 742516792)
     public Article() {
+    }
+
+    public long getTimestamp() {
+        return this.timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getAid() {
@@ -78,6 +84,4 @@ public class Article {
     public void setType(int type) {
         this.type = type;
     }
-
-
 }
