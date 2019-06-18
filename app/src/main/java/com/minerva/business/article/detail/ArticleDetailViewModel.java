@@ -42,6 +42,7 @@ import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.common.WebViewActivity;
+import com.minerva.db.Article;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;
 import com.minerva.utils.DisplayUtil;
@@ -56,7 +57,6 @@ import com.umeng.socialize.media.UMWeb;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Map;
 import java.util.Random;
 
 public class ArticleDetailViewModel extends BaseViewModel implements UMShareListener, PopupMenu.OnMenuItemClickListener, ISelectJournalListener, IFontSelectedListener {
@@ -129,8 +129,8 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
      * 更多菜单
      */
     public void more() {
-        final Map<String, Object> readLater = ArticleDetailModel.getInstance().getArticlesByKey(context, Constants.KeyExtra.READ_LATER_MAP);
-        if (readLater.keySet().contains(articleID)) {
+        Article article = ArticleDetailModel.getInstance().queryById(articleID);
+        if (article != null) {
             //已添加待读，该操作为取消待读
             mMarkReadOrNotText = ResourceUtil.getString(R.string.toolbar_menu_cancel_read);
         } else {
@@ -303,7 +303,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                     date.set(article.getFeed_title() + "   " + article.getTime());
                     mArticleLink = article.getUrl();
                     //添加到阅读历史
-                    ArticleDetailModel.getInstance().addArticleWithKey(context, article, Constants.KeyExtra.READ_HISTORY_MAP);
+                    ArticleDetailModel.getInstance().addReadHistory(article);
                 }
             }
 
@@ -362,12 +362,12 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
 
     @NonNull
     private String getSpeaker() {
-        if (article != null){
-            if (article.getLang() == 1){
+        if (article != null) {
+            if (article.getLang() == 1) {
                 return "xiaoyan";
             }
 
-            if (article.getLang() == 2){
+            if (article.getLang() == 2) {
                 return "henry";
             }
         }
@@ -449,8 +449,8 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
      * 标记未读或者待读
      */
     private void markOrCancelRead() {
-        final Map<String, Object> readLater = ArticleDetailModel.getInstance().getArticlesByKey(context, Constants.KeyExtra.READ_LATER_MAP);
-        if (readLater.keySet().contains(articleID)) {
+        Article article = ArticleDetailModel.getInstance().queryById(articleID);
+        if (article != null) {
             //已添加待读，该操作为取消待读
             cancelRead();
         } else {
@@ -464,7 +464,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
      */
     private void markRead() {
         if (!GlobalData.getInstance().isLogin()) {
-            ArticleDetailModel.getInstance().addArticleWithKey(context, article, Constants.KeyExtra.READ_LATER_MAP);
+            ArticleDetailModel.getInstance().addUnRead(article);
             Toast.makeText(context, ResourceUtil.getString(R.string.toast_mark_read_later), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -472,7 +472,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         ArticleDetailModel.getInstance().markReadLate(articleID, new NetworkObserver<BaseBean>() {
             @Override
             public void onSuccess(BaseBean baseBean) {
-                ArticleDetailModel.getInstance().addArticleWithKey(context, article, Constants.KeyExtra.READ_LATER_MAP);
+                ArticleDetailModel.getInstance().addUnRead(article);
                 Toast.makeText(context, ResourceUtil.getString(R.string.toast_mark_read_later), Toast.LENGTH_SHORT).show();
             }
 
@@ -488,7 +488,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
      */
     private void cancelRead() {
         if (!GlobalData.getInstance().isLogin()) {
-            ArticleDetailModel.getInstance().removeArticleByKey(context, articleID, Constants.KeyExtra.READ_LATER_MAP);
+            ArticleDetailModel.getInstance().unMarkUnReadById(articleID);
             Toast.makeText(context, ResourceUtil.getString(R.string.toast_cancel_read_later), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -496,7 +496,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         ArticleDetailModel.getInstance().cancelReadLate(articleID, new NetworkObserver<BaseBean>() {
             @Override
             public void onSuccess(BaseBean baseBean) {
-                ArticleDetailModel.getInstance().removeArticleByKey(context, articleID, Constants.KeyExtra.READ_LATER_MAP);
+                ArticleDetailModel.getInstance().unMarkUnReadById(articleID);
                 Toast.makeText(context, ResourceUtil.getString(R.string.toast_cancel_read_later), Toast.LENGTH_SHORT).show();
             }
 

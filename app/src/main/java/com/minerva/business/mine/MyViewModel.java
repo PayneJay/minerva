@@ -22,14 +22,14 @@ import com.minerva.business.mine.user.UserEditActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
+import com.minerva.db.Article;
+import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtil;
-import com.minerva.utils.SPUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.minerva.common.Constants.showToast;
 
@@ -164,7 +164,7 @@ public class MyViewModel extends BaseViewModel {
     }
 
     private void setUnReadByLocal() {
-        Map<String, Object> articles = ArticleDetailModel.getInstance().getArticlesByKey(context, Constants.KeyExtra.READ_LATER_MAP);
+        List<Article> articles = ArticleDetailModel.getInstance().loadAllByType(0);
         setUnReadCount(articles.size());
     }
 
@@ -173,8 +173,9 @@ public class MyViewModel extends BaseViewModel {
      */
     private void updateStatus() {
         if (GlobalData.getInstance().isLogin()) {
-            headUrl.set((String) SPUtil.get(context, Constants.UserInfoKey.USER_PROFILE, ""));
-            userName.set((String) SPUtil.get(context, Constants.UserInfoKey.USER_NAME, "——"));
+            User user = GlobalData.getInstance().getUser();
+            headUrl.set(user.getProfile());
+            userName.set(user.getName());
         }
     }
 

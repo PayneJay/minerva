@@ -48,6 +48,7 @@ import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
+import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.DisplayUtil;
@@ -480,9 +481,9 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                 .subscribe(new NetworkObserver<UserInfo>() {
                     @Override
                     public void onSuccess(UserInfo userInfo) {
-                        UserInfo.UserBean user = userInfo.getUser();
+                        User user = userInfo.getUser();
                         if (user != null) {
-                            LoginRegisterModel.getInstance().saveUserInfo(context, user);
+                            LoginRegisterModel.getInstance().saveUserInfo(user);
                             EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.LOGIN_SUCCESS));
                         }
                     }

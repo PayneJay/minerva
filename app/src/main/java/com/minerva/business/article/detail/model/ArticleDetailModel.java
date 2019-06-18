@@ -1,18 +1,16 @@
 package com.minerva.business.article.detail.model;
 
 
-import android.content.Context;
-import android.text.TextUtils;
+import android.support.annotation.NonNull;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.minerva.MinervaApp;
 import com.minerva.base.BaseBean;
 import com.minerva.common.Constants;
+import com.minerva.db.Article;
+import com.minerva.db.ArticleDao;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.utils.CommonUtil;
-import com.minerva.utils.SPUtil;
 
-import java.util.LinkedHashMap;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,7 +18,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ArticleDetailModel {
     private static ArticleDetailModel instance;
-    private LinkedHashMap<String, Object> readArticleMap = new LinkedHashMap<>();
 
     private ArticleDetailModel() {
     }
@@ -78,54 +75,85 @@ public class ArticleDetailModel {
     }
 
     /**
-     * 获取已添加的待读文章（未登录）
+     * 添加到阅读历史
      *
-     * @param context context
-     * @param key     sp缓存的key
-     * @return map
+     * @param article 文章
      */
-    public LinkedHashMap<String, Object> getArticlesByKey(Context context, String key) {
-        String history = (String) SPUtil.get(context, key, "");
-        if (TextUtils.isEmpty(history)) {
-            return new LinkedHashMap<>();
+    public void addReadHistory(ArticleDetailBean.ArticleBean article) {
+        ArticleDao articleDao = ((MinervaApp) Constants.application).getDaoSession().getArticleDao();
+        Article articleNew = getArticle(article);
+        articleNew.setType(1);
+        Article articleQuery = queryById(article.getId());
+        if (articleQuery == null) {
+            articleDao.insert(articleNew);
         }
-
-        LinkedHashMap<String, ArticleDetailBean.ArticleBean> map = new Gson().fromJson(history, new TypeToken<LinkedHashMap<String, ArticleDetailBean.ArticleBean>>() {
-        }.getType());
-
-        readArticleMap.clear();
-        readArticleMap.putAll(map);
-        return readArticleMap;
     }
 
     /**
-     * 添加待读(阅读历史)文章（未登录）
+     * 添加到待读列表
      *
-     * @param context context
-     * @param article 待读文章
-     * @param key     sp缓存的key
+     * @param article 文章
      */
-    public void addArticleWithKey(Context context, ArticleDetailBean.ArticleBean article, String key) {
-        LinkedHashMap<String, Object> readLater = getArticlesByKey(context, key);
-        readLater.put(article.getId(), article);
-
-        String mapString = CommonUtil.toJson(readLater);
-        SPUtil.put(context, key, mapString);
+    public void addUnRead(ArticleDetailBean.ArticleBean article) {
+        ArticleDao articleDao = ((MinervaApp) Constants.application).getDaoSession().getArticleDao();
+        Article articleNew = getArticle(article);
+        articleNew.setType(0);
+        articleDao.insertOrReplace(articleNew);
     }
 
     /**
-     * 取消待读文章（未登录）
+     * 取消待读
      *
-     * @param context context
-     * @param id      待读文章
-     * @param key     sp缓存的key
+     * @param id 文章id
      */
-    public void removeArticleByKey(Context context, String id, String key) {
-        LinkedHashMap<String, Object> readLater = getArticlesByKey(context, key);
-        readLater.remove(id);
+    public void unMarkUnReadById(String id) {
+        ArticleDao articleDao = ((MinervaApp) Constants.application).getDaoSession().getArticleDao();
+        Article article = queryById(id);
+        if (null != article) {
+            articleDao.delete(article);
+        }
+    }
 
-        String map = CommonUtil.toJson(readLater);
-        SPUtil.put(context, key, map);
+    /**
+     * 通过id查找
+     *
+     * @return
+     */
+    public Article queryById(String id) {
+        ArticleDao articleDao = ((MinervaApp) Constants.application).getDaoSession().getArticleDao();
+        Article article = articleDao.queryBuilder()
+                .where(ArticleDao.Properties.Aid.eq(id), ArticleDao.Properties.Type.eq(0))
+                .build()
+                .unique();
+        return article;
+    }
+
+    /**
+     * 根据类型查找所有
+     *
+     * @param type 类型
+     * @return
+     */
+    public List<Article> loadAllByType(int type) {
+        ArticleDao articleDao = ((MinervaApp) Constants.application).getDaoSession().getArticleDao();
+        List<Article> articles = articleDao.queryBuilder()
+                .where(ArticleDao.Properties.Type.eq(type))
+                .orderDesc(ArticleDao.Properties.Timestamp)
+                .build()
+                .list();
+        return articles;
+    }
+
+    @NonNull
+    private Article getArticle(ArticleDetailBean.ArticleBean article) {
+        Article articleNew = new Article();
+        articleNew.setAid(article.getId());
+        articleNew.setTitle(article.getTitle());
+        articleNew.setFeed_title(article.getFeed_title());
+        articleNew.setTime(article.getTime());
+        articleNew.setImg(article.getImg());
+        articleNew.setTimestamp(System.currentTimeMillis());
+        return articleNew;
     }
 
 }

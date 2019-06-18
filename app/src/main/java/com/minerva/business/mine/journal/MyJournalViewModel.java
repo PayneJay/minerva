@@ -118,6 +118,7 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
             @Override
             public void onFailure(String msg) {
                 refreshing.set(false);
+                setEmptyPage();
             }
         });
     }
@@ -204,9 +205,11 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
         if (mBlankVM == null) {
             mBlankVM = new BlankViewModel(context);
         }
-        items.clear();
+        JournalModel.getInstance().clear();
+        ObservableList<BaseViewModel> temp = new ObservableArrayList<>();
         mBlankVM.setStatus(Constants.PageStatus.NO_DATA);
-        items.add(mBlankVM);
+        temp.add(mBlankVM);
+        JournalModel.getInstance().setData(temp);
     }
 
     /**
@@ -218,9 +221,11 @@ public class MyJournalViewModel extends ArticleListViewModel implements CreateJo
             mBlankVM = new BlankViewModel(context);
         }
         if (mCurrentPage == 0) {
-            items.clear();
+            JournalModel.getInstance().clear();
+            ObservableList<BaseViewModel> temp = new ObservableArrayList<>();
             mBlankVM.setStatus(Constants.PageStatus.NETWORK_EXCEPTION);
-            items.add(mBlankVM);
+            temp.add(mBlankVM);
+            JournalModel.getInstance().setData(temp);
         }
     }
 

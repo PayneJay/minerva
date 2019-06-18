@@ -16,14 +16,13 @@ import com.minerva.business.mine.read.model.ReadModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
+import com.minerva.db.Article;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;
 import com.minerva.utils.ResourceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
 
 public class ReadLaterViewModel extends ArticleListViewModel {
     public ObservableField<String> mTitle = new ObservableField<>(ResourceUtil.getString(R.string.mine_to_be_read));
@@ -33,7 +32,7 @@ public class ReadLaterViewModel extends ArticleListViewModel {
             ((BaseActivity) context).finish();
         }
     };
-    private List<ArticleDetailBean.ArticleBean> mLocalData = new ArrayList<>();
+    private List<Article> mLocalData = new ArrayList<>();
     private BlankViewModel mBlankVM;
     private String mKey;
 
@@ -91,7 +90,7 @@ public class ReadLaterViewModel extends ArticleListViewModel {
             if (null == article) {
                 continue;
             }
-            ArticleDetailModel.getInstance().addArticleWithKey(context, article, Constants.KeyExtra.READ_LATER_MAP);
+            ArticleDetailModel.getInstance().addUnRead(article);
         }
     }
 
@@ -100,11 +99,11 @@ public class ReadLaterViewModel extends ArticleListViewModel {
 
         for (int i = 0; i < mLocalData.size(); i++) {
             ArticleItemViewModel viewModel = new ArticleItemViewModel(context);
-            ArticleDetailBean.ArticleBean articlesBean = mLocalData.get(i);
-            viewModel.content.set(articlesBean.getTitle());
-            viewModel.date.set(articlesBean.getTime());
-            viewModel.imgUrl.set(articlesBean.getImg());
-            viewModel.articleID = articlesBean.getId();
+            Article article = mLocalData.get(i);
+            viewModel.content.set(article.getTitle());
+            viewModel.date.set(article.getTime());
+            viewModel.imgUrl.set(article.getImg());
+            viewModel.articleID = article.getAid();
             items.add(viewModel);
         }
     }
@@ -113,10 +112,11 @@ public class ReadLaterViewModel extends ArticleListViewModel {
      * 设置本地缓存的待读数据
      *
      * @param context context
+     * @param type    类型
      */
-    private void setReadLaterData(Context context) {
-        Map<String, Object> readLater = ArticleDetailModel.getInstance().getArticlesByKey(context, mKey);
-        if (readLater.size() <= 0) {
+    private void setReadLaterData(Context context, int type) {
+        List<Article> articles = ArticleDetailModel.getInstance().loadAllByType(type);
+        if (articles.size() <= 0) {
             if (mBlankVM == null) {
                 mBlankVM = new BlankViewModel(context);
             }
@@ -125,15 +125,7 @@ public class ReadLaterViewModel extends ArticleListViewModel {
             return;
         }
 
-        //反向遍历map
-        ListIterator<Map.Entry<String, Object>> iterator = new ArrayList<>(readLater.entrySet()).listIterator(readLater.size());
-        while (iterator.hasPrevious()) {
-            Map.Entry<String, Object> previous = iterator.previous();
-            if (previous.getValue() instanceof ArticleDetailBean.ArticleBean) {
-                mLocalData.add((ArticleDetailBean.ArticleBean) previous.getValue());
-            }
-        }
-
+        mLocalData.addAll(articles);
         createViewModelByLocal();
     }
 
@@ -147,12 +139,12 @@ public class ReadLaterViewModel extends ArticleListViewModel {
                 if (GlobalData.getInstance().isLogin()) {
                     requestServer();
                 } else {
-                    setReadLaterData(context);
+                    setReadLaterData(context, 0);
                 }
                 break;
             case Constants.KeyExtra.READ_HISTORY_MAP:
                 mTitle.set(ResourceUtil.getString(R.string.mine_read_history));
-                setReadLaterData(context);
+                setReadLaterData(context, 1);
                 break;
         }
     }

@@ -47,8 +47,8 @@ public class ArticleViewModel extends BaseViewModel {
         tabLayout.setupWithViewPager(viewPager, true);
         new TabLayoutHelper.Builder(tabLayout)
                 .setIndicatorColor(Color.WHITE)
-                .setIndicatorHeight(8)
-                .setIndicatorWith(150)
+                .setIndicatorHeight(5)
+                .setIndicatorWith(100)
                 .setIndicatorDrawable(R.drawable.shape_tab_line)
                 .setSelectedTextColor(Color.WHITE)
                 .setNormalTextColor(ResourceUtil.getColor(R.color.color_CFFFFFFF))
@@ -58,7 +58,7 @@ public class ArticleViewModel extends BaseViewModel {
                 .setNormalBackgroundColor(ResourceUtil.getColor(R.color.colorPrimaryDark))
                 .setSelectedBackgroundColor(ResourceUtil.getColor(R.color.colorPrimaryDark))
                 .setCurrentTab(currentItem.get())
-                .setTabItemWith(200)
+                .setTabItemWith(120)
                 .build();
     }
 }
