@@ -38,12 +38,7 @@ public class GlobalData {
 
     public User getUser() {
         UserDao userDao = ((MinervaApp) Constants.application).getDaoSession().getUserDao();
-        List<User> users = null;
-        try {
-            users = userDao.loadAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<User> users = userDao.loadAll();
         if (users == null || users.size() == 0) {
             return null;
         }
@@ -67,6 +62,5 @@ public class GlobalData {
     public void clear() {
         UserDao userDao = ((MinervaApp) Constants.application).getDaoSession().getUserDao();
         userDao.deleteAll();
-        LoginRegisterModel.getInstance().query();
     }
 }

@@ -24,11 +24,10 @@ import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.SplashActivity;
-import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
+import com.minerva.db.User;
 import com.minerva.utils.DisplayUtil;
 import com.minerva.utils.ResourceUtil;
-import com.minerva.utils.SPUtil;
 
 import static android.support.v7.app.AlertDialog.Builder;
 import static android.support.v7.app.AlertDialog.OnClickListener;
@@ -62,7 +61,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
 
     UserEditViewModel(Context context) {
         super(context);
-        initView(context);
+        initView();
     }
 
     @BindingAdapter({"toolBarMenu", "menuItemClick"})
@@ -126,7 +125,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
 
     @Override
     public void confirm() {
-        initView(context);
+        initView();
         if (editPwdPopup != null) {
             editPwdPopup.dismiss();
         }
@@ -140,16 +139,16 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
         }
     }
 
-    private void initView(Context context) {
-        headUrl.set((String) SPUtil.get(context, Constants.UserInfoKey.USER_PROFILE, ""));
-        userName.set((String) SPUtil.get(context, Constants.UserInfoKey.USER_NAME, "——"));
-        email.set((String) SPUtil.get(context, Constants.UserInfoKey.USER_EMAIL, "——"));
-        String weiboName = (String) SPUtil.get(context, Constants.UserInfoKey.WEIBO, "——");
-        String qqName = (String) SPUtil.get(context, Constants.UserInfoKey.QQ, "——");
-        String wechatName = (String) SPUtil.get(context, Constants.UserInfoKey.WECHAT, "——");
-        weibo.set(weiboName);
-        QQ.set(qqName);
-        wechat.set(wechatName);
+    private void initView() {
+        User user = GlobalData.getInstance().getUser();
+        if (user != null) {
+            headUrl.set(user.getProfile());
+            userName.set(user.getName());
+            email.set(user.getEmail());
+            weibo.set(user.getWeibo_name());
+            QQ.set(user.getQq_name());
+            wechat.set(user.getWeixin_name());
+        }
     }
 
     private void logOut() {

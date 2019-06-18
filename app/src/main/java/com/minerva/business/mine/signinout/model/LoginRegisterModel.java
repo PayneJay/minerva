@@ -175,30 +175,14 @@ public class LoginRegisterModel {
     public void saveUserInfo(User user) {
         UserDao userDao = ((MinervaApp) Constants.application).getDaoSession().getUserDao();
         userDao.insertOrReplace(user);
-
-        query();
     }
 
     public void updateUserInfo(User user) {
         UserDao userDao = ((MinervaApp) Constants.application).getDaoSession().getUserDao();
         userDao.update(user);
-
-        query();
     }
 
     private void showToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    public void query() {
-        UserDao userDao = ((MinervaApp) Constants.application).getDaoSession().getUserDao();
-        List<User> users = userDao.loadAll();// 查询所有记录
-        if (users == null) {
-            Log.i(Constants.TAG, "id----null");
-            return;
-        }
-        for (User user : users) {
-            Log.i(Constants.TAG, "id----" + user.getId() + "-----email----" + user.getEmail());
-        }
     }
 }
