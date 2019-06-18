@@ -16,6 +16,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.home.HomeActivity;
 import com.minerva.business.site.imperfect.SiteFragment;
 import com.minerva.utils.DisplayUtil;
+import com.minerva.utils.ResourceUtil;
 import com.minerva.widget.Loading;
 
 public class MenuViewModel extends BaseViewModel implements IPopupMenuItemClickListener {
@@ -56,6 +57,8 @@ public class MenuViewModel extends BaseViewModel implements IPopupMenuItemClickL
     void showPopupMenu(String type) {
         if (menuPopup == null) {
             menuPopup = new PopupWindow(((HomeActivity) context).getWindow().getDecorView(), DisplayUtil.getScreenWidth() * 2 / 3, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            menuPopup.setOutsideTouchable(true);
+            menuPopup.setBackgroundDrawable(ResourceUtil.getDrawable(R.drawable.shape_rectangle_button_white));
             menuPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {

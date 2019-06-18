@@ -28,6 +28,7 @@ import com.minerva.common.GlobalData;
 import com.minerva.common.MinervaLinearLayoutManager;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.DisplayUtil;
+import com.minerva.utils.ResourceUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -178,6 +179,8 @@ public class SiteFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private void showPopupMenu(String type, int groupId, String childId, String name) {
         if (menuPopup == null) {
             menuPopup = new PopupWindow(getActivity().getWindow().getDecorView(), DisplayUtil.getScreenWidth() * 3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            menuPopup.setOutsideTouchable(true);
+            menuPopup.setBackgroundDrawable(ResourceUtil.getDrawable(R.drawable.shape_rectangle_button_white));
             menuPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
