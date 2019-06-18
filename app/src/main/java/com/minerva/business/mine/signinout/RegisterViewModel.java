@@ -20,6 +20,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.SplashActivity;
 import com.minerva.business.mine.signinout.model.LoginRegisterModel;
 import com.minerva.business.mine.signinout.model.UserInfo;
+import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtil;
 
@@ -117,9 +118,9 @@ public class RegisterViewModel extends BaseViewModel implements RegisterVerifyVi
                 .subscribe(new NetworkObserver<UserInfo>() {
                     @Override
                     public void onSuccess(UserInfo userInfo) {
-                        UserInfo.UserBean user = userInfo.getUser();
+                        User user = userInfo.getUser();
                         if (user != null) {
-                            LoginRegisterModel.getInstance().saveUserInfo(context, user);
+                            LoginRegisterModel.getInstance().saveUserInfo(user);
                             restartApp();
                         }
                     }

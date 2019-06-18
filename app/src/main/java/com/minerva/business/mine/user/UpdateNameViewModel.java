@@ -11,6 +11,7 @@ import com.minerva.business.mine.signinout.model.LoginRegisterModel;
 import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
+import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.ResourceUtil;
@@ -68,9 +69,9 @@ public class UpdateNameViewModel extends BaseViewModel {
                     @Override
                     public void onSuccess(UserInfo userInfo) {
                         loading.dismiss();
-                        UserInfo.UserBean user = userInfo.getUser();
+                        User user = userInfo.getUser();
                         if (user != null) {
-                            LoginRegisterModel.getInstance().saveUserInfo(context, user);
+                            LoginRegisterModel.getInstance().updateUserInfo(user);
                             EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.LOGIN_SUCCESS));
                         }
                         if (listener != null) {

@@ -2,14 +2,19 @@ package com.minerva.business.mine.signinout.model;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.minerva.MinervaApp;
 import com.minerva.R;
 import com.minerva.base.BaseBean;
 import com.minerva.common.Constants;
+import com.minerva.db.User;
+import com.minerva.db.UserDao;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.ResourceUtil;
-import com.minerva.utils.SPUtil;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -165,23 +170,35 @@ public class LoginRegisterModel {
     /**
      * 保存用户信息
      *
-     * @param context context
-     * @param user    data
+     * @param user data
      */
-    public void saveUserInfo(Context context, UserInfo.UserBean user) {
-        SPUtil.put(context, Constants.UserInfoKey.USER_ID, user.getUid());
-        SPUtil.put(context, Constants.UserInfoKey.USER_TOKEN, user.getToken());
-        SPUtil.put(context, Constants.UserInfoKey.USER_PROFILE, user.getProfile());
-        SPUtil.put(context, Constants.UserInfoKey.USER_NAME, user.getName());
-        SPUtil.put(context, Constants.UserInfoKey.USER_EMAIL, user.getEmail());
-        SPUtil.put(context, Constants.UserInfoKey.WEIBO, user.getWeibo_name());
-        SPUtil.put(context, Constants.UserInfoKey.QQ, user.getQq_name());
-        SPUtil.put(context, Constants.UserInfoKey.WECHAT, user.getWeixin_name());
-        //存储最近一次的邮箱
-        SPUtil.put(context, Constants.KeyExtra.LAST_LOGIN_EMAIL, user.getEmail());
+    public void saveUserInfo(User user) {
+        UserDao userDao = ((MinervaApp) Constants.application).getDaoSession().getUserDao();
+        userDao.insertOrReplace(user);
+
+        query();
+    }
+
+    public void updateUserInfo(User user) {
+        UserDao userDao = ((MinervaApp) Constants.application).getDaoSession().getUserDao();
+        userDao.update(user);
+
+        query();
     }
 
     private void showToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public void query() {
+        UserDao userDao = ((MinervaApp) Constants.application).getDaoSession().getUserDao();
+        List<User> users = userDao.loadAll();// 查询所有记录
+        if (users == null) {
+            Log.i(Constants.TAG, "id----null");
+            return;
+        }
+        for (User user : users) {
+            Log.i(Constants.TAG, "id----" + user.getId() + "-----email----" + user.getEmail());
+        }
     }
 }

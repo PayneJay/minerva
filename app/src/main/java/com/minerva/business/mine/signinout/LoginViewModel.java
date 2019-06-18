@@ -16,6 +16,7 @@ import com.minerva.business.mine.signinout.model.LoginRegisterModel;
 import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
+import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtil;
 import com.minerva.utils.SPUtil;
@@ -72,9 +73,9 @@ public class LoginViewModel extends BaseViewModel {
             public void onSuccess(UserInfo userInfo) {
                 mProgressDialog.dismiss();
                 Toast.makeText(context, ResourceUtil.getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-                UserInfo.UserBean user = userInfo.getUser();
+                User user = userInfo.getUser();
                 if (user != null) {
-                    LoginRegisterModel.getInstance().saveUserInfo(context, user);
+                    LoginRegisterModel.getInstance().saveUserInfo(user);
                     EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.LOGIN_SUCCESS));
                     ((BaseActivity) context).finish();
                 }
