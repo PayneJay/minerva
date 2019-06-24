@@ -40,8 +40,7 @@ public class MinervaApp extends Application {
     }
 
     private void setupDatabase() {
-        DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(Constants.application,
-                "minerva.db");
+        DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(this, "minerva.db");
         Log.i(Constants.TAG, "*************创建数据库**************" + devOpenHelper.getDatabaseName());
         mDaoMaster = new DaoMaster(devOpenHelper.getWritableDatabase());
         mDaoSession = mDaoMaster.newSession();

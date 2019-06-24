@@ -58,7 +58,7 @@ public class ArticleViewModel extends BaseViewModel {
                 .setNormalBackgroundColor(ResourceUtil.getColor(R.color.colorPrimaryDark))
                 .setSelectedBackgroundColor(ResourceUtil.getColor(R.color.colorPrimaryDark))
                 .setCurrentTab(currentItem.get())
-                .setTabItemWith(120)
+                .setTabItemWith(180)
                 .build();
     }
 }

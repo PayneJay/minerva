@@ -129,7 +129,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
      * 更多菜单
      */
     public void more() {
-        Article article = ArticleDetailModel.getInstance().queryById(articleID);
+        Article article = ArticleDetailModel.getInstance().queryById(articleID, 0);
         if (article != null) {
             //已添加待读，该操作为取消待读
             mMarkReadOrNotText = ResourceUtil.getString(R.string.toolbar_menu_cancel_read);
@@ -449,7 +449,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
      * 标记未读或者待读
      */
     private void markOrCancelRead() {
-        Article article = ArticleDetailModel.getInstance().queryById(articleID);
+        Article article = ArticleDetailModel.getInstance().queryById(articleID, 0);
         if (article != null) {
             //已添加待读，该操作为取消待读
             cancelRead();

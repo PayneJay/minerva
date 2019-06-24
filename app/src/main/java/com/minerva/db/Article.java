@@ -2,16 +2,18 @@ package com.minerva.db;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 @Entity
 public class Article {
+    @Id
     private long timestamp;//入库时间戳
     private String aid;
     private String title;
     private String time;
     private String feed_title;
     private String img;
-    private int type;//0：待读列表，1：阅读历史
+    private int type;//类型，0：待读，1：历史
 
     @Generated(hash = 1652618)
     public Article(long timestamp, String aid, String title, String time,
