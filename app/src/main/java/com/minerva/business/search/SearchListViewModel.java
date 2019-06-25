@@ -21,6 +21,7 @@ import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.RefreshListViewModel;
+import com.minerva.db.SearchHistory;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;
 
@@ -264,11 +265,11 @@ public class SearchListViewModel extends RefreshListViewModel {
      * 设置显示搜索历史
      */
     private void setSearchHistory() {
-        List<String> searchHistory = SearchModel.getInstance().getSearchHistory(context);
+        List<SearchHistory> searchHistory = SearchModel.getInstance().getSearchHistory();
         items.clear();
-        for (String keyword : searchHistory) {
+        for (SearchHistory keyword : searchHistory) {
             SearchHistoryViewModel viewModel = new SearchHistoryViewModel(context);
-            viewModel.keyword.set(keyword);
+            viewModel.keyword.set(keyword.getKey());
             items.add(viewModel);
         }
     }

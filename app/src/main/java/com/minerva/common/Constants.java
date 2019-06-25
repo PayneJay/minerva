@@ -70,20 +70,6 @@ public class Constants {
         String LAST_LOGIN_EMAIL = "last_login_email";
     }
 
-    public interface UserInfoKey {
-        String USER_ID = "minerva_user_id";
-        String USER_TOKEN = "minerva_user_token";
-
-        //以下用户信息相关
-        String USER_PROFILE = "minerva_user_profile";
-        String USER_NAME = "minerva_user_name";
-        String USER_EMAIL = "minerva_user_email";
-        String PASS_WORD = "minerva_pass_word";
-        String WEIBO = "minerva_weibo";
-        String QQ = "minerva_qq";
-        String WECHAT = "minerva_wechat";
-    }
-
     public interface BitmapTransform {
         int CIRCLE = 100;//圆形图片
 

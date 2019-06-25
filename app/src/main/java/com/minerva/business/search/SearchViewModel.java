@@ -30,16 +30,11 @@ public class SearchViewModel extends BaseViewModel {
     public static ObservableInt currentItem = new ObservableInt(0);
     public static ObservableField<String> hintText = new ObservableField<>();
     public static ObservableField<String> inputContent = new ObservableField<>();
-    private List<String> searchHistory = new ArrayList<>();
     public SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
             EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.QUERY_SUBMITTED, query));
-            if (!searchHistory.contains(query)) {
-                searchHistory.add(query);
-            }
-
-            SearchModel.getInstance().setSearchHistory(context, searchHistory);
+            SearchModel.getInstance().setSearchHistory(query);
             return false;
         }
 
@@ -52,8 +47,6 @@ public class SearchViewModel extends BaseViewModel {
     SearchViewModel(Context context) {
         super(context);
         EventBus.getDefault().register(this);
-        List<String> history = SearchModel.getInstance().getSearchHistory(context);
-        searchHistory.addAll(history);
         gotoTab(((BaseActivity) context).getIntent());
     }
 

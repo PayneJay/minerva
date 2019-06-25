@@ -7,6 +7,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.search.model.SearchModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
+import com.minerva.db.SearchHistory;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -25,9 +26,7 @@ public class SearchHistoryViewModel extends BaseViewModel {
     }
 
     public void onDeleteKW() {
-        List<String> keyWords = SearchModel.getInstance().getSearchHistory(context);
-        keyWords.remove(keyword.get());
-        SearchModel.getInstance().setSearchHistory(context, keyWords);
+        SearchModel.getInstance().deleteHistoryByKey(keyword.get().trim());
         EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.DELETE_SEARCH_KEYWORD));
     }
 }

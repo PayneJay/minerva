@@ -1,15 +1,13 @@
 package com.minerva.business.search.model;
 
-import android.content.Context;
-import android.text.TextUtils;
-
+import com.minerva.MinervaApp;
 import com.minerva.R;
 import com.minerva.business.category.book.model.AllBook;
 import com.minerva.common.Constants;
+import com.minerva.db.SearchHistory;
+import com.minerva.db.SearchHistoryDao;
 import com.minerva.network.RetrofitHelper;
-import com.minerva.utils.CommonUtil;
 import com.minerva.utils.ResourceUtil;
-import com.minerva.utils.SPUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,29 +79,31 @@ public class SearchModel {
     /**
      * 获取搜索关键字历史列表
      *
-     * @param context context
      * @return 搜索列表
      */
-    public List<String> getSearchHistory(Context context) {
-        String history = (String) SPUtil.get(context, Constants.KeyExtra.SEARCH_HISTORY_KEYWORD, "");
-        if (TextUtils.isEmpty(history)) {
-            return searchHistory;
-        }
-
-        searchHistory.clear();
-        searchHistory.addAll(CommonUtil.json2List(history));
-        return searchHistory;
+    public List<SearchHistory> getSearchHistory() {
+        SearchHistoryDao historyDao = ((MinervaApp) Constants.application).getDaoSession().getSearchHistoryDao();
+        return historyDao.queryBuilder().orderDesc(SearchHistoryDao.Properties.Timestamp).build().list();
     }
 
     /**
      * 设置搜索关键字历史列表
      *
-     * @param context       context
-     * @param searchHistory 搜索历史
+     * @param query 搜索关键字
      */
-    public void setSearchHistory(Context context, List<String> searchHistory) {
-        String history = CommonUtil.toJson(searchHistory);
-        SPUtil.put(context, Constants.KeyExtra.SEARCH_HISTORY_KEYWORD, history);
+    public void setSearchHistory(String query) {
+        SearchHistoryDao historyDao = ((MinervaApp) Constants.application).getDaoSession().getSearchHistoryDao();
+        historyDao.insertOrReplace(new SearchHistory(query.trim(), System.currentTimeMillis()));
+    }
+
+    /**
+     * 删除历史
+     *
+     * @param key 关键字
+     */
+    public void deleteHistoryByKey(String key) {
+        SearchHistoryDao historyDao = ((MinervaApp) Constants.application).getDaoSession().getSearchHistoryDao();
+        historyDao.deleteByKey(key);
     }
 
     public List<String> getTabTitle() {

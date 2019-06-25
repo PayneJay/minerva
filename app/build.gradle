@@ -91,5 +91,5 @@ dependencies {
     implementation files('libs/Sunflower.jar')
     //数据库操作
     implementation 'org.greenrobot:greendao:3.2.2'
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.1'
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 }
