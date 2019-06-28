@@ -95,23 +95,4 @@ public class CommonUtil {
         }
         return false;
     }
-
-    /**
-     * 获取字符串字符长度（一个汉字2个字符）
-     *
-     * @param str 字符串
-     * @return
-     */
-    public static int getStringLength(String str) {
-        int length = 0;
-        for (int i = 0; i < str.length(); i++) {
-            int ascii = Character.codePointAt(str, i);
-            if (ascii >= 0 && ascii <= 255)
-                length++;
-            else
-                length += 2;
-
-        }
-        return length;
-    }
 }

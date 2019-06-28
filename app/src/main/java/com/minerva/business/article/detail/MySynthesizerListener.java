@@ -11,14 +11,18 @@ import com.minerva.common.Constants;
 
 class MySynthesizerListener implements SynthesizerListener {
     private Context context;
+    private SpeakListener speakListener;
 
-    MySynthesizerListener(Context context) {
+    MySynthesizerListener(Context context, SpeakListener speakListener) {
         this.context = context;
+        this.speakListener = speakListener;
     }
 
     @Override
     public void onSpeakBegin() {
-        Toast.makeText(context, "开始播放", Toast.LENGTH_SHORT).show();
+        if (speakListener != null) {
+            speakListener.onSpeakBegin();
+        }
     }
 
     @Override
@@ -46,9 +50,11 @@ class MySynthesizerListener implements SynthesizerListener {
     @Override
     public void onCompleted(SpeechError error) {
         if (error == null) {
-            Toast.makeText(context, "播放完成", Toast.LENGTH_SHORT).show();
+            if (speakListener != null) {
+                speakListener.onCompleted();
+            }
         } else {
-            Toast.makeText(context, error.getPlainDescription(true), Toast.LENGTH_SHORT).show();
+            Log.e(Constants.TAG, "************SpeechError : " + error.getPlainDescription(true));
         }
     }
 
@@ -67,5 +73,12 @@ class MySynthesizerListener implements SynthesizerListener {
 						Log.e("MscSpeechLog", "buf is =" + buf);
 					}*/
 
+    }
+
+
+    public interface SpeakListener {
+        void onSpeakBegin();
+
+        void onCompleted();
     }
 }
