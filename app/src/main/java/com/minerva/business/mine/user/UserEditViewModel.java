@@ -28,6 +28,7 @@ import com.minerva.common.GlobalData;
 import com.minerva.db.User;
 import com.minerva.utils.DisplayUtil;
 import com.minerva.utils.ResourceUtil;
+import com.umeng.socialize.UMShareAPI;
 
 import static android.support.v7.app.AlertDialog.Builder;
 import static android.support.v7.app.AlertDialog.OnClickListener;

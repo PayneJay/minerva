@@ -29,6 +29,7 @@
 
     <string name="copy_success">评论内容已复制到系统剪贴板里</string>
 
+    <string name="dialog_aouth_calling">正在调用授权中……</string>
     <string name="dialog_are_you_sure_delete">确定要删除吗？</string>
     <string name="dialog_are_you_sure_delete_group">确定要删除分组{0}吗？</string>
     <string name="dialog_are_you_sure_delete_kan">删除推刊将删除其中的所有文章，确定要删除吗？</string>
@@ -69,6 +70,7 @@
 
     <string name="login_account_password_error">账号或密码错误！</string>
     <string name="login_email_incorrect">来个正经邮箱吧...</string>
+    <string name="login_other_way">———— 其它方式登录 ————</string>
     <string name="login_please_input_account">请输入邮箱!</string>
     <string name="login_please_input_password">请输入密码!</string>
     <string name="login_please_input_password_at_least_6">请输入6~20位的密码!</string>
@@ -177,6 +179,9 @@
     <string name="toast_journal_char_error">字符长度不符</string>
     <string name="toast_mark_collection_later">已收藏</string>
     <string name="toast_mark_read_later">已添加待读</string>
+    <string name="toast_not_install_qq">您还未安装QQ客户端哦</string>
+    <string name="toast_not_install_wechat">您还未安装微信客户端哦</string>
+    <string name="toast_not_install_weibo">您还未安装微博客户端哦</string>
     <string name="toast_operate_fail">操作失败</string>
     <string name="toast_please_create_more_to_sort">请创建多个分组后再排序</string>
     <string name="toast_please_login_first">请先登录</string>

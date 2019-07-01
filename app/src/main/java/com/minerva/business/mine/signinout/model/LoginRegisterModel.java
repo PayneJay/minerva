@@ -1,8 +1,8 @@
 package com.minerva.business.mine.signinout.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.minerva.MinervaApp;
@@ -13,8 +13,9 @@ import com.minerva.db.User;
 import com.minerva.db.UserDao;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.ResourceUtil;
-
-import java.util.List;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -23,7 +24,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LoginRegisterModel {
     private static LoginRegisterModel instance;
-
 
     private LoginRegisterModel() {
     }
@@ -115,6 +115,21 @@ public class LoginRegisterModel {
     }
 
     /**
+     * 三方登录
+     *
+     * @param params   三方认证信息
+     * @param observer 回调
+     */
+    public void loginByOauth(OauthParams params, Observer<? super UserInfo> observer) {
+        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_POST, null)
+                .getServer()
+                .loginByOauth(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
      * 说明:验证邮箱格式
      *
      * @param email 邮箱地址
@@ -165,6 +180,30 @@ public class LoginRegisterModel {
 
         showToast(context, ResourceUtil.getString(R.string.register_check_password_identical));
         return false;
+    }
+
+    public void aouthByType(Context context, SHARE_MEDIA shareMedia, UMAuthListener umAuthListener) {
+        boolean install = UMShareAPI.get(context).isInstall((Activity) context, shareMedia);
+        if (!install) {
+            switch (shareMedia) {
+                case SINA:
+                    Toast.makeText(context, ResourceUtil.getString(R.string.toast_not_install_weibo), Toast.LENGTH_SHORT).show();
+                    break;
+                case QQ:
+                    Toast.makeText(context, ResourceUtil.getString(R.string.toast_not_install_qq), Toast.LENGTH_SHORT).show();
+                    break;
+                case WEIXIN:
+                    Toast.makeText(context, ResourceUtil.getString(R.string.toast_not_install_wechat), Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            return;
+        }
+        boolean authorize = UMShareAPI.get(context).isAuthorize((Activity) context, shareMedia);
+        if (!authorize) {
+            UMShareAPI.get(context).getPlatformInfo((Activity) context, shareMedia, umAuthListener);
+        } else {
+            UMShareAPI.get(context).deleteOauth((Activity) context, shareMedia, umAuthListener);
+        }
     }
 
     /**

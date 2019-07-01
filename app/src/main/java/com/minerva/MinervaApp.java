@@ -1,7 +1,6 @@
 package com.minerva;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -26,6 +25,12 @@ public class MinervaApp extends Application {
         setupDatabase();
     }
 
+    static {
+        PlatformConfig.setWeixin("wx22cea56d9fb6fad6", "85d78433f330f4f67346c4f4095167c7");
+        PlatformConfig.setSinaWeibo("214879162", "5d90e865ad221deb1d1c5c1c07a2a074", "http://sns.whalecloud.com");
+        PlatformConfig.setQQZone("1108243856", "cfLgQhTaBLKgQhu5");
+    }
+
     public DaoMaster getDaoMaster() {
         return mDaoMaster;
     }
@@ -41,7 +46,6 @@ public class MinervaApp extends Application {
 
     private void setupDatabase() {
         DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(this, "minerva.db");
-        Log.i(Constants.TAG, "*************创建数据库**************" + devOpenHelper.getDatabaseName());
         mDaoMaster = new DaoMaster(devOpenHelper.getWritableDatabase());
         mDaoSession = mDaoMaster.newSession();
     }
@@ -64,9 +68,4 @@ public class MinervaApp extends Application {
         MobclickAgent.setSessionContinueMillis(1000 * 40);
     }
 
-    static {
-        PlatformConfig.setWeixin("wx22cea56d9fb6fad6", "85d78433f330f4f67346c4f4095167c7");
-        PlatformConfig.setSinaWeibo("214879162", "85d78433f330f4f67346c4f4095167c7", "http://sns.whalecloud.com");
-        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
-    }
 }

@@ -93,6 +93,12 @@ public class Constants {
         String SELECT_ARTICLE_LANGUAGE = "select_article_language";
     }
 
+    public interface OauthType {
+        int TYPE_QQ_WEIBO = 1;
+        int TYPE_QQ = 2;
+        int TYPE_WEIXIN = 4;
+    }
+
     public interface Activity {
         /**
          * get action through root filter key

@@ -121,6 +121,41 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/nav_dimen_size_20dp"
+                    android:gravity="center"
+                    android:text="@string/login_other_way"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        onClick="@{loginVM::loginWithWeibo}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/umeng_socialize_sina" />
+
+                    <ImageView
+                        onClick="@{loginVM::loginWithWeChat}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/umeng_socialize_wechat" />
+
+                    <ImageView
+                        onClick="@{loginVM::loginWithQQ}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/umeng_socialize_qq" />
+
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

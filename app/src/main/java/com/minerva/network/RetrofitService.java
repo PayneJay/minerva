@@ -14,6 +14,7 @@ import com.minerva.business.home.weekly.model.WeekListBean;
 import com.minerva.business.mine.collection.model.KanBean;
 import com.minerva.business.mine.collection.model.UnFavBean;
 import com.minerva.business.mine.journal.kan.model.FavKanBean;
+import com.minerva.business.mine.signinout.model.OauthParams;
 import com.minerva.business.mine.signinout.model.LoginParams;
 import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.business.mine.message.model.MsgListBean;
@@ -224,4 +225,7 @@ public interface RetrofitService {
 
     @GET("/api/users/my_info.json")
     Observable<UserInfo> getUserInfo();
+
+    @POST("/api/signup/connect_with_social.json")
+    Observable<UserInfo> loginByOauth(@Body OauthParams params);
 }
