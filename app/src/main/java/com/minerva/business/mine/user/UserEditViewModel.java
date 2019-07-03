@@ -96,7 +96,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
 
     UserEditViewModel(Context context) {
         super(context);
-        RefreshView();
+        refreshView();
     }
 
     @BindingAdapter({"toolBarMenu", "menuItemClick"})
@@ -178,7 +178,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
 
     @Override
     public void confirm() {
-        RefreshView();
+        refreshView();
         if (editPwdPopup != null) {
             editPwdPopup.dismiss();
         }
@@ -192,7 +192,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
         }
     }
 
-    private void RefreshView() {
+    private void refreshView() {
         User user = GlobalData.getInstance().getUser();
         if (user != null) {
             headUrl.set(user.getProfile());
@@ -332,7 +332,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
                 dismissDialog();
                 User user = userInfo.getUser();
                 LoginRegisterModel.getInstance().updateUserInfo(user);
-                RefreshView();
+                refreshView();
                 Log.e(Constants.TAG, "解绑 ： " + userInfo.isSuccess());
             }
 

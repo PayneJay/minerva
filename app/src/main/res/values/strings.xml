@@ -156,6 +156,7 @@
     <string name="special_more">更多</string>
 
     <string name="subscribe_site">订阅站点</string>
+    <string name="subscribe_site_at_least_1">订阅站点（至少1个）</string>
 
     <string name="tab_article">文章</string>
     <string name="tab_book">图书</string>

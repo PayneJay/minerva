@@ -173,6 +173,7 @@
         <activity
             android:name=".business.mine.journal.kan.FavKansActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".business.guide.GuideSubscribeActivity" />
     </application>
 
 </manifest>

@@ -232,4 +232,11 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/users/cancel_social.json")
     Observable<UserInfo> cancelSocial(@Field("type") int type, @Field("from") int from);
+
+    @FormUrlEncoded
+    @POST("/api/signup/follow_sites.json")
+    Observable<BaseBean> followSite(@Field("items") String items);
+
+    @GET("/api/signup/cold_sites.json")
+    Observable<SitesBean> getColdSiteList();
 }
