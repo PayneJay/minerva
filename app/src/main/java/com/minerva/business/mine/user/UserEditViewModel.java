@@ -321,10 +321,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
     }
 
     private void bindSocial() {
-        if (!UMShareAPI.get(context).isAuthorize((Activity) context, socialType)) {
-            UMShareAPI.get(context).getPlatformInfo((Activity) context, socialType, oauthListener);
-        }
-        Log.e(Constants.TAG, "isOauth : " + UMShareAPI.get(context).isAuthorize((Activity) context, socialType));
+        UMShareAPI.get(context).getPlatformInfo((Activity) context, socialType, oauthListener);
     }
 
     private void unbindSocial() {

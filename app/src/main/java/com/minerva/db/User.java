@@ -16,7 +16,7 @@ public class User {
     private String profile;
     private String token;
     private int notification_num;
-    private int weibo_id;
+    private String weibo_id;
     private String weibo_name;
     private String qq_id;
     private String qq_name;
@@ -24,9 +24,9 @@ public class User {
     private String flyme_name;
     private int oauth_type;
 
-    @Generated(hash = 1696957688)
+    @Generated(hash = 1757614104)
     public User(long id, String email, String name, int ctime, String uid,
-                String profile, String token, int notification_num, int weibo_id,
+                String profile, String token, int notification_num, String weibo_id,
                 String weibo_name, String qq_id, String qq_name, String weixin_name,
                 String flyme_name, int oauth_type) {
         this.id = id;
@@ -114,11 +114,11 @@ public class User {
         this.notification_num = notification_num;
     }
 
-    public int getWeibo_id() {
+    public String getWeibo_id() {
         return this.weibo_id;
     }
 
-    public void setWeibo_id(int weibo_id) {
+    public void setWeibo_id(String weibo_id) {
         this.weibo_id = weibo_id;
     }
 

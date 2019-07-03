@@ -164,6 +164,7 @@ public class LoginViewModel extends BaseViewModel {
             @Override
             public void onSuccess(UserInfo userInfo) {
                 dismissDialog();
+                SPUtil.put(context, Constants.KeyExtra.LAST_LOGIN_EMAIL, email.get());
                 loginSuccess(userInfo);
             }
 

@@ -215,12 +215,7 @@ public class LoginRegisterModel {
             }
             return;
         }
-        boolean authorize = UMShareAPI.get(context).isAuthorize((Activity) context, shareMedia);
-        if (!authorize) {
-            UMShareAPI.get(context).getPlatformInfo((Activity) context, shareMedia, umAuthListener);
-        } else {
-            UMShareAPI.get(context).deleteOauth((Activity) context, shareMedia, umAuthListener);
-        }
+        UMShareAPI.get(context).getPlatformInfo((Activity) context, shareMedia, umAuthListener);
     }
 
     /**
