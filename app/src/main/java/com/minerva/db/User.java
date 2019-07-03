@@ -22,12 +22,13 @@ public class User {
     private String qq_name;
     private String weixin_name;
     private String flyme_name;
+    private int oauth_type;
 
-    @Generated(hash = 578002757)
+    @Generated(hash = 1696957688)
     public User(long id, String email, String name, int ctime, String uid,
                 String profile, String token, int notification_num, int weibo_id,
                 String weibo_name, String qq_id, String qq_name, String weixin_name,
-                String flyme_name) {
+                String flyme_name, int oauth_type) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -42,6 +43,7 @@ public class User {
         this.qq_name = qq_name;
         this.weixin_name = weixin_name;
         this.flyme_name = flyme_name;
+        this.oauth_type = oauth_type;
     }
 
     @Generated(hash = 586692638)
@@ -158,5 +160,13 @@ public class User {
 
     public void setFlyme_name(String flyme_name) {
         this.flyme_name = flyme_name;
+    }
+
+    public int getOauth_type() {
+        return this.oauth_type;
+    }
+
+    public void setOauth_type(int oauth_type) {
+        this.oauth_type = oauth_type;
     }
 }

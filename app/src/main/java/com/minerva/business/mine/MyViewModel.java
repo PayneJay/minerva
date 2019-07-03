@@ -112,6 +112,7 @@ public class MyViewModel extends BaseViewModel {
         super.onVisible(isVisibleToUser);
         if (isVisibleToUser) {
             setUnreadPoint();
+            updateStatus();
         }
     }
 
@@ -119,6 +120,7 @@ public class MyViewModel extends BaseViewModel {
     public void onResume() {
         super.onResume();
         setUnreadPoint();
+        updateStatus();
     }
 
     @Override

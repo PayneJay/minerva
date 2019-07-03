@@ -9,6 +9,7 @@ import com.minerva.MinervaApp;
 import com.minerva.R;
 import com.minerva.base.BaseBean;
 import com.minerva.common.Constants;
+import com.minerva.common.GlobalData;
 import com.minerva.db.User;
 import com.minerva.db.UserDao;
 import com.minerva.network.RetrofitHelper;
@@ -130,6 +131,23 @@ public class LoginRegisterModel {
     }
 
     /**
+     * 取消授权
+     *
+     * @param observer 回调
+     */
+    public void cancelSocial(Observer<UserInfo> observer) {
+        User user = GlobalData.getInstance().getUser();
+        int type = user.getOauth_type();
+        int from = 1;
+        RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_POST, null)
+                .getServer()
+                .cancelSocial(type, from)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
      * 说明:验证邮箱格式
      *
      * @param email 邮箱地址
@@ -144,7 +162,6 @@ public class LoginRegisterModel {
             return false;
         }
         return true;
-
     }
 
     /**
@@ -182,7 +199,7 @@ public class LoginRegisterModel {
         return false;
     }
 
-    public void aouthByType(Context context, SHARE_MEDIA shareMedia, UMAuthListener umAuthListener) {
+    public void oauthByType(Context context, SHARE_MEDIA shareMedia, UMAuthListener umAuthListener) {
         boolean install = UMShareAPI.get(context).isInstall((Activity) context, shareMedia);
         if (!install) {
             switch (shareMedia) {

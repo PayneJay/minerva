@@ -228,4 +228,8 @@ public interface RetrofitService {
 
     @POST("/api/signup/connect_with_social.json")
     Observable<UserInfo> loginByOauth(@Body OauthParams params);
+
+    @FormUrlEncoded
+    @POST("/api/users/cancel_social.json")
+    Observable<UserInfo> cancelSocial(@Field("type") int type, @Field("from") int from);
 }

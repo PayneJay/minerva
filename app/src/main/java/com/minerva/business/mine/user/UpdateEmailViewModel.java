@@ -5,13 +5,21 @@ import android.databinding.ObservableField;
 import android.widget.Toast;
 
 import com.minerva.R;
+import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
+import com.minerva.business.mine.signinout.model.LoginRegisterModel;
 import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.common.Constants;
+import com.minerva.common.EventMsg;
+import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.ResourceUtil;
 import com.minerva.widget.Loading;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.text.MessageFormat;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -61,8 +69,14 @@ public class UpdateEmailViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new NetworkObserver<UserInfo>() {
                     @Override
-                    public void onSuccess(UserInfo baseBean) {
+                    public void onSuccess(UserInfo userInfo) {
                         loading.dismiss();
+                        Toast.makeText(context, MessageFormat.format(ResourceUtil.getString(R.string.toast_send_verify_email), content.get()), Toast.LENGTH_SHORT).show();
+                        User user = userInfo.getUser();
+                        if (user != null) {
+                            LoginRegisterModel.getInstance().updateUserInfo(user);
+                            EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.LOGIN_SUCCESS));
+                        }
                         if (listener != null) {
                             listener.confirm();
                         }

@@ -27,7 +27,12 @@ public class LoginActivity extends BaseActivity<LoginViewModel> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UMShareAPI.get(this).release();
+
+    }
 }

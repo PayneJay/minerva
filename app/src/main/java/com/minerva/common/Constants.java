@@ -94,6 +94,7 @@ public class Constants {
     }
 
     public interface OauthType {
+        int TYPE_EMAIL = 0;
         int TYPE_QQ_WEIBO = 1;
         int TYPE_QQ = 2;
         int TYPE_WEIXIN = 4;

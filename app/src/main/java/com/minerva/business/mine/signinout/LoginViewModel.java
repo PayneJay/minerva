@@ -70,8 +70,8 @@ public class LoginViewModel extends BaseViewModel {
          */
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            Log.e(Constants.TAG, "成功了");
-            Log.e(Constants.TAG, CommonUtil.toJson(data));
+            Log.e(Constants.TAG, "成功了 platform : " + platform.getName() + " action : " + action);
+            Log.e(Constants.TAG, "data : " + CommonUtil.toJson(data));
             dismissDialog();
             if (data == null) {
                 return;
@@ -98,9 +98,8 @@ public class LoginViewModel extends BaseViewModel {
          */
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            Log.e(Constants.TAG, "失败：" + t.getMessage());
+            Log.e(Constants.TAG, "失败：platform : " + platform.getName() + " action : " + action + t.getMessage());
             dismissDialog();
-            Toast.makeText(context, "失败：" + t.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -110,7 +109,7 @@ public class LoginViewModel extends BaseViewModel {
          */
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
-            Log.e(Constants.TAG, "取消了");
+            Log.e(Constants.TAG, "取消了 platform : " + platform.getName() + " action : " + action);
             dismissDialog();
         }
     };
@@ -132,21 +131,21 @@ public class LoginViewModel extends BaseViewModel {
      * 微博登录
      */
     public void loginWithWeibo() {
-        LoginRegisterModel.getInstance().aouthByType(context, SHARE_MEDIA.SINA, umAuthListener);
+        LoginRegisterModel.getInstance().oauthByType(context, SHARE_MEDIA.SINA, umAuthListener);
     }
 
     /**
      * 微信登录
      */
     public void loginWithWeChat() {
-        LoginRegisterModel.getInstance().aouthByType(context, SHARE_MEDIA.WEIXIN, umAuthListener);
+        LoginRegisterModel.getInstance().oauthByType(context, SHARE_MEDIA.WEIXIN, umAuthListener);
     }
 
     /**
      * QQ登录
      */
     public void loginWithQQ() {
-        LoginRegisterModel.getInstance().aouthByType(context, SHARE_MEDIA.QQ, umAuthListener);
+        LoginRegisterModel.getInstance().oauthByType(context, SHARE_MEDIA.QQ, umAuthListener);
     }
 
     /**
@@ -160,6 +159,7 @@ public class LoginViewModel extends BaseViewModel {
     private void login() {
         showDialog(ResourceUtil.getString(R.string.login_verifying));
 
+        oauthType = Constants.OauthType.TYPE_EMAIL;
         LoginRegisterModel.getInstance().doLogin(email.get(), password.get(), new NetworkObserver<UserInfo>() {
             @Override
             public void onSuccess(UserInfo userInfo) {
@@ -178,6 +178,7 @@ public class LoginViewModel extends BaseViewModel {
         Toast.makeText(context, ResourceUtil.getString(R.string.login_success), Toast.LENGTH_SHORT).show();
         User user = userInfo.getUser();
         if (user != null) {
+            user.setOauth_type(oauthType);
             LoginRegisterModel.getInstance().saveUserInfo(user);
             EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.LOGIN_SUCCESS));
             ((BaseActivity) context).finish();
