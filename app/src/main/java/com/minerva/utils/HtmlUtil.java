@@ -1,9 +1,5 @@
 package com.minerva.utils;
 
-import android.util.Log;
-
-import com.minerva.common.Constants;
-
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -50,9 +46,6 @@ public class HtmlUtil {
 
     public static String getTextFromHtml(String htmlStr) {
         htmlStr = delHTMLTag(htmlStr);
-        if (htmlStr.length() > 4096) {
-            return htmlStr.substring(0, 4096);
-        }
         return htmlStr;
     }
 

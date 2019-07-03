@@ -1,5 +1,7 @@
 package com.minerva.business.mine.user;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +12,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Process;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -24,10 +27,19 @@ import com.minerva.R;
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.business.SplashActivity;
+import com.minerva.business.mine.signinout.model.LoginRegisterModel;
+import com.minerva.business.mine.signinout.model.UserInfo;
+import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
 import com.minerva.db.User;
+import com.minerva.network.NetworkObserver;
 import com.minerva.utils.DisplayUtil;
 import com.minerva.utils.ResourceUtil;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import java.util.Map;
 
 import static android.support.v7.app.AlertDialog.Builder;
 import static android.support.v7.app.AlertDialog.OnClickListener;
@@ -37,9 +49,9 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
     public ObservableField<String> userName = new ObservableField<>();
     public ObservableField<String> email = new ObservableField<>();
     public ObservableField<String> password = new ObservableField<>(ResourceUtil.getString(R.string.user_edit_click_to_update));
-    public ObservableField<String> weibo = new ObservableField<>("——");
-    public ObservableField<String> QQ = new ObservableField<>("——");
-    public ObservableField<String> wechat = new ObservableField<>("——");
+    public ObservableField<String> weibo = new ObservableField<>();
+    public ObservableField<String> QQ = new ObservableField<>();
+    public ObservableField<String> wechat = new ObservableField<>();
 
     public View.OnClickListener listener = new View.OnClickListener() {
         @Override
@@ -58,10 +70,33 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
         }
     };
     private PopupWindow editPwdPopup;
+    private ProgressDialog mProgressDialog;
+    private SHARE_MEDIA socialType;
+    private UMAuthListener oauthListener = new UMAuthListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+            Log.e(Constants.TAG, "media : " + share_media.getName());
+        }
+
+        @Override
+        public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
+            Log.e(Constants.TAG, i + " 成功：" + share_media.getName());
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+            Log.e(Constants.TAG, i + " 失败：" + share_media.getName() + "——" + throwable.getMessage());
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media, int i) {
+            Log.e(Constants.TAG, i + " 取消：" + share_media.getName());
+        }
+    };
 
     UserEditViewModel(Context context) {
         super(context);
-        initView();
+        RefreshView();
     }
 
     @BindingAdapter({"toolBarMenu", "menuItemClick"})
@@ -106,26 +141,44 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
      * 点击微博
      */
     public void onWeiboClick() {
-//        Constants.showToast(context);
+        User user = GlobalData.getInstance().getUser();
+        if (TextUtils.isEmpty(user.getWeibo_name())) {
+            socialType = SHARE_MEDIA.SINA;
+            bindSocial();
+        } else {
+            unbindSocial();
+        }
     }
 
     /**
      * 点击QQ
      */
     public void onQQClick() {
-//        Constants.showToast(context);
+        User user = GlobalData.getInstance().getUser();
+        socialType = SHARE_MEDIA.QQ;
+        if (TextUtils.isEmpty(user.getQq_name())) {
+            bindSocial();
+        } else {
+            unbindSocial();
+        }
     }
 
     /**
      * 点击微信
      */
     public void onWechatClick() {
-//        Constants.showToast(context);
+        User user = GlobalData.getInstance().getUser();
+        if (TextUtils.isEmpty(user.getWeixin_name())) {
+            socialType = SHARE_MEDIA.WEIXIN;
+            bindSocial();
+        } else {
+            unbindSocial();
+        }
     }
 
     @Override
     public void confirm() {
-        initView();
+        RefreshView();
         if (editPwdPopup != null) {
             editPwdPopup.dismiss();
         }
@@ -139,21 +192,40 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
         }
     }
 
-    private void initView() {
+    private void RefreshView() {
         User user = GlobalData.getInstance().getUser();
         if (user != null) {
             headUrl.set(user.getProfile());
             userName.set(user.getName());
-            email.set(user.getEmail());
-            weibo.set(user.getWeibo_name());
-            QQ.set(user.getQq_name());
-            wechat.set(user.getWeixin_name());
+            email.set(TextUtils.isEmpty(user.getEmail()) ? ResourceUtil.getString(R.string.user_edit_click_to_setting) : user.getEmail());
+            weibo.set(TextUtils.isEmpty(user.getWeibo_name()) ? ResourceUtil.getString(R.string.user_edit_click_to_relate) : user.getWeibo_name());
+            QQ.set(TextUtils.isEmpty(user.getQq_name()) ? ResourceUtil.getString(R.string.user_edit_click_to_relate) : user.getQq_name());
+            wechat.set(TextUtils.isEmpty(user.getWeixin_name()) ? ResourceUtil.getString(R.string.user_edit_click_to_relate) : user.getWeixin_name());
         }
     }
 
     private void logOut() {
+        deleteOauth();
         GlobalData.getInstance().clear();
         restartApp();
+    }
+
+    /**
+     * 三方登录解绑
+     */
+    private void deleteOauth() {
+        User user = GlobalData.getInstance().getUser();
+        switch (user.getOauth_type()) {
+            case Constants.OauthType.TYPE_QQ_WEIBO:
+                UMShareAPI.get(context).deleteOauth((Activity) context, SHARE_MEDIA.SINA, oauthListener);
+                break;
+            case Constants.OauthType.TYPE_QQ:
+                UMShareAPI.get(context).deleteOauth((Activity) context, SHARE_MEDIA.QQ, oauthListener);
+                break;
+            case Constants.OauthType.TYPE_WEIXIN:
+                UMShareAPI.get(context).deleteOauth((Activity) context, SHARE_MEDIA.WEIXIN, oauthListener);
+                break;
+        }
     }
 
     /**
@@ -246,5 +318,39 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
         ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_edit_password_layout, null, false);
         binding.setVariable(BR.editPwdVM, viewModel);
         return binding;
+    }
+
+    private void bindSocial() {
+        UMShareAPI.get(context).getPlatformInfo((Activity) context, socialType, oauthListener);
+    }
+
+    private void unbindSocial() {
+        showDialog(ResourceUtil.getString(R.string.dialog_unbinding));
+        LoginRegisterModel.getInstance().cancelSocial(new NetworkObserver<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo userInfo) {
+                dismissDialog();
+                User user = userInfo.getUser();
+                LoginRegisterModel.getInstance().updateUserInfo(user);
+                RefreshView();
+                Log.e(Constants.TAG, "解绑 ： " + userInfo.isSuccess());
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                dismissDialog();
+                Log.e(Constants.TAG, "解绑 ： " + msg);
+            }
+        });
+    }
+
+    private void showDialog(String text) {
+        mProgressDialog = ProgressDialog.show(context, ResourceUtil.getString(R.string.dialog_title_note), text, false);
+    }
+
+    private void dismissDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 }

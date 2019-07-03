@@ -29,6 +29,7 @@
 
     <string name="copy_success">评论内容已复制到系统剪贴板里</string>
 
+    <string name="dialog_aouth_calling">正在调用授权中……</string>
     <string name="dialog_are_you_sure_delete">确定要删除吗？</string>
     <string name="dialog_are_you_sure_delete_group">确定要删除分组{0}吗？</string>
     <string name="dialog_are_you_sure_delete_kan">删除推刊将删除其中的所有文章，确定要删除吗？</string>
@@ -57,6 +58,7 @@
     <string name="dialog_rename_group">修改分组名称</string>
     <string name="dialog_repeat_password">重复密码</string>
     <string name="dialog_title_note">提示</string>
+    <string name="dialog_unbinding">正在解绑……</string>
     <string name="dialog_use_tips_content">1、长按分组名称管理分组\n2、长按订阅项管理订阅项\n3、Have Fun</string>
 
     <string name="exit_by_double_click">再按一下退出！</string>
@@ -69,6 +71,7 @@
 
     <string name="login_account_password_error">账号或密码错误！</string>
     <string name="login_email_incorrect">来个正经邮箱吧...</string>
+    <string name="login_other_way">———— 其它方式登录 ————</string>
     <string name="login_please_input_account">请输入邮箱!</string>
     <string name="login_please_input_password">请输入密码!</string>
     <string name="login_please_input_password_at_least_6">请输入6~20位的密码!</string>
@@ -177,12 +180,16 @@
     <string name="toast_journal_char_error">字符长度不符</string>
     <string name="toast_mark_collection_later">已收藏</string>
     <string name="toast_mark_read_later">已添加待读</string>
+    <string name="toast_not_install_qq">您还未安装QQ客户端哦</string>
+    <string name="toast_not_install_wechat">您还未安装微信客户端哦</string>
+    <string name="toast_not_install_weibo">您还未安装微博客户端哦</string>
     <string name="toast_operate_fail">操作失败</string>
     <string name="toast_please_create_more_to_sort">请创建多个分组后再排序</string>
     <string name="toast_please_login_first">请先登录</string>
     <string name="toast_registing">正在注册…</string>
     <string name="toast_request_server_failed">请求服务器失败</string>
     <string name="toast_update_group_success">修改成功</string>
+    <string name="toast_send_verify_email">已向{0}发送验证邮件，请查收完成验证。</string>
 
     <string name="toolbar_all_read">全部已读</string>
     <string name="toolbar_create_group">新建分组</string>
@@ -209,6 +216,7 @@
     <string name="update_today">今日更新</string>
 
     <string name="user_edit_click_to_relate">点击关联</string>
+    <string name="user_edit_click_to_setting">点击设置</string>
     <string name="user_edit_click_to_update">点击修改</string>
     <string name="user_edit_email">登录邮箱</string>
     <string name="user_edit_head">头像</string>

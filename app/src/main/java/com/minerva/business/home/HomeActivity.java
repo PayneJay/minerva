@@ -19,6 +19,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -483,13 +484,14 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                     public void onSuccess(UserInfo userInfo) {
                         User user = userInfo.getUser();
                         if (user != null) {
-                            LoginRegisterModel.getInstance().saveUserInfo(user);
+                            LoginRegisterModel.getInstance().updateUserInfo(user);
                             EventBus.getDefault().post(new EventMsg(Constants.EventMsgKey.LOGIN_SUCCESS));
                         }
                     }
 
                     @Override
                     public void onFailure(String msg) {
+                        Log.e(Constants.TAG, "getUserInfo Failure : " + msg);
                     }
                 });
     }

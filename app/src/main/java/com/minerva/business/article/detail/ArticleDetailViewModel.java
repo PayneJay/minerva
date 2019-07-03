@@ -11,7 +11,6 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.databinding.ViewDataBinding;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
@@ -48,6 +47,7 @@ import com.minerva.utils.CommonUtil;
 import com.minerva.utils.DisplayUtil;
 import com.minerva.utils.HtmlUtil;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.StringUtil;
 import com.minerva.widget.Loading;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -57,6 +57,7 @@ import com.umeng.socialize.media.UMWeb;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
 import java.util.Random;
 
 public class ArticleDetailViewModel extends BaseViewModel implements UMShareListener, PopupMenu.OnMenuItemClickListener, ISelectJournalListener, IFontSelectedListener {
@@ -81,6 +82,8 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     private boolean isFav; //表示是否收藏过(1已收藏/0未收藏)
     private boolean smallSelected = false, middleSelected = true, bigSelected = false;
     private SpeechSynthesizer mTts;
+    private List<String> strList;
+    private int endPos;//记录每次播报的最后位置
 
     ArticleDetailViewModel(Context context) {
         super(context);
@@ -183,9 +186,9 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
             case R.id.menu_change_font_size:
                 changeFontSize();
                 break;
-//            case R.id.menu_open_voice_broadcast:
-//                speakText();
-//                break;
+            case R.id.menu_open_voice_broadcast:
+                speakText();
+                break;
         }
         return true;
     }
@@ -334,6 +337,7 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         if (TextUtils.isEmpty(html)) {
             return;
         }
+        strList = StringUtil.getStrList(html, 1000);
         //1. 创建 SpeechSynthesizer 对象 , 第二个参数： 本地合成时传 InitListener
         if (mTts == null) {
             mTts = SpeechSynthesizer.createSynthesizer(context, new InitListener() {
@@ -343,8 +347,8 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
                         Toast.makeText(context, "初始化失败,错误码：" + code, Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    //3.开始合成
-                    mTts.startSpeaking(html, new MySynthesizerListener(context));
+                    startSpeaking();
+
                 }
             });
         }
@@ -354,13 +358,31 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
         mTts.setParameter(SpeechConstant.SPEED, "50");// 设置语速
         mTts.setParameter(SpeechConstant.VOLUME, "80");// 设置音量，范围 0~100
         mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端
-        //设置合成音频保存位置（可自定义保存位置），保存在 “./sdcard/iflytek.pcm”
-        //保存在 SD 卡需要在 AndroidManifest.xml 添加写 SD 卡权限
-        //仅支持保存为 pcm 和 wav 格式， 如果不需要保存合成音频，注释该行代码
-        //mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, "./sdcard/iflytek.pcm");
     }
 
-    @NonNull
+    private void startSpeaking() {
+        final String text = strList.get(endPos);
+        //3.开始合成
+        mTts.startSpeaking(text, new MySynthesizerListener(context, new MySynthesizerListener.SpeakListener() {
+            @Override
+            public void onSpeakBegin() {
+                if (endPos == 0) {
+                    Toast.makeText(context, "开始播放", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCompleted() {
+                endPos++;
+                if (endPos < strList.size()) {
+                    startSpeaking();
+                } else {
+                    Toast.makeText(context, "播放完成", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }));
+    }
+
     private String getSpeaker() {
         if (article != null) {
             if (article.getLang() == 1) {
