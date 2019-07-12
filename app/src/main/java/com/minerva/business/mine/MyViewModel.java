@@ -11,7 +11,6 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.detail.model.ArticleDetailModel;
 import com.minerva.business.article.list.model.ArticleListBean;
-import com.minerva.business.guide.GuideSubscribeActivity;
 import com.minerva.business.mine.about.AboutActivity;
 import com.minerva.business.mine.collection.MyCollectionActivity;
 import com.minerva.business.mine.journal.MyJournalActivity;
@@ -47,7 +46,7 @@ public class MyViewModel extends BaseViewModel {
 
     public void goLogin() {
         if (GlobalData.getInstance().isLogin()) {
-            context.startActivity(new Intent(context, GuideSubscribeActivity.class));
+            context.startActivity(new Intent(context, UserEditActivity.class));
             return;
         }
         context.startActivity(new Intent(context, LoginActivity.class));

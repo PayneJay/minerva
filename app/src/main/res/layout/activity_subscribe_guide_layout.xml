@@ -9,11 +9,14 @@
             type="com.minerva.business.guide.GuideSubscribeViewModel" />
 
         <import type="com.minerva.R" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_EEEEEE"
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
@@ -37,10 +40,34 @@
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
+            isGone="@{guideVM.isException}"
             itemBinding="@{guideVM.guideItemBind}"
             items="@{guideVM.items}"
             layoutManager="@{guideVM.glManager}"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{guideVM.isException ? View.VISIBLE : View.GONE}">
+
+            <ImageView
+                android:layout_width="@dimen/nav_dimen_size_60dp"
+                android:layout_height="@dimen/nav_dimen_size_60dp"
+                android:imageSrc="@{guideVM.drawableRes}" />
+
+            <TextView
+                text="@{guideVM.description}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+                android:gravity="center"
+                android:maxWidth="150dp"
+                android:textColor="@color/color_8a8a8a"
+                android:textSize="16sp" />
+        </LinearLayout>
     </LinearLayout>
 </layout>

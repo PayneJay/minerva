@@ -11,11 +11,11 @@
     </data>
 
     <TextView
+        bg="@{guideItemVM.isSelected ? R.drawable.shape_rectangle_button_parimary_dark : R.drawable.shape_rectangle_button_white}"
         onClick="@{guideItemVM::onItemClick}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/nav_dimen_size_5dp"
-        android:background="@{guideItemVM.isSelected ? R.color.colorPrimaryDark : @android:color/white}"
         android:padding="@dimen/nav_dimen_size_10dp"
         android:text="@{guideItemVM.name}"
         android:textColor="@{guideItemVM.isSelected ? @android:color/white : @android:color/black}"
