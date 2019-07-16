@@ -35,7 +35,7 @@ public class ImageBrowseViewModel extends BaseViewModel {
     public View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            ((BaseActivity) context).finish();
+            goBack();
         }
     };
 
@@ -54,6 +54,10 @@ public class ImageBrowseViewModel extends BaseViewModel {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(ResourceUtil.getColor(R.color.color_000000));
         }
+    }
+
+    public void goBack() {
+        ((BaseActivity) context).finish();
     }
 
     public void download() {

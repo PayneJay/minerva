@@ -33,6 +33,7 @@
 
         <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/img"
+            onClick="@{imgBrowseVM::goBack}"
             placeThumbnail="@{R.drawable.abs_img_no}"
             urlThumbnail="@{imgBrowseVM.imgUrl}"
             android:layout_width="match_parent"
