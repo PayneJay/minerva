@@ -12,6 +12,7 @@ import com.minerva.business.guide.GuideSubscribeActivity;
 import com.minerva.business.home.HomeActivity;
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
+import com.minerva.db.User;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -93,7 +94,8 @@ public class SplashActivity extends BaseActivity<SplashActivity.SplashViewModel>
 
                         @Override
                         public void onComplete() {
-                            if (GlobalData.getInstance().getUser().getIs_new()) {
+                            User user = GlobalData.getInstance().getUser();
+                            if (user != null && user.getIs_new()) {
                                 Intent intent = new Intent(context, GuideSubscribeActivity.class);
                                 startActivity(intent);
                             } else {

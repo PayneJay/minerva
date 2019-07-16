@@ -475,6 +475,9 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      * 获取用户信息
      */
     private void getUserInfo() {
+        if (!GlobalData.getInstance().isLogin()) {
+            return;
+        }
         RetrofitHelper.getInstance(Constants.RequestMethod.METHOD_GET, null)
                 .getServer()
                 .getUserInfo()
