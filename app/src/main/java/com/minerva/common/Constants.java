@@ -4,6 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.minerva.R;
+import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
+
 public class Constants {
     public static Application application;
 
@@ -13,8 +17,8 @@ public class Constants {
 
     public static final String shareBaseUrl = "http://www.tuicool.com/articles/";
 
-    public static void showToast(Context context) {
-        Toast.makeText(context, "攻城狮正在奋力开发中，尽情期待……", Toast.LENGTH_SHORT).show();
+    public static void showToast() {
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_engineer_struggling_to_developing));
     }
 
     public interface RequestMethod {
@@ -59,7 +63,7 @@ public class Constants {
         String WEB_URL_LINK = "web_url_link"; //跳转webView链接
         String WEB_VIEW_TITLE = "web_view_title"; //webView标题
 
-        String SEARCH_HISTORY_KEYWORD = "search_history_keyword"; //关键字查询
+        String IMAGE_BROWSE_URL = "image_browse_url"; //浏览大图
         String READ_LATER_MAP = "read_later_map"; //待读文章
         String READ_HISTORY_MAP = "read_history_map"; //阅读历史
         String COME_FROM_MINE = "come_from_mine"; //标记是从我的页面跳转过来的

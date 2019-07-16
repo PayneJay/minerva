@@ -8,26 +8,28 @@ import com.minerva.business.article.list.model.ArticleListBean;
 import com.minerva.business.category.book.model.AllBook;
 import com.minerva.business.category.mag.model.MagDetailBean;
 import com.minerva.business.category.mag.model.MagPeriodBean;
+import com.minerva.business.category.model.BookBean;
+import com.minerva.business.category.model.MagBean;
 import com.minerva.business.home.subscribe.model.SubscribeBean;
 import com.minerva.business.home.weekly.model.WeekDetailBean;
 import com.minerva.business.home.weekly.model.WeekListBean;
 import com.minerva.business.mine.collection.model.KanBean;
 import com.minerva.business.mine.collection.model.UnFavBean;
 import com.minerva.business.mine.journal.kan.model.FavKanBean;
-import com.minerva.business.mine.signinout.model.OauthParams;
-import com.minerva.business.mine.signinout.model.LoginParams;
-import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.business.mine.message.model.MsgListBean;
+import com.minerva.business.mine.signinout.model.LoginParams;
+import com.minerva.business.mine.signinout.model.OauthParams;
+import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.business.search.model.ArticleResult;
 import com.minerva.business.search.model.SiteResult;
 import com.minerva.business.settings.model.ReadSettingBean;
 import com.minerva.business.site.detail.SiteDetailBean;
 import com.minerva.business.site.model.PolymerRead;
 import com.minerva.business.site.model.SitesBean;
-import com.minerva.business.category.model.BookBean;
-import com.minerva.business.category.model.MagBean;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -35,6 +37,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface RetrofitService {
     @GET("/api/articles/hot.json")
@@ -232,4 +235,15 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/users/cancel_social.json")
     Observable<UserInfo> cancelSocial(@Field("type") int type, @Field("from") int from);
+
+    @FormUrlEncoded
+    @POST("/api/signup/follow_sites.json")
+    Observable<BaseBean> followSite(@Field("items") String items);
+
+    @GET("/api/signup/cold_sites.json")
+    Observable<SitesBean> getColdSiteList();
+
+    //下载文件
+    @GET
+    Observable<ResponseBody> downloadPicFromNet(@Url String fileUrl);
 }

@@ -23,6 +23,7 @@ import com.minerva.business.mine.signinout.model.UserInfo;
 import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -48,9 +49,9 @@ public class RegisterViewModel extends BaseViewModel implements RegisterVerifyVi
     }
 
     public void register() {
-        if (LoginRegisterModel.getInstance().isEmailValid(context, email.get())
-                && LoginRegisterModel.getInstance().isPasswordValid(context, password.get())
-                && LoginRegisterModel.getInstance().isPasswordIdentical(context, password.get(), pwdConfirm.get())) {
+        if (LoginRegisterModel.getInstance().isEmailValid(email.get())
+                && LoginRegisterModel.getInstance().isPasswordValid(password.get())
+                && LoginRegisterModel.getInstance().isPasswordIdentical(password.get(), pwdConfirm.get())) {
             showDialog();
 
             LoginRegisterModel.getInstance().doRegister(email.get(), userName.get(), password.get(),
@@ -109,7 +110,7 @@ public class RegisterViewModel extends BaseViewModel implements RegisterVerifyVi
                     @Override
                     public ObservableSource<UserInfo> apply(BaseBean baseBean) {
                         if (!baseBean.isSuccess()) {
-                            Toast.makeText(context, baseBean.getError(), Toast.LENGTH_SHORT).show();
+                            ToastUtil.showMsg(baseBean.getError());
                             return null;
                         }
                         return LoginRegisterModel.getInstance().getLoginObserver(email.get(), password.get());

@@ -1,10 +1,11 @@
-package com.minerva.common;
+package com.minerva.common.viewmodel;
 
 import android.content.Context;
 import android.databinding.ObservableField;
 
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
+import com.minerva.common.Constants;
 import com.minerva.utils.ResourceUtil;
 
 public class NoMoreViewModel extends BaseViewModel {

@@ -21,6 +21,7 @@ import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
 import com.minerva.utils.DisplayUtil;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 
 public class CommentItemViewModel extends BaseViewModel implements CommentOptViewModel.ICommentOperateListener {
     public ObservableField<String> headUrl = new ObservableField<>();
@@ -66,7 +67,7 @@ public class CommentItemViewModel extends BaseViewModel implements CommentOptVie
             cm.setPrimaryClip(mClipData);
         }
 
-        Toast.makeText(context, ResourceUtil.getString(R.string.copy_success), Toast.LENGTH_SHORT).show();
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.copy_success));
     }
 
     @Override

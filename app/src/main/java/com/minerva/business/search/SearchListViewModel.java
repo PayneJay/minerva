@@ -20,7 +20,7 @@ import com.minerva.business.search.model.SiteResult;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
-import com.minerva.common.RefreshListViewModel;
+import com.minerva.common.viewmodel.RefreshListViewModel;
 import com.minerva.db.SearchHistory;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;

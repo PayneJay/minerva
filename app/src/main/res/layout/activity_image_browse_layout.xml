@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="imgBrowseVM"
+            type="com.minerva.common.imagebrowse.ImageBrowseViewModel" />
+
+        <import type="com.minerva.R" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                navigationClickListener="@{imgBrowseVM.listener}"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/black"
+                app:navigationIcon="@drawable/abc_ic_ab_back_mtrl_am_alpha" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/img"
+            onClick="@{imgBrowseVM::goBack}"
+            placeThumbnail="@{R.drawable.abs_img_no}"
+            urlThumbnail="@{imgBrowseVM.imgUrl}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/image_download"
+            android:layout_below="@id/appBar" />
+
+        <ImageView
+            android:id="@+id/image_download"
+            onClick="@{imgBrowseVM::download}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/nav_dimen_size_15dp"
+            android:layout_marginEnd="@dimen/nav_dimen_size_15dp"
+            android:layout_marginBottom="@dimen/nav_dimen_size_15dp"
+            android:clickable="@{imgBrowseVM.clickable}"
+            android:src="@drawable/icon_net_cloud_download" />
+    </RelativeLayout>
+
+</layout>

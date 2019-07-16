@@ -11,6 +11,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.mine.signinout.model.LoginRegisterModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 
 import java.text.MessageFormat;
 
@@ -41,7 +42,7 @@ public class RegisterVerifyViewModel extends BaseViewModel {
         LoginRegisterModel.getInstance().resendRegister(email, new NetworkObserver<BaseBean>() {
             @Override
             public void onSuccess(BaseBean baseBean) {
-                Toast.makeText(context, ResourceUtil.getString(R.string.resend_success), Toast.LENGTH_SHORT).show();
+                ToastUtil.showMsg(ResourceUtil.getString(R.string.resend_success));
             }
 
             @Override

@@ -5,7 +5,7 @@
 
         <variable
             name="noMoreVM"
-            type="com.minerva.common.NoMoreViewModel" />
+            type="com.minerva.common.viewmodel.NoMoreViewModel" />
     </data>
 
     <TextView

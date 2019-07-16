@@ -13,6 +13,7 @@ import com.minerva.common.GlobalData;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
@@ -48,12 +49,12 @@ public class PeriodicalTitleViewModel extends BaseViewModel {
 
     public void onSubscribeClick() {
         if (!GlobalData.getInstance().isLogin()) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_please_login_first));
             return;
         }
 
         if (!CommonUtil.isNetworkAvailable(context)) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.network_error));
             return;
         }
 

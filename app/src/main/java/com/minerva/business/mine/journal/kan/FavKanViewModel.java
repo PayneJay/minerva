@@ -39,6 +39,7 @@ import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;
 import com.minerva.utils.DisplayUtil;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 import com.minerva.widget.Loading;
 
 import java.util.ArrayList;
@@ -177,7 +178,7 @@ public class FavKanViewModel extends ArticleListViewModel implements IPageStateL
                 loading.dismiss();
                 refreshing.set(true);
                 requestServer();
-                Toast.makeText(context, ResourceUtil.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
+                ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_update_group_success));
                 for (KanBean.ItemsBean item : kanBean.getItems()) {
                     if (TextUtils.equals(item.getId(), kanId)) {
                         titleText.set(item.getName());

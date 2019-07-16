@@ -18,6 +18,7 @@ import com.minerva.business.site.model.SiteModel;
 import com.minerva.business.site.model.SitesBean;
 import com.minerva.common.MinervaLinearLayoutManager;
 import com.minerva.network.NetworkObserver;
+import com.minerva.utils.ToastUtil;
 import com.minerva.widget.Loading;
 import com.minerva.widget.touchHelper.ItemDragListener;
 import com.minerva.widget.touchHelper.ItemTouchHelperCallback;
@@ -96,7 +97,7 @@ public class SiteSortViewModel extends BaseViewModel {
             @Override
             public void onFailure(String msg) {
                 loading.dismiss();
-                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                ToastUtil.showMsg(msg);
             }
         });
 

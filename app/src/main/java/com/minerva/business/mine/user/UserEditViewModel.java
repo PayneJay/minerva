@@ -35,6 +35,7 @@ import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.DisplayUtil;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -96,7 +97,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
 
     UserEditViewModel(Context context) {
         super(context);
-        RefreshView();
+        refreshView();
     }
 
     @BindingAdapter({"toolBarMenu", "menuItemClick"})
@@ -178,11 +179,11 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
 
     @Override
     public void confirm() {
-        RefreshView();
+        refreshView();
         if (editPwdPopup != null) {
             editPwdPopup.dismiss();
         }
-        Toast.makeText(context, ResourceUtil.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_update_group_success));
     }
 
     @Override
@@ -192,7 +193,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
         }
     }
 
-    private void RefreshView() {
+    private void refreshView() {
         User user = GlobalData.getInstance().getUser();
         if (user != null) {
             headUrl.set(user.getProfile());
@@ -332,7 +333,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
                 dismissDialog();
                 User user = userInfo.getUser();
                 LoginRegisterModel.getInstance().updateUserInfo(user);
-                RefreshView();
+                refreshView();
                 Log.e(Constants.TAG, "解绑 ： " + userInfo.isSuccess());
             }
 

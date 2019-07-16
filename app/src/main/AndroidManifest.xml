@@ -6,8 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--以下科大讯飞语音合成需要-->
     <!--获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -173,6 +171,8 @@
         <activity
             android:name=".business.mine.journal.kan.FavKansActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".business.guide.GuideSubscribeActivity" />
+        <activity android:name=".common.imagebrowse.ImageBrowseActivity" />
     </application>
 
 </manifest>

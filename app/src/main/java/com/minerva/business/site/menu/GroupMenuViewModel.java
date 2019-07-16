@@ -11,17 +11,17 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import com.minerva.BR;
 import com.minerva.R;
 import com.minerva.base.BaseBean;
 import com.minerva.business.home.HomeActivity;
-import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.business.site.imperfect.SiteFragment;
+import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.DisplayUtil;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
@@ -111,7 +111,7 @@ public class GroupMenuViewModel extends MenuViewModel implements CreateGroupView
             @Override
             public void onSuccess(BaseBean baseBean) {
                 loading.dismiss();
-                Toast.makeText(context, ResourceUtil.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
+                ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_update_group_success));
                 EventBus.getDefault().postSticky(baseBean);
             }
 

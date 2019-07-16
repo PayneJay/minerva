@@ -13,7 +13,7 @@ import com.minerva.base.BaseViewModel;
 import com.minerva.business.home.weekly.model.WeeklyModel;
 import com.minerva.business.home.weekly.model.WeekListBean;
 import com.minerva.common.BlankViewModel;
-import com.minerva.common.RefreshListViewModel;
+import com.minerva.common.viewmodel.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;

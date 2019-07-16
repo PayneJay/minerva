@@ -7,7 +7,10 @@ import android.widget.Toast;
 
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
+import com.minerva.R;
 import com.minerva.common.Constants;
+import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 
 class MySynthesizerListener implements SynthesizerListener {
     private Context context;
@@ -27,12 +30,12 @@ class MySynthesizerListener implements SynthesizerListener {
 
     @Override
     public void onSpeakPaused() {
-        Toast.makeText(context, "暂停播放", Toast.LENGTH_SHORT).show();
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_pause_play));
     }
 
     @Override
     public void onSpeakResumed() {
-        Toast.makeText(context, "继续播放", Toast.LENGTH_SHORT).show();
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_continue_play));
     }
 
     @Override

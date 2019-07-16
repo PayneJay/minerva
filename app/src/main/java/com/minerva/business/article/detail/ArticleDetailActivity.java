@@ -2,13 +2,11 @@ package com.minerva.business.article.detail;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.util.Log;
 
 import com.iflytek.sunflower.FlowerCollector;
-import com.minerva.R;
 import com.minerva.BR;
+import com.minerva.R;
 import com.minerva.base.BaseActivity;
-import com.minerva.common.Constants;
 import com.umeng.socialize.UMShareAPI;
 
 public class ArticleDetailActivity extends BaseActivity<ArticleDetailViewModel> {

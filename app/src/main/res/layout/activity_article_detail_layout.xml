@@ -67,6 +67,7 @@
                 <TextView
                     htmlSource="@{articleDetailVM.articleContent}"
                     textSize="@{articleDetailVM.contentTextSize}"
+                    clickHandler="@{articleDetailVM.onImageClick}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/nav_dimen_size_15dp"

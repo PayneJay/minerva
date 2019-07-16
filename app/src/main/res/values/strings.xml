@@ -156,6 +156,7 @@
     <string name="special_more">更多</string>
 
     <string name="subscribe_site">订阅站点</string>
+    <string name="subscribe_site_at_least_1">订阅站点（至少1个）</string>
 
     <string name="tab_article">文章</string>
     <string name="tab_book">图书</string>
@@ -237,4 +238,11 @@
 
     <string name="weekly_month_week">{0}月第{1}周</string>
     <string name="weekly_tag_gleaning">拾</string>
+    <string name="toast_save_picture_failed">图片保存失败,请稍后再试...</string>
+    <string name="toast_save_picture_success">图片保存成功,请到相册查找</string>
+    <string name="toast_pause_play">暂停播放</string>
+    <string name="toast_continue_play">继续播放</string>
+    <string name="toast_engineer_struggling_to_developing">攻城狮正在奋力开发中，敬请期待……</string>
+    <string name="toast_start_play">开始播放</string>
+    <string name="toast_complete_play">播放完成</string>
 </resources>

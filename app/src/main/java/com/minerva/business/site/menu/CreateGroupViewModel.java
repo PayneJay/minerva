@@ -3,11 +3,11 @@ package com.minerva.business.site.menu;
 import android.content.Context;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 
 public class CreateGroupViewModel extends BaseViewModel {
     public ObservableField<String> title = new ObservableField<>();
@@ -28,7 +28,7 @@ public class CreateGroupViewModel extends BaseViewModel {
 
     public void onConfirmClick() {
         if (TextUtils.isEmpty(titleContent.get())) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.toast_journal_char_error), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_journal_char_error));
             return;
         }
 

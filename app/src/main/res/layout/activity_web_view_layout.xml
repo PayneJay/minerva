@@ -6,7 +6,7 @@
 
         <variable
             name="webViewVM"
-            type="com.minerva.common.WebViewViewModel" />
+            type="com.minerva.common.viewmodel.WebViewViewModel" />
     </data>
 
     <LinearLayout

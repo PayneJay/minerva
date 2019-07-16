@@ -38,6 +38,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.minerva.common.Constants;
 import com.minerva.common.image.HtmlImageGetter;
+import com.minerva.common.image.URLTagHandler;
 import com.minerva.utils.HtmlUtil;
 
 import org.jsoup.Jsoup;
@@ -394,8 +395,8 @@ public class ViewBindings {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, dimenSize);
     }
 
-    @BindingAdapter({"htmlSource"})
-    public static void setImageGetter(TextView textView, String source) {
+    @BindingAdapter({"htmlSource", "clickHandler"})
+    public static void setImageGetter(TextView textView, String source, URLTagHandler.OnImageClick clickHandler) {
         String html = source;
         if (!TextUtils.isEmpty(source)) {
             Document doc = Jsoup.parse(source);
@@ -403,7 +404,7 @@ public class ViewBindings {
         }
 
         HtmlImageGetter imageGetter = new HtmlImageGetter(textView.getContext(), textView);
-        textView.setText(Html.fromHtml(html, imageGetter, null));
+        textView.setText(Html.fromHtml(html, imageGetter, new URLTagHandler(textView.getContext(), clickHandler)));
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 

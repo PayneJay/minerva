@@ -3,6 +3,7 @@ package com.minerva.common;
 import com.minerva.R;
 import com.minerva.BR;
 import com.minerva.base.BaseActivity;
+import com.minerva.common.viewmodel.WebViewViewModel;
 
 public class WebViewActivity extends BaseActivity<WebViewViewModel> {
     @Override

@@ -15,7 +15,7 @@ import com.minerva.business.category.mag.SpecialGroupViewModel;
 import com.minerva.business.category.model.BookBean;
 import com.minerva.business.category.model.SpecialModel;
 import com.minerva.common.BlankViewModel;
-import com.minerva.common.RefreshListViewModel;
+import com.minerva.common.viewmodel.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
