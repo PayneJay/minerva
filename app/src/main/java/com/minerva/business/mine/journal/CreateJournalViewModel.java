@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.minerva.R;
 import com.minerva.base.BaseViewModel;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 
 public class CreateJournalViewModel extends BaseViewModel {
     public ObservableField<String> titleText = new ObservableField<>();
@@ -39,7 +40,7 @@ public class CreateJournalViewModel extends BaseViewModel {
 
     public void onConfirmClick() {
         if (TextUtils.isEmpty(titleContent.get())) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.toast_journal_char_error), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_journal_char_error));
             return;
         }
 

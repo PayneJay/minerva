@@ -54,6 +54,7 @@ import com.minerva.network.NetworkObserver;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.DisplayUtil;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
@@ -141,7 +142,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                     showUseTips();
                     break;
                 default:
-                    Constants.showToast(context);
+                    Constants.showToast();
                     break;
             }
             return true;
@@ -248,7 +249,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             @Override
             public void onSuccess(SitesBean sitesBean) {
                 loading.dismiss();
-                Toast.makeText(context, ResourceUtil.getString(R.string.toast_create_group_success), Toast.LENGTH_SHORT).show();
+                ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_create_group_success));
                 EventBus.getDefault().postSticky(sitesBean);
             }
 
@@ -272,7 +273,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private void exitByDoubleClick() {
         if (!isExit) {
             isExit = true;
-            Toast.makeText(this, ResourceUtil.getString(R.string.exit_by_double_click), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.exit_by_double_click));
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -353,7 +354,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      */
     private void showCreateGroupDialog() {
         if (!GlobalData.getInstance().isLogin()) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_please_login_first));
             return;
         }
         if (createPopup == null) {
@@ -393,12 +394,12 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      */
     private void goSortGroups() {
         if (!GlobalData.getInstance().isLogin()) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_please_login_first));
             return;
         }
         List<SitesBean.ItemsBeanX> itemList = SiteModel.getInstance().getItemList();
         if (itemList.size() <= 1) {
-            Toast.makeText(this, ResourceUtil.getString(R.string.toast_please_create_more_to_sort), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_please_create_more_to_sort));
             return;
         }
         startActivity(new Intent(this, SiteSortActivity.class));
@@ -409,7 +410,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
      */
     private void markAllRead() {
         if (!GlobalData.getInstance().isLogin()) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_please_login_first));
             return;
         }
         if (loading == null) {
@@ -420,7 +421,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             @Override
             public void onSuccess(BaseBean baseBean) {
                 loading.dismiss();
-                Toast.makeText(context, ResourceUtil.getString(R.string.toast_already_update), Toast.LENGTH_SHORT).show();
+                ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_already_update));
             }
 
             @Override
@@ -455,7 +456,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             return;
         }
 
-        Toast.makeText(this, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_please_login_first));
     }
 
     /**
@@ -467,7 +468,7 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             return;
         }
 
-        Toast.makeText(this, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_please_login_first));
     }
 
     /**

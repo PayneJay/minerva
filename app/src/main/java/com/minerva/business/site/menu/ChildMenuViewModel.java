@@ -7,6 +7,7 @@ import com.minerva.base.BaseBean;
 import com.minerva.business.site.menu.model.MenuModel;
 import com.minerva.business.site.imperfect.SiteFragment;
 import com.minerva.network.NetworkObserver;
+import com.minerva.utils.ToastUtil;
 import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,7 +46,7 @@ public class ChildMenuViewModel extends MenuViewModel {
             @Override
             public void onFailure(String msg) {
                 loading.dismiss();
-                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                ToastUtil.showMsg(msg);
             }
         });
     }

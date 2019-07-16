@@ -14,6 +14,7 @@ import com.minerva.db.User;
 import com.minerva.db.UserDao;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -153,12 +154,12 @@ public class LoginRegisterModel {
      * @param email 邮箱地址
      * @return 邮箱地址格式正确或错误
      */
-    public boolean isEmailValid(Context context, String email) {
+    public boolean isEmailValid(String email) {
         if (TextUtils.isEmpty(email) || email.length() == 0) {
-            showToast(context, ResourceUtil.getString(R.string.login_please_input_account));
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.login_please_input_account));
             return false;
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            showToast(context, ResourceUtil.getString(R.string.login_email_incorrect));
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.login_email_incorrect));
             return false;
         }
         return true;
@@ -167,16 +168,15 @@ public class LoginRegisterModel {
     /**
      * 说明:验证密码格式
      *
-     * @param context  context
      * @param password icon_password
      * @return 密码格式正确或错误
      */
-    public boolean isPasswordValid(Context context, String password) {
+    public boolean isPasswordValid(String password) {
         if (TextUtils.isEmpty(password) || password.length() == 0) {
-            showToast(context, ResourceUtil.getString(R.string.login_please_input_password));
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.login_please_input_password));
             return false;
         } else if (password.length() < 6 || password.length() > 20) {
-            showToast(context, ResourceUtil.getString(R.string.login_please_input_password_at_least_6));
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.login_please_input_password_at_least_6));
             return false;
         }
         return true;
@@ -185,17 +185,16 @@ public class LoginRegisterModel {
     /**
      * 检查两次输入密码是否一致
      *
-     * @param context    context
      * @param password   密码
      * @param confirmPwd 确认密码
      * @return
      */
-    public boolean isPasswordIdentical(Context context, String password, String confirmPwd) {
+    public boolean isPasswordIdentical(String password, String confirmPwd) {
         if (TextUtils.equals(password, confirmPwd)) {
             return true;
         }
 
-        showToast(context, ResourceUtil.getString(R.string.register_check_password_identical));
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.register_check_password_identical));
         return false;
     }
 
@@ -204,13 +203,13 @@ public class LoginRegisterModel {
         if (!install) {
             switch (shareMedia) {
                 case SINA:
-                    Toast.makeText(context, ResourceUtil.getString(R.string.toast_not_install_weibo), Toast.LENGTH_SHORT).show();
+                    ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_not_install_weibo));
                     break;
                 case QQ:
-                    Toast.makeText(context, ResourceUtil.getString(R.string.toast_not_install_qq), Toast.LENGTH_SHORT).show();
+                    ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_not_install_qq));
                     break;
                 case WEIXIN:
-                    Toast.makeText(context, ResourceUtil.getString(R.string.toast_not_install_wechat), Toast.LENGTH_SHORT).show();
+                    ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_not_install_wechat));
                     break;
             }
             return;
@@ -231,9 +230,5 @@ public class LoginRegisterModel {
     public void updateUserInfo(User user) {
         UserDao userDao = ((MinervaApp) Constants.application).getDaoSession().getUserDao();
         userDao.update(user);
-    }
-
-    private void showToast(Context context, String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 }

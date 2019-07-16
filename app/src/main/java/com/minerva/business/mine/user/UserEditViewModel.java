@@ -35,6 +35,7 @@ import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.DisplayUtil;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -182,7 +183,7 @@ public class UserEditViewModel extends BaseViewModel implements IDialogClickList
         if (editPwdPopup != null) {
             editPwdPopup.dismiss();
         }
-        Toast.makeText(context, ResourceUtil.getString(R.string.toast_update_group_success), Toast.LENGTH_SHORT).show();
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_update_group_success));
     }
 
     @Override

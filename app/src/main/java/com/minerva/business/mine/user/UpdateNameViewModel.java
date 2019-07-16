@@ -15,6 +15,7 @@ import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
@@ -42,7 +43,7 @@ public class UpdateNameViewModel extends BaseViewModel {
 
     public void onConfirmClick() {
         if (TextUtils.isEmpty(content.get())) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.please_check_your_content_empty), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.please_check_your_content_empty));
             return;
         }
         updateUserName();

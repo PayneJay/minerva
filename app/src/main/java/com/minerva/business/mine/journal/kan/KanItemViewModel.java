@@ -13,6 +13,7 @@ import com.minerva.business.mine.journal.kan.model.FavKanModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 import com.minerva.widget.Loading;
 
 import java.text.MessageFormat;
@@ -59,7 +60,7 @@ public class KanItemViewModel extends BaseViewModel {
      */
     private void migrateKan() {
         if (!CommonUtil.isNetworkAvailable(context)) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.network_error), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.network_error));
             return;
         }
 

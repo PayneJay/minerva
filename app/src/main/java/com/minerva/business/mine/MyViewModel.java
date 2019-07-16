@@ -26,6 +26,7 @@ import com.minerva.db.Article;
 import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -69,7 +70,7 @@ public class MyViewModel extends BaseViewModel {
             return;
         }
 
-        Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_please_login_first));
     }
 
     public void goNotification() {
@@ -78,7 +79,7 @@ public class MyViewModel extends BaseViewModel {
             return;
         }
 
-        Toast.makeText(context, ResourceUtil.getString(R.string.toast_please_login_first), Toast.LENGTH_SHORT).show();
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_please_login_first));
     }
 
     public void goHistory() {
@@ -88,19 +89,19 @@ public class MyViewModel extends BaseViewModel {
     }
 
     public void switchModel() {
-        showToast(context);
+        showToast();
     }
 
     public void readOffline() {
-        showToast(context);
+        showToast();
     }
 
     public void checkUpgrade() {
-        Toast.makeText(context, ResourceUtil.getString(R.string.toast_already_new), Toast.LENGTH_SHORT).show();
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_already_new));
     }
 
     public void goFeedback() {
-        showToast(context);
+        showToast();
     }
 
     public void aboutUs() {

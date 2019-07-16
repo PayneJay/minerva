@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.minerva.common.Constants;
 import com.minerva.base.BaseBean;
+import com.minerva.utils.ToastUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -27,7 +28,7 @@ public abstract class NetworkObserver<T extends BaseBean> implements Observer<T>
         if (response.isSuccess()) {
             onSuccess(response);
         } else {
-            Toast.makeText(Constants.application, response.getError(), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(response.getError());
             onFailure(response.getError());
         }
     }

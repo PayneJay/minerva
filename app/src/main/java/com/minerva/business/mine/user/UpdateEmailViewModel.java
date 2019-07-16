@@ -15,6 +15,7 @@ import com.minerva.db.User;
 import com.minerva.network.NetworkObserver;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 import com.minerva.widget.Loading;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,7 +45,7 @@ public class UpdateEmailViewModel extends BaseViewModel {
 
     public void onConfirmClick() {
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(content.get()).matches()) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.login_email_incorrect), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.login_email_incorrect));
             return;
         }
         updateEmail();
@@ -71,7 +72,7 @@ public class UpdateEmailViewModel extends BaseViewModel {
                     @Override
                     public void onSuccess(UserInfo userInfo) {
                         loading.dismiss();
-                        Toast.makeText(context, MessageFormat.format(ResourceUtil.getString(R.string.toast_send_verify_email), content.get()), Toast.LENGTH_SHORT).show();
+                        ToastUtil.showMsg(MessageFormat.format(ResourceUtil.getString(R.string.toast_send_verify_email), content.get()));
                         User user = userInfo.getUser();
                         if (user != null) {
                             LoginRegisterModel.getInstance().updateUserInfo(user);

@@ -87,13 +87,13 @@ public class ImageBrowseViewModel extends BaseViewModel {
 
             @Override
             public void onError(Throwable e) {
-                ToastUtil.showMsg("图片保存失败,请稍后再试..." + e.getMessage());
+                ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_save_picture_failed) + e.getMessage());
                 clickable.set(false);
             }
 
             @Override
             public void onComplete() {
-                ToastUtil.showMsg("图片保存成功,请到相册查找");
+                ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_save_picture_success));
                 clickable.set(true);
             }
         });

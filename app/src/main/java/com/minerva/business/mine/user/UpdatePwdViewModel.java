@@ -12,6 +12,7 @@ import com.minerva.common.Constants;
 import com.minerva.network.NetworkObserver;
 import com.minerva.network.RetrofitHelper;
 import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
 import com.minerva.widget.Loading;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -39,12 +40,12 @@ public class UpdatePwdViewModel extends BaseViewModel {
 
     public void onConfirmClick() {
         if (TextUtils.isEmpty(newPwd.get()) || newPwd.get().length() < 6) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.toast_journal_char_error), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_journal_char_error));
             return;
         }
 
         if (!TextUtils.equals(newPwd.get(), repeatPwd.get())) {
-            Toast.makeText(context, ResourceUtil.getString(R.string.register_check_password_identical), Toast.LENGTH_SHORT).show();
+            ToastUtil.showMsg(ResourceUtil.getString(R.string.register_check_password_identical));
             return;
         }
 

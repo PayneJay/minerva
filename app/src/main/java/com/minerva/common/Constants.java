@@ -4,6 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.minerva.R;
+import com.minerva.utils.ResourceUtil;
+import com.minerva.utils.ToastUtil;
+
 public class Constants {
     public static Application application;
 
@@ -13,8 +17,8 @@ public class Constants {
 
     public static final String shareBaseUrl = "http://www.tuicool.com/articles/";
 
-    public static void showToast(Context context) {
-        Toast.makeText(context, "攻城狮正在奋力开发中，尽情期待……", Toast.LENGTH_SHORT).show();
+    public static void showToast() {
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_engineer_struggling_to_developing));
     }
 
     public interface RequestMethod {

@@ -23,6 +23,7 @@ import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;
 import com.minerva.utils.ResourceUtil;
 import com.minerva.utils.SPUtil;
+import com.minerva.utils.ToastUtil;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -121,8 +122,8 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public void signIn() {
-        if (LoginRegisterModel.getInstance().isEmailValid(context, email.get())
-                && LoginRegisterModel.getInstance().isPasswordValid(context, password.get())) {
+        if (LoginRegisterModel.getInstance().isEmailValid(email.get())
+                && LoginRegisterModel.getInstance().isPasswordValid(password.get())) {
             login();
         }
     }
@@ -176,7 +177,7 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     private void loginSuccess(UserInfo userInfo) {
-        Toast.makeText(context, ResourceUtil.getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+        ToastUtil.showMsg(ResourceUtil.getString(R.string.login_success));
         User user = userInfo.getUser();
         if (user != null) {
             user.setOauth_type(oauthType);
