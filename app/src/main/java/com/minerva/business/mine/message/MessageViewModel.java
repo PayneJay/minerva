@@ -15,7 +15,7 @@ import com.minerva.business.mine.message.model.MsgListBean;
 import com.minerva.business.mine.message.model.MsgModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
-import com.minerva.common.RefreshListViewModel;
+import com.minerva.common.viewmodel.RefreshListViewModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;
 import com.minerva.utils.ResourceUtil;

@@ -41,6 +41,8 @@ import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
 import com.minerva.common.GlobalData;
 import com.minerva.common.WebViewActivity;
+import com.minerva.common.image.URLTagHandler;
+import com.minerva.common.imagebrowse.ImageBrowseActivity;
 import com.minerva.db.Article;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;
@@ -71,6 +73,15 @@ public class ArticleDetailViewModel extends BaseViewModel implements UMShareList
     public ObservableField<String> description = new ObservableField<>(ResourceUtil.getString(R.string.no_data));
     public ObservableInt drawableRes = new ObservableInt(R.drawable.icon_no_data);
     public ObservableBoolean isException = new ObservableBoolean(true);
+    public URLTagHandler.OnImageClick onImageClick = new URLTagHandler.OnImageClick() {
+        @Override
+        public void onImageClick(String url) {
+            Log.e(Constants.TAG, "imageUrl*****" + url);
+            Intent intent = new Intent(context, ImageBrowseActivity.class);
+            intent.putExtra(Constants.KeyExtra.IMAGE_BROWSE_URL, url);
+            context.startActivity(intent);
+        }
+    };
     private ArticleDetailBean.ArticleBean article;
     private ShareAction mShareAction;
     private String articleID;

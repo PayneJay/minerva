@@ -17,7 +17,7 @@ import com.minerva.business.article.detail.model.ArticleDetailBean;
 import com.minerva.business.article.list.ArticleItemViewModel;
 import com.minerva.common.BlankViewModel;
 import com.minerva.common.Constants;
-import com.minerva.common.RefreshListViewModel;
+import com.minerva.common.viewmodel.RefreshListViewModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;
 import com.minerva.utils.ResourceUtil;

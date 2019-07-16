@@ -18,6 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -93,5 +94,9 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 //    implementation 'com.sina.weibo.sdk:core:4.3.8:openDefaultRelease@aar'
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.4.0'
+    //查看大图，支持旋转、缩放等
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    //The number of method references in a .dex file cannot exceed 64K.
+    implementation 'com.android.support:multidex:1.0.3'
 }

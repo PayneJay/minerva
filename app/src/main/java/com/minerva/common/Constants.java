@@ -59,7 +59,7 @@ public class Constants {
         String WEB_URL_LINK = "web_url_link"; //跳转webView链接
         String WEB_VIEW_TITLE = "web_view_title"; //webView标题
 
-        String SEARCH_HISTORY_KEYWORD = "search_history_keyword"; //关键字查询
+        String IMAGE_BROWSE_URL = "image_browse_url"; //浏览大图
         String READ_LATER_MAP = "read_later_map"; //待读文章
         String READ_HISTORY_MAP = "read_history_map"; //阅读历史
         String COME_FROM_MINE = "come_from_mine"; //标记是从我的页面跳转过来的

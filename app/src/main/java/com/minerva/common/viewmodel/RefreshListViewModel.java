@@ -1,4 +1,4 @@
-package com.minerva.common;
+package com.minerva.common.viewmodel;
 
 import android.content.Context;
 import android.databinding.ObservableBoolean;

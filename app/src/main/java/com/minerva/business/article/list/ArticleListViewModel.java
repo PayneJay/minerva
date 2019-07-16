@@ -15,10 +15,10 @@ import com.minerva.business.article.list.model.ArticleListBean;
 import com.minerva.business.article.list.model.ArticleModel;
 import com.minerva.business.mine.signinout.LoginActivity;
 import com.minerva.common.BlankViewModel;
-import com.minerva.common.RefreshListViewModel;
+import com.minerva.common.viewmodel.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.EventMsg;
-import com.minerva.common.NoMoreViewModel;
+import com.minerva.common.viewmodel.NoMoreViewModel;
 import com.minerva.network.NetworkObserver;
 import com.minerva.utils.CommonUtil;
 

@@ -1,4 +1,4 @@
-package com.minerva.common;
+package com.minerva.common.viewmodel;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
@@ -17,12 +17,13 @@ import android.widget.ProgressBar;
 
 import com.minerva.base.BaseActivity;
 import com.minerva.base.BaseViewModel;
+import com.minerva.common.Constants;
 
 public class WebViewViewModel extends BaseViewModel {
     public ObservableField<String> linkUrl = new ObservableField<>();
     public ObservableField<String> titleText = new ObservableField<>();
 
-    WebViewViewModel(Context context) {
+    public WebViewViewModel(Context context) {
         super(context);
         String link = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.WEB_URL_LINK);
         String title = ((BaseActivity) context).getIntent().getStringExtra(Constants.KeyExtra.WEB_VIEW_TITLE);

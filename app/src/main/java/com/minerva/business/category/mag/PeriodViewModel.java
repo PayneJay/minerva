@@ -14,7 +14,7 @@ import com.minerva.business.category.mag.model.MagListModel;
 import com.minerva.business.category.mag.model.MagModel;
 import com.minerva.business.category.mag.model.MagPeriodBean;
 import com.minerva.business.category.model.MagBean;
-import com.minerva.common.RefreshListViewModel;
+import com.minerva.common.viewmodel.RefreshListViewModel;
 import com.minerva.common.Constants;
 import com.minerva.common.IPageStateListener;
 import com.minerva.network.NetworkObserver;
