@@ -105,6 +105,9 @@
     java.lang.Object readResolve();
 }
 
+# databinding
+-keep class android.databinding.** { *; }
+
 -keep class **.R$* {
  *;
 }
@@ -337,3 +340,16 @@
 -keep class com.linkedin.** { *; }
 -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
 -keepattributes Signature
+# 科大讯飞
+-keep class com.iflytek.**{*;}
+-keepattributes Signature
+# greenDao
+-keep class org.greenrobot.greendao.**{*;}
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+-keep class net.sqlcipher.database.**{*;}
+-keep public interface net.sqlcipher.database.**
+-dontwarn net.sqlcipher.database.**
+-dontwarn org.greenrobot.greendao.**
