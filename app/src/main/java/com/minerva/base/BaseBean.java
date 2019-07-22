@@ -1,6 +1,8 @@
 package com.minerva.base;
 
-public class BaseBean {
+import java.io.Serializable;
+
+public class BaseBean implements Serializable {
     private boolean success;
     private String error;
 

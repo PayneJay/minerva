@@ -5,9 +5,6 @@ import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
 import android.support.v4.widget.SwipeRefreshLayout;
 
-/**
- * @author able
- */
 public class SwipeRefreshLayoutBindingAdapter {
     @InverseBindingAdapter(attribute = "refreshing", event = "refreshingAttrChanged")
     public static boolean isRefreshing(SwipeRefreshLayout view) {

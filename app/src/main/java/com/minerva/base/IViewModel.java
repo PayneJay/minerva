@@ -2,10 +2,6 @@ package com.minerva.base;
 
 import android.content.Intent;
 
-/**
- * Created by nayibo on 2018/1/24.
- */
-
 public interface IViewModel {
     void onAttach();
 
