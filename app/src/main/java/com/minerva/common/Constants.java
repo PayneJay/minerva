@@ -13,9 +13,11 @@ public class Constants {
 
     public static final String TAG = "***com.minerva***";
 
-    public static final String HOST = "http://api.tuicool.com";
+    public static String HOST = "";
 
-    public static final String shareBaseUrl = "http://www.tuicool.com/articles/";
+    public static String shareBaseUrl = "";
+
+    public static String TOKEN = "";
 
     public static void showToast() {
         ToastUtil.showMsg(ResourceUtil.getString(R.string.toast_engineer_struggling_to_developing));

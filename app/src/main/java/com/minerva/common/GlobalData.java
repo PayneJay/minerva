@@ -53,7 +53,7 @@ public class GlobalData {
 
     public String getToken() {
         User user = getUser();
-        return (null == user) ? "tuicool" : user.getToken();
+        return (null == user) ? Constants.TOKEN : user.getToken();
     }
 
     /**
