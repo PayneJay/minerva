@@ -1,9 +1,6 @@
 package com.minerva.network;
 
 
-import android.widget.Toast;
-
-import com.minerva.common.Constants;
 import com.minerva.base.BaseBean;
 import com.minerva.utils.ToastUtil;
 

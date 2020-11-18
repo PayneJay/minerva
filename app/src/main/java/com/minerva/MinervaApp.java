@@ -1,12 +1,15 @@
 package com.minerva;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.minerva.common.Constants;
 import com.minerva.db.DaoMaster;
 import com.minerva.db.DaoSession;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
@@ -15,14 +18,37 @@ import com.umeng.socialize.UMShareAPI;
 public class MinervaApp extends Application {
     private DaoMaster mDaoMaster;
     private DaoSession mDaoSession;
+    private RefWatcher mRefWatcher;
 
     @Override
     public void onCreate() {
         super.onCreate();
         Constants.application = this;
+        setupLeakCanary();
         setupUMeng();
         setupXFYun();
         setupDatabase();
+    }
+
+    private void setupLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+
+        mRefWatcher = LeakCanary.install(this);
+    }
+
+    /**
+     * 如果是需要监测指定的类的内存泄漏情况，需要用到RefWatcher对象，这里提供该对象便于使用
+     *
+     * @param context 上下文
+     * @return RefWatcher
+     */
+    public static RefWatcher getRefWatcher(Context context) {
+        MinervaApp application = (MinervaApp) context.getApplicationContext();
+        return application.mRefWatcher;
     }
 
     static {

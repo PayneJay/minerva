@@ -102,4 +102,6 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     //The number of method references in a .dex file cannot exceed 64K.
     implementation 'com.android.support:multidex:1.0.3'
+    //leakcanary内存泄漏监测工具
+    implementation 'com.squareup.leakcanary:leakcanary-android:1.5.1'
 }

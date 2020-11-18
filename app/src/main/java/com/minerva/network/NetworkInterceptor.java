@@ -1,13 +1,10 @@
 package com.minerva.network;
 
-import android.os.Build;
 import android.text.TextUtils;
 import android.webkit.WebSettings;
-import android.widget.Toast;
 
 import com.minerva.common.Constants;
 import com.minerva.common.GlobalData;
-import com.minerva.R;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,13 +30,9 @@ public class NetworkInterceptor implements Interceptor {
 
     private static String getUserAgent() {
         String userAgent;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            try {
-                userAgent = WebSettings.getDefaultUserAgent(Constants.application);
-            } catch (Exception e) {
-                userAgent = System.getProperty("http.agent");
-            }
-        } else {
+        try {
+            userAgent = WebSettings.getDefaultUserAgent(Constants.application);
+        } catch (Exception e) {
             userAgent = System.getProperty("http.agent");
         }
         StringBuffer sb = new StringBuffer();
@@ -72,8 +65,7 @@ public class NetworkInterceptor implements Interceptor {
                     .build();
         }
 
-        Response response = chain.proceed(build);
-        return response;
+        return chain.proceed(build);
     }
 
     private HttpUrl addCommonParameter(Request request) {
