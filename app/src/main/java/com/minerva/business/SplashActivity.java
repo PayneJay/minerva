@@ -91,8 +91,23 @@ public class SplashActivity extends BaseActivity<SplashActivity.SplashViewModel>
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.e(Constants.TAG, "onFailure: " + e.getMessage());
-                    finish();
+                    Log.e(Constants.TAG, "配置参数获取失败: " + e.getMessage());
+                    try {
+                        InputStream inputStream = Constants.application.getApplicationContext().getAssets().open("config.json");
+                        int size = inputStream.available();
+                        byte[] buffer = new byte[size];
+                        inputStream.read(buffer);
+                        inputStream.close();
+                        String json = new String(buffer, "utf-8");
+
+                        JSONObject jObject = new JSONObject(json);
+                        Constants.HOST = jObject.getString("host");
+                        Constants.shareBaseUrl = jObject.getString("shareUrl");
+                        Constants.TOKEN = jObject.getString("token");
+                        finishSplash();
+                    } catch (Exception exception) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
@@ -100,7 +115,7 @@ public class SplashActivity extends BaseActivity<SplashActivity.SplashViewModel>
                     ResponseBody body = response.body();
                     if (body != null) {
                         String json = body.string();
-                        Log.e(Constants.TAG, "onResponse: " + json);
+                        Log.e(Constants.TAG, "参数获取成功 onResponse: " + json);
                         try {
                             JSONObject jObject = new JSONObject(json);
                             Constants.HOST = jObject.getString("host");
@@ -118,13 +133,13 @@ public class SplashActivity extends BaseActivity<SplashActivity.SplashViewModel>
 
         private void finishSplash() {
             User user = GlobalData.getInstance().getUser();
+            Intent intent;
             if (user != null && user.getIs_new()) {
-                Intent intent = new Intent(context, GuideSubscribeActivity.class);
-                startActivity(intent);
+                intent = new Intent(context, GuideSubscribeActivity.class);
             } else {
-                Intent intent = new Intent(context, HomeActivity.class);
-                startActivity(intent);
+                intent = new Intent(context, HomeActivity.class);
             }
+            startActivity(intent);
             finish();
         }
 
